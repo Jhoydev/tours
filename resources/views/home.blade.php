@@ -1,8 +1,7 @@
-@extends('layouts.app')
+@extends('layouts.main')
 
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
+    <div class="row justify-content-center mt-5">
         <div class="col-md-3">
             <div class="card">
                 <div class="card-header">Compañia</div>
@@ -54,12 +53,12 @@
                 <div class="card-body">
                     <div class="card-text">
                         @if (Auth::user()->can('event.create'))
-                        <button class="btn btn-default">Crear</button>
+                            <button class="btn btn-default">Crear</button>
                         @endif
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
+
 @endsection

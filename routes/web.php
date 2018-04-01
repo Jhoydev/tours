@@ -11,11 +11,15 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
-Route::resource('event','EventController');
+Route::middleware('auth')->group(function () {
+    Route::get('/', 'HomeController@index')->name('home');
+    Route::resource('event','EventController');
+    Route::resource('user','UserController');
+    Route::resource('company','CompanyController')->middleware('insignia');
+
+});
+

@@ -2,6 +2,7 @@
 
 namespace App\Http;
 
+use App\Http\Middleware\RoleInsignia;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
 class Kernel extends HttpKernel
@@ -61,5 +62,6 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'has.role' => \Caffeinated\Shinobi\Middleware\UserHasRole::class,
         'has.permission' => \Caffeinated\Shinobi\Middleware\UserHasPermission::class,
+        'insignia' => \App\Http\Middleware\RoleInsignia::class,
     ];
 }

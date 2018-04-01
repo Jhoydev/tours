@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Company;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class CompanyController extends Controller
+class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,8 +15,12 @@ class CompanyController extends Controller
      */
     public function index()
     {
-        $companies =Company::paginate(20);
-        return view('company.index',compact('companies'));
+        if (Auth::user()->isRole('insignia')){
+            $users = User::all();
+        }else{
+            $users = User::where('company_id','=',Auth::user()->company->id)->get();
+        }
+        return view('user.index',compact('users'));
     }
 
     /**
@@ -43,21 +47,23 @@ class CompanyController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Company  $company
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Company $company)
+    public function show($id)
     {
-        //
+        $user = User::find($id);
+        $this->authorize('pass',$user->company);
+        return view('user.show',compact('user'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Company  $company
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Company $company)
+    public function edit($id)
     {
         //
     }
@@ -66,10 +72,10 @@ class CompanyController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Company  $company
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Company $company)
+    public function update(Request $request, $id)
     {
         //
     }
@@ -77,10 +83,10 @@ class CompanyController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Company  $company
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Company $company)
+    public function destroy($id)
     {
         //
     }
