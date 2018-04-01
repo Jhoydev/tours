@@ -12,11 +12,23 @@ class CompaniesTableSeeder extends Seeder
     public function run()
     {
         DB::table('companies')->insert([
-            'name' => 'insignia'
+            'name' => 'insignia',
+            'phone' => '987654321',
+            'email' => 'insignia@gmail.com',
+            'address' => 'pepito de los palotes 12',
+            'facebook' => 'https://www.facebook.com/',
+            'instagram' => 'https://www.facebook.com/',
+            'twitter' => 'https://www.facebook.com/',
         ]);
 
         DB::table('companies')->insert([
-            'name' => 'expoyoga'
+            'name' => 'expoyoga',
+            'phone' => '987654321',
+            'email' => 'expoyoga@gmail.com',
+            'address' => 'julio saenz de la hoya 9',
+            'facebook' => 'https://www.facebook.com/',
+            'instagram' => 'https://www.facebook.com/',
+            'twitter' => 'https://www.facebook.com/',
         ]);
     }
 }

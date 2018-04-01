@@ -51,7 +51,7 @@
                 <div class="dropdown-header text-center">
                     <strong>Cuenta</strong>
                 </div>
-                <a class="dropdown-item" href="#">
+                <a class="dropdown-item" href="{{ url('user/'.Auth::user()->id) }}">
                     <i class="fa fa-user-o"></i> Perfil
                 </a>
                 <a class="dropdown-item" href="{{ route('logout') }}"

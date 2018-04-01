@@ -24,9 +24,13 @@
                                     <td>{{ ucfirst($user->company->name) }}</td>
                                     <td>{{ ucfirst(last($user->getRoles())) }}</td>
                                     <td class="text-center">
-                                        <a href="#" class="btn btn-primary btn-sm">Editar</a>
+                                        @if (Auth::user()->can('user.edit'))
+                                            <a href="#" class="btn btn-primary btn-sm">Editar</a>
+                                        @endif
                                         <a href="{{ url('user/'.$user->id) }}" class="btn btn-success btn-sm">Ver</a>
-                                        <a href="#" class="btn btn-danger btn-sm">Eliminar</a>
+                                        @if (Auth::user()->can('user.destroy'))
+                                            <a href="#" class="btn btn-danger btn-sm">Eliminar</a>
+                                        @endif
                                     </td>
                                 </tr>
                             @endforeach
