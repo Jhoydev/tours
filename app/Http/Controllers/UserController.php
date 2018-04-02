@@ -2,9 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Company;
 use App\User;
+use Caffeinated\Shinobi\Models\Permission;
+use Caffeinated\Shinobi\Models\Role;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Input;
 
 class UserController extends Controller
 {
@@ -30,7 +35,19 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
+        if (Auth::user()->can('user.create')){
+            if (Auth::user()->isInsignia()){
+                $companies = Company::orderBy('name', 'ASC')->pluck('name', 'id')->all();
+                $roles = Role::all();
+            }else{
+                $companies = "";
+                $roles = Role::whereNotIn('id',[1])->get();
+            }
+            $permissions = Permission::all();
+            return view('user.create',compact('companies','roles','permissions'));
+        }else{
+            return redirect('/');
+        }
     }
 
     /**
@@ -41,7 +58,14 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $user = User::create(Input::all());
+        if ($request->role_id){
+            DB::table('role_user')->insert([
+                'role_id' => $request->role_id,
+                'user_id' => $user->id
+            ]);
+        }
+        return redirect('/');
     }
 
     /**
@@ -89,5 +113,19 @@ class UserController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function roles(){
+        if (Auth::user()->isInsignia()){
+            $roles = Role::all();
+        }else{
+            $roles = Role::whereNotIn('id',[1])->get();
+        }
+        return response()->json($roles->toArray());
+    }
+
+    public function permissions(){
+        $permissions = Permission::all();
+        return response()->json($permissions->toArray());
     }
 }

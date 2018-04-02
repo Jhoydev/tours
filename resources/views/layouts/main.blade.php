@@ -18,6 +18,11 @@
     <link href="{{ asset('css/simple-line-icons/css/simple-line-icons.css') }}" rel="stylesheet">
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
     <link href="{{ asset('css/main.css') }}" rel="stylesheet">
+    <style>
+        [v-cloak] {
+            display: none;
+        }
+    </style>
 </head>
 
 <body class="app header-fixed sidebar-fixed aside-menu-fixed aside-menu-hidden">
@@ -100,6 +105,9 @@
 <script src="{{ asset('js/chart.min.js') }}"></script>
 <script src="{{ asset('js/coreui.js') }}"></script>
 <script src="{{ asset('js/views/main.js') }}"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.5.13/dist/vue.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.17.1/axios.js"></script>
+<script src="{{ asset('js/main.js') }}"></script>
 
 </body>
 </html>
