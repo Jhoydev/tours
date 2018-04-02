@@ -18,7 +18,7 @@ Auth::routes();
 Route::middleware('auth')->group(function () {
     Route::get('/', 'HomeController@index')->name('home');
     Route::resource('event','EventController');
-    Route::get('user/roles', 'UserController@roles');
+    Route::resource('user/roles','RoleController');
     Route::get('user/permissions', 'UserController@permissions');
     Route::resource('user','UserController');
     Route::resource('company','CompanyController')->middleware('insignia');

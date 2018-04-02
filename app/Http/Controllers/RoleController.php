@@ -2,16 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Company;
-use App\User;
-use Caffeinated\Shinobi\Models\Permission;
+
 use Caffeinated\Shinobi\Models\Role;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Input;
 
-class UserController extends Controller
+class RoleController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -20,12 +16,12 @@ class UserController extends Controller
      */
     public function index()
     {
-        if (Auth::user()->isRole('insignia')){
-            $users = User::all();
+        if (Auth::user()->isInsignia()){
+            $roles = Role::all();
         }else{
-            $users = User::where('company_id','=',Auth::user()->company->id)->get();
+            $roles = Role::whereNotIn('id',[1])->get();
         }
-        return view('user.index',compact('users'));
+        return response()->json($roles->toArray());
     }
 
     /**
@@ -35,19 +31,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        if (Auth::user()->can('user.create')){
-            if (Auth::user()->isInsignia()){
-                $companies = Company::orderBy('name', 'ASC')->pluck('name', 'id')->all();
-                $roles = Role::all();
-            }else{
-                $companies = "";
-                $roles = Role::whereNotIn('id',[1])->get();
-            }
-            $permissions = Permission::all();
-            return view('user.create',compact('companies','roles','permissions'));
-        }else{
-            return redirect('/');
-        }
+        //
     }
 
     /**
@@ -58,14 +42,7 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        $user = User::create(Input::all());
-        if ($request->role_id){
-            DB::table('role_user')->insert([
-                'role_id' => $request->role_id,
-                'user_id' => $user->id
-            ]);
-        }
-        return redirect('/');
+        //
     }
 
     /**
@@ -76,9 +53,8 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        $user = User::find($id);
-        $this->authorize('pass',$user->company);
-        return view('user.show',compact('user'));
+        $role = Role::find($id);
+        return $role->getPermissions();
     }
 
     /**
@@ -113,10 +89,5 @@ class UserController extends Controller
     public function destroy($id)
     {
         //
-    }
-
-    public function permissions(){
-        $permissions = Permission::all();
-        return response()->json($permissions->toArray());
     }
 }

@@ -95,7 +95,7 @@
                                     <div class="col-12 mb-3">
                                         <h5>Rol</h5>
                                         <div v-for="role in roles" class="form-check">
-                                            <input class="form-check-input" type="radio" name="role_id" :id="role.slug" :value=" role.id ">
+                                            <input class="form-check-input" type="radio" name="role_id" :id="role.slug"  v-model="rolepicked" :value="role.id" v-on:change="getPermissions">
                                             <label class="form-check-label" :for="role.slug ">
                                                 <strong>@{{ role.name }}</strong> @{{ role.description }}
                                             </label>
@@ -103,8 +103,8 @@
                                     </div>
                                     <div class="col-12">
                                         <h5>Permisos</h5>
-                                        <div v-for="permission in permissions"  class="form-check">
-                                            <input class="form-check-input" type="checkbox" :value="permission.id" :id="permission.slug" name="permission_id">
+                                        <div v-for="permission in list_permissions"  class="form-check">
+                                            <input class="form-check-input" type="checkbox"  :id="permission.slug" :name="permission.slug" v-model="permission.checked"  :disabled="permission.disabled">
                                             <label class="form-check-label" for="defaultCheck1">
                                                 @{{ permission.description }}
                                             </label>
