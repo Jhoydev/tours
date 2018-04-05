@@ -89,28 +89,34 @@
                                         <img class="img-fluid img-thumbnail" src="https://cdn0.iconfinder.com/data/icons/avatars-6/500/Avatar_boy_man_people_account_boss_client_beard_male_person_user-512.png" alt="">
                                     </div>
                                 </div>
+
                                 <div id="roles" class="form-row">
                                     <input type="hidden" id="url_roles" value="{{ url('user/roles') }}">
                                     <input type="hidden" id="url_permissions" value="{{ url('user/permissions') }}">
+                                    <input type="hidden" name="permissions_id" :value="checked_permission">
                                     <div class="col-12 mb-3">
                                         <h5>Rol</h5>
                                         <div v-for="role in roles" class="form-check">
-                                            <input class="form-check-input" type="radio" name="role_id" :id="role.slug"  v-model="rolepicked" :value="role.id" v-on:change="getPermissions">
+                                            <input class="form-check-input" type="radio" name="role_id"  v-model="rolepicked" :value="role.id" v-on:change="getPermissions" required>
                                             <label class="form-check-label" :for="role.slug ">
                                                 <strong>@{{ role.name }}</strong> @{{ role.description }}
                                             </label>
                                         </div>
                                     </div>
-                                    <div class="col-12">
+                                    <div class="col-12" v-if="rolepicked">
                                         <h5>Permisos</h5>
                                         <div v-for="permission in list_permissions"  class="form-check">
-                                            <input class="form-check-input" type="checkbox"  :id="permission.slug" :name="permission.slug" v-model="permission.checked"  :disabled="permission.disabled">
-                                            <label class="form-check-label" for="defaultCheck1">
-                                                @{{ permission.description }}
+                                            <label class="switch switch-icon switch-pill switch-primary-outline-alt" v-bind:class="{ 'switch-secondary-outline-alt': permission.disabled }" :for="permission.name">
+                                                <input type="checkbox" class="switch-input" :id="permission.name" v-model="permission.checked"  :disabled="permission.disabled">
+                                                <span class="switch-label" data-on="&#10004" data-off="&#10006"></span>
+                                                <span class="switch-handle"></span>
                                             </label>
+                                            <span>@{{ permission.description }}</span>
                                         </div>
                                     </div>
                                 </div>
+
+
                             </div>
                         </div>
                         <div class="form-row mt-5">

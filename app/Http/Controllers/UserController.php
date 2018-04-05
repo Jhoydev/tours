@@ -65,6 +65,16 @@ class UserController extends Controller
                 'user_id' => $user->id
             ]);
         }
+        if ($request->permissions_id){
+            $array_permissions = explode(',',$request->permissions_id);
+            foreach ($array_permissions as $permission_id){
+                DB::table('permission_user')->insert([
+                    'permission_id' => $permission_id,
+                    'user_id' => $user->id
+                ]);
+            }
+        }
+
         return redirect('/');
     }
 

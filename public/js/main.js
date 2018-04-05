@@ -1,13 +1,25 @@
-
 var roles = new Vue({
     el: '#roles',
     data: {
-        roles: [],
-        list_permissions:[],
-        permissions:'',
         url_roles:'',
         url_permissions:'',
+        roles: [],
+        list_permissions:[],
+        permissions:{},
         rolepicked    : ''
+    },
+    computed:{
+        checked_permission(){
+            let list = [];
+            if (this.permissions.length){
+                for (item of this.list_permissions){
+                    if (item.checked && item.disabled == false && this.rolepicked != 1){
+                        list.push(item.id);
+                    }
+                }
+            }
+            return list.join();
+        }
     },
     methods:{
         getPermissions: function () {
@@ -31,7 +43,7 @@ var roles = new Vue({
             }else{
                 for( let permission_rol of this.permissions){
                     for (let permission of this.list_permissions){
-                        if (permission.slug == permission_rol){
+                        if (permission.slug == permission_rol.slug){
                             permission.checked = true;
                             permission.disabled = true;
                         }

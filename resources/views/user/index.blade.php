@@ -18,6 +18,7 @@
                             <li class="list-group-item p-1"><i class="fa fa-envelope-o"></i> {{ $user->email }}</li>
                             <li class="list-group-item p-1"><i class="fa fa-phone"></i> {{ $user->phone }}</li>
                             <li class="list-group-item p-1"><i class="fa fa-building-o"></i> {{ $user->company->name }}</li>
+                            <li class="list-group-item p-1"><i class="fa fa-building-o"></i> {{ ucfirst(last($user->getRoles())) }}</li>
                         </ul>
                         <div class="mt-2 text-center">
                             @if (Auth::user()->can('user.edit'))
