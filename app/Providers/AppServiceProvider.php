@@ -15,6 +15,9 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         Schema::defaultStringLength(191);
+        view()->composer('layouts.form.roles', function ($view){
+            $view->with('roles', \App\User::obtenerRoles())->with('permissions',\App\User::obtenerPermisos());
+        });
     }
 
     /**

@@ -19,11 +19,13 @@ class CreateUsersTable extends Migration
             $table->string('phone')->nullable();
             $table->string('email');
             $table->string('address')->nullable();
+            $table->string('avatar')->default('default.jpg');
 
             $table->string('facebook')->nullable();
             $table->string('instagram')->nullable();
             $table->string('twitter')->nullable();
 
+            $table->softDeletes();
             $table->rememberToken();
             $table->timestamps();
         });
@@ -35,10 +37,14 @@ class CreateUsersTable extends Migration
             $table->string('last_name')->nullable();
             $table->string('email',128)->unique();
             $table->string('phone')->nullable();
+            $table->string('avatar')->default('default.jpg');
+            
             $table->string('password');
 
             $table->unsignedInteger('company_id');
             $table->foreign('company_id')->references('id')->on('companies');
+
+            $table->softDeletes();
             $table->rememberToken();
             $table->timestamps();
         });

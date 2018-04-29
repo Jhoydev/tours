@@ -1,0 +1,15 @@
+@import '~font-awesome/scss/font-awesome';
+@import '~simple-line-icons/scss/simple-line-icons';
+@import "~animate.css/animate.min.css";
+.navbar-brand{
+  background-size: contain !important;
+}
+
+.d-none-no-important{
+  display: none;
+}
+
+.custom-file-label::after{
+  content: "Subir";
+  cursor : pointer;
+}

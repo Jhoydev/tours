@@ -12,4 +12,7 @@ class Company extends Model
     public function events(){
         return $this->hasMany(Event::class);
     }
+    public function scopeCompanyName($query,$name){
+        return $query->where('name','LIKE',"%$name%");
+    }
 }

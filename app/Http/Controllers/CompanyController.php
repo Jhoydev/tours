@@ -13,9 +13,12 @@ class CompanyController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $companies =Company::paginate(20);
+        $companies =Company::companyName($request->company_name)->paginate(20);
+        if ($request->ajax()){
+            return view('company.partials.companies',compact('companies'));
+        }
         return view('company.index',compact('companies'));
     }
 

@@ -8,47 +8,34 @@
 
     <link rel="shortcut icon" href="img/favicon.png">
     <title>{{ config('app.name', 'Laravel') }}</title>
-
     <!-- Fonts -->
     <link rel="dns-prefetch" href="https://fonts.gstatic.com">
-
     <!-- Icons -->
-    <link href="{{ asset('css/flag-icon-css/css/flag-icon.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/simple-line-icons/css/simple-line-icons.css') }}" rel="stylesheet">
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/main.css') }}" rel="stylesheet">
-    <style>
-        [v-cloak] {
-            display: none;
-        }
-    </style>
+    <link href="{{ mix('css/main.css') }}" rel="stylesheet">
+    @yield('link')
 </head>
 
-<body class="app header-fixed sidebar-fixed aside-menu-fixed aside-menu-hidden">
+<body class="app header-fixed sidebar-fixed aside-menu-fixed aside-menu-hidden sidebar-hidden">
 <header class="app-header navbar pl-3 pr-5">
     <button class="navbar-toggler mobile-sidebar-toggler d-lg-none mr-auto" type="button">
         <span class="navbar-toggler-icon"></span>
     </button>
-    <a class="navbar-brand" href="#" style="background-image: url({{ asset('img/logo-insignia-agencia.png') }})"></a>
+    <a class="navbar-brand" href="{{ url('/') }}" style="background-image: url({{ asset('img/logo-dark.png') }})"></a>
     <button class="navbar-toggler sidebar-toggler d-md-down-none" type="button">
         <span class="navbar-toggler-icon"></span>
     </button>
 
     <ul class="nav navbar-nav d-md-down-none">
         <li class="nav-item px-3">
-            <a class="nav-link" href="{{ url('user') }}"><i class="icon-people"></i> Usuarios</a>
+            <a class="nav-link" href="index.html"><i class="icon-calendar"></i> Eventos</a>
         </li>
-        @if (Auth::user()->isRole('insignia'))
-        <li class="nav-item px-3">
-            <a class="nav-link" href="{{ url('company') }}"><i class="fa fa-building-o"></i> Compañias</a>
-        </li>
-        @endif
     </ul>
     <ul class="nav navbar-nav ml-auto">
         <li class="nav-item dropdown">
             <a class="nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true"
-               aria-expanded="false">
+               aria-expanded="false" style="position: relative;padding-left: 50px">
+                <img style="width: 32px; height: 32px; position: absolute;top: -6px; left: 10px; border-radius: 50%" class="img-fluid" src="{{ url("user/avatar/".Auth::user()->company_id."/".Auth::user()->id) }}" alt="">
                 {{ ucfirst(Auth::user()->first_name) }}
                 <i class="fa fa-angle-down" aria-hidden="true"></i>
             </a>
@@ -61,7 +48,7 @@
                 </a>
                 <a class="dropdown-item" href="{{ route('logout') }}"
                    onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                    <i class="fa fa-sign-out"></i> {{ __('Logout') }}
+                    <i class="fa fa-sign-out"></i> Salir
                 </a>
                 <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                     @csrf
@@ -76,11 +63,13 @@
         <nav class="sidebar-nav">
             <ul class="nav">
                 <li class="nav-item">
-                    <a class="nav-link" href="index.html"><i class="icon-calendar"></i> Eventos
-                        <span class="badge badge-primary">NEW</span>
-                    </a>
+                    <a class="nav-link" href="{{ url('user') }}"><i class="fa fa-user"></i> Usuarios</a>
                 </li>
-
+                @if (Auth::user()->isRole('insignia'))
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url('company') }}"><i class="fa fa-building-o"></i> Compañias</a>
+                    </li>
+                @endif
             </ul>
         </nav>
         <button class="sidebar-minimizer brand-minimizer" type="button"></button>
@@ -98,16 +87,9 @@
 </div>
 
 <!-- Bootstrap and necessary plugins -->
-<script src="{{ asset('js/jquery.min.js') }}"></script>
-<script src="{{ asset('js/popper.min.js') }}"></script>
-<script src="{{ asset('js/bootstrap.min.js') }}"></script>
+<script src="{{ mix('js/main.js') }}"></script>
 <script src="{{ asset('js/pace.min.js') }}"></script>
-<script src="{{ asset('js/chart.min.js') }}"></script>
 <script src="{{ asset('js/coreui.js') }}"></script>
-<script src="{{ asset('js/views/main.js') }}"></script>
-<script src="https://cdn.jsdelivr.net/npm/vue@2.5.13/dist/vue.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.17.1/axios.js"></script>
-<script src="{{ asset('js/main.js') }}"></script>
-
+@yield('script')
 </body>
 </html>

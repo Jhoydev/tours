@@ -1,37 +1,82 @@
 @extends('layouts.main')
 @section('content')
-    <div class="row mt-5">
-        <div class="col-12 mb-3">
-            @if(Auth::user()->can('user.create'))
-                <div>
-                    <a class="btn btn-success btn-lg" href="{{ url('user/create') }}"><i class="fa fa-plus"></i> Nuevo usuario</a>
-                </div>
-            @endif
+    @if (session('message'))
+        <div class="alert alert-success">
+            {{ session('message') }}
         </div>
-        @foreach($users as $user)
-            <div class="col-lg-2 col-md-4">
-                <div class="card">
-                    <div class="card-body">
-                        <img class="img-fluid" src="https://cdn0.iconfinder.com/data/icons/avatars-6/500/Avatar_boy_man_people_account_boss_client_beard_male_person_user-512.png" alt="">
-                        <ul class="list-group list-group-flush">
-                            <li class="list-group-item p-1"><i class="icon-user"></i> {{ $user->full_name }}</li>
-                            <li class="list-group-item p-1"><i class="fa fa-envelope-o"></i> {{ $user->email }}</li>
-                            <li class="list-group-item p-1"><i class="fa fa-phone"></i> {{ $user->phone }}</li>
-                            <li class="list-group-item p-1"><i class="fa fa-building-o"></i> {{ $user->company->name }}</li>
-                            <li class="list-group-item p-1"><i class="fa fa-building-o"></i> {{ ucfirst(last($user->getRoles())) }}</li>
-                        </ul>
-                        <div class="mt-2 text-center">
-                            @if (Auth::user()->can('user.edit'))
-                                <a href="#" class="btn btn-primary btn-sm mb-2">Editar</a>
-                            @endif
-                            <a href="{{ url('user/'.$user->id) }}" class="btn btn-success btn-sm mb-2">Ver</a>
-                            @if (Auth::user()->can('user.destroy'))
-                                <a href="#" class="btn btn-danger btn-sm mb-2">Eliminar</a>
-                            @endif
+    @endif
+    <div class="row mt-5">
+        <div class="col-12">
+            <div class="row">
+                <div class="col-auto mb-3">
+                    @if( Auth::user()->can('user.create') )
+                        <div>
+                            <a class="btn btn-success" href="{{ url('user/create') }}"><i class="fa fa-user"></i> Nuevo usuario</a>
                         </div>
-                    </div>
+                    @endif
+                </div>
+                <div class="col-md mb-3">
+                    <form id="form_search_user" action="{{ url('user') }}">
+                        <div class="form-row">
+                            @if( Auth::user()->can('company.show') )
+                                <div class="col-md-3 input-group mb-3">
+                                    <div class="input-group-prepend ">
+                                        <label class="input-group-text bg-primary" for="company_id"><span class="fa fa-building mr-1" aria-hidden="true"></span>  Compañia</label>
+                                    </div>
+                                    {{ Form::select('company_id', ['' => ''] + $companies, '', ['id' => 'company_id' ,'class' => "form-control"]) }}
+                                </div>
+                            @endif
+                           <div class="col input-group mb-3">
+                                <input type="text" id="full_name" class="form-control" placeholder="Buscar usuario" aria-label="Buscar usuario" aria-describedby="addon">
+                                <div class="input-group-append">
+                                    <button class="btn btn-primary" type="button" onclick="searchUsers()"><span class="fa fa-search"></span> Buscar usuario </button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
                 </div>
             </div>
-        @endforeach
+        </div>
+        <div class="col-12" id="render_users">
+            @include('user.partials.users')
+        </div>
+
     </div>
+
+    <!-- Modal -->
+
+
+@endsection
+@section('script')
+    <script>
+
+        $('#form_search_user').submit(function (e) {
+            e.preventDefault();
+            searchUsers();
+        });
+
+        function searchUsers() {
+            url = $('#form_search_user').attr('action');
+            axios.get(url,{
+                params : {
+                    "full_name" : $('input[id = full_name ]').val(),
+                    "company_id" : $('select[name = company_id ]').val(),
+                }
+            }).then(response => {
+                $("#render_users").html(response.data);
+            }).catch(function (error) {
+                console.log(error);
+            });
+        }
+
+        $('#deleteModal').on('show.bs.modal', function (event) {
+            let button = $(event.relatedTarget);// Button that triggered the modal
+            let recipient = button.data('user_id'); // Extract info from data-* attributes
+            // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+            // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+            let modal = $(this);
+            modal.find('form').attr('action', 'user/' + recipient);
+        });
+
+    </script>
 @endsection

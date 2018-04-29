@@ -1,5 +1,4 @@
 <?php
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -10,18 +9,15 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-
-
 Auth::routes();
-
 Route::middleware('auth')->group(function () {
     Route::get('/', 'HomeController@index')->name('home');
+    Route::get('home', 'HomeController@index')->name('home');
     Route::resource('event','EventController');
     Route::resource('user/roles','RoleController');
-    Route::get('user/permissions', 'UserController@permissions');
+    Route::resource('user/permissions', 'PermissionController');
+    Route::get('user/avatar/{company}/{id}', 'userController@getImageAvatar')->name('avatar.id');
     Route::resource('user','UserController');
     Route::resource('company','CompanyController')->middleware('insignia');
-
 });
 

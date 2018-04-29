@@ -13,8 +13,7 @@
     <!-- Fonts -->
     <link rel="dns-prefetch" href="https://fonts.gstatic.com">
     <!-- Icons -->
-    <link href="css/font-awesome/css/font-awesome.min.css" rel="stylesheet">
-    <link href="css/simple-line-icons/css/simple-line-icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ mix('css/main.css') }}">
 
     <!-- Main styles for this application -->
     <link href="css/style.css" rel="stylesheet">

@@ -19,6 +19,7 @@ class CompaniesTableSeeder extends Seeder
             'facebook' => 'https://www.facebook.com/',
             'instagram' => 'https://www.facebook.com/',
             'twitter' => 'https://www.facebook.com/',
+            'created_at' => date("Y-m-d h:i:s")
         ]);
 
         DB::table('companies')->insert([
@@ -29,6 +30,7 @@ class CompaniesTableSeeder extends Seeder
             'facebook' => 'https://www.facebook.com/',
             'instagram' => 'https://www.facebook.com/',
             'twitter' => 'https://www.facebook.com/',
+            'created_at' => date("Y-m-d h:i:s")
         ]);
     }
 }

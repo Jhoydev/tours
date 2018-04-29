@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 
+use Caffeinated\Shinobi\Models\Permission;
 use Caffeinated\Shinobi\Models\Role;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -21,7 +22,11 @@ class RoleController extends Controller
         }else{
             $roles = Role::whereNotIn('id',[1])->get();
         }
-        return response()->json($roles->toArray());
+
+        $res['roles'] = $roles;
+        $res['permissions'] = Permission::all();
+
+        return response()->json($res);
     }
 
     /**
