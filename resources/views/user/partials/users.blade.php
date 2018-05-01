@@ -1,7 +1,8 @@
 <div class="row animated bounceInRight">
-    @foreach($users as $user)
-        <div class="col-lg-2 col-md-4">
-            <div class="card rounded">
+
+
+            @foreach($users as $user)
+            <div class="card rounded col-lg-3 col-md-4 col-sm-6">
                 <div class="card-body">
                     <div class="text-center mb-2">
                         <img class="img-fluid mx-auto" src="{{ url("user/avatar/$user->company_id/$user->id") }}" alt="">
@@ -23,8 +24,8 @@
                     </div>
                 </div>
             </div>
-        </div>
-    @endforeach
+            @endforeach
+
 </div>
 
 <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">

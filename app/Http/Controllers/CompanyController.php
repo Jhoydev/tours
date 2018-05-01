@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Company;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -49,9 +50,11 @@ class CompanyController extends Controller
      * @param  \App\Company  $company
      * @return \Illuminate\Http\Response
      */
-    public function show(Company $company)
+    public function show(Request $request, $id)
     {
-        //
+        $company = Company::find($id);
+        $count_users_company = User::where('company_id',$id)->count();
+        return view('company.show',compact('company','count_users_company'));
     }
 
     /**
