@@ -24,7 +24,7 @@ class User extends Authenticatable
      *
      * @var array
      */
-    protected $fillable = ['first_name','last_name','email','phone','company_id', 'password',];
+    protected $fillable = ['first_name','last_name','email','phone','company', 'password',];
 
     /**
      * The attributes that should be hidden for arrays.
@@ -34,21 +34,6 @@ class User extends Authenticatable
     protected $hidden = ['password', 'remember_token'];
     protected $dates = ['deleted_at'];
 
-    /**
-     * The "booting" method of the model.
-     *
-     * @return void
-     */
-    protected static function boot()
-    {
-        parent::boot();
-        static::addGlobalScope(new SoftDeletingScope);
-
-        if (Auth::check() && Auth::user()->company_id > 1){
-            static::addGlobalScope(new CompanyScope);
-        }
-
-    }
 
     public function setPasswordAttribute($password)
     {

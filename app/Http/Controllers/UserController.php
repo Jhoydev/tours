@@ -24,19 +24,13 @@ class UserController extends Controller
      */
     public function index(Request $request)
     {
-        $users = User::with('roles')->with('company')->withCompany($request->company_id)->fullName($request->full_name)->orderBy('company_id','ASC')->orderBy('first_name','ASC')->paginate(10);
-
-        $companies = [];
-
-        if (Auth::user()->company_id == 1){
-            $companies = Company::orderBy('id', 'ASC')->pluck('name', 'id')->all();
-        }
+        $users = User::with('roles')->fullName($request->full_name)->orderBy('first_name','ASC')->paginate(10);
 
         if ($request->ajax()){
             return view('user.partials.users',compact('users'));
         }
 
-        return view('user.index',compact('users','companies'));
+        return view('user.index',compact('users'));
     }
 
     /**
@@ -46,20 +40,11 @@ class UserController extends Controller
      */
     public function create()
     {
-        if (Auth::user()->can('user.create')){
-            if (Auth::user()->isInsignia()){
-                $companies = Company::orderBy('name', 'ASC')->pluck('name', 'id')->all();
-                $roles = Role::all();
-            }else{
-                $companies = "";
-                $roles = Role::whereNotIn('id',[1])->get();
-            }
-            $permissions = Permission::all();
-            $user = new User();
-            return view('user.create',compact('user','companies','roles','permissions'));
-        }else{
-            return redirect('/');
-        }
+        $companies = "";
+        $roles = Role::all();
+        $permissions = Permission::all();
+        $user = new User();
+        return view('user.create',compact('user','roles','permissions'));
     }
 
     /**
@@ -122,19 +107,14 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        if (Auth::user()->can('user.create')){
-            if (Auth::user()->isInsignia()){
-                $companies = Company::orderBy('name', 'ASC')->pluck('name', 'id')->all();
-                $roles = Role::with('user');
-            }else{
-                $companies = "";
-                $roles = Role::select('id','name')->whereNotIn('id',[1])->get();
-            }
+        /*Revisar el rol del usuario que no se le pasa en la vista*/
+        if ($user = User::find($id)){
+            $companies = "";
+            $roles = Role::select('id','name')->get();
             $permissions = Permission::all();
-            if ($user = User::find($id)){
-                return view('user.edit',compact('user','companies','roles','permissions'));
-            }
+            return view('user.edit',compact('user','companies','roles','permissions'));
         }
+
         return redirect('/');
     }
 

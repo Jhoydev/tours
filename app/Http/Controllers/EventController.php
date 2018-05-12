@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Event;
+use App\EventType;
 use Illuminate\Http\Request;
 
 class EventController extends Controller
@@ -14,7 +15,8 @@ class EventController extends Controller
      */
     public function index()
     {
-        //
+        $events = Event::paginate(20);
+        return view('events.index',compact('events'));
     }
 
     /**
@@ -24,7 +26,10 @@ class EventController extends Controller
      */
         public function create()
     {
-        return "hola";
+        $event = new Event;
+        $event_types = EventType::orderBy('name', 'ASC')->pluck('name', 'id')->all();
+
+        return view('events.create',compact('event','event_types'));
     }
 
     /**
@@ -35,7 +40,9 @@ class EventController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $event = Event::create($request->all());
+        session()->flash('message',"Evento con ID: $event->id creado");
+        return redirect('events');
     }
 
     /**
@@ -46,7 +53,7 @@ class EventController extends Controller
      */
     public function show(Event $event)
     {
-        //
+        return view('events.show',compact('event'));
     }
 
     /**
@@ -57,7 +64,8 @@ class EventController extends Controller
      */
     public function edit(Event $event)
     {
-        //
+        $event_types = EventType::orderBy('name', 'ASC')->pluck('name', 'id')->all();
+        return view('events.edit',compact('event','event_types'));
     }
 
     /**
@@ -69,7 +77,11 @@ class EventController extends Controller
      */
     public function update(Request $request, Event $event)
     {
-        //
+        $event->fill($request->all());
+        if ($event->update()){
+            session()->flash('message',"Evento con ID: $event->id actualizado");
+        }
+        return redirect('events');
     }
 
     /**

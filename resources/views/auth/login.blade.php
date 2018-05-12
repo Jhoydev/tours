@@ -36,6 +36,18 @@
                             @csrf
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="fa fa-building-o"></i></span>
+                                </div>
+                                <input id="key_app" type="key_app" class="form-control{{ $errors->has('key_app') ? ' is-invalid' : '' }}" name="key_app" value="{{ old('key_app') }}" placeholder="Clave de empresa" required autofocus>
+                                @if ($errors->has('key_app'))
+                                    <span class="invalid-feedback">
+                                        <strong>{{ $errors->first('key_app') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="icon-user"></i></span>
                                 </div>
                                 <input id="email" type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}" placeholder="Email" required autofocus>

@@ -3,7 +3,13 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Insignia;
+use App\User;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Session;
 
 class LoginController extends Controller
 {
@@ -25,15 +31,23 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    protected $redirectTo = '/';
 
     /**
      * Create a new controller instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(Request $request)
     {
+        session()->forget('base_de_datos');
+
+        if ($key_app = Insignia::where('key_app',$request->key_app)->first()){
+            Config(['database.connections.mysql.database'=> $key_app->database ]);
+            \DB::reconnect('mysql');
+
+            session(['base_de_datos' => $key_app->database ]);
+        }
         $this->middleware('guest')->except('logout');
     }
 }

@@ -13,23 +13,6 @@ class CreateUsersTable extends Migration
      */
     public function up()
     {
-        Schema::create('companies', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('name');
-            $table->string('phone')->nullable();
-            $table->string('email');
-            $table->string('address')->nullable();
-            $table->string('avatar')->default('default.jpg');
-
-            $table->string('facebook')->nullable();
-            $table->string('instagram')->nullable();
-            $table->string('twitter')->nullable();
-
-            $table->softDeletes();
-            $table->rememberToken();
-            $table->timestamps();
-        });
-
         Schema::create('users', function (Blueprint $table) {
             $table->increments('id');
 
@@ -38,11 +21,8 @@ class CreateUsersTable extends Migration
             $table->string('email',128)->unique();
             $table->string('phone')->nullable();
             $table->string('avatar')->default('default.jpg');
-            
             $table->string('password');
-
-            $table->unsignedInteger('company_id');
-            $table->foreign('company_id')->references('id')->on('companies');
+            $table->integer('company');
 
             $table->softDeletes();
             $table->rememberToken();
@@ -58,6 +38,5 @@ class CreateUsersTable extends Migration
     public function down()
     {
         Schema::dropIfExists('users');
-        Schema::dropIfExists('companies');
     }
 }

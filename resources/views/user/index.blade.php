@@ -9,23 +9,13 @@
         <div class="col-12">
             <div class="row">
                 <div class="col-auto mb-3">
-                    @if( Auth::user()->can('user.create') )
-                        <div>
-                            <a class="btn btn-success" href="{{ url('user/create') }}"><i class="fa fa-user"></i> Nuevo usuario</a>
-                        </div>
-                    @endif
+                    <div>
+                        <a class="btn btn-success rounded" href="{{ url('user/create') }}"><i class="fa fa-user"></i> Nuevo usuario</a>
+                    </div>
                 </div>
                 <div class="col-md mb-3">
                     <form id="form_search_user" action="{{ url('user') }}">
                         <div class="form-row">
-                            @if( Auth::user()->can('company.show') )
-                                <div class="col-md-3 input-group mb-3">
-                                    <div class="input-group-prepend ">
-                                        <label class="input-group-text bg-primary" for="company_id"><span class="fa fa-building mr-1" aria-hidden="true"></span>  Compañia</label>
-                                    </div>
-                                    {{ Form::select('company_id', ['' => ''] + $companies, '', ['id' => 'company_id' ,'class' => "form-control"]) }}
-                                </div>
-                            @endif
                            <div class="col input-group mb-3">
                                 <input type="text" id="full_name" class="form-control" placeholder="Buscar usuario" aria-label="Buscar usuario" aria-describedby="addon">
                                 <div class="input-group-append">
@@ -40,7 +30,6 @@
         <div class="col-12" id="render_users">
             @include('user.partials.users')
         </div>
-
     </div>
 
     <!-- Modal -->
@@ -59,8 +48,7 @@
             url = $('#form_search_user').attr('action');
             axios.get(url,{
                 params : {
-                    "full_name" : $('input[id = full_name ]').val(),
-                    "company_id" : $('select[name = company_id ]').val(),
+                    "full_name" : $('input[id = full_name ]').val()
                 }
             }).then(response => {
                 $("#render_users").html(response.data);

@@ -28,8 +28,8 @@ class CreateEventsTable extends Migration
             $table->dateTime('end_date')->nullable();
             $table->unsignedInteger('event_type_id');
             $table->foreign('event_type_id')->references('id')->on('event_types');
-            $table->unsignedInteger('company_id');
-            $table->foreign('company_id')->references('id')->on('companies');
+            $table->unsignedInteger('created_by');
+            $table->foreign('created_by')->references('id')->on('users');
             $table->timestamps();
         });
     }

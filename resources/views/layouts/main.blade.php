@@ -28,7 +28,7 @@
 
     <ul class="nav navbar-nav d-md-down-none">
         <li class="nav-item px-3">
-            <a class="nav-link" href="index.html"><i class="icon-calendar"></i> Eventos</a>
+            <a class="nav-link" href="{{ url('events') }}"><i class="icon-calendar"></i> Eventos</a>
         </li>
     </ul>
     <ul class="nav navbar-nav ml-auto">

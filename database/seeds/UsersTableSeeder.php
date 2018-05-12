@@ -11,30 +11,37 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('users')->insert([
-            'first_name' => 'jhoseph',
-            'last_name' => 'arango',
-            'phone' => '987654321',
-
-            'email' => 'jhoseph.dev@gmail.com',
-            'password' => bcrypt('123456'),
-            'company_id' => '1'
+        DB::table('insignias')->insert([
+            'name' => 'eventos2',
+            'key_app' => 'eventos2',
+            'database' => 'eventos2',
+            'email' => 'eventos2@email.com',
+            'phone' => '6587946',
+            'web' => 'eventos2.com'
         ]);
-        DB::table('users')->insert([
+        DB::connection('eventos2')->table('users')->insert([
+            'first_name' => 'prueba nombre',
+            'last_name' => 'prueba apellidos',
+            'phone' => '987654321',
+            'email' => 'eventos2@email.com',
+            'password' => bcrypt('123456'),
+            'company' => '1'
+        ]);
+        DB::connection('eventos2')->table('users')->insert([
             'first_name' => 'expoyoga',
             'last_name' => 'evento',
             'phone' => '987654321',
-            'email' => 'expoyoga@gmail.com',
+            'email' => 'expoyoga2@gmail.com',
             'password' => bcrypt('123456'),
-            'company_id' => '2'
+            'company' => '1'
         ]);
-        DB::table('users')->insert([
+        DB::connection('eventos2')->table('users')->insert([
             'first_name' => 'staff',
             'last_name' => 'evento',
             'phone' => '987654321',
-            'email' => 'staff@gmail.com',
+            'email' => 'staff2@gmail.com',
             'password' => bcrypt('123456'),
-            'company_id' => '2'
+            'company' => '1'
         ]);
     }
 }

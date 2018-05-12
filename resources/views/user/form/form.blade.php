@@ -35,7 +35,7 @@
                     <div class="col mb-3">
                         <h5 class="text-center">Avatar</h5>
                         @if ($method == 'PUT')
-                            <input type="hidden" id="img_src" value="{{ url("user/avatar/".$user->company_id."/".$user->id) }}">
+                            <input type="hidden" id="img_src" value="{{ url("user/avatar/".$user->company."/".$user->id) }}">
                         @else
                             <input type="hidden" id="img_src" value="">
                         @endif
@@ -109,15 +109,7 @@
                                     </span>
                             @endif
                         </div>
-                        @if (Auth::user()->isInsignia())
-                            <div class="form-group col-md-4">
-                                <label for="company_id"><i class="fa fa-building" aria-hidden="true"></i> Compañia</label>
-                                {{ Form::select('company_id', ['' => ''] + $companies, $user->company_id, ['class' => "form-control",'required' => true]) }}
-                            </div>
-                        @else
-                            <input type="hidden" name="company_id" id="company_id"
-                                   value="{{ Auth::user()->company_id }}">
-                        @endif
+                        <input type="hidden" name="company" id="company" value="{{ Auth::user()->company }}">
 
                         @if ($method == "PUT")
                             <div class="form-group col-md-12 mt-3" v-show="show_password">

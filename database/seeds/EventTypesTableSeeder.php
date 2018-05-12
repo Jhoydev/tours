@@ -11,6 +11,11 @@ class EventTypesTableSeeder extends Seeder
      */
     public function run()
     {
-        //
+        DB::connection('eventos2')->table('event_types')->insert([
+            'name' => 'ida y vuyelta'
+        ]);
+        DB::connection('eventos2')->table('event_types')->insert([
+            'name' => 'solo ida'
+        ]);
     }
 }
