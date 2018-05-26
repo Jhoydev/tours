@@ -26,7 +26,6 @@ class CreateInsigniasTable extends Migration
             $table->string('facebook')->nullable();
             $table->string('instagram')->nullable();
             $table->string('twitter')->nullable();
-            $table->integer('company')->nullable();
             $table->string('avatar')->default('default.jpg');
 
             $table->softDeletes();

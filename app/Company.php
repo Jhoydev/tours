@@ -6,13 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Company extends Model
 {
-    public function users(){
-        return $this->hasMany(User::class);
-    }
-    public function events(){
-        return $this->hasMany(Event::class);
-    }
-    public function scopeCompanyName($query,$name){
-        return $query->where('name','LIKE',"%$name%");
+    protected $connection = 'insignia';
+    protected $table = 'insignias';
+
+    public function user(){
+        return $this->belongsTo(User::class);
     }
 }

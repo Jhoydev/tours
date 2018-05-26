@@ -10,7 +10,7 @@
             <div class="card">
                 <div class="card-header d-flex">
                     <h3>{{ $event->title }}</h3>
-                    <a href="#" class="ml-auto btn btn-primary">Configurar pagina</a>
+                    <a href="{{ url("page/$event->id/create") }}" class="ml-auto btn btn-primary">Configurar pagina</a>
                 </div>
                 <div class="card-body">
                     <table class="table">

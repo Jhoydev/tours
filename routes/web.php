@@ -10,9 +10,16 @@
 |
 */
 Auth::routes();
+Route::get('tour/{key_app}/{page}', 'PageController@show');
 Route::middleware('auth')->group(function () {
 
     Route::get('/', 'HomeController@index')->name('home');
+
+    Route::post('page', 'PageController@store');
+    Route::get('page/{event}/create', 'PageController@create');
+    Route::get('page/{page}/edit', 'PageController@edit');
+    Route::put('page/{page}', 'PageController@update');
+    Route::delete('page/{page}', 'PageController@destroy');
 
     Route::resource('events','EventController');
 
