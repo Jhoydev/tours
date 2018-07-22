@@ -37,5 +37,5 @@
 			</div>
 		</div>
 	</div>
-	<button type="submit" class="btn btn-primary">Crear</button>
+	<button type="submit" class="btn btn-primary">{{ $btn_name }}</button>
 {!! Form::close() !!}

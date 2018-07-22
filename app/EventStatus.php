@@ -4,10 +4,8 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class EventType extends Model
+class EventStatus extends Model
 {
-    protected $fillable = ['name'];
-    
     public function event(){
         return $this->hasMany(Event::class);
     }

@@ -92,6 +92,16 @@ class EventController extends Controller
      */
     public function destroy(Event $event)
     {
-        //
+        if ($event->delete()){
+            session()->flash('message','Evento eliminado correctamente');
+            return redirect('events');
+        }
+        session()->flash('message','No se ha podido eliminar el evento, por favor contacte con soporte');
+        return redirect('events');
+    }
+
+    public function prices(Event $event)
+    {   
+        return view('events.prices',compact('event'));
     }
 }

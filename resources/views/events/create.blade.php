@@ -10,6 +10,7 @@
     		@include('events.partials.form',[
                 'url_form'  => url('events'), 
                 'method'    => 'POST',
+                'btn_name'  => 'Crear',
                 $event  
             ])
     	</div>

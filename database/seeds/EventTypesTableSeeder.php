@@ -17,5 +17,18 @@ class EventTypesTableSeeder extends Seeder
         DB::connection('eventos2')->table('event_types')->insert([
             'name' => 'solo ida'
         ]);
+
+        DB::connection('eventos2')->table('event_status')->insert([
+            'name' => 'on sale'
+        ]);
+        DB::connection('eventos2')->table('event_status')->insert([
+            'name' => 'not on sale yet'
+        ]);
+        DB::connection('eventos2')->table('event_status')->insert([
+            'name' => 'sales have ended'
+        ]);
+        DB::connection('eventos2')->table('event_status')->insert([
+            'name' => 'sold out'
+        ]);
     }
 }

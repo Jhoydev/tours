@@ -13,9 +13,14 @@ class Event extends Model
     public function page(){
         return $this->hasOne(Page::class);
     }
-
     public function event_type(){
         return $this->belongsTo(EventType::class);
     }
-
+	public function status(){
+        return $this->belongsTo(EventStatus::class);
+    }
+    public function prices(){
+        return $this->hasMany(EventPrice::class);
+    }
+    
 }

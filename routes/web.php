@@ -21,6 +21,7 @@ Route::middleware('auth')->group(function () {
     Route::put('page/{page}', 'PageController@update');
     Route::delete('page/{page}', 'PageController@destroy');
 
+    Route::get('events/{event}/prices', 'EventController@prices');
     Route::resource('events','EventController');
 
     Route::resource('user/roles','RoleController');
