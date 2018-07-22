@@ -35,7 +35,7 @@
                     <div class="col mb-3">
                         <h5 class="text-center">Avatar</h5>
                         @if ($method == 'PUT')
-                            <input type="hidden" id="img_src" value="{{ url("user/avatar/".$user->company."/".$user->id) }}">
+                            <input type="hidden" id="img_src" value="{{ url("user/avatar/".$user->company_id."/".$user->id) }}">
                         @else
                             <input type="hidden" id="img_src" value="">
                         @endif
