@@ -156,7 +156,7 @@ class UserController extends Controller
             Image::make($avatar)->encode('jpg',75)->resize(300,300)->save(storage_path("app/" . $path_avatar) ."/$filename");
         }
         if ($res){
-            session()->flash('message',"Usuario actualizado con ID: $user->id actualizado");
+            session()->flash('message',"La información del usuario: $user->full_name ha sido actualizada");
             return redirect('user');
         }
     }
@@ -170,8 +170,9 @@ class UserController extends Controller
     public function destroy($id)
     {
         $user = User::find($id);
+        $user_to_delete = $user->full_name;
         if ($user->delete()){
-            session()->flash('message','Usuario eliminado correctamente');
+            session()->flash('message',"El usuario $user_to_delete ha sido eliminado correctamente");
             return redirect('user');
         }
         session()->flash('message','No se ha podido eliminar el usuario, por favor contacte con soporte');

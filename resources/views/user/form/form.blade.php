@@ -53,7 +53,7 @@
                             </div>
                         </div>
                         <div v-if="image">
-                            <button type="button" class="btn btn-light" @click="removeImage">Cancelar</button>
+                            <button type="button" class="btn btn-sm btn-light" @click="removeImage"><i class="fa fa-ban"></i> Quitar avatar</button>
                         </div>
                     </div>
                 </div>
@@ -109,7 +109,7 @@
                                     </span>
                             @endif
                         </div>
-                        <input type="hidden" name="company" id="company" value="{{ Auth::user()->company }}">
+                        <input type="hidden" name="company" id="company" value="{{ Auth::user()->company_id }}">
 
                         @if ($method == "PUT")
                             <div class="form-group col-md-12 mt-3" v-show="show_password">
