@@ -1,5 +1,4 @@
 <div class="form-row px-5">
-    <input type="hidden" id="url_roles" value="{{ url('user/roles') }}">
     <input type="hidden" id="url_permissions" value="{{ url('user/permissions') }}">
     <input type="hidden" id="permissions" value="{{ $permissions }}">
     <input type="hidden" id="list_roles" value="{{ $roles }}">

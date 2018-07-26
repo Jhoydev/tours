@@ -17,16 +17,8 @@ class RoleController extends Controller
      */
     public function index()
     {
-        if (Auth::user()->isInsignia()){
-            $roles = Role::all();
-        }else{
-            $roles = Role::whereNotIn('id',[1])->get();
-        }
-
-        $res['roles'] = $roles;
-        $res['permissions'] = Permission::all();
-
-        return response()->json($res);
+        $roles = Role::all();
+        return view('role.index',compact('roles'));
     }
 
     /**
@@ -36,7 +28,8 @@ class RoleController extends Controller
      */
     public function create()
     {
-        //
+        $permissions = Permission::all();
+        return view('role.create',compact('permissions'));
     }
 
     /**
@@ -59,6 +52,9 @@ class RoleController extends Controller
     public function show($id)
     {
         $role = Role::find($id);
+        if ($role->special == "all-access"){
+            return $role;
+        }
         return $role->Permissions;
     }
 
@@ -70,7 +66,11 @@ class RoleController extends Controller
      */
     public function edit($id)
     {
-        //
+        $role = Role::find($id);
+        if ($role->special == "all-access"){
+            return $role;
+        }
+        return $role->Permissions;
     }
 
     /**

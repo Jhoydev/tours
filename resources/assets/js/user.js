@@ -1,7 +1,6 @@
 var user = new Vue({
     el: '#user',
     data: {
-        url_roles: '',
         url_permissions: '',
         roles:[],
         permissions:[],

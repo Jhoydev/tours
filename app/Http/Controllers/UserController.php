@@ -212,4 +212,19 @@ class UserController extends Controller
         }
         return Image::make(public_path('img/avatar_default.jpg'))->response();
     }
+
+    public function getPermissionsAndRoles(){
+        $res = [];
+        if ($request->user_id){
+            $user = User::find($request->user_id);
+            $permissions = $user->permissions;
+            $res['user'] = $permissions->toArray();
+        }
+        if ($request->role_id){
+            $role = Role::find($request->role_id);
+            $res['role'] = $role->Permissions->toArray();
+
+        }
+        return response()->json($res);
+    }
 }

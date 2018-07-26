@@ -24,10 +24,12 @@ Route::middleware('auth')->group(function () {
     Route::get('events/{event}/prices', 'EventController@prices');
     Route::resource('events','EventController');
 
-    Route::resource('user/roles','RoleController');
-    Route::resource('user/permissions', 'PermissionController');
+    Route::resource('user/permissions', 'userController@getPermissionsAndRoles');
     Route::get('user/avatar/{company}/{id}', 'userController@getImageAvatar')->name('avatar.id');
     Route::resource('user','UserController');
+
+    Route::resource('role','RoleController');
+
 
 });
 
