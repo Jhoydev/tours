@@ -88,15 +88,18 @@ var user = new Vue({
         password: '',
         c_password: '',
         oldpassword: '',
-        image: ''
+        image: '',
+        delete_avatar: false
     },
     created: function created() {
         this.permissions = JSON.parse($('#permissions').val());
         this.roles = JSON.parse($('#list_roles').val());
         this.password = $('#pass_secret').val();
+
         if ($('#img_src').val().indexOf('default') < 0) {
             this.image = $('#img_src').val();
         }
+
         this.c_password = this.password;
         if ($('#error_password').text()) {
             this.change_password();
@@ -319,6 +322,7 @@ var user = new Vue({
             var files = e.target.files || e.dataTransfer.files;
             if (!files.length) return;
             this.createImage(files[0]);
+            this.delete_avatar = false;
         },
         createImage: function createImage(file) {
             var image = new Image();
@@ -333,6 +337,7 @@ var user = new Vue({
 
         removeImage: function removeImage(e) {
             this.image = '';
+            this.delete_avatar = true;
         }
 
     }

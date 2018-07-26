@@ -82,6 +82,8 @@ class UserController extends Controller
                 Storage::makeDirectory($path_avatar);
             }
             Image::make($avatar)->encode('jpg',75)->resize(300,300)->save(storage_path("app/" . $path_avatar) ."/$filename");
+            $user->avatar = $filename ;
+            $user->update();
         }
 
         session()->flash('message',"Usuario con ID: $user->id creado");
@@ -109,10 +111,19 @@ class UserController extends Controller
     {
         /*Revisar el rol del usuario que no se le pasa en la vista*/
         if ($user = User::find($id)){
+            if (count($user->Roles) > 0){
+                $user_role = $user->Roles->last()->id;
+            }else{
+                $user_role = '';
+            }
             $companies = "";
             $roles = Role::select('id','name')->get();
             $permissions = Permission::all();
-            return view('user.edit',compact('user','companies','roles','permissions'));
+            $url_avatar = url("user/avatar/".$user->company_id."/".$user->id);
+            if (!Storage::disk()->exists("companies/$user->company_id/avatars/$user->id.jpg")){
+                $url_avatar = "";
+            }
+            return view('user.edit',compact('user','companies','roles','permissions','url_avatar','$user_role'));
         }
 
         return redirect('/');
@@ -154,7 +165,16 @@ class UserController extends Controller
             if (!Storage::disk('local')->exists($path_avatar)){
                 Storage::makeDirectory($path_avatar);
             }
-            Image::make($avatar)->encode('jpg',75)->resize(300,300)->save(storage_path("app/" . $path_avatar) ."/$filename");
+            $rss = Image::make($avatar)->encode('jpg',75)->resize(300,300)->save(storage_path("app/" . $path_avatar) ."/$filename");
+        }else{
+            $delete_avatar = $request->delete_avatar;
+            if ($delete_avatar == "true"){
+                $avatar_url = "companies/$user->company_id/avatars/$user->id.jpg";
+                if (Storage::disk()->exists($avatar_url)){
+                    Storage::delete($avatar_url);
+                }
+
+            }
         }
         if ($res){
             session()->flash('message',"La información del usuario: $user->full_name ha sido actualizada");
@@ -173,6 +193,10 @@ class UserController extends Controller
         $user = User::find($id);
         $user_to_delete = $user->full_name;
         if ($user->delete()){
+            $avatar_url = "companies/$user->company_id/avatars/$user->id.jpg";
+            if (Storage::disk()->exists($avatar_url)){
+                Storage::delete($avatar_url);
+            }
             session()->flash('message',"El usuario $user_to_delete ha sido eliminado correctamente");
             return redirect('user');
         }

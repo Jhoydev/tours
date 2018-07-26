@@ -5,6 +5,7 @@
 /public/font-awesome
 /public/simple-line-icons
 /storage/*.key
+/storage/app
 /vendor
 /.idea
 /.vscode

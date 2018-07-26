@@ -34,8 +34,9 @@
                 <div class="form-row">
                     <div class="col mb-3">
                         <h5 class="text-center">Avatar</h5>
+                        <input type="hidden" name="delete_avatar" v-model="delete_avatar">
                         @if ($method == 'PUT')
-                            <input type="hidden" id="img_src" value="{{ url("user/avatar/".$user->company_id."/".$user->id) }}">
+                            <input type="hidden" id="img_src" value="{{ $url_avatar }}">
                         @else
                             <input type="hidden" id="img_src" value="">
                         @endif
@@ -109,7 +110,7 @@
                                     </span>
                             @endif
                         </div>
-                        <input type="hidden" name="company" id="company" value="{{ Auth::user()->company_id }}">
+                        <input type="hidden" name="company_id" id="company_id" value="{{ Auth::user()->company_id }}">
 
                         @if ($method == "PUT")
                             <div class="form-group col-md-12 mt-3" v-show="show_password">

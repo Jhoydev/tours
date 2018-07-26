@@ -3,7 +3,7 @@
     <input type="hidden" id="url_permissions" value="{{ url('user/permissions') }}">
     <input type="hidden" id="permissions" value="{{ $permissions }}">
     <input type="hidden" id="list_roles" value="{{ $roles }}">
-    <input type="hidden" name="" id="user_role_id" value="{{ $method == 'PUT' ? $user->Roles->last()->id : '' }}">
+    <input type="hidden" name="" id="user_role_id" value="{{ $method == 'PUT' ? $user_role : '' }}">
     <input type="hidden" id="user_id" value="{{ $method == 'PUT' ? $user->id : '' }}">
     <input type="hidden" name="permissions_id" v-model="checked_permissions">
     <div class="col-12 mb-2">
