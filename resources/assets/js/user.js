@@ -7,9 +7,11 @@ var user = new Vue({
         permissions:[],
         permission_role:[],
         permission_user: [],
+        checked_permissions: [],
         rolepicked: '',
         role_user: '',
         user_id: '',
+        show_permissions: false,
         show_password: false,
         btn_password_text: '¿Cambiar contraseña?',
         btn_password_class: false,
@@ -42,31 +44,26 @@ var user = new Vue({
             this.getPermissions();
         }
     },
-    computed:{
-        checked_permissions: function () {
-            let  res = [];
-            for (let permission of this.permissions) {
-                for (let permission_r of this.permission_role) {
-                    if ( permission.slug !== permission_r.slug  && permission.checked === true && permission.disabled === false) {
-                        res.push(permission.id);
-                    }
-                }
-            }
-            return res;
-        }
-    },
     methods: {
+        setInputChecked(){
+            var permi = [];
+            permi = this.permissions.filter(el => el.checked === true && el.disabled === false);
+            permi = permi.map(el => el.id);
+            this.checked_permissions = permi;
+        },
         getPermissions: function(){
             for (let permission of this.permissions){
                 permission.disabled = false;
                 permission.checked = false;
             }
+            this.show_permissions = true;
             axios.get(this.url_permissions,{
                 params : {
                     "role_id" : this.rolepicked,
                     "user_id" : this.user_id,
                 }
             }).then(response => {
+                this.show_permissions = false;
                 user.permission_role = response.data.role;
                 user.permission_user = response.data.user;
                 this.setPermissions();

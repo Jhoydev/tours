@@ -134,6 +134,7 @@ class UserController extends Controller
         if ($user->update()){
 
             if ($request->role_id){
+                $user->revokeAllRoles();
                 $user->assignRole($request->role_id);
             }
 
