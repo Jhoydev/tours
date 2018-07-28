@@ -23,6 +23,10 @@ class UsersTableSeeder extends Seeder
             'first_name' => 'Sofia',
             'last_name' => 'apellidos',
             'phone' => '987654321',
+            'mobile' => '987654321',
+            'address' => 'pepito perez 2',
+            'city' => 'pereira',
+            'state' => 'risaralda',
             'email' => 'eventos2@email.com',
             'password' => bcrypt('123456'),
             'company_id' => '1'
@@ -31,6 +35,10 @@ class UsersTableSeeder extends Seeder
             'first_name' => 'expoyoga',
             'last_name' => 'evento',
             'phone' => '987654321',
+            'mobile' => '987654321',
+            'address' => 'pepito perez 2',
+            'city' => 'pereira',
+            'state' => 'risaralda',
             'email' => 'expoyoga2@gmail.com',
             'password' => bcrypt('123456'),
             'company_id' => '1'
@@ -39,6 +47,10 @@ class UsersTableSeeder extends Seeder
             'first_name' => 'staff',
             'last_name' => 'evento',
             'phone' => '987654321',
+            'mobile' => '987654321',
+            'address' => 'pepito perez 2',
+            'city' => 'pereira',
+            'state' => 'risaralda',
             'email' => 'staff2@gmail.com',
             'password' => bcrypt('123456'),
             'company_id' => '1'

@@ -100,6 +100,17 @@
                             @endif
                         </div>
                         <div class="form-group col-md-4">
+                            <label for="mobile"><span class="fa fa-mobile"></span> Celular</label>
+                            <input id="mobile" type="text"
+                                   class="form-control{{ $errors->has('mobile') ? ' is-invalid' : '' }}" name="mobile"
+                                   value="{{ $user->mobile ? $user->mobile : old('mobile') }}" required autofocus>
+                            @if ($errors->has('mobile'))
+                                <span class="invalid-feedback">
+                                        <strong>{{ $errors->first('mobile') }}</strong>
+                                    </span>
+                            @endif
+                        </div>
+                        <div class="form-group col-md-4">
                             <label for="email"><span class="fa fa-envelope"></span> Email</label>
                             <input id="email" type="email"
                                    class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email"
@@ -110,6 +121,40 @@
                                     </span>
                             @endif
                         </div>
+                        <div class="form-group col-md-4">
+                            <label for="state"><span class="fa fa-map-marker"></span> Departamento</label>
+                            <input id="state" type="text"
+                                   class="form-control{{ $errors->has('state') ? ' is-invalid' : '' }}" name="state"
+                                   value="{{ $user->state ? $user->state : old('state') }}" required autofocus>
+                            @if ($errors->has('state'))
+                                <span class="invalid-feedback">
+                                        <strong>{{ $errors->first('state') }}</strong>
+                                    </span>
+                            @endif
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="city"><span class="fa fa-map-marker"></span> Ciudad</label>
+                            <input id="city" type="text"
+                                   class="form-control{{ $errors->has('city') ? ' is-invalid' : '' }}" name="city"
+                                   value="{{ $user->city ? $user->city : old('city') }}" required autofocus>
+                            @if ($errors->has('city'))
+                                <span class="invalid-feedback">
+                                        <strong>{{ $errors->first('city') }}</strong>
+                                    </span>
+                            @endif
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="address"><span class="fa fa-map-marker"></span> Domicilio</label>
+                            <input id="address" type="text"
+                                   class="form-control{{ $errors->has('address') ? ' is-invalid' : '' }}" name="address"
+                                   value="{{ $user->address ? $user->address : old('address') }}" required autofocus>
+                            @if ($errors->has('address'))
+                                <span class="invalid-feedback">
+                                        <strong>{{ $errors->first('address') }}</strong>
+                                    </span>
+                            @endif
+                        </div>
+
                         <input type="hidden" name="company_id" id="company_id" value="{{ Auth::user()->company_id }}">
 
                         @if ($method == "PUT")

@@ -11,6 +11,20 @@ class RoleUserTableSeeder extends Seeder
      */
     public function run()
     {
+        $db = "eventos2";
+        $tabla = "role_user";
 
+        DB::connection($db)->table($tabla)->insert([
+            'role_id' => 1,
+            'user_id' => 1
+        ]);
+        DB::connection($db)->table($tabla)->insert([
+            'role_id' => 1,
+            'user_id' => 2
+        ]);
+        DB::connection($db)->table($tabla)->insert([
+            'role_id' => 2,
+            'user_id' => 3
+        ]);
     }
 }

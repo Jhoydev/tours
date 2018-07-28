@@ -123,7 +123,7 @@ class UserController extends Controller
             if (!Storage::disk()->exists("companies/$user->company_id/avatars/$user->id.jpg")){
                 $url_avatar = "";
             }
-            return view('user.edit',compact('user','companies','roles','permissions','url_avatar','$user_role'));
+            return view('user.edit',compact('user','companies','roles','permissions','url_avatar','user_role'));
         }
 
         return redirect('/');
@@ -213,7 +213,7 @@ class UserController extends Controller
         return Image::make(public_path('img/avatar_default.jpg'))->response();
     }
 
-    public function getPermissionsAndRoles(){
+    public function getPermissionsAndRoles(Request $request){
         $res = [];
         if ($request->user_id){
             $user = User::find($request->user_id);
