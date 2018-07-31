@@ -65,11 +65,9 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{{ url('user') }}"><i class="fa fa-user"></i> Usuarios</a>
                 </li>
-                @if (Auth::user()->isRole('insignia'))
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ url('company') }}"><i class="fa fa-building-o"></i> Compañias</a>
-                    </li>
-                @endif
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url('role') }}"><i class="fa fa-user"></i> Roles</a>
+                </li>
             </ul>
         </nav>
         <button class="sidebar-minimizer brand-minimizer" type="button"></button>

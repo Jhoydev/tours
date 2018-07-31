@@ -29,7 +29,8 @@ class RoleController extends Controller
     public function create()
     {
         $permissions = Permission::all();
-        return view('role.create',compact('permissions'));
+        $role = new Role();
+        return view('role.create',compact('role','permissions'));
     }
 
     /**
@@ -40,7 +41,23 @@ class RoleController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $role = new Role();
+        $role->name = $request->name;
+        $role->slug = $request->slug;
+        $role->description = $request->description;
+
+        if ($role->save()){
+            if ($request->permissions){
+                $array_permissions = explode(',',$request->permissions);
+                foreach ($array_permissions as $permission_id){
+                    $role->assignPermission($permission_id);
+                    $role->save();
+                }
+            }
+        }
+        session()->flash('message',"Rol $role->name creado");
+        return redirect('role');
+
     }
 
     /**
@@ -67,10 +84,9 @@ class RoleController extends Controller
     public function edit($id)
     {
         $role = Role::find($id);
-        if ($role->special == "all-access"){
-            return $role;
-        }
-        return $role->Permissions;
+        $role_permissions = implode(";",$role->getPermissions());
+        $permissions = Permission::all();
+        return view('role.edit',compact('role','permissions','role_permissions'));
     }
 
     /**

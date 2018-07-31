@@ -1,5 +1,5 @@
 @include('role.form.form',[
-    'method' => 'POST',
+    'method' => 'PUT',
     'url_form' => url('role'),
     $role
 ])
