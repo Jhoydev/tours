@@ -11,7 +11,7 @@
             <div class="card">
                 <div class="card-body">
                     <input type="hidden" name="permissions" :value="permissionsCheked">
-                    <input type="hidden" id="inp_permissions" name="role_permissions" value="{{ $role_permissions }}">
+                    <input type="hidden" id="inp_permissions" name="role_permissions" value="{{ (isset($role_permissions) && $role_permissions) ? $role_permissions : "" }}">
                     <input type="hidden" name="slug" :value="nameToSlug">
                     <input type="hidden" id="inp_name" name="name" value="{{ $role->name }}">
                     <input type="hidden" id="inp_description" name="description" value="{{ $role->description }}">
