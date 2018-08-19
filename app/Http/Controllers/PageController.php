@@ -73,8 +73,11 @@ class PageController extends Controller
 
             session(['base_de_datos' => $key_app->database ]);
         }
-        $page = Page::find($id);
-        return view('page.show',compact('page'));
+        if($page = Page::find($id)){
+            return view('page.show',compact('page'));
+        }
+        return response('',404);
+
     }
 
     /**
@@ -107,7 +110,7 @@ class PageController extends Controller
         $page->fill($request->all());
         if ($page->update()){
             session()->flash('message',"Pagina Actualizada");
-            return redirect('events');
+            return redirect("events/$page->event_id");
         }else{
             session()->flash('message',"Error al actualizar la pagina");
             return redirect('events');

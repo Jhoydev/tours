@@ -1,10 +1,6 @@
 @extends('layouts.main')
 @section('content')
-    @if (session('message'))
-        <div class="alert alert-success">
-            {{ session('message') }}
-        </div>
-    @endif
+    @include('layouts.menssage_success')
     <div class="row mt-5">
         <div class="col-12">
             <div class="row">

@@ -55,7 +55,7 @@ class UserController extends Controller
      */
     public function store(UserRequest $request)
     {
-
+        
         $user = User::create($request->all());
         if ($request->role_id){
             DB::table('role_user')->insert([

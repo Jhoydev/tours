@@ -6,6 +6,9 @@
         }
     </style>
 @endsection
+@push('sidebar')
+    @include('events.sidebar')
+@endpush
 @section('content')
     @if (session('message'))
         <div class="alert alert-success">

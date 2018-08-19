@@ -1,41 +1,26 @@
-{!! Form::open(['url' => $url_form,'method' => $method,'enctype'=>'multipart/form-data']) !!}
-	@csrf
-	<input type="hidden" name="created_by" value="{{ $event->created_by ? $event->created_by : Auth::user()->id }}">
+
 	<div class="card">
 		<div class="card-body">
-			<div class="form-row">
-				<div class="form-group col-md-6">
-					<label for="">Titulo</label>
-					<input type="text" class="form-control" name="title" placeholder="titulo" value="{{ $event->title }}">
+			<nav>
+				<div class="nav nav-tabs" id="nav-tab" role="tablist">
+					<a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">General</a>
+					<a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Pagina del evento</a>
+					<a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false">Memorias & Certificados</a>
 				</div>
-				<div class="form-group col-md-6">
-					<label for="">Lugar</label>
-					<input type="text" class="form-control" name="location" placeholder="Lugar" value="{{ $event->location }}">
+			</nav>
+			<div class="tab-content" id="nav-tabContent">
+				<div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+					{!! Form::open(['url' => url("events/$event->id"),'method' => 'PUT', 'id' => 'form_create_event']) !!}
+					@include('events.partials.general')
+					{!! Form::close() !!}
 				</div>
-				<div class="form-group col-md-6">
-					<label for="">Fecha inicio</label>
-                    <input type="text" class="form-control" name="start_date" placeholder="Fecha final" value="{{ $event->start_date }}" required>
-                </div>
-				<div class="form-group col-md-6">
-					<label for="">Fecha final</label>
-					<input type="text" class="form-control" name="end_date" placeholder="Fecha final" value="{{ $event->end_date }}" required>
+				<div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+					@include('page.partials.form')
 				</div>
-				<div class="form-group col-md-4">
-					<label for="event_type_id">Tipo de viaje</label>
-					{{ Form::select('event_type_id', $event_types, null , ['class' => "form-control",'required' => true]) }}
+				<div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
+
 				</div>
 			</div>
 		</div>
 	</div>
-	<div class="card">
-		<div class="card-body">
-			<div class="form-row">
-				<div class="form-group col-md-12">
-					<label for="">Descripción</label>
-    				<textarea class="form-control" name="description" rows="10">{{ $event->description }}</textarea>
-				</div>
-			</div>
-		</div>
-	</div>
-	<button type="submit" class="btn btn-primary">{{ $btn_name }}</button>
-{!! Form::close() !!}
+

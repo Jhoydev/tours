@@ -16,7 +16,7 @@
     @yield('link')
 </head>
 
-<body class="app header-fixed sidebar-fixed aside-menu-fixed aside-menu-hidden sidebar-hidden">
+<body class="app header-fixed sidebar-fixed aside-menu-fixed aside-menu-hidden sidebar-mobile-show sidebar-minimized brand-minimized">
 <header class="app-header navbar pl-3 pr-5">
     <button class="navbar-toggler mobile-sidebar-toggler d-lg-none mr-auto" type="button">
         <span class="navbar-toggler-icon"></span>
@@ -43,7 +43,7 @@
                 <div class="dropdown-header text-center">
                     <strong>Cuenta</strong>
                 </div>
-                <a class="dropdown-item" href="{{ url('user/'.Auth::user()->id) }}">
+                <a class="dropdown-item" href="{{ url('user/'.Auth::user()->id.'/edit') }}">
                     <i class="fa fa-user-o"></i> Perfil
                 </a>
                 <a class="dropdown-item" href="{{ route('logout') }}"
@@ -66,8 +66,9 @@
                     <a class="nav-link" href="{{ url('user') }}"><i class="fa fa-user"></i> Usuarios</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ url('role') }}"><i class="fa fa-user"></i> Roles</a>
+                    <a class="nav-link" href="{{ url('role') }}"><i class="fa fa-users"></i> Roles</a>
                 </li>
+                @stack('sidebar')
             </ul>
         </nav>
         <button class="sidebar-minimizer brand-minimizer" type="button"></button>
@@ -89,5 +90,6 @@
 <script src="{{ asset('js/pace.min.js') }}"></script>
 <script src="{{ asset('js/coreui.js') }}"></script>
 @yield('script')
+@stack('scripts')
 </body>
 </html>

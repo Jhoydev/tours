@@ -69,6 +69,7 @@ var user = new Vue({
                 user.permission_role = response.data.role;
                 user.permission_user = response.data.user;
                 this.setPermissions();
+                this.setInputChecked();
             }).catch(function (error) {
                 console.log(error);
             });

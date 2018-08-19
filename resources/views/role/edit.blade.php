@@ -1,5 +1,5 @@
 @include('role.form.form',[
     'method' => 'PUT',
-    'url_form' => url('role'),
+    'url_form' => url("role/$role->id"),
     $role
 ])

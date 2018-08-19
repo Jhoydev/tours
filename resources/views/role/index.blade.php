@@ -1,30 +1,26 @@
 @extends('layouts.main')
 @section('content')
-    @if (session('message'))
-    <div class="alert alert-success">
-        {{ session('message') }}
-    </div>
-    @endif
+    @include('layouts.menssage_success')
     <div class="row mt-5">
         <div class="col-12">
-            <a href="{{ url('role/create') }}" class="btn btn-sm btn-success">Nuevo rol</a>
+            <a href="{{ url('role/create') }}" class="btn btn-sm btn-success rounded"><i class="fa fa-plus"></i> Nuevo rol</a>
         </div>
     </div>
-    <div class="row mt-3 justify-content-center align-content-center">
+    <div class="row mt-3">
         @foreach($roles as $role)
-        <div class="col-auto">
+        <div class="col-md-3">
             <div class="card">
                 <div class="card-body">
-                    <a href="" class="card-link">
-                        <h3 class="text-success text-center">{{ ucfirst($role->name) }}</h3>
-                        <p class="text-secondary">{{ $role->description }}</p>
-                    </a>
-                </div>
-                <div class="card-footer d-flex justify-content-around">
-                    <a href="{{ url("role/$role->id/edit") }}" class="btn btn-primary rounded-circle btn-sm mb-2 mr-2"><i class="fa fa-pencil"></i></a>
-                    <button type="button" class="btn btn-danger rounded-circle btn-sm mb-2" data-toggle="modal" data-target="#deleteModal" data-role_id="{{ $role->id }}">
-                        <i class="fa fa-eraser" aria-hidden="true"></i>
-                    </button>
+                    <h4 class="text-center">{{ ucfirst($role->name) }}</h4>
+                    <hr>
+                    <p class="text-secondary">{{ $role->description }}</p>
+                    <hr>
+                    <div class="d-flex justify-content-around">
+                        <a href="{{ url("role/$role->id/edit") }}" class="btn btn-primary rounded btn-sm mr-2"><i class="fa fa-pencil"></i> Editar</a>
+                        <button type="button" class="btn btn-danger rounded btn-sm" data-toggle="modal" data-target="#deleteModal" data-role_id="{{ $role->id }}">
+                            <i class="fa fa-eraser" aria-hidden="true"></i> Eliminar
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -40,13 +36,13 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    Esta seguro de eliminar este usuario
+                    Esta seguro de eliminar este rol.
                 </div>
                 <div class="modal-footer">
                     {!! Form::open([ 'id' => 'form_delete' ,'url' => '','method' => 'DELETE','class' => 'd-inline-block']) !!}
-                    {!! Form::submit('Eliminar',['class' => 'btn btn-danger btn-sm'])  !!}
+                    {!! Form::submit('Eliminar',['class' => 'btn btn-danger btn-sm rounded'])  !!}
                     {!! Form::close() !!}
-                    <button type="button" class="btn btn-secondary btn-sm text-light" data-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-secondary btn-sm rounded text-light" data-dismiss="modal">Cancelar</button>
                 </div>
             </div>
         </div>

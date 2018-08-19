@@ -3,7 +3,8 @@ var role = new Vue({
     data: {
         name: '',
         description: '',
-        permissions: []
+        permissions: [],
+        special: false
     },
     computed: {
         nameToSlug(){
@@ -21,6 +22,10 @@ var role = new Vue({
     mounted() {
         this.name = document.querySelector("#inp_name").value;
         this.description = document.querySelector("#inp_description").value;
+        let special = document.querySelector("#role-special").value;
+        if (special == "all-access"){
+            this.special = true;
+        }
 
         var inp_permissions = document.querySelector("#inp_permissions").value;
         if (inp_permissions.length > 0){

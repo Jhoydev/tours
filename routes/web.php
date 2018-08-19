@@ -30,6 +30,7 @@ Route::middleware('auth')->group(function () {
 
     Route::resource('role','RoleController');
 
+    Route::get('asset/page/public/backgrounds', 'ImageController@publicBackgrounds');
 
 });
 

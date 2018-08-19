@@ -98,7 +98,24 @@ class RoleController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $res = false;
+        $role = Role::find($id);
+        $role->fill($request->all());
+        if ($role->update()){
+            if ($request->permissions){
+                $array_permissions = explode(',',$request->permissions);
+                $role->revokeAllPermissions();
+                foreach ($array_permissions as $permission_id){
+                    $role->assignPermission($permission_id);
+                    $role->save();
+                }
+            }
+            $res = true;
+        }
+        if ($res){
+            session()->flash('message',"La información del rol: $role->name ha sido actualizada");
+            return redirect('role');
+        }
     }
 
     /**

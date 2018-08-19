@@ -5,7 +5,7 @@
             <div class="card rounded col-lg-3 col-md-4 col-sm-6">
                 <div class="card-body">
                     <div class="text-center mb-2">
-                        <img class="img-fluid mx-auto" src="{{ url("user/avatar/".$user->company_id."/".$user->id) }}" alt="">
+                        <img class="img-fluid mx-auto avatar_user" src="{{ url("user/avatar/".$user->company_id."/".$user->id) }}" alt="">
                     </div>
                     <ul class="list-group list-group-flush">
                         <li class="list-group-item p-1"><i class="icon-user"></i> {{ $user->full_name }}</li>

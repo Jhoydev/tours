@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use Carbon\Carbon;
+use DebugBar\DebugBar;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
 

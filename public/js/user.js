@@ -71,7 +71,6 @@
 var user = new Vue({
     el: '#user',
     data: {
-        url_roles: '',
         url_permissions: '',
         roles: [],
         permissions: [],
@@ -192,6 +191,7 @@ var user = new Vue({
                 user.permission_role = response.data.role;
                 user.permission_user = response.data.user;
                 _this.setPermissions();
+                _this.setInputChecked();
             }).catch(function (error) {
                 console.log(error);
             });
