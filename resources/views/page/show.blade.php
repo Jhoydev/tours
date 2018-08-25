@@ -29,7 +29,7 @@
 				<div class="card rounded" style="background-color: rgba(255, 255,255, 0.9)">
 					<div class="card-body">
 						<h1 class="text-center">{{ $page->event->title }}</h1>
-						<p class="text-justify">{{ $page->event->description }}</p>
+						<p class="text-justify">{!! $page->event->description !!}</p>
 					</div>
 				</div>
 			</div>

@@ -43,6 +43,9 @@ class PageController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'background' => 'required',
+        ]);
         if (Page::create($request->all())){
             session()->flash('message',"Pagina creada");
             return redirect('events');
@@ -106,6 +109,9 @@ class PageController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $request->validate([
+            'background' => 'required',
+        ]);
         $page = Page::find($id);
         $page->fill($request->all());
         if ($page->update()){

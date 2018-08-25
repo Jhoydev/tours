@@ -1,5 +1,3 @@
-
-<input type="hidden" name="created_by" value="{{ $event->created_by ? $event->created_by : Auth::user()->id }}">
 <div class="form-row mt-2">
     <input type="hidden" name="created_by" value="{{ $event->created_by ? $event->created_by : Auth::user()->id }}">
     <div class="form-group col-md-6">
@@ -8,6 +6,14 @@
     </div>
     <div class="form-group col-md-6">
         <label for="">Lugar</label>
+        <input type="text" class="form-control rounded" name="location" placeholder="Lugar" value="{{ $event_form->location }}">
+    </div>
+    <div class="form-group col-md-4">
+        <label for="">Ciudad</label>
+        <input type="text" class="form-control rounded" name="location" placeholder="Lugar" value="{{ $event_form->location }}">
+    </div>
+    <div class="form-group col-md-3">
+        <label for="">Codigo postal</label>
         <input type="text" class="form-control rounded" name="location" placeholder="Lugar" value="{{ $event_form->location }}">
     </div>
     <div class="form-group col-md-6">
@@ -31,6 +37,12 @@
     <div class="form-group col-md-4">
         <label for="event_type_id">Tipo de evento</label>
         {{ Form::select('event_type_id', $event_types, $event_form->event_type_id , ['class' => "form-control rounded",'required' => true]) }}
+    </div>
+
+
+
+    <div class="col-md-12">
+        @include('events.partials.gallery')
     </div>
     <div class="form-group col-md-12">
         <input type="hidden" id="descriptionHTML" name="description" value="{!! e($event_form->description) !!}">

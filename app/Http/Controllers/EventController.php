@@ -19,7 +19,8 @@ class EventController extends Controller
         $events = Event::paginate(20);
         $event_types = EventType::orderBy('name', 'ASC')->pluck('name', 'id')->all();
         $event_form = new Event();
-        return view('events.index',compact('events','event_types','event_form'));
+        $page = new Page();
+        return view('events.index',compact('events','event_types','event_form','page'));
     }
 
     /**
@@ -31,8 +32,8 @@ class EventController extends Controller
     {
         $event = new Event;
         $event_types = EventType::orderBy('name', 'ASC')->pluck('name', 'id')->all();
-
-        return view('events.create',compact('event','event_types'));
+        $page = new Page();
+        return view('events.create',compact('event','event_types','page'));
     }
 
     /**
@@ -44,6 +45,13 @@ class EventController extends Controller
     public function store(Request $request)
     {
         $event = Event::create($request->all());
+        if ($request->background ||$request->text_color){
+            $page = new Page();
+            $page->background = $request->background;
+            //$page->text_color = $request->text_color;
+            $page->event_id = $event->id;
+            $page->save();
+        }
         return redirect("events/$event->id");
     }
 
@@ -68,10 +76,15 @@ class EventController extends Controller
     {
         $event_types = EventType::orderBy('name', 'ASC')->pluck('name', 'id')->all();
         $event_form = $event;
-        if (!$page = Page::where("event_id",$event->id)->first()) {
+        if ($page = Page::where("event_id",$event->id)->first()) {
+            $page_form['method'] = "PUT";
+            $page_form['url'] = url("page/$page->id");
+        }else{
             $page = new  Page();
+            $page_form['method'] = "POST";
+            $page_form['url'] = url("page");
         }
-        return view('events.edit',compact('event','event_types','event_form','page'));
+        return view('events.edit',compact('event','event_types','event_form','page','page_form'));
     }
 
     /**

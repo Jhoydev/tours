@@ -84,6 +84,7 @@
     </main>
 
 </div>
+@stack('modals')
 
 <!-- Bootstrap and necessary plugins -->
 <script src="{{ mix('js/main.js') }}"></script>

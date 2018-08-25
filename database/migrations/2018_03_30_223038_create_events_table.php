@@ -28,6 +28,9 @@ class CreateEventsTable extends Migration
             $table->string('title');
             $table->text('description')->nullable();
             $table->string('location')->nullable();
+            $table->string('address')->nullable();
+            $table->string('city')->nullable();
+            $table->string('cp')->nullable();
             $table->dateTime('start_date')->nullable();
             $table->dateTime('end_date')->nullable();
             $table->unsignedInteger('event_type_id');
