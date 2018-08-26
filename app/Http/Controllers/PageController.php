@@ -7,6 +7,7 @@ use App\Insignia;
 use App\Page;
 use DB;
 use Illuminate\Http\Request;
+use Auth;
 
 class PageController extends Controller
 {
@@ -46,10 +47,11 @@ class PageController extends Controller
         $request->validate([
             'background' => 'required',
         ]);
-        if (Page::create($request->all())){
+        if ($page = Page::create($request->all())){
             if ($request->ajax()){
                 return response()->json([
                     'status' => true,
+                    'url' => url('tour/' . Auth::user()->company->key_app . '/' . $page->id )
                 ]);
             }
             session()->flash('message',"Pagina creada");
@@ -125,6 +127,7 @@ class PageController extends Controller
             if ($request->ajax()){
                 return response()->json([
                     'status' => true,
+                    'url' => url('tour/' . Auth::user()->company->key_app . '/' . $page->id )
                 ]);
             }
             session()->flash('message',"Pagina Actualizada");
