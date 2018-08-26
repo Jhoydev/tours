@@ -59,9 +59,7 @@
     </div>
     <div class="col-md-8">
         <div class="card">
-            @if ( $page->id )
-                <iframe id="iframe_page" style="width: 100%;height: 100vh;" src="{{ url('tour/' . Auth::user()->company->key_app . '/' . $page->id ) }}" frameborder="0"></iframe>
-            @endif
+            <iframe id="iframe_page" style="width: 100%;height: 100vh;pointer-events: none;" src="{{ ($page->id) ? url('tour/' . Auth::user()->company->key_app . '/' . $page->id ) : "" }}" frameborder="0"></iframe>
         </div>
     </div>
 </div>
@@ -82,7 +80,7 @@
             if (res.status){
                 showAlertSuccess("Guardado correctamente");
                 var iframe = document.querySelector("#iframe_page");
-                iframe.src = iframe.src;
+                iframe.src = res.url;
             }
         }).fail((res)=>{
             if (res.responseJSON.errors){

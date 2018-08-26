@@ -1,109 +1,17 @@
-/******/ (function(modules) { // webpackBootstrap
-/******/ 	// The module cache
-/******/ 	var installedModules = {};
-/******/
-/******/ 	// The require function
-/******/ 	function __webpack_require__(moduleId) {
-/******/
-/******/ 		// Check if module is in cache
-/******/ 		if(installedModules[moduleId]) {
-/******/ 			return installedModules[moduleId].exports;
-/******/ 		}
-/******/ 		// Create a new module (and put it into the cache)
-/******/ 		var module = installedModules[moduleId] = {
-/******/ 			i: moduleId,
-/******/ 			l: false,
-/******/ 			exports: {}
-/******/ 		};
-/******/
-/******/ 		// Execute the module function
-/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
-/******/
-/******/ 		// Flag the module as loaded
-/******/ 		module.l = true;
-/******/
-/******/ 		// Return the exports of the module
-/******/ 		return module.exports;
-/******/ 	}
-/******/
-/******/
-/******/ 	// expose the modules object (__webpack_modules__)
-/******/ 	__webpack_require__.m = modules;
-/******/
-/******/ 	// expose the module cache
-/******/ 	__webpack_require__.c = installedModules;
-/******/
-/******/ 	// define getter function for harmony exports
-/******/ 	__webpack_require__.d = function(exports, name, getter) {
-/******/ 		if(!__webpack_require__.o(exports, name)) {
-/******/ 			Object.defineProperty(exports, name, {
-/******/ 				configurable: false,
-/******/ 				enumerable: true,
-/******/ 				get: getter
-/******/ 			});
-/******/ 		}
-/******/ 	};
-/******/
-/******/ 	// getDefaultExport function for compatibility with non-harmony modules
-/******/ 	__webpack_require__.n = function(module) {
-/******/ 		var getter = module && module.__esModule ?
-/******/ 			function getDefault() { return module['default']; } :
-/******/ 			function getModuleExports() { return module; };
-/******/ 		__webpack_require__.d(getter, 'a', getter);
-/******/ 		return getter;
-/******/ 	};
-/******/
-/******/ 	// Object.prototype.hasOwnProperty.call
-/******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
-/******/
-/******/ 	// __webpack_public_path__
-/******/ 	__webpack_require__.p = "/";
-/******/
-/******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 173);
-/******/ })
-/************************************************************************/
-/******/ ({
-
-/***/ 173:
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__(174);
-
-
-/***/ }),
-
-/***/ 174:
-/***/ (function(module, exports) {
-
 
 function showAlertError(errors) {
-    var texto = '';
-    $.each(errors, function (key, value) {
-        texto += '<li>' + value + '</li>';
-    });
-    var alert = '\n        <div id="alert-error" class="alert alert-danger" role="alert">\n            <ul>' + texto + '</ul>\n        </div>';
-    $("#alert-error").remove();
-    $('main > .container-fluid').prepend(alert);
+  var texto = '';
+  $.each(errors, function (key, value) {
+    texto += '<li>' + value + '</li>';
+  });
+  var alert = '\n    <div id="alert-ajax" class="modal" tabindex="-1" role="dialog">\n      <div class="modal-dialog" role="document">\n        <div class="modal-content bg-danger">\n          <div class="modal-body">\n            <p>' + texto + '</p>\n          </div>\n        </div>\n      </div>\n    </div>    \n    ';
+  $("#alert-ajax").remove();
+  $('main > .container-fluid').prepend(alert);
+  $('#alert-ajax').modal('show');
 }
-function saveEvent() {
-    document.querySelector('#descriptionHTML').value = window.editor.root.innerHTML;
-    var $form = $("#form_create_event");
-    var url = $form.attr('action');
-    var data = $form.serialize();
-    $.post(url, data).done(function (res) {
-        if (res.status) {
-            var alert = '\n                <div class="alert alert-success" role="alert">\n                    <p>Guardado correctamente</p>\n                </div>';
-            $('main > .container-fluid').prepend(alert);
-        }
-    }).fail(function (res) {
-        if (res.responseJSON.errors) {
-            var errors = res.responseJSON.errors;
-            showAlertError(errors);
-        }
-    });
+function showAlertSuccess(mensaje) {
+  var alert = '\n    <div id="alert-ajax" class="modal" tabindex="-1" role="dialog">\n      <div class="modal-dialog" role="document">\n        <div class="modal-content bg-success">\n          <div class="modal-body text-center">\n            <p>' + mensaje + '</p>\n          </div>\n        </div>\n      </div>\n    </div>\n    ';
+  $("#alert-ajax").remove();
+  $('main > .container-fluid').prepend(alert);
+  $('#alert-ajax').modal('show');
 }
-
-/***/ })
-
-/******/ });

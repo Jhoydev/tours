@@ -14,3 +14,4 @@ mix.js('resources/assets/js/main.js', 'public/js')
     .sass('resources/assets/sass/main.scss', 'public/css')
     .js('resources/assets/js/user.js', 'public/js')
 
+mix.babel('resources/assets/js/app.js','public/js/app.js')
