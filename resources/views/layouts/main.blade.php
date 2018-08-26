@@ -90,6 +90,35 @@
 <script src="{{ mix('js/main.js') }}"></script>
 <script src="{{ asset('js/pace.min.js') }}"></script>
 <script src="{{ asset('js/coreui.js') }}"></script>
+<script type="text/javascript">
+    function showAlertError(errors){
+            var texto = '';
+            $.each(errors, function(key,value) {
+                 texto += `<li>${value}</li>`;
+             }); 
+            var alert = `
+                <div id="alert-ajax" class="alert alert-danger alert-dismissible fade show mt-2 animated bounceInDown" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <ul>${texto}</ul>
+                </div>`;
+            $("#alert-ajax").remove();
+            $('main > .container-fluid').prepend(alert);
+        }
+        function showAlertSuccess(mensaje){
+            var alert = `
+            <div id="alert-ajax" class="alert alert-success alert-dismissible fade show animated bounceInDown mt-2" role="alert">
+                <p>${mensaje}</p>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>`;
+            $("#alert-ajax").remove();
+            $('main > .container-fluid').prepend(alert);
+            
+        }
+</script>
 @yield('script')
 @stack('scripts')
 </body>

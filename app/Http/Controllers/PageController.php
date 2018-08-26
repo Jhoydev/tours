@@ -47,12 +47,19 @@ class PageController extends Controller
             'background' => 'required',
         ]);
         if (Page::create($request->all())){
+            if ($request->ajax()){
+                return response()->json([
+                    'status' => true,
+                ]);
+            }
             session()->flash('message',"Pagina creada");
             return redirect('events');
         }else{
             session()->flash('message',"Error al crear la pagina");
             return redirect('events');
         }
+
+
 
     }
 
@@ -115,6 +122,11 @@ class PageController extends Controller
         $page = Page::find($id);
         $page->fill($request->all());
         if ($page->update()){
+            if ($request->ajax()){
+                return response()->json([
+                    'status' => true,
+                ]);
+            }
             session()->flash('message',"Pagina Actualizada");
             return redirect("events/$page->event_id");
         }else{

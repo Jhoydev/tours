@@ -17,6 +17,7 @@ class CreatePagesTable extends Migration
             $table->increments('id');
             $table->text('background');
             $table->string('color_text')->nullable();
+            $table->boolean('is_live')->default(false);
             $table->unsignedInteger('event_id');
             $table->foreign('event_id')->references('id')->on('events');
             $table->timestamps();

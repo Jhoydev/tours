@@ -52,7 +52,12 @@ class EventController extends Controller
             $page->event_id = $event->id;
             $page->save();
         }
-        return redirect("events/$event->id");
+        if ($request->ajax()){
+            return response()->json([
+                'status' => true,
+            ]);
+        }
+        //return redirect("events/$event->id");
     }
 
     /**
@@ -96,9 +101,17 @@ class EventController extends Controller
      */
     public function update(Request $request, Event $event)
     {
+        $request->validate([
+            'title' => 'required|max:255',
+        ]);
         $event->fill($request->all());
         if ($event->update()){
             session()->flash('message',"Evento $event->title actualizado");
+        }
+        if ($request->ajax()){
+            return response()->json([
+                'status' => true,
+            ]);
         }
         return redirect("events/$event->id");
     }

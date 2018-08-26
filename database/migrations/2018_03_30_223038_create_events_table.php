@@ -34,6 +34,7 @@ class CreateEventsTable extends Migration
             $table->dateTime('start_date')->nullable();
             $table->dateTime('end_date')->nullable();
             $table->unsignedInteger('event_type_id');
+            $table->text('flyer')->nullable();
             $table->foreign('event_type_id')->references('id')->on('event_types');
             $table->unsignedInteger('event_status_id')->default(1);
             $table->foreign('event_status_id')->references('id')->on('event_status');

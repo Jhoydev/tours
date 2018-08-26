@@ -60,12 +60,20 @@
 /******/ 	__webpack_require__.p = "/";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 1);
+/******/ 	return __webpack_require__(__webpack_require__.s = 171);
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ "./resources/assets/js/user.js":
+/***/ 171:
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__(172);
+
+
+/***/ }),
+
+/***/ 172:
 /***/ (function(module, exports) {
 
 var user = new Vue({
@@ -342,14 +350,6 @@ var user = new Vue({
 
     }
 });
-
-/***/ }),
-
-/***/ 1:
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__("./resources/assets/js/user.js");
-
 
 /***/ })
 

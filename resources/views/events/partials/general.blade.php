@@ -10,11 +10,11 @@
     </div>
     <div class="form-group col-md-4">
         <label for="">Ciudad</label>
-        <input type="text" class="form-control rounded" name="location" placeholder="Lugar" value="{{ $event_form->location }}">
+        <input type="text" class="form-control rounded" name="location" placeholder="Lugar" value="{{ $event_form->city }}">
     </div>
     <div class="form-group col-md-3">
         <label for="">Codigo postal</label>
-        <input type="text" class="form-control rounded" name="location" placeholder="Lugar" value="{{ $event_form->location }}">
+        <input type="text" class="form-control rounded" name="location" placeholder="Lugar" value="{{ $event_form->cp }}">
     </div>
     <div class="form-group col-md-6">
         <label for="input_start">Fecha inicio</label>
@@ -38,11 +38,9 @@
         <label for="event_type_id">Tipo de evento</label>
         {{ Form::select('event_type_id', $event_types, $event_form->event_type_id , ['class' => "form-control rounded",'required' => true]) }}
     </div>
-
-
-
-    <div class="col-md-12">
-        @include('events.partials.gallery')
+    <div class="form-group col-md-8">
+        <label>Imagen de evento <small>Flyer o grafica etc.</small></label>
+        {!! Form::file('flyer',['class' => 'form-control']) !!}
     </div>
     <div class="form-group col-md-12">
         <input type="hidden" id="descriptionHTML" name="description" value="{!! e($event_form->description) !!}">
@@ -72,7 +70,19 @@
 
         function saveEvent(){
             document.querySelector('#descriptionHTML').value = window.editor.root.innerHTML;
-            document.querySelector('#form_create_event').submit();
+            var $form = $("#form_create_event");
+            var url = $form.attr('action'); 
+            var data = $form.serialize();
+            $.post(url,data).done((res)=>{
+                if (res.status){
+                    showAlertSuccess("Guardado correctamente");
+                }
+            }).fail((res)=>{
+                if (res.responseJSON.errors){
+                    var errors = res.responseJSON.errors;
+                    showAlertError(errors);
+                }
+            });
         }
     </script>
 @endpush
