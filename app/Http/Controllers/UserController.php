@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Company;
+use App\Helpers\ImageStore\ImageStore;
 use App\Http\Requests\UserRequest;
 use App\User;
 use Caffeinated\Shinobi\Models\Permission;
@@ -206,11 +207,8 @@ class UserController extends Controller
 
     public function getImageAvatar($company,$id)
     {
-        if (Storage::disk()->exists("companies/$company/avatars/$id.jpg")){
-            $file = Storage::disk()->get("companies/$company/avatars/$id.jpg");
-            return new Response($file,200);
-        }
-        return Image::make(public_path('img/avatar_default.jpg'))->response();
+        $path = "companies/$company/avatars/$id.jpg";
+        return ImageStore::getImage($path);
     }
 
     public function getPermissionsAndRoles(Request $request){

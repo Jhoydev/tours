@@ -10,11 +10,11 @@
     </div>
     <div class="form-group col-md-4">
         <label for="">Ciudad</label>
-        <input type="text" class="form-control rounded" name="location" placeholder="Lugar" value="{{ $event_form->city }}">
+        <input type="text" class="form-control rounded" name="city" placeholder="Ciudad" value="{{ $event_form->city }}">
     </div>
     <div class="form-group col-md-3">
         <label for="">Codigo postal</label>
-        <input type="text" class="form-control rounded" name="location" placeholder="Lugar" value="{{ $event_form->cp }}">
+        <input type="text" class="form-control rounded" name="cp" placeholder="Codigo postal" value="{{ $event_form->cp }}">
     </div>
     <div class="form-group col-md-6">
         <label for="input_start">Fecha inicio</label>
@@ -38,18 +38,22 @@
         <label for="event_type_id">Tipo de evento</label>
         {{ Form::select('event_type_id', $event_types, $event_form->event_type_id , ['class' => "form-control rounded",'required' => true]) }}
     </div>
-    <div class="form-group col-md-8">
-        <label>Imagen de evento <small>Flyer o grafica etc.</small></label>
-        {!! Form::file('flyer',['class' => 'form-control']) !!}
-    </div>
     <div class="form-group col-md-12">
         <input type="hidden" id="descriptionHTML" name="description" value="{!! e($event_form->description) !!}">
         <div id="event_description" style="height: 150px">
 
         </div>
     </div>
+    <div class="form-group col-md-2">
+        <h5 class="text-center">Imagen de evento <small>Flyer o grafica etc.</small></h5>
+        <input type="file" id="flyer" name="flyer" onchange="previewFile()"><br>
+        <img id="preview_flyer" src="{{ ($event->flyer) ? url($event->flyer) : "" }}" class="img-fluid img-thumbnail" style="min-width: 100%; min-height:150px"  alt="">
+        <input type="checkbox" name="delete_flyer" id="delete_flyer" value="true">
+        <label for="delete_flyer">¿Eliminar flyer?</label>
+    </div>
     <div class="form-group col-md-12 text-right">
-        <button type="button" onclick="saveEvent()" class="btn btn-sm btn-success rounded">Guardar</button>
+        {{--<button type="button" onclick="saveEvent()" class="btn btn-sm btn-success rounded">Guardar</button>--}}
+        <button type="submit" class="btn btn-sm btn-success rounded">Guardar</button>
     </div>
 </div>
 
@@ -68,21 +72,60 @@
             format: "DD-MM-YYYY HH:mm:ss"
         });
 
-        function saveEvent(){
-            document.querySelector('#descriptionHTML').value = window.editor.root.innerHTML;
-            var $form = $("#form_create_event");
-            var url = $form.attr('action'); 
-            var data = $form.serialize();
-            $.post(url,data).done((res)=>{
-                if (res.status){
-                    showAlertSuccess("Guardado correctamente");
-                }
-            }).fail((res)=>{
-                if (res.responseJSON.errors){
-                    var errors = res.responseJSON.errors;
-                    showAlertError(errors);
-                }
-            });
+        function previewFile() {
+            const preview = document.querySelector('#preview_flyer');
+            const file    = document.querySelector('input[type=file]').files[0];
+            const reader  = new FileReader();
+
+            reader.onloadend = function () {
+                preview.src = reader.result;
+            };
+
+            if (file) {
+                reader.readAsDataURL(file);
+            }else {
+                preview.src = "";
+            }
         }
+
+        $('#delete_flyer').on('change',function (e) {
+            var preview_flyer = $("#preview_flyer");
+            if (preview_flyer.attr('src')){
+                preview_flyer.toggleClass('filter-grayscale');
+            }else{
+                $(this).prop('checked',false);
+                alert('sube primero un flyer');
+            }
+        });
+
+        $('#form_create_event').on('submit', function(e){
+            e.preventDefault();
+            var $form = $("#form_create_event");
+            $.ajax({
+                url: $form.attr('action'),
+                method:"POST",
+                data:new FormData(this),
+                contentType:false,
+                async: false,
+                processData:false,
+                success:function(res)
+                {
+                    if (res.status){
+                        showAlertSuccess("Guardado correctamente");
+                        var delete_flyer = $('#delete_flyer');
+                        if (delete_flyer.prop('checked')){
+                            document.querySelector("#preview_flyer").src = "";
+                            delete_flyer.prop('checked',false);
+                        }
+                    }
+                },
+                error: function (res) {
+                    if (res.responseJSON.errors){
+                        var errors = res.responseJSON.errors;
+                        showAlertError(errors);
+                    }
+                }
+            })
+        });
     </script>
 @endpush

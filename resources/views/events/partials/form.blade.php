@@ -12,7 +12,7 @@
 			</nav>
 			<div class="tab-content" id="nav-tabContent">
 				<div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
-					{!! Form::open(['url' => url("events/$event->id"),'method' => 'PUT', 'id' => 'form_create_event']) !!}
+					{!! Form::open(['url' => url("events/$event->id"),'method' => 'PUT', 'id' => 'form_create_event','enctype'=>'multipart/form-data']) !!}
 					@include('events.partials.general')
 					{!! Form::close() !!}
 				</div>

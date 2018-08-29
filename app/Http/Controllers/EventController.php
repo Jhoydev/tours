@@ -5,7 +5,11 @@ namespace App\Http\Controllers;
 use App\Event;
 use App\EventType;
 use App\Page;
+use Image;
+
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class EventController extends Controller
 {
@@ -51,6 +55,18 @@ class EventController extends Controller
             //$page->text_color = $request->text_color;
             $page->event_id = $event->id;
             $page->save();
+        }
+        if ($request->hasFile('flyer')){
+            $flyer = $request->file('flyer');
+            $filename = "flyer." . $flyer->getClientOriginalExtension();
+
+            $path_flyer = "companies/" . Auth::user()->company_id . "/events/$event->id/flyer";
+            if (!Storage::disk('local')->exists($path_flyer)){
+                Storage::makeDirectory($path_flyer);
+            }
+            Image::make($flyer)->encode('jpg',75)->resize(300,300)->save(storage_path("app/" . $path_flyer) ."/$filename");
+            $event->flyer = $filename ;
+            $event->update();
         }
         if ($request->ajax()){
             return response()->json([
@@ -102,11 +118,31 @@ class EventController extends Controller
     public function update(Request $request, Event $event)
     {
         $request->validate([
-            'title' => 'required|max:255',
+            'title' => 'required'
         ]);
         $event->fill($request->all());
-        if ($event->update()){
-            session()->flash('message',"Evento $event->title actualizado");
+        
+        if ($request->hasFile('flyer')){
+            $flyer = $request->file('flyer');
+            $filename = "flyer." . $flyer->getClientOriginalExtension();
+
+            $path_flyer = "companies/" . Auth::user()->company_id . "/events/$event->id/flyer";
+            if (!Storage::disk('local')->exists($path_flyer)){
+                Storage::makeDirectory($path_flyer);
+            }
+            Image::make($flyer)->encode('jpg',75)->resize(300,null, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save(storage_path("app/" . $path_flyer) ."/$filename");
+            $event->flyer = $path_flyer."/".$filename ;
+            $event->update();
+        }
+        if ($request->delete_flyer == "true"){
+            if (Storage::disk()->exists($event->flyer)){
+                Storage::delete($event->flyer);
+                $event->flyer = "";
+                $event->update();
+            }
+
         }
         if ($request->ajax()){
             return response()->json([

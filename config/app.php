@@ -163,6 +163,11 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
+        /*
+         * Our Services providers
+         * */
+        App\Providers\ImageStoreServiceProvider::class,
+
     ],
 
     /*
@@ -216,6 +221,7 @@ return [
         'Shinobi' => Caffeinated\Shinobi\Facades\Shinobi::class,
         'Image' => Intervention\Image\Facades\Image::class,
         'Debugbar' => Barryvdh\Debugbar\Facade::class,
+        'ImageStore' => App\Helpers\ImageStore\ImageStore::class,
     ],
 
 ];

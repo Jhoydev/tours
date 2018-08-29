@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\ImageStore\ImageStore;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -18,4 +19,9 @@ class ImageController extends Controller
         }
         return  $res;
     }
+
+    public function flyer($company,$event,$filename){
+        return ImageStore::getImage("companies/$company/events/$event/flyer/$filename");
+    }
+
 }

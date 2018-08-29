@@ -31,6 +31,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('role','RoleController');
 
     Route::get('asset/page/public/backgrounds', 'ImageController@publicBackgrounds');
+    Route::get('companies/{company}/events/{event}/flyer/{filename}', 'ImageController@flyer');
 
 });
 
