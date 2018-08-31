@@ -3,9 +3,8 @@
 namespace App\Http\Middleware;
 
 use Closure;
-use Illuminate\Support\Facades\Auth;
 
-class RoleInsignia
+class Insignia
 {
     /**
      * Handle an incoming request.
@@ -16,8 +15,9 @@ class RoleInsignia
      */
     public function handle($request, Closure $next)
     {
-        if (!Auth::user()->isInsignia()){
-            return redirect('/');
+        if (session()->get('base_de_datos')){
+            \Config::set('database.connections.mysql.database',session()->get('base_de_datos'));
+            \DB::reconnect('mysql');
         }
         return $next($request);
     }

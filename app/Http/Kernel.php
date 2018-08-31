@@ -32,6 +32,7 @@ class Kernel extends HttpKernel
             \App\Http\Middleware\EncryptCookies::class,
             \Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class,
             \Illuminate\Session\Middleware\StartSession::class,
+            \App\Http\Middleware\Insignia::class,
             // \Illuminate\Session\Middleware\AuthenticateSession::class,
             \Illuminate\View\Middleware\ShareErrorsFromSession::class,
             \App\Http\Middleware\VerifyCsrfToken::class,
@@ -62,6 +63,5 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'has.role' => \Caffeinated\Shinobi\Middleware\UserHasRole::class,
         'has.permission' => \Caffeinated\Shinobi\Middleware\UserHasPermission::class,
-        'insignia' => \App\Http\Middleware\RoleInsignia::class,
     ];
 }
