@@ -77,16 +77,11 @@ class PageController extends Controller
      */
     public function show($key,$id)
     {
-        session()->forget('base_de_datos');
-
-        if ($key_app = Insignia::where('key_app', $key)->firstOrFail()){
-            Config(['database.connections.mysql.database'=> $key_app->database ]);
-            \DB::reconnect('mysql');
-
-            session(['base_de_datos' => $key_app->database ]);
-        }
-        if($page = Page::find($id)){
-            return view('page.show',compact('page'));
+        $database = Insignia::Where('key_app',$key)->first();
+        if ($database->database){
+            if($page = Page::publicView($database->database,$id)){
+                return view('page.show',compact('page'));
+            }
         }
         return response('',404);
 

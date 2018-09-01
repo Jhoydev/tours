@@ -42,10 +42,8 @@ class LoginController extends Controller
     {
         session()->forget('base_de_datos');
 
-        if ($key_app = Insignia::where('key_app',$request->key_app)->first()){
+        if ($request->key_app && $key_app = Insignia::where('key_app',$request->key_app)->first()){
             Config(['database.connections.mysql.database'=> $key_app->database ]);
-            \DB::reconnect('mysql');
-
             session(['base_de_datos' => $key_app->database ]);
         }
         $this->middleware('guest')->except('logout');

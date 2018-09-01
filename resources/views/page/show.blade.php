@@ -28,8 +28,8 @@
 			<div class="col-12">
 				<div class="card rounded" style="background-color: rgba(255, 255,255, 0.9)">
 					<div class="card-body">
-						<h1 class="text-center">{{ $page->event->title }}</h1>
-						<p class="text-justify">{!! $page->event->description !!}</p>
+						<h1 class="text-center">{{ $page->title }}</h1>
+						<p class="text-justify">{!! $page->description !!}</p>
 					</div>
 				</div>
 			</div>
@@ -38,10 +38,10 @@
 			<div class="col-12">
 				<div class="card rounded" style="background-color: rgba(255, 255,255, 0.9)">
 					<div class="card-body">
-						<p>{{ $page->event->location }}</p>
-						<p>{{ $page->event->start_date }}</p>
-						<p>{{ $page->event->end_date }}</p>
-						<p>{{ $page->event->event_type->name }}</p>
+						<p>{{ $page->location }}</p>
+						<p>{{ $page->start_date }}</p>
+						<p>{{ $page->end_date }}</p>
+						<p>{{ $page->event_type_name }}</p>
 						<hr>
 
 						<div class="mt-3 text-center" id="map">
