@@ -118,7 +118,7 @@ class UserController extends Controller
                 $user_role = '';
             }
             $companies = "";
-            $roles = Role::select('id','name')->get();
+            $roles = Role::select('id','name')->orderBy('id', 'asc')->get();
             $permissions = Permission::all();
             $url_avatar = url("user/avatar/".$user->company_id."/".$user->id);
             if (!Storage::disk()->exists("companies/$user->company_id/avatars/$user->id.jpg")){
