@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Event;
 use App\Ticket;
 use Illuminate\Http\Request;
 
@@ -12,9 +13,9 @@ class TicketController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Event $event)
     {
-        //
+        return view('events.tickets',compact('event'));
     }
 
     /**
@@ -35,7 +36,13 @@ class TicketController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        if (Ticket::create($request->all())){
+            return response()->json([
+                'status' => true,
+                'body' => $body
+            ]);
+        }
+
     }
 
     /**
@@ -44,9 +51,9 @@ class TicketController extends Controller
      * @param  \App\Ticket  $ticket
      * @return \Illuminate\Http\Response
      */
-    public function show(Ticket $ticket)
+    public function show(Event $event)
     {
-        //
+
     }
 
     /**

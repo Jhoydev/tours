@@ -21,8 +21,8 @@ Route::middleware('auth')->group(function () {
     Route::put('page/{page}', 'PageController@update');
     Route::delete('page/{page}', 'PageController@destroy');
 
-    Route::get('events/{event}/prices', 'EventController@prices');
     Route::resource('events','EventController');
+    Route::resource('events/{event}/tickets','TicketController');
 
     Route::get('user/permissions', 'userController@getPermissionsAndRoles');
     Route::get('user/avatar/{company}/{id}', 'userController@getImageAvatar')->name('avatar.id');

@@ -13,7 +13,7 @@ class CreateInsigniasTable extends Migration
      */
     public function up()
     {
-        Schema::create('insignias', function (Blueprint $table) {
+        Schema::create('insignia.clientes', function (Blueprint $table) {
 
             $table->increments('id');
             $table->string('name');
@@ -40,6 +40,6 @@ class CreateInsigniasTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('insignias');
+        Schema::dropIfExists('insignia.clientes');
     }
 }

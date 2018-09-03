@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\DB;
 
 class Page extends Model
 {
-    protected $fillable = ['background','color_text','event_id'];
+    protected $fillable = ['background','color_text','event_id','is_live'];
 
     public function event(){
         return $this->belongsTo(Event::class);

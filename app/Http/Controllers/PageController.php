@@ -118,6 +118,7 @@ class PageController extends Controller
         ]);
         $page = Page::find($id);
         $page->fill($request->all());
+        $page->is_live = ($request->is_live == 'on') ? '1' : '0';
         if ($page->update()){
             if ($request->ajax()){
                 return response()->json([

@@ -20,8 +20,8 @@ class Event extends Model
 	public function status(){
         return $this->belongsTo(EventStatus::class);
     }
-    public function prices(){
-        return $this->hasMany(EventPrice::class);
+    public function Tickets(){
+        return $this->hasMany(Ticket::class);
     }
     public static function lastEvents($num){
         return Event::orderBy('created_at','DESC')->take($num)->get();

@@ -61,6 +61,7 @@ class CreateEventsTable extends Migration
     {
         Schema::dropIfExists('event_prices');
         Schema::dropIfExists('events');
+        Schema::dropIfExists('event_status');
         Schema::dropIfExists('event_types');
     }
 }

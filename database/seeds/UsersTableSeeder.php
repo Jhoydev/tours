@@ -11,7 +11,7 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('insignias')->insert([
+        DB::table('insignia.clientes')->insert([
             'name' => 'turibus',
             'key_app' => 'turibus',
             'database' => 'eventos2',
@@ -19,7 +19,7 @@ class UsersTableSeeder extends Seeder
             'phone' => '6587946',
             'web' => 'eventos2.com'
         ]);
-        DB::connection('eventos2')->table('users')->insert([
+        DB::table('users')->insert([
             'first_name' => 'Sofia',
             'last_name' => 'apellidos',
             'phone' => '987654321',
@@ -31,7 +31,7 @@ class UsersTableSeeder extends Seeder
             'password' => bcrypt('123456'),
             'company_id' => '1'
         ]);
-        DB::connection('eventos2')->table('users')->insert([
+        DB::table('users')->insert([
             'first_name' => 'expoyoga',
             'last_name' => 'evento',
             'phone' => '987654321',
@@ -43,7 +43,7 @@ class UsersTableSeeder extends Seeder
             'password' => bcrypt('123456'),
             'company_id' => '1'
         ]);
-        DB::connection('eventos2')->table('users')->insert([
+        DB::table('users')->insert([
             'first_name' => 'staff',
             'last_name' => 'evento',
             'phone' => '987654321',
