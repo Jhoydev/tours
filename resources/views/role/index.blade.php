@@ -3,7 +3,7 @@
     @include('layouts.menssage_success')
     <div class="row mt-5">
         <div class="col-12">
-            <a href="{{ url('role/create') }}" class="btn btn-sm btn-success rounded"><i class="fa fa-plus"></i> Nuevo rol</a>
+            <a href="{{ url('role/create') }}" class="btn btn-sm btn-success rounded"><i class="fa fa-plus"></i> Nuevo Rol</a>
         </div>
     </div>
     <div class="row mt-3">
@@ -13,7 +13,7 @@
                 <div class="card-body">
                     <h4 class="text-center">{{ ucfirst($role->name) }}</h4>
                     <hr>
-                    <p class="text-secondary">{{ $role->description }}</p>
+                    <p class="text-secondary description-block">{{ $role->description }}</p>
                     <hr>
                     <div class="d-flex justify-content-around">
                         <a href="{{ url("role/$role->id/edit") }}" class="btn btn-primary rounded btn-sm mr-2"><i class="fa fa-pencil"></i> Editar</a>
@@ -36,7 +36,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    Esta seguro de eliminar este rol.
+                    Esta seguro de eliminar este rol?
                 </div>
                 <div class="modal-footer">
                     {!! Form::open([ 'id' => 'form_delete' ,'url' => '','method' => 'DELETE','class' => 'd-inline-block']) !!}
