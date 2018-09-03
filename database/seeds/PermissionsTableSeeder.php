@@ -11,40 +11,40 @@ class PermissionsTableSeeder extends Seeder
      */
     public function run()
     {
-        $db = "eventos2";
+        $db = "eventos";
 
         DB::connection($db)->table('permissions')->insert([
-            'name' => 'create users',
+            'name' => 'Crear Usuarios',
             'slug' => 'user.create',
             'description' => 'Crear usuarios'
         ]);
 
         DB::connection($db)->table('permissions')->insert([
-            'name' => 'edit users',
+            'name' => 'Editar Usuarios',
             'slug' => 'user.edit',
             'description' => 'Editar usuarios'
         ]);
 
         DB::connection($db)->table('permissions')->insert([
-            'name' => 'delete users',
+            'name' => 'Eliminar Usuarios',
             'slug' => 'user.destroy',
             'description' => 'Eliminar usuarios'
         ]);
 
         DB::connection($db)->table('permissions')->insert([
-            'name' => 'create events',
+            'name' => 'Crear Eventos',
             'slug' => 'event.create',
             'description' => 'Crear eventos'
         ]);
 
         DB::connection($db)->table('permissions')->insert([
-            'name' => 'edit event',
+            'name' => 'Editar Eventos',
             'slug' => 'event.edit',
             'description' => 'Editar eventos'
         ]);
 
         DB::connection($db)->table('permissions')->insert([
-            'name' => 'delete events',
+            'name' => 'Eliminar Eventos',
             'slug' => 'event.destroy',
             'description' => 'Eliminar eventos'
         ]);

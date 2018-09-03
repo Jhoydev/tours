@@ -13,23 +13,12 @@ class CompaniesTableSeeder extends Seeder
     {
         DB::table('companies')->insert([
             'name' => 'insignia',
-            'phone' => '987654321',
-            'email' => 'insignia@gmail.com',
-            'address' => 'pepito de los palotes 12',
-            'facebook' => 'https://www.facebook.com/',
-            'instagram' => 'https://www.facebook.com/',
-            'twitter' => 'https://www.facebook.com/',
-            'created_at' => date("Y-m-d h:i:s")
-        ]);
-
-        DB::table('companies')->insert([
-            'name' => 'expoyoga',
-            'phone' => '987654321',
-            'email' => 'expoyoga@gmail.com',
-            'address' => 'julio saenz de la hoya 9',
-            'facebook' => 'https://www.facebook.com/',
-            'instagram' => 'https://www.facebook.com/',
-            'twitter' => 'https://www.facebook.com/',
+            'phone' => '3505781056',
+            'email' => 'hola@insignia.com.co',
+            'address' => 'Medellin, Colombia',
+            'facebook' => 'https://www.facebook.com/agenciainsignia',
+            'instagram' => 'https://www.facebook.com/agenciainsignia',
+            'twitter' => 'https://www.facebook.com/agenciainsignia',
             'created_at' => date("Y-m-d h:i:s")
         ]);
     }

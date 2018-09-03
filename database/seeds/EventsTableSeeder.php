@@ -18,7 +18,7 @@ class EventsTableSeeder extends Seeder
         foreach (range(1, 10) as $item) {
             $end_date = $faker->dateTimeBetween($startDate = 'now', $endDate = '+60 days', $timezone = null);
             $start_date = $faker->dateTimeBetween($startDate = '- 60 days', $endDate = $end_date, $timezone = null);
-            DB::connection('eventos2')->table('events')->insert([
+            DB::connection('eventos')->table('events')->insert([
                 'title' => $faker->name,
                 'description' => $faker->text,
                 'location' => $faker->address,

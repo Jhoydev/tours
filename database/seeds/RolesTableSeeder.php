@@ -11,24 +11,24 @@ class RolesTableSeeder extends Seeder
      */
     public function run()
     {
-        $db = "eventos2";
+        $db = "eventos";
 
         DB::table('roles')->insert([
-            'name' => 'insignia',
+            'name' => 'Insignia',
             'slug' => 'insignia',
-            'description' => 'rol para los miembros de insignia acceso total',
+            'description' => 'Rol dedicado a los miembros de Insignia.',
             'special' => 'all-access'
         ]);
         DB::connection($db)->table('roles')->insert([
-            'name' => 'admin',
+            'name' => 'Administrador',
             'slug' => 'admin',
-            'description' => 'Administrador - Tiene todos los permisos',
+            'description' => 'Rol dedicado a los clientes con permisos a nivel general sobre sus eventos.',
             'special' => 'all-access'
         ]);
         DB::connection($db)->table('roles')->insert([
-            'name' => 'staff',
+            'name' => 'Staff',
             'slug' => 'staff',
-            'description' => 'Staff'
+            'description' => 'Rol para manejo simple de cada evento.'
         ]);
 
     }

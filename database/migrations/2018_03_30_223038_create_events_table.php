@@ -42,14 +42,6 @@ class CreateEventsTable extends Migration
             $table->foreign('created_by')->references('id')->on('users');
             $table->timestamps();
         });
-        Schema::create('event_prices', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('name');
-            $table->decimal('amount',10,2);
-            $table->unsignedInteger('event_id');
-            $table->foreign('event_id')->references('id')->on('events');
-            $table->timestamps();
-        });
     }
 
     /**
@@ -59,7 +51,6 @@ class CreateEventsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('event_prices');
         Schema::dropIfExists('events');
         Schema::dropIfExists('event_status');
         Schema::dropIfExists('event_types');

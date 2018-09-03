@@ -11,24 +11,27 @@ class EventTypesTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::connection('eventos2')->table('event_types')->insert([
-            'name' => 'ida y vuyelta'
+        DB::connection('eventos')->table('event_types')->insert([
+            'name' => 'Evento Simple'
         ]);
-        DB::connection('eventos2')->table('event_types')->insert([
-            'name' => 'solo ida'
+        DB::connection('eventos')->table('event_types')->insert([
+            'name' => 'Rueda de Negocios'
+        ]);
+        DB::connection('eventos')->table('event_types')->insert([
+            'name' => 'Tours'
         ]);
 
-        DB::connection('eventos2')->table('event_status')->insert([
-            'name' => 'on sale'
+        DB::connection('eventos')->table('event_status')->insert([
+            'name' => 'En Venta'
         ]);
-        DB::connection('eventos2')->table('event_status')->insert([
-            'name' => 'not on sale yet'
+        DB::connection('eventos')->table('event_status')->insert([
+            'name' => 'Agotado'
         ]);
-        DB::connection('eventos2')->table('event_status')->insert([
-            'name' => 'sales have ended'
+        DB::connection('eventos')->table('event_status')->insert([
+            'name' => 'Ventas Terminadas'
         ]);
-        DB::connection('eventos2')->table('event_status')->insert([
-            'name' => 'sold out'
+        DB::connection('eventos')->table('event_status')->insert([
+            'name' => 'Aun no Disponible'
         ]);
     }
 }
