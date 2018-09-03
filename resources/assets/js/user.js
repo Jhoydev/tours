@@ -81,7 +81,7 @@ var user = new Vue({
                     Vue.set(permission, 'checked', true);
                     Vue.set(permission, 'disabled', true);
                 }
-            } else {
+            }else {
                 for (let permission of this.permissions) {
                     for (let permission_r of this.permission_role) {
                         if (permission.slug === permission_r.slug) {

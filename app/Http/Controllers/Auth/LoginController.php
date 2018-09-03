@@ -38,6 +38,7 @@ class LoginController extends Controller
      *
      * @return void
      */
+
     public function __construct(Request $request)
     {
         session()->forget('base_de_datos');
@@ -45,7 +46,28 @@ class LoginController extends Controller
         if ($request->key_app && $key_app = Insignia::where('key_app',$request->key_app)->first()){
             Config(['database.connections.mysql.database'=> $key_app->database ]);
             session(['base_de_datos' => $key_app->database ]);
+            session(['key_app' => $request->key_app ]);
         }
         $this->middleware('guest')->except('logout');
+    }
+    public function showLoginForm($key_app="")
+    {
+        if($key_app && Insignia::where('key_app',$key_app)->first()){
+            return view('auth.login',compact('key_app'));
+        }else{
+            return abort('404');
+        }
+    }
+    public function logout(Request $request)
+    {
+        $this->guard()->logout();
+
+        if (!$key_app = (session()->get('key_app'))){
+            $request->session()->invalidate();
+            return abort('404');
+        }
+
+        $request->session()->invalidate();
+        return redirect('login/'.$key_app);
     }
 }

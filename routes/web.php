@@ -9,11 +9,22 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-Auth::routes();
-Route::get('tour/{key_app}/{page}', 'PageController@show');
+//Auth::routes();
+// Authentication Routes...
+Route::get('login/{key_app?}', 'Auth\LoginController@showLoginForm')->name('login');
+Route::post('login/{key_app?}', 'Auth\LoginController@login');
+Route::post('logout/{key_app?}', 'Auth\LoginController@logout')->name('logout');
+
+// Password Reset Routes...
+Route::get('password/reset', 'Auth\ForgotPasswordController@showLinkRequestForm')->name('password.request');
+Route::post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail')->name('password.email');
+Route::get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm')->name('password.reset');
+Route::post('password/reset', 'Auth\ResetPasswordController@reset');
+
+Route::get('evento/{key_app}/{page}', 'PageController@show');
+Route::get('/', 'HomeController@index')->name('home');
 Route::middleware('auth')->group(function () {
 
-    Route::get('/', 'HomeController@index')->name('home');
 
     Route::post('page', 'PageController@store');
     Route::get('page/{event}/create', 'PageController@create');

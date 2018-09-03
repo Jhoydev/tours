@@ -16,7 +16,7 @@
     <link rel="stylesheet" href="{{ mix('css/main.css') }}">
 
     <!-- Main styles for this application -->
-    <link href="css/style.css" rel="stylesheet">
+    <link href="/css/style.css" rel="stylesheet">
     <!-- Styles required by this views -->
 
 </head>
@@ -34,17 +34,7 @@
                         <h3 class="text-center mt-3">Iniciar Sesión</h3>
                         <form method="POST" action="{{ route('login') }}">
                             @csrf
-                            <div class="input-group mb-3">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text"><i class="fa fa-building-o"></i></span>
-                                </div>
-                                <input id="key_app" type="key_app" class="form-control{{ $errors->has('key_app') ? ' is-invalid' : '' }}" name="key_app" value="{{ old('key_app') }}" placeholder="Empresa" required autofocus>
-                                @if ($errors->has('key_app'))
-                                    <span class="invalid-feedback">
-                                        <strong>{{ $errors->first('key_app') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
+                            <input type="hidden" name="key_app" value="{{ $key_app }}">
 
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">
@@ -71,13 +61,13 @@
                             </div>
                             <div class="row">
                                 <div class="col-lg-12 d-flex justify-content-center">
-                                    <button type="submit" class="btn btn-primary px-4">{{ __('Ingresar') }}</button>
+                                    <button type="submit" class="btn btn-primary rounded px-4">{{ __('Ingresar') }}</button>
                                 </div>
-                                <!--<div class="col-lg-6 d-flex justify-content-center">
+                                {{--<div class="col-lg-6 d-flex justify-content-center">
                                     <a class="btn btn-link" href="{{ route('password.request') }}">
                                         {{ __('Olvidaste tu Contraseña?') }}
                                     </a>
-                                </div>-->
+                                </div>--}}
                             </div>
                         </form>
                     </div>

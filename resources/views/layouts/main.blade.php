@@ -11,8 +11,8 @@
     <!-- Fonts -->
     <link rel="dns-prefetch" href="https://fonts.gstatic.com">
     <!-- Icons -->
-    <link href="{{ asset('css/style.css') }}" rel="stylesheet">
-    <link href="{{ mix('css/main.css') }}" rel="stylesheet">
+    <link href="{{ asset('/css/style.css') }}" rel="stylesheet">
+    <link href="{{ mix('/css/main.css') }}" rel="stylesheet">
     @yield('link')
 </head>
 
