@@ -31,14 +31,14 @@
                         <div class="card-img text-center">
                             <img style="height: 60px" src="{{ asset('img/logo-dark.png') }}" alt="">
                         </div>
-                        <h3 class="text-center mt-3">Iniciar sesión</h3>
+                        <h3 class="text-center mt-3">Iniciar Sesión</h3>
                         <form method="POST" action="{{ route('login') }}">
                             @csrf
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="fa fa-building-o"></i></span>
                                 </div>
-                                <input id="key_app" type="key_app" class="form-control{{ $errors->has('key_app') ? ' is-invalid' : '' }}" name="key_app" value="{{ old('key_app') }}" placeholder="Clave de empresa" required autofocus>
+                                <input id="key_app" type="key_app" class="form-control{{ $errors->has('key_app') ? ' is-invalid' : '' }}" name="key_app" value="{{ old('key_app') }}" placeholder="Empresa" required autofocus>
                                 @if ($errors->has('key_app'))
                                     <span class="invalid-feedback">
                                         <strong>{{ $errors->first('key_app') }}</strong>
@@ -50,7 +50,7 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="icon-user"></i></span>
                                 </div>
-                                <input id="email" type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}" placeholder="Email" required autofocus>
+                                <input id="email" type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}" placeholder="Correo Electrónico" required autofocus>
                                 @if ($errors->has('email'))
                                     <span class="invalid-feedback">
                                         <strong>{{ $errors->first('email') }}</strong>
@@ -62,7 +62,7 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="icon-lock"></i></span>
                                 </div>
-                                <input id="password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" placeholder="password" name="password" required>
+                                <input id="password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" placeholder="Contraseña" name="password" required>
                                 @if ($errors->has('password'))
                                     <span class="invalid-feedback">
                                         <strong>{{ $errors->first('password') }}</strong>
@@ -70,14 +70,14 @@
                                 @endif
                             </div>
                             <div class="row">
-                                <div class="col-lg-6 d-flex justify-content-center">
-                                    <button type="submit" class="btn btn-primary px-4">{{ __('Login') }}</button>
+                                <div class="col-lg-12 d-flex justify-content-center">
+                                    <button type="submit" class="btn btn-primary px-4">{{ __('Ingresar') }}</button>
                                 </div>
-                                <div class="col-lg-6 d-flex justify-content-center">
+                                <!--<div class="col-lg-6 d-flex justify-content-center">
                                     <a class="btn btn-link" href="{{ route('password.request') }}">
-                                        {{ __('Forgot Your Password?') }}
+                                        {{ __('Olvidaste tu Contraseña?') }}
                                     </a>
-                                </div>
+                                </div>-->
                             </div>
                         </form>
                     </div>
