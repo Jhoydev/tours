@@ -20,7 +20,7 @@
                     <input type="hidden" id="inp_description" name="description" value="{{ $role->description }}">
                     <div class="row">
                         <div class="col-6">
-                            <h2 class="m-0">Nuevo rol</h2>
+                            <h2 class="m-0">{{ $title }}</h2>
                         </div>
                         <div class="col-6">
                             <div class="form-row d-flex justify-content-end">
