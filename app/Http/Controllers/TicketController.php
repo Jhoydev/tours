@@ -59,9 +59,10 @@ class TicketController extends Controller
      * @param  \App\Ticket  $ticket
      * @return \Illuminate\Http\Response
      */
-    public function edit(Ticket $ticket)
+    public function edit(Request $request,$event,$id)
     {
-        //
+        $ticket = Ticket::find($id);
+        return response()->json($ticket);
     }
 
     /**
@@ -71,9 +72,11 @@ class TicketController extends Controller
      * @param  \App\Ticket  $ticket
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Ticket $ticket)
+    public function update(Request $request,Event $event, Ticket $ticket)
     {
-        //
+        $ticket->fill($request->all());
+        $ticket->update();
+        return back();
     }
 
     /**
@@ -82,8 +85,9 @@ class TicketController extends Controller
      * @param  \App\Ticket  $ticket
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Ticket $ticket)
+    public function destroy(Event $event,Ticket $ticket)
     {
-        //
+        $ticket->delete();
+        return back();
     }
 }
