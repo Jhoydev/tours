@@ -55,7 +55,7 @@ class LoginController extends Controller
         if($key_app && Insignia::where('key_app',$key_app)->first()){
             return view('auth.login',compact('key_app'));
         }else{
-            return abort('404');
+            return view('auth.login');
         }
     }
     public function logout(Request $request)
