@@ -36,6 +36,19 @@ class UsersTableSeeder extends Seeder {
             'password'   => bcrypt('123456'),
             'company_id' => '1'
         ]);
+
+        DB::table('users')->insert([
+            'first_name' => 'Soporte9',
+            'last_name'  => 'Insignia',
+            'phone'      => '987654321',
+            'mobile'     => '987654321',
+            'address'    => 'Calle falsa 123',
+            'city'       => 'Elx',
+            'state'      => 'Alicante',
+            'email'      => 'jhoseph.dev@gmail.com',
+            'password'   => bcrypt('123456'),
+            'company_id' => '1'
+        ]);
     }
 
 }
