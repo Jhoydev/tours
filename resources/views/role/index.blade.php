@@ -17,7 +17,7 @@
                     <hr>
                     <div class="d-flex justify-content-around">
                         <a href="{{ url("role/$role->id/edit") }}" class="btn btn-primary rounded btn-sm mr-2"><i class="fa fa-pencil"></i> Editar</a>
-                        <button type="button" class="btn btn-danger rounded btn-sm" data-toggle="modal" data-target="#deleteModal" data-role_id="{{ $role->id }}">
+                        <button type="button" class="btn btn-outline-danger rounded btn-sm" data-toggle="modal" data-target="#deleteModal" data-role_id="{{ $role->id }}">
                             <i class="fa fa-eraser" aria-hidden="true"></i> Eliminar
                         </button>
                     </div>
@@ -40,7 +40,7 @@
                 </div>
                 <div class="modal-footer">
                     {!! Form::open([ 'id' => 'form_delete' ,'url' => '','method' => 'DELETE','class' => 'd-inline-block']) !!}
-                    {!! Form::submit('Eliminar',['class' => 'btn btn-danger btn-sm rounded'])  !!}
+                    {!! Form::submit('Eliminar',['class' => 'btn btn-outline-danger btn-sm rounded'])  !!}
                     {!! Form::close() !!}
                     <button type="button" class="btn btn-secondary btn-sm rounded text-light" data-dismiss="modal">Cancelar</button>
                 </div>
