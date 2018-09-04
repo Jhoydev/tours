@@ -15,7 +15,7 @@ class TicketController extends Controller
      */
     public function index(Event $event)
     {
-        return view('events.tickets',compact('event'));
+        return view('events.tickets.index',compact('event'));
     }
 
     /**
@@ -37,10 +37,7 @@ class TicketController extends Controller
     public function store(Request $request)
     {
         if (Ticket::create($request->all())){
-            return response()->json([
-                'status' => true,
-                'body' => $body
-            ]);
+            return back();
         }
 
     }

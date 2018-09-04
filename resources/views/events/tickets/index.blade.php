@@ -5,25 +5,66 @@
 @section('content')
 <div class="row" id="tickets">
     <div class="col-12">
-        <div class="row mt-5">
-            <div class="col-md-12">
-                <h3>Tickets - {{ $event->title }}</h3>
+        <div class="row mt-5 d-flex align-items-center mb-3">
+            <div class="col-md-auto">
+                <h3 class="pb-0">Tickets - {{ $event->title }}</h3>
+            </div>
+            <div class="col text-right">
+                <button class="btn btn-sm btn-success rounded" data-toggle="modal" data-target="#modal_create_ticket"><i class="fa fa-plus"></i> Nuevo Ticket</button>
             </div>
         </div>
         <div class="row">
-            <div class="col-md-2 text-center" id="newTicket">
-                <div class="card" style="cursor: pointer;" onclick="toggleFormTicket()">
+            <div class="col-md-12">
+                <div class="card rounded">
                     <div class="card-body">
-                        <h2><i class="fa fa-plus" aria-hidden="true"></i></h2>
-                        <p>Nuevo ticket</p>
+                        <div class="row justify-content-center">
+                            @if (count($event->tickets))
+                                @foreach ($event->tickets as $ticket)
+                                    <div class="col-md-auto">
+                                        <div class="card border-info rounded">
+                                            <div class="card-body text-center">
+                                                <p class="h3 font-weight-bold">{{ $ticket->title }}</p>
+                                                <p class="h1"><strong>{{ $ticket->price }}$</strong></p>
+                                                <p>{{ $ticket->description }}</p>
+                                                <div class="text-left">
+                                                    <p>Inicio de venta: {{ $ticket->start_sale_date }}</p>
+                                                    <p>Fin de venta: {{ $ticket->end_sale_date }}</p>
+                                                    <p>Total de tiquetes a vender: {{ $ticket->quantity_available }}</p>
+                                                    <p>Tiquete minimo por orden {{ $ticket->min_per_person }}</p>
+                                                    <p>Tiquete maximo por orden {{ $ticket->max_per_person }}</p>
+                                                </div>
+                                                <p><small>Creado por: {{ $ticket->user->full_name }}</small></p>
+                                                <div>
+                                                    <button class="btn btn-sm btn-primary rounded"><i class="fa fa-pencil"></i> Editar</button>
+                                                    <button class="btn btn-sm btn btn-outline-danger rounded"><i class="fa fa-eraser"></i> Borrar</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endforeach
+                            @else
+                                <div class="col-12 text-center">
+                                    <p class="lead">Aun no has creado ningun tiquete</p>
+                                    <button class="btn btn-sm btn-success rounded" data-toggle="modal" data-target="#modal_create_ticket"><i class="fa fa-plus"></i> Nuevo Ticket</button>
+                                </div>
+                            @endif
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="col-md-6" id="content-form-ticket" style="display: none">
-                <div class="card">
-                    <div class="card-body">
-                        {!! Form::open(['url' => url("events/$event->id/tickets"),'method' => 'POST', 'id' => 'form_ticket']) !!}
 
+        </div>
+        <div class="modal fade"  id="modal_create_ticket" tabindex="-1" role="dialog" aria-labelledby="modal_create_ticket" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Nuevo Tiquete</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        {!! Form::open(['url' => url("events/$event->id/tickets"),'method' => 'POST', 'id' => 'form_ticket']) !!}
                         <input type="hidden" name="event_id" id="event_id" value="{{ $event->id }}">
                         <input type="hidden" name="created_by" id="created_by" value="{{ $event->created_by }}">
                         <input type="hidden" name="edited_by" id="edited_by" value="{{ Auth::user()->id }}">
@@ -65,7 +106,6 @@
                                 </div>
                             </div>
                         </div>
-
                         <div class="form-row">
                             <div class="form-group col-6">
                                 <label for="">Tiquete minimo por orden</label>
@@ -88,21 +128,6 @@
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="row">
-            @foreach ($event->tickets as $ticket)
-                <div class="col-md-auto">
-                    <div class="card">
-                        <div class="card-body text-center">
-                            <h5>{{ $ticket->title }}</h5>
-                            <p>{{ $ticket->price }}</p>
-                            <p>{{ $ticket->description }}</p>
-                            <p>{{ $ticket->start_sale_date }} - {{ $ticket->end_sale_date }}</p>
-                            <p><small> {{ $ticket->user->full_name }}</small></p>
-                        </div>
-                    </div>
-                </div>
-            @endforeach
         </div>
     </div>
 </div>

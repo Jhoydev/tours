@@ -3,7 +3,7 @@
     <a class="nav-link" href="{{ url("events/$event->id") }}"><i class="fa fa-home"></i> Tablero</a>
 </li>
 <li class="nav-item">
-    <a class="nav-link" href="{{ url("events/$event->id/prices") }}"><i class="fa fa-ticket"></i> Tiquetes</a>
+    <a class="nav-link" href="{{ url("events/$event->id/tickets") }}"><i class="fa fa-ticket"></i> Tiquetes</a>
 </li>
 <li class="nav-item">
     <a class="nav-link" href="#"><i class="fa fa-shopping-cart"></i> Ordenes</a>

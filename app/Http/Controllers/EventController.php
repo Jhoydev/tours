@@ -167,9 +167,4 @@ class EventController extends Controller
         session()->flash('message','No se ha podido eliminar el evento, por favor contacte con soporte');
         return redirect('events');
     }
-
-    public function prices(Event $event)
-    {   
-        return view('events.prices',compact('event'));
-    }
 }
