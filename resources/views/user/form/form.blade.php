@@ -214,5 +214,5 @@
     {!! Form::close() !!}
 @endsection
 @section('script')
-    <script src="{{ asset('js/user.js') }}"></script>
+    <script src="{{ asset('js/vue/user.js') }}"></script>
 @endsection

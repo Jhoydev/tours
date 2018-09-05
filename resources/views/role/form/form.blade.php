@@ -69,5 +69,5 @@
     </div>
 @endsection
 @section('script')
-    <script src="{{ asset('js/role.js') }}"></script>
+    <script src="{{ asset('js/vue/role.js') }}"></script>
 @endsection

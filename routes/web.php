@@ -25,6 +25,7 @@ Route::middleware('auth')->group(function () {
 
     Route::resource('events','EventController');
     Route::resource('events/{event}/tickets','TicketController');
+    Route::resource('attendee', 'AttendeeController');
 
     Route::get('user/permissions', 'userController@getPermissionsAndRoles');
     Route::get('user/avatar/{company}/{id}', 'userController@getImageAvatar')->name('avatar.id');
