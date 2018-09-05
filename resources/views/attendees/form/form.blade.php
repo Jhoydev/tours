@@ -14,9 +14,9 @@
             <div class="card-body">
 
                 @if ($method == 'PUT')
-                <input type="hidden" name="created_by" value="{{ Auth::user()->id }}">
-                @elseif ($method == 'POST')
                 <input type="hidden" name="edited_by" value="{{ Auth::user()->id }}">
+                @elseif ($method == 'POST')
+                <input type="hidden" name="created_by" value="{{ Auth::user()->id }}">
                 @else
                 <input type="hidden" name="created_by" value="{{ Auth::user()->id }}">
                 @endif
