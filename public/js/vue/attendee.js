@@ -3,7 +3,7 @@ var attendee = new Vue({
     data: {
         first_name: '',
         last_name: '',
-        document_type: '',
+        document_type_id: '',
         document: '',
         email: '',
         phone: '',
@@ -24,7 +24,7 @@ var attendee = new Vue({
     mounted() {
         this.first_name = document.querySelector("#inp_first_name").value;
         this.last_name = document.querySelector("#inp_last_name").value;
-        this.document_type = document.querySelector("#inp_document_type").value;
+        this.document_type_id = document.querySelector("#inp_document_type_id").value;
         this.document = document.querySelector("#inp_document").value;
         this.email = document.querySelector("#inp_email").value;
         this.phone = document.querySelector("#inp_phone").value;

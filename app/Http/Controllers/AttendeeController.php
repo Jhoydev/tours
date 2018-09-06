@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Attendee;
+use App\DocumentType;
 use Caffeinated\Shinobi\Models\Permission;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -29,7 +30,9 @@ class AttendeeController extends Controller
     {
         $permissions = Permission::all();
         $attendee    = new Attendee();
-        return view('attendees.create', compact('attendee', 'permissions'));
+        
+        $document_types = DocumentType::orderBy('name', 'ASC')->pluck('name', 'id')->all();
+        return view('attendees.create', compact('attendee', 'permissions', 'document_types'));
     }
 
     /**
@@ -43,7 +46,7 @@ class AttendeeController extends Controller
         $attendee                = new Attendee();
         $attendee->first_name    = $request->first_name;
         $attendee->last_name     = $request->last_name;
-        $attendee->document_type = $request->document_type;
+        $attendee->document_type_id = $request->document_type_id;
         $attendee->document      = $request->document;
         $attendee->email         = $request->email;
         $attendee->phone         = $request->phone;
@@ -85,7 +88,9 @@ class AttendeeController extends Controller
     public function edit($id)
     {
         $attendee = Attendee::find($id);
-        return view('attendees.edit',compact('attendee'));
+
+        $document_types = DocumentType::orderBy('name', 'ASC')->pluck('name', 'id')->all();
+        return view('attendees.edit', compact('attendee', 'document_types'));
     }
 
     /**

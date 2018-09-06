@@ -12,12 +12,19 @@ class CreateAttendeesTable extends Migration {
      * @return void
      */
     public function up() {
+
+        Schema::create('document_types', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('name');
+            $table->timestamps();
+        });
+
         Schema::create('attendees', function (Blueprint $table) {
             $table->increments('id');
             $table->string('first_name');
             $table->string('last_name')->nullable();
-            $table->string('document_type')->nullable();
-            $table->string('document')->nullable();
+            $table->string('document_type_id')->references('id')->on('document_type_ids');;
+            $table->string('document');
             $table->string('email', 128)->unique();
             $table->string('phone')->nullable();
             $table->string('mobile')->nullable();
@@ -49,6 +56,7 @@ class CreateAttendeesTable extends Migration {
      * @return void
      */
     public function down() {
+        Schema::dropIfExists('document_types');
         Schema::dropIfExists('attendees');
     }
 

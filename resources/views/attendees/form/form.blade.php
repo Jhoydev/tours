@@ -20,10 +20,10 @@
                 @else
                 <input type="hidden" name="created_by" value="{{ Auth::user()->id }}">
                 @endif
-                
+
                 <input type="hidden" id="inp_first_name" name="first_name" value="{{ $attendee->first_name }}">
                 <input type="hidden" id="inp_last_name" name="last_name" value="{{ $attendee->last_name }}">
-                <input type="hidden" id="inp_document_type" name="document_type" value="{{ $attendee->document_type }}">
+                <input type="hidden" id="inp_document_type_id" name="document_type_id" value="{{ $attendee->document_type_id }}">
                 <input type="hidden" id="inp_document" name="document" value="{{ $attendee->document }}">
                 <input type="hidden" id="inp_email" name="email" value="{{ $attendee->email }}">
                 <input type="hidden" id="inp_phone" name="phone" value="{{ $attendee->phone }}">
@@ -66,13 +66,16 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="document_type">Tipo de Documento</label>
-                    <input id="document_type" name="document_type" type="text" class="form-control rounded" placeholder="Tipo de Documento" v-model="document_type">
-                </div>
-
-                <div class="form-group">
-                    <label for="document">Documento</label>
-                    <input id="document" name="document" type="text" class="form-control rounded" placeholder="Documento" v-model="document">
+                    <div class="row">
+                        <div class="col-md-5">
+                            <label for="document_type_id">Tipo de Documento</label>
+                            {{ Form::select('document_type_id', $document_types, $attendee->document_type_id , ['class' => "form-control rounded",'required' => true]) }}
+                        </div>
+                        <div class="col-md-7">
+                            <label for="document">Documento</label>
+                            <input id="document" name="document" type="text" class="form-control rounded" placeholder="Documento" v-model="document">
+                        </div>
+                    </div>
                 </div>
 
                 <div class="form-group">
