@@ -66,7 +66,7 @@
 <hr>
 <div class="row">
     <div class="form-group col-12 text-right">
-        <button class="btn btn-success btn-sm rounded" type="button" onclick="savePage()">Guardado</button>
+        <button class="btn btn-success btn-sm rounded" type="button" onclick="savePage()"><i class="fa fa-save"></i> Guardar</button>
     </div>
 </div>
 {!! Form::close() !!}

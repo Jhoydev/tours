@@ -4,30 +4,31 @@
     <div class="row pt-3">
         <div class="col-12">
             <div class="row">
-                <div class="col-4">
+                <div class="col-md-12 col-lg-6"><h4>Listado de Eventos</h4></div>
+                <div class="col-md-12 col-lg-6 text-right">
                     <button type="button" class="btn btn-success btn-sm mb-2 rounded" data-toggle="modal" data-target="#createModal"><i class="fa fa-plus"></i> Crear evento </button>
                 </div>
-                <div class="col-4"><h4 class="text-center">Listado de eventos</h4></div>
             </div>
         </div>
     </div>
     <div class="row">
         @foreach($events as $event)
-            <div class="col-md-6">
-                <div class="card">
-                    <div class="card-header d-flex justify-content-between align-items-center">
-                        <small class="badge badge-primary">{{ $event->start_date->toFormattedDateString() }}</small>
-                        <h6>
-                            {{ $event->title }}
-                        </h6>
-
-                    </div>
+            <div class="col-lg-3 col-md-4">
+                <div class="card rounded">
                     <div class="card-body">
-                        <p>{{ $event->location }}</p>
-                    </div>
-                    <div class="card-footer d-flex justify-content-around">
-                        <a href="{{ url("events/$event->id/edit") }}" class="btn btn-sm btn-primary rounded">Editar</a>
-                        <a href="{{ url("events/$event->id") }}" class="btn btn-sm btn-success rounded">Administrar</a>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <small class="badge badge-primary rounded pl-2 pr-2">{{ $event->start_date->toFormattedDateString() }}</small>
+                            <h6>
+                                {{ $event->title }}
+                            </h6>
+                        </div>
+                        <hr>
+                        <p class="card-text pb-3">{{ $event->location }}</p>
+                        <hr>
+                        <div class="d-flex justify-content-around">
+                            <a href="{{ url("events/$event->id") }}" class="btn btn-sm btn-success rounded"><i class="fa fa-cog"></i> Administrar</a>
+                            <a href="{{ url("events/$event->id/edit") }}" class="btn btn-sm btn-primary rounded"><i class="fa fa-pencil"></i> Editar</a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -37,6 +38,12 @@
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 {!! Form::open(['url' => url('events'),'method' => 'POST', 'id' => 'form_create_event']) !!}
+                <div class="modal-header">
+                    <h5>Crear Evento</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
                 <div class="modal-body">
                     @include('events.partials.general')
                 </div>

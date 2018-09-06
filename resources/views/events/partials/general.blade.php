@@ -44,7 +44,7 @@
 
         </div>
     </div>
-    <div class="form-group col-md-2">
+    <div class="form-group col-md-auto">
         <h5 class="text-center">Imagen de evento <small>Flyer o grafica etc.</small></h5>
         <input type="file" id="flyer" name="flyer" onchange="previewFile()"><br>
         <img id="preview_flyer" src="{{ ($event->flyer) ? url($event->flyer) : "" }}" class="img-fluid img-thumbnail" style="min-width: 100%; min-height:150px"  alt="">
@@ -52,8 +52,7 @@
         <label for="delete_flyer">¿Eliminar flyer?</label>
     </div>
     <div class="form-group col-md-12 text-right">
-        {{--<button type="button" onclick="saveEvent()" class="btn btn-sm btn-success rounded">Guardar</button>--}}
-        <button type="submit" class="btn btn-sm btn-success rounded">Guardar</button>
+        <button type="submit" class="btn btn-sm btn-success rounded"><i class="fa fa-save"></i> Guardar</button>
     </div>
 </div>
 

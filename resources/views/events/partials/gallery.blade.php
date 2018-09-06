@@ -7,7 +7,7 @@
     </div>
     <div class="form-group col-md-4">
         <button type="button" class="btn btn-primary rounded" onclick="openGallery()">
-            Ver galeria
+            <i class="fa fa-image"></i> Ver galeria
         </button>
     </div>
 </div>
@@ -21,8 +21,8 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Cancelar</button>
-                    <button type="button" class="btn btn-primary btn-sm" onclick="saveImageSelected()">Guardar</button>
+                    <button type="button" class="btn btn-secondary btn-sm rounded" data-dismiss="modal"><i class="fa fa-ban"></i> Cancelar</button>
+                    <button type="button" class="btn btn-success btn-sm rounded" onclick="saveImageSelected()"><i class="fa fa-check"></i> Elegir</button>
                 </div>
             </div>
         </div>
