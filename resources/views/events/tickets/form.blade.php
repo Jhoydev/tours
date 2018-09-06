@@ -50,10 +50,8 @@
     </div>
 </div>
 <div class="form-row">
-    <div class="col-md-6 form-group text-center">
-        <button  type="button" class="btn btn-light btn-sm border border-secondary rounded" onclick="toggleFormTicket()">Cancelar</button>
-    </div>
-    <div class="col-md-6 form-group text-center">
-        <button type="submit" class="btn btn-success btn-sm rounded">Guardar</button>
+    <div class="col-12 form-group text-right">
+        <button  type="button" class="btn btn-outline-secondary btn-sm rounded mr-3" onclick="toggleFormTicket()" data-dismiss="modal"><i class="fa fa-ban"></i> Cancelar</button>
+        <button type="submit" class="btn btn-success btn-sm rounded"><i class="fa fa-plus"></i> Crear</button>
     </div>
 </div>

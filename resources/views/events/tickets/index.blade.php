@@ -96,7 +96,7 @@
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title">Nuevo Tiquete</h5>
+                        <span class="modal-title h5">Nuevo Tiquete</span>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -133,6 +133,8 @@
         });
 
         function openModalEdit(url){
+            $("#modal_edit_ticket .modal-header > .modal-title ").append(`<span id="loading_modal_edit"><i class="fa fa-spinner fa-pulse fa-fw"></i><span class="sr-only">Loading...</span><span>`);
+            $("#modal_edit_ticket :input").prop("disabled", true);
             $('#modal_edit_ticket').modal('toggle');
             document.querySelector("#modal_edit_ticket form").reset();
             $.get(url,function (res) {
@@ -144,6 +146,8 @@
                 document.querySelector("#modal_edit_ticket  #end_sale_date").value = res.end_sale_date;
                 document.querySelector("#modal_edit_ticket  #min_per_person").value = res.min_per_person;
                 document.querySelector("#modal_edit_ticket  #max_per_person").value = res.max_per_person;
+                $("#loading_modal_edit").remove();
+                $("#modal_edit_ticket :input").prop("disabled", false);
             })
         }
     </script>
