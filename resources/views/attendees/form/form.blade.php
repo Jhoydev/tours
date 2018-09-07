@@ -104,23 +104,23 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="city">Ciudad</label>
-                    <input id="city" name="city" type="text" class="form-control rounded" placeholder="Ciudad" v-model="city">
+                    <label for="country">Pais</label>
+                    <input id="country" name="country" type="text" class="form-control rounded" placeholder="Pais" v-model="country">
                 </div>
-
+                
                 <div class="form-group">
                     <label for="state">Estado/Departamento</label>
                     <input id="state" name="state" type="text" class="form-control rounded" placeholder="Estado/Departamento" v-model="state">
                 </div>
 
                 <div class="form-group">
-                    <label for="zip_code">Codigo Postal</label>
-                    <input id="zip_code" name="zip_code" type="text" class="form-control rounded" placeholder="Codigo Postal" v-model="zip_code">
+                    <label for="city">Ciudad</label>
+                    <input id="city" name="city" type="text" class="form-control rounded" placeholder="Ciudad" v-model="city">
                 </div>
 
                 <div class="form-group">
-                    <label for="country">Pais</label>
-                    <input id="country" name="country" type="text" class="form-control rounded" placeholder="Pais" v-model="country">
+                    <label for="zip_code">Codigo Postal</label>
+                    <input id="zip_code" name="zip_code" type="text" class="form-control rounded" placeholder="Codigo Postal" v-model="zip_code">
                 </div>
 
                 <div class="form-group">

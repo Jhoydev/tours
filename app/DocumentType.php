@@ -9,7 +9,8 @@ class DocumentType extends Model
 {
     protected $fillable = ['name'];
     
-    public function attendee(){
-        return $this->belongsTo(Attendee::class);
+    public function attendee()
+    {
+        return $this->hasMany(Attendee::class);
     }
 }

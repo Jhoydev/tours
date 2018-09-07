@@ -19,7 +19,7 @@ class Attendee extends Model {
     protected $dates    = ["deleted_at", "created_at", "updated_at"];
 
     public function document_type() {
-        return $this->hasOne(DocumentType::class);
+        return $this->belongsTo(DocumentType::class);
     }
 
     public function created_by() {

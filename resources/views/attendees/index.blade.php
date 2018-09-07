@@ -26,7 +26,7 @@
                     <div class="col-md-7"><p class="text-secondary">{{ $attendee->mobile }}</p></div>
                 </div>
                 <div class="row">
-                    <div class="col-md-5"><strong>Documento</strong></div>
+                    <div class="col-md-5"><strong>{{ $attendee->document_type->name }}</strong></div>
                     <div class="col-md-7"><p class="text-secondary">{{ $attendee->document }}</p></div>
                 </div>
                 <hr>
