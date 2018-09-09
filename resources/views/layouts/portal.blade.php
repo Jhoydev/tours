@@ -45,11 +45,11 @@
                 <a class="dropdown-item" href="{{ url('user/'.Auth::user()->id.'/edit') }}">
                     <i class="fa fa-user-o"></i> Perfil
                 </a>
-                <a class="dropdown-item" href="{{ route('logout') }}"
+                <a class="dropdown-item" href="{{ route('portal.logout') }}"
                    onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                     <i class="fa fa-sign-out"></i> Salir
                 </a>
-                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                <form id="logout-form" action="{{ route('portal.logout') }}" method="POST" style="display: none;">
                     @csrf
                 </form>
             </div>

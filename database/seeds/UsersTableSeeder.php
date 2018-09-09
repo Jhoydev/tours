@@ -11,19 +11,6 @@ class UsersTableSeeder extends Seeder {
      */
     public function run() {
 
-        DB::table('insignia.clientes')->insert([
-            'name'       => 'Insignia',
-            'key_app'    => 'insignia',
-            'database'   => 'eventos',
-            'phone'      => '3505781056',
-            'email'      => 'hola@insignia.com.co',
-            'address'    => 'Medellin, Colombia',
-            'facebook'   => 'https://www.facebook.com/agenciainsignia',
-            'instagram'  => 'https://www.facebook.com/agenciainsignia',
-            'twitter'    => 'https://www.facebook.com/agenciainsignia',
-            'created_at' => date("Y-m-d h:i:s")
-        ]);
-
         DB::table('users')->insert([
             'first_name' => 'Soporte',
             'last_name'  => 'Insignia',
@@ -38,7 +25,7 @@ class UsersTableSeeder extends Seeder {
         ]);
 
         DB::table('users')->insert([
-            'first_name' => 'Soporte9',
+            'first_name' => 'Soporte 1',
             'last_name'  => 'Insignia',
             'phone'      => '987654321',
             'mobile'     => '987654321',
@@ -48,6 +35,19 @@ class UsersTableSeeder extends Seeder {
             'email'      => 'jhoseph.dev@gmail.com',
             'password'   => bcrypt('123456'),
             'company_id' => '1'
+        ]);
+
+        DB::table('users')->insert([
+            'first_name' => 'Soporte 2',
+            'last_name'  => 'Insignia',
+            'phone'      => '987654321',
+            'mobile'     => '987654321',
+            'address'    => 'Calle falsa 123',
+            'city'       => 'Elx',
+            'state'      => 'Alicante',
+            'email'      => 'soporte2@correo.com',
+            'password'   => bcrypt('123456'),
+            'company_id' => '2'
         ]);
     }
 

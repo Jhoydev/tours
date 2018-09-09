@@ -1,13 +1,15 @@
 @extends('layouts.main')
 @section('content')
     @include('layouts.menssage_success')
+    @push('navbar_items_right')
+        <li class="nav-item">
+            <button type="button" class="btn btn-success rounded mr-5" data-toggle="modal" data-target="#createModal"><i class="fa fa-plus"></i> Crear evento </button>
+        </li>
+    @endpush
     <div class="row pt-3">
         <div class="col-12">
             <div class="row">
                 <div class="col-md-12 col-lg-6"><h4>Listado de Eventos</h4></div>
-                <div class="col-md-12 col-lg-6 text-right">
-                    <button type="button" class="btn btn-success btn-sm mb-2 rounded" data-toggle="modal" data-target="#createModal"><i class="fa fa-plus"></i> Crear evento </button>
-                </div>
             </div>
         </div>
     </div>

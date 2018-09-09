@@ -34,6 +34,14 @@ class User extends Authenticatable
     protected $hidden = ['password', 'remember_token'];
     protected $dates = ['deleted_at'];
 
+    protected static function boot()
+    {
+        parent::boot();
+        if (Auth::guard()->check()){
+            static::addGlobalScope(new CompanyScope);
+        }
+    }
+
     public function setPasswordAttribute($password)
     {
         if(Hash::needsRehash($password))

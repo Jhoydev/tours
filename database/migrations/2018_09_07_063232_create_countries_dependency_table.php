@@ -13,14 +13,14 @@ class CreateCountriesDependencyTable extends Migration {
      */
     public function up() {
 
-        Schema::create('insignia.countries', function (Blueprint $table) {
+        Schema::create('countries', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
             $table->string('abbreviation');
             $table->timestamps();
         });
         
-        Schema::create('insignia.states', function (Blueprint $table) {
+        Schema::create('states', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
             $table->unsignedInteger('country_id');
@@ -28,7 +28,7 @@ class CreateCountriesDependencyTable extends Migration {
             $table->timestamps();
         });
 
-        Schema::create('insignia.cities', function (Blueprint $table) {
+        Schema::create('cities', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
             $table->unsignedInteger('state_id');
@@ -43,9 +43,9 @@ class CreateCountriesDependencyTable extends Migration {
      * @return void
      */
     public function down() {
-        Schema::dropIfExists('insignia.cities');
-        Schema::dropIfExists('insignia.states');
-        Schema::dropIfExists('insignia.countries');
+        Schema::dropIfExists('cities');
+        Schema::dropIfExists('states');
+        Schema::dropIfExists('countries');
     }
 
 }

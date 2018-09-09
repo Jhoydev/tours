@@ -40,6 +40,8 @@ class CreateEventsTable extends Migration
             $table->foreign('event_status_id')->references('id')->on('event_status');
             $table->unsignedInteger('created_by');
             $table->foreign('created_by')->references('id')->on('users');
+            $table->unsignedInteger('company_id');
+            $table->foreign('company_id')->references('id')->on('companies');
             $table->timestamps();
         });
     }

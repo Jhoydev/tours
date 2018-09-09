@@ -34,22 +34,6 @@
                         <h3 class="text-center mt-3">Iniciar Sesión</h3>
                         <form method="POST" action="{{ route('login') }}">
                             @csrf
-                            @if(isset($key_app))
-                                <input type="hidden" name="key_app" value="{{ $key_app }}">
-                            @else
-                                <div class="input-group mb-3">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text"><i class="fa fa-building-o"></i></span>
-                                    </div>
-                                    <input id="key_app" type="key_app" class="form-control{{ $errors->has('key_app') ? ' is-invalid' : '' }}" name="key_app" value="{{ old('key_app') }}" placeholder="Clave de empresa" required autofocus>
-                                    @if ($errors->has('key_app'))
-                                        <span class="invalid-feedback">
-                                        <strong>{{ $errors->first('key_app') }}</strong>
-                                    </span>
-                                    @endif
-                                </div>
-                            @endif
-
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="icon-user"></i></span>

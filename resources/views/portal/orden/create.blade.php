@@ -5,7 +5,7 @@
             <div class="card">
                 <div class="card-body">
 
-                    <a href="{{ route('event.page',[$data['key_app'],$data['page_id']]) }}">volver a la pagina del evento</a>
+                    <a href="{{ route('event.page',[$data['event_id'],$data['page_id']]) }}">volver a la pagina del evento</a>
                     <code>
                     {{ $tickets }}
                     </code>

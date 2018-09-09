@@ -20,7 +20,7 @@ class RedirectIfAuthenticated
         switch ($guard){
             case 'attendee':
                 if (Auth::guard($guard)->check()) {
-                    return redirect("portal/$request->key_app/home");
+                    return redirect(route('portal'));
                 }
                 break;
             default:

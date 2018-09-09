@@ -60,7 +60,7 @@ class Handler extends ExceptionHandler
 
         switch ($guard){
             case 'attendee':
-                return redirect()->guest(url("portal/$request->key_app/login"));
+                return redirect()->guest(route('portal.login'));
                 break;
             default:
                 return redirect()->guest(route('login'));

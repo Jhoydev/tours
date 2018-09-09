@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Event;
 use App\Insignia;
 use App\Page;
+use App\Scopes\CompanyScope;
 use App\Ticket;
 use DB;
 use Illuminate\Http\Request;
@@ -76,17 +77,10 @@ class PageController extends Controller
      * @param $page
      * @return \Illuminate\Http\Response
      */
-    public function show($key_app,$id)
+    public function show($event_id,Page $page)
     {
-        $database = Insignia::Where('key_app',$key_app)->first();
-        if ($database->database){
-            if($page = Page::publicView($database->database,$id)){
-                $tickets = Ticket::Where('event_id',$page->id)->get();
-                return view('page.show',compact('page','tickets','key_app'));
-            }
-        }
-        return response('',404);
-
+        $event =  Event::withoutGlobalScope(CompanyScope::class)->find($event_id);
+        return view('page.show',compact('page','event'));
     }
 
     /**

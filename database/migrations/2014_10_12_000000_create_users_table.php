@@ -26,7 +26,8 @@ class CreateUsersTable extends Migration
             $table->string('state')->nullable();
             $table->string('avatar')->default('default.jpg');
             $table->string('password');
-            $table->integer('company_id')->index();
+            $table->unsignedInteger('company_id');
+            $table->foreign('company_id')->references('id')->on('companies');
             $table->softDeletes();
             $table->rememberToken();
             $table->timestamps();

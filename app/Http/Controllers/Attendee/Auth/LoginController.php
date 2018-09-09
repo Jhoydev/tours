@@ -32,7 +32,7 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/';
+    protected $redirectTo = 'portal/home';
 
     /**
      * Create a new controller instance.
@@ -42,15 +42,7 @@ class LoginController extends Controller
 
     public function __construct(Request $request)
     {
-        session()->forget('base_de_datos');
-        session()->forget('key_app');
-
-        if ($request->key_app && $key_app = Insignia::where('key_app',$request->key_app)->first()){
-            Config(['database.connections.mysql.database'=> $key_app->database ]);
-            session(['base_de_datos' => $key_app->database ]);
-            session(['key_app' => $request->key_app ]);
-        }
-        $this->redirectTo = "portal/$request->key_app/home";
+        $this->redirectTo = route('portal');
         $this->middleware('guest:attendee')->except('logout');
     }
     /**
@@ -63,22 +55,16 @@ class LoginController extends Controller
         return Auth::guard('attendee');
     }
 
-    public function showLoginForm($key_app="")
+    public function showLoginForm()
     {
         if  (Auth::guard('web')->check()){
             return back()->with('message_login','Ya estas autenticado en otro tipo de cuenta, por favor cierra esa sesión para poder realizar esta.');
         }
-        if($key_app && Insignia::where('key_app',$key_app)->first()){
-            return view('attendees.auth.login',compact('key_app'));
-        }else{
-            return abort('404');
-        }
+        return view('portal.auth.login');
     }
 
     public function login(Request $request)
     {
-
-
         $this->validateLogin($request);
 
         // If the class is using the ThrottlesLogins trait, we can automatically throttle
@@ -102,26 +88,18 @@ class LoginController extends Controller
         return $this->sendFailedLoginResponse($request);
     }
 
-    public function username()
-    {
-        return 'email';
+    public function redirectAuthenticated(){
+        return view('errors.authenticated');
     }
 
     public function logout(Request $request)
     {
+        session()->forget('url.intended');
         $this->guard()->logout();
 
-        if (!$key_app = (session()->get('key_app'))){
-//            $request->session()->invalidate();
-            return abort('404');
-        }
+        $request->session()->invalidate();
 
-//        $request->session()->invalidate();
-        return redirect("portal/$key_app/login");
-    }
-
-    public function redirectAuthenticated(){
-        return view('errors.authenticated');
+        return redirect(route('portal.login'));
     }
 
 }

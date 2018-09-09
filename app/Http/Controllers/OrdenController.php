@@ -24,7 +24,7 @@ class OrdenController extends Controller
             }
             return redirect(route('event.page',[$request->key_app,$request->page_id]));
         }else{
-            return redirect(route('attendee.login',$request->key_app));
+            return redirect(route('portal.login'));
         }
     }
 }

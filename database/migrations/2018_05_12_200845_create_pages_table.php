@@ -20,6 +20,8 @@ class CreatePagesTable extends Migration
             $table->boolean('is_live')->default(false);
             $table->unsignedInteger('event_id');
             $table->foreign('event_id')->references('id')->on('events');
+            $table->unsignedInteger('company_id');
+            $table->foreign('company_id')->references('id')->on('companies');
             $table->timestamps();
         });
     }

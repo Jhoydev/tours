@@ -44,64 +44,21 @@ class LoginController extends Controller
     {
         $this->middleware('guest')->except('logout');
     }
-    public function showLoginForm($key_app="")
+
+    public function showLoginForm()
     {
         if  (Auth::guard('attendee')->check()){
             return view('errors.authenticated');
         }
-        if($key_app && Insignia::where('key_app',$key_app)->first()){
-            return view('auth.login',compact('key_app'));
-        }else{
-            return view('auth.login');
-        }
+        return view('auth.login');
     }
-
-    public function login(Request $request)
-    {
-        session()->forget('base_de_datos');
-        session()->forget('key_app');
-
-        if ($request->key_app && $key_app = Insignia::where('key_app',$request->key_app)->first()){
-            Config(['database.connections.mysql.database'=> $key_app->database ]);
-            session(['base_de_datos' => $key_app->database ]);
-            session(['key_app' => $request->key_app ]);
-        }
-
-        $this->validateLogin($request);
-
-        // If the class is using the ThrottlesLogins trait, we can automatically throttle
-        // the login attempts for this application. We'll key this by the username and
-        // the IP address of the client making these requests into this application.
-        if ($this->hasTooManyLoginAttempts($request)) {
-            $this->fireLockoutEvent($request);
-
-            return $this->sendLockoutResponse($request);
-        }
-
-        if ($this->attemptLogin($request)) {
-            return $this->sendLoginResponse($request);
-        }
-
-        // If the login attempt was unsuccessful we will increment the number of attempts
-        // to login and redirect the user back to the login form. Of course, when this
-        // user surpasses their maximum number of attempts they will get locked out.
-        $this->incrementLoginAttempts($request);
-
-        return $this->sendFailedLoginResponse($request);
-    }
-
-
     public function logout(Request $request)
     {
+        session()->forget('url.intended');
         $this->guard()->logout();
 
-        if (!$key_app = (session()->get('key_app'))){
-            $request->session()->invalidate();
-            return abort('404');
-        }
-
         $request->session()->invalidate();
-        return redirect('login/'.$key_app);
-    }
 
+        return redirect(route('login'));
+    }
 }

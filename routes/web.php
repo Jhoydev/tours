@@ -14,22 +14,22 @@ Auth::routes();
 Route::get('login/{key_app?}', 'Auth\LoginController@showLoginForm')->name('login');
 Route::get('/', 'HomeController@index')->name('home');
 
-Route::get('evento/{key_app}/{page}', 'PageController@show')->name('event.page');
+Route::get('evento/{event}/{page}', 'PageController@show')->name('event.page');
 Route::get('redirect-authenticated', 'Attendee\Auth\LoginController@redirectAuthenticated');
 
 Route::prefix('portal')->group(function () {
-    Route::get('{key_app}/login', 'Attendee\Auth\LoginController@showLoginForm')->name('attendee.login');
-    Route::post('{key_app}/login', 'Attendee\Auth\LoginController@login');
-    Route::post('{key_app}/logout', 'Attendee\Auth\LoginController@logout');
+    Route::get('login', 'Attendee\Auth\LoginController@showLoginForm')->name('portal.login');
+    Route::post('login', 'Attendee\Auth\LoginController@login')->name('portal.login');
+    Route::post('logout', 'Attendee\Auth\LoginController@logout')->name('portal.logout');
 
 });
 
-Route::middleware(['auth:attendee','portal'])->group(function () {
-    Route::get('portal/{key_app}/home', 'AttendeeController@portal');
-    Route::get('portal/{key_app}/shop', 'OrdenController@show')->name('shop');
+Route::middleware(['auth:attendee'])->group(function () {
+    Route::get('portal/home', 'AttendeeController@portal')->name('portal');
+    Route::get('portal/shop', 'OrdenController@show')->name('shop');
 });
 
-Route::middleware('auth')->group(function () {
+Route::middleware('auth:web')->group(function () {
 
     Route::post('page', 'PageController@store');
     Route::get('page/{event}/create', 'PageController@create');
