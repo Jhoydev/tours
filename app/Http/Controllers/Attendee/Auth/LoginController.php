@@ -66,7 +66,7 @@ class LoginController extends Controller
     public function showLoginForm($key_app="")
     {
         if  (Auth::guard('web')->check()){
-            return abort('403');
+            return back()->with('message_login','Ya estas autenticado en otro tipo de cuenta, por favor cierra esa sesión para poder realizar esta.');
         }
         if($key_app && Insignia::where('key_app',$key_app)->first()){
             return view('attendees.auth.login',compact('key_app'));
@@ -119,4 +119,9 @@ class LoginController extends Controller
 //        $request->session()->invalidate();
         return redirect("portal/$key_app/login");
     }
+
+    public function redirectAuthenticated(){
+        return view('errors.authenticated');
+    }
+
 }

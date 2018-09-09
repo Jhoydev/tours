@@ -61,18 +61,9 @@
     <div class="sidebar">
         <nav class="sidebar-nav">
             <ul class="nav">
-                <li class="nav-item">
+                {{--<li class="nav-item">
                     <a class="nav-link" href="{{ url('user') }}"><i class="fa fa-user"></i> Usuarios</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ url('role') }}"><i class="fa fa-book"></i> Roles</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ url('attendee') }}"><i class="fa fa-users"></i> Asistentes</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ url("events") }}"><i class="icon-calendar"></i> Eventos</a>
-                </li>
+                </li>--}}
                 @stack('sidebar')
             </ul>
         </nav>

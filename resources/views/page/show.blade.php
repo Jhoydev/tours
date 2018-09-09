@@ -9,12 +9,38 @@
     <link href="{{ mix('css/main.css') }}" rel="stylesheet">
 </head>
 <body style="color:{{ $page->color_text }}; background-position: center; background-repeat: no-repeat; background-size: cover; background-image: url({{ $page->background }});">
-<nav class="navbar fixed-top navbar-light bg-light">
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container">
-        <a class="navbar-brand" href="#"><strong>Insignia</strong></a>
+        <a class="navbar-brand font-weight-bold" href="#">Insignia</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarText">
+            <ul class="navbar-nav mr-auto">
+
+            </ul>
+            <ul class="navbar-nav">
+                @if (Auth::guard('attendee')->check())
+
+                @else
+                    <li class="nav-item">
+                        <a class=" btn btn-sm btn-primary rounded" href="{{ url("portal/$key_app/login") }}"><i class="fa fa-user"></i> Iniciar sesión</a>
+                    </li>
+                @endif
+            </ul>
+        </div>
     </div>
 </nav>
+
 <div class="container" style="margin-top: 100px">
+    @if (session('message_login'))
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            {{ session('message_login') }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    @endif
     <div class="row">
         <div class="col-12">
             <div class="card rounded" style="background-color: rgba(255, 255,255, 0.9)">
@@ -66,12 +92,14 @@
                         <p class="h2">Tiquetes</p>
                         <p>Compra aquí tus tiquetes</p>
                     </div>
-                    <form method="POST" action="{{ route('shop') }}" class="px-5 py-3" id="form-shopping-cart">
+                    <form method="GET" action="{{ route('shop',['key_app' => $key_app]) }}" class="px-5 py-3" id="form-shopping-cart">
                         @csrf
                         <div class="row mt-3 d-flex justify-content-center">
 
                             <input type="hidden" id="buy_json" name="buy_json">
                             <input type="hidden" name="event_id" value="{{ $page->id }}">
+                            <input type="hidden" name="key_app" value="{{ $key_app }}">
+                            <input type="hidden" name="page_id" value="{{ $page->page_id }}">
                             @foreach ($tickets as $ticket)
                                 <div class="col-md-auto">
                                     <div class="card border-info rounded">

@@ -31,7 +31,7 @@
                         <div class="card-img text-center">
                             <img style="height: 60px" src="{{ asset('img/logo-dark.png') }}" alt="">
                         </div>
-                        <h3 class="text-center mt-3">Iniciar Sesión 2</h3>
+                        <h3 class="text-center mt-3">Iniciar Sesión 2 {{ $key_app }}</h3>
                         <form method="POST" action="{{ url("portal/$key_app/login") }}">
                             @csrf
                             @if(isset($key_app))

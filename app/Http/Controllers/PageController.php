@@ -76,13 +76,13 @@ class PageController extends Controller
      * @param $page
      * @return \Illuminate\Http\Response
      */
-    public function show($key,$id)
+    public function show($key_app,$id)
     {
-        $database = Insignia::Where('key_app',$key)->first();
+        $database = Insignia::Where('key_app',$key_app)->first();
         if ($database->database){
             if($page = Page::publicView($database->database,$id)){
                 $tickets = Ticket::Where('event_id',$page->id)->get();
-                return view('page.show',compact('page','tickets'));
+                return view('page.show',compact('page','tickets','key_app'));
             }
         }
         return response('',404);

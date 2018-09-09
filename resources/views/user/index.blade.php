@@ -2,8 +2,8 @@
 @section('content')
     @include('layouts.menssage_success')
     @push('navbar_items_right')
-        <li class="nav-item mr-4">
-            <a class="btn btn-success rounded" href="{{ url('user/create') }}"><i class="fa fa-user"></i> Nuevo usuario</a>
+        <li class="nav-item">
+            <a class="btn btn-success rounded mr-5" href="{{ url('user/create') }}"><i class="fa fa-plus"></i> Nuevo usuario</a>
         </li>
     @endpush
     <div class="row mt-5">

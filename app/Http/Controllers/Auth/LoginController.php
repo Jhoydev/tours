@@ -47,7 +47,7 @@ class LoginController extends Controller
     public function showLoginForm($key_app="")
     {
         if  (Auth::guard('attendee')->check()){
-            return abort('403');
+            return view('errors.authenticated');
         }
         if($key_app && Insignia::where('key_app',$key_app)->first()){
             return view('auth.login',compact('key_app'));
