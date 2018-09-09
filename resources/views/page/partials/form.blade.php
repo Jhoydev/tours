@@ -53,13 +53,13 @@
         <hr>
         <div class="form-group">
             @if ( $page->id )
-                <a href="{{ url('tour/' . Auth::user()->company->key_app . '/' . $page->id ) }}" class="btn btn-light border-secondary btn-sm rounded">Ver pagina</a>
+                <a href="{{ url('evento/' . Auth::user()->company->key_app . '/' . $page->id ) }}" target="_blank" class="btn btn-light border-secondary btn-sm rounded"><i class="fa fa-external-link" aria-hidden="true"></i> Ver pagina</a>
             @endif
         </div>
     </div>
     <div class="col-md-8">
         <div class="card">
-            <iframe id="iframe_page" style="width: 100%;height: 100vh;pointer-events: none;" src="{{ ($page->id) ? url('tour/' . Auth::user()->company->key_app . '/' . $page->id ) : "" }}" frameborder="0"></iframe>
+            <iframe id="iframe_page" style="width: 100%;height: 100vh;pointer-events: none;" src="{{ ($page->id) ? url('evento/' . Auth::user()->company->key_app . '/' . $page->id ) : "" }}" frameborder="0"></iframe>
         </div>
     </div>
 </div>

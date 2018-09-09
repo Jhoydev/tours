@@ -53,7 +53,7 @@
                                             </div>
                                             <div class="modal-body">
                                                 {!! Form::open(['url' => url("events/$event->id/tickets/$ticket->id"),'method' => 'PUT', 'id' => 'form_ticket_edit']) !!}
-                                                @include('events.tickets.form')
+                                                @include('events.tickets.form',['action' => 'edit'])
                                                 {!! Form::close() !!}
                                             </div>
                                         </div>
@@ -103,7 +103,7 @@
                     </div>
                     <div class="modal-body">
                         {!! Form::open(['url' => url("events/$event->id/tickets"),'method' => 'POST', 'id' => 'form_ticket']) !!}
-                        @include('events.tickets.form')
+                        @include('events.tickets.form',['action' => 'create'])
                         {!! Form::close() !!}
                     </div>
                 </div>
@@ -116,10 +116,17 @@
     <script>
         $('document').ready(()=>{
 
-            $('#input_start').datetimepicker({
+            $('#input_start_edit').datetimepicker({
                 format: "DD-MM-YYYY HH:mm:ss"
             });
-            $('#input_end').datetimepicker({
+            $('#input_end_edit').datetimepicker({
+                format: "DD-MM-YYYY HH:mm:ss"
+            });
+
+            $('#input_start_create').datetimepicker({
+                format: "DD-MM-YYYY HH:mm:ss"
+            });
+            $('#input_end_create').datetimepicker({
                 format: "DD-MM-YYYY HH:mm:ss"
             });
 

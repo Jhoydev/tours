@@ -18,6 +18,7 @@
 
 <body class="app header-fixed sidebar-fixed aside-menu-fixed aside-menu-hidden sidebar-mobile-show sidebar-minimized brand-minimized">
 <header class="app-header navbar pl-3 pr-5">
+
     <button class="navbar-toggler mobile-sidebar-toggler d-lg-none mr-auto" type="button">
         <span class="navbar-toggler-icon"></span>
     </button>
@@ -25,13 +26,8 @@
     <button class="navbar-toggler sidebar-toggler d-md-down-none" type="button">
         <span class="navbar-toggler-icon"></span>
     </button>
-
-    <ul class="nav navbar-nav d-md-down-none">
-        <li class="nav-item px-3">
-            <a class="nav-link" href="{{ url('events') }}"><i class="icon-calendar"></i> Eventos</a>
-        </li>
-    </ul>
     <ul class="nav navbar-nav ml-auto">
+        @stack('navbar_items_right')
         <li class="nav-item dropdown">
             <a class="nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true"
                aria-expanded="false" style="position: relative;padding-left: 50px">

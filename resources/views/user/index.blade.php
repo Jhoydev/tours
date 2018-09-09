@@ -1,14 +1,14 @@
 @extends('layouts.main')
 @section('content')
     @include('layouts.menssage_success')
+    @push('navbar_items_right')
+        <li class="nav-item mr-4">
+            <a class="btn btn-success rounded" href="{{ url('user/create') }}"><i class="fa fa-user"></i> Nuevo usuario</a>
+        </li>
+    @endpush
     <div class="row mt-5">
         <div class="col-12">
             <div class="row">
-                <div class="col-auto mb-3">
-                    <div>
-                        <a class="btn btn-success rounded" href="{{ url('user/create') }}"><i class="fa fa-user"></i> Nuevo usuario</a>
-                    </div>
-                </div>
                 <div class="col-md mb-3">
                     <form id="form_search_user" action="{{ url('user') }}">
                         <div class="form-row">

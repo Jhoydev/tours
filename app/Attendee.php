@@ -4,12 +4,14 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 use App\DocumentType;
 use App\User;
 
-class Attendee extends Model {
+class Attendee extends Authenticatable {
 
-    Use SoftDeletes;
+    use Notifiable,SoftDeletes;
 
     protected $fillable = [
         'first_name', 'last_name', 'document_type_id', 'document', 'email',

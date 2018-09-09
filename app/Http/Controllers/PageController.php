@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Event;
 use App\Insignia;
 use App\Page;
+use App\Ticket;
 use DB;
 use Illuminate\Http\Request;
 use Auth;
@@ -80,7 +81,8 @@ class PageController extends Controller
         $database = Insignia::Where('key_app',$key)->first();
         if ($database->database){
             if($page = Page::publicView($database->database,$id)){
-                return view('page.show',compact('page'));
+                $tickets = Ticket::Where('event_id',$page->id)->get();
+                return view('page.show',compact('page','tickets'));
             }
         }
         return response('',404);

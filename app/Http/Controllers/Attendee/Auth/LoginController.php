@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Http\Controllers\Auth;
+namespace App\Http\Controllers\Attendee\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Insignia;
 use App\User;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 
@@ -42,22 +42,6 @@ class LoginController extends Controller
 
     public function __construct(Request $request)
     {
-        $this->middleware('guest')->except('logout');
-    }
-    public function showLoginForm($key_app="")
-    {
-        if  (Auth::guard('attendee')->check()){
-            return abort('403');
-        }
-        if($key_app && Insignia::where('key_app',$key_app)->first()){
-            return view('auth.login',compact('key_app'));
-        }else{
-            return view('auth.login');
-        }
-    }
-
-    public function login(Request $request)
-    {
         session()->forget('base_de_datos');
         session()->forget('key_app');
 
@@ -66,6 +50,34 @@ class LoginController extends Controller
             session(['base_de_datos' => $key_app->database ]);
             session(['key_app' => $request->key_app ]);
         }
+        $this->redirectTo = "portal/$request->key_app/home";
+        $this->middleware('guest:attendee')->except('logout');
+    }
+    /**
+     * Get the guard to be used during authentication.
+     *
+     * @return \Illuminate\Contracts\Auth\StatefulGuard
+     */
+    protected function guard()
+    {
+        return Auth::guard('attendee');
+    }
+
+    public function showLoginForm($key_app="")
+    {
+        if  (Auth::guard('web')->check()){
+            return abort('403');
+        }
+        if($key_app && Insignia::where('key_app',$key_app)->first()){
+            return view('attendees.auth.login',compact('key_app'));
+        }else{
+            return abort('404');
+        }
+    }
+
+    public function login(Request $request)
+    {
+
 
         $this->validateLogin($request);
 
@@ -90,18 +102,21 @@ class LoginController extends Controller
         return $this->sendFailedLoginResponse($request);
     }
 
+    public function username()
+    {
+        return 'email';
+    }
 
     public function logout(Request $request)
     {
         $this->guard()->logout();
 
         if (!$key_app = (session()->get('key_app'))){
-            $request->session()->invalidate();
+//            $request->session()->invalidate();
             return abort('404');
         }
 
-        $request->session()->invalidate();
-        return redirect('login/'.$key_app);
+//        $request->session()->invalidate();
+        return redirect("portal/$key_app/login");
     }
-
 }

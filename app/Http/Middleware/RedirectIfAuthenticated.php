@@ -17,9 +17,19 @@ class RedirectIfAuthenticated
      */
     public function handle($request, Closure $next, $guard = null)
     {
-        if (Auth::guard($guard)->check()) {
-            return redirect('/');
+        switch ($guard){
+            case 'attendee':
+                if (Auth::guard($guard)->check()) {
+                    return redirect("portal/$request->key_app/home");
+                }
+                break;
+            default:
+                if (Auth::guard($guard)->check()) {
+                    return redirect('/');
+                }
+            break;
         }
+
 
         return $next($request);
     }

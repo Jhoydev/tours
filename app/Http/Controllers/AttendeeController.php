@@ -123,4 +123,8 @@ class AttendeeController extends Controller
         session()->flash('message',"El asistente: $attendee->first_name $attendee->last_name ha sido eliminado correctamente");
         return redirect('attendee');
     }
+    public function portal()
+    {
+        return view('portal.home');
+    }
 }

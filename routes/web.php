@@ -9,13 +9,25 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+
 Auth::routes();
 Route::get('login/{key_app?}', 'Auth\LoginController@showLoginForm')->name('login');
+Route::get('/', 'HomeController@index')->name('home');
 
 Route::get('evento/{key_app}/{page}', 'PageController@show');
-Route::get('/', 'HomeController@index')->name('home');
-Route::middleware('auth')->group(function () {
+Route::post('shop', 'OrdenController@show')->name('shop');
 
+Route::prefix('portal')->group(function () {
+    Route::get('{key_app}/login', 'Attendee\Auth\LoginController@showLoginForm')->name('attendee.login');
+    Route::post('{key_app}/login', 'Attendee\Auth\LoginController@login');
+    Route::post('{key_app}/logout', 'Attendee\Auth\LoginController@logout');
+});
+
+Route::middleware(['auth:attendee','portal'])->group(function () {
+    Route::get('portal/{key_app}/home', 'AttendeeController@portal');
+});
+
+Route::middleware('auth')->group(function () {
 
     Route::post('page', 'PageController@store');
     Route::get('page/{event}/create', 'PageController@create');
