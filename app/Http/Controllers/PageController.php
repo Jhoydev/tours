@@ -53,7 +53,7 @@ class PageController extends Controller
             if ($request->ajax()){
                 return response()->json([
                     'status' => true,
-                    'url' => url('tour/' . Auth::user()->company->key_app . '/' . $page->id )
+                    'url' => url(route('event.page',[$page->event->id,$page->id]))
                 ]);
             }
             session()->flash('message',"Pagina creada");
@@ -119,7 +119,7 @@ class PageController extends Controller
             if ($request->ajax()){
                 return response()->json([
                     'status' => true,
-                    'url' => url('tour/' . Auth::user()->company->key_app . '/' . $page->id )
+                    'url' => url(route('event.page',[$page->event->id,$page->id]))
                 ]);
             }
             session()->flash('message',"Pagina Actualizada");
