@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Auth;
 class OrdenController extends Controller
 {
     public function show(Request $request){
-        if (Auth::guard('attendee')->check()){
+        if (Auth::guard('customer')->check()){
             $data = $request->all();
             $arr_ticket_id = [];
             $data_ticket = [];

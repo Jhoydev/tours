@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Attendee\Auth;
+namespace App\Http\Controllers\Customer\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Insignia;
@@ -43,7 +43,7 @@ class LoginController extends Controller
     public function __construct(Request $request)
     {
         $this->redirectTo = route('portal');
-        $this->middleware('guest:attendee')->except('logout');
+        $this->middleware('guest:customer')->except('logout');
     }
     /**
      * Get the guard to be used during authentication.
@@ -52,7 +52,7 @@ class LoginController extends Controller
      */
     protected function guard()
     {
-        return Auth::guard('attendee');
+        return Auth::guard('customer');
     }
 
     public function showLoginForm()

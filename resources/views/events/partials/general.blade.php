@@ -10,7 +10,7 @@
     </div>
     <div class="form-group col-md-4">
         <label for="">Ciudad</label>
-        <input type="text" class="form-control rounded" name="city" placeholder="Ciudad" value="{{ $event_form->city }}">
+        <input type="text" class="form-control rounded" name="city_id" placeholder="Ciudad" value="{{ $event_form->city_id }}">
     </div>
     <div class="form-group col-md-3">
         <label for="">Codigo postal</label>

@@ -122,24 +122,24 @@
                             @endif
                         </div>
                         <div class="form-group col-md-4">
-                            <label for="state"><span class="fa fa-map-marker"></span> Departamento</label>
-                            <input id="state" type="text"
-                                   class="rounded form-control{{ $errors->has('state') ? ' is-invalid' : '' }}" name="state"
-                                   value="{{ $user->state ? $user->state : old('state') }}" required autofocus>
-                            @if ($errors->has('state'))
+                            <label for="state_id"><span class="fa fa-map-marker"></span> Departamento</label>
+                            <input id="state_id" type="text"
+                                   class="rounded form-control{{ $errors->has('state_id') ? ' is-invalid' : '' }}" name="state_id"
+                                   value="{{ $user->state_id ? $user->state_id : old('state_id') }}" required autofocus>
+                            @if ($errors->has('state_id'))
                                 <span class="invalid-feedback">
-                                        <strong>{{ $errors->first('state') }}</strong>
+                                        <strong>{{ $errors->first('state_id') }}</strong>
                                     </span>
                             @endif
                         </div>
                         <div class="form-group col-md-4">
-                            <label for="city"><span class="fa fa-map-marker"></span> Ciudad</label>
-                            <input id="city" type="text"
-                                   class="rounded form-control{{ $errors->has('city') ? ' is-invalid' : '' }}" name="city"
-                                   value="{{ $user->city ? $user->city : old('city') }}" required autofocus>
-                            @if ($errors->has('city'))
+                            <label for="city_id"><span class="fa fa-map-marker"></span> Ciudad</label>
+                            <input id="city_id" type="text"
+                                   class="rounded form-control{{ $errors->has('city_id') ? ' is-invalid' : '' }}" name="city_id"
+                                   value="{{ $user->city_id ? $user->city_id : old('city_id') }}" required autofocus>
+                            @if ($errors->has('city_id'))
                                 <span class="invalid-feedback">
-                                        <strong>{{ $errors->first('city') }}</strong>
+                                        <strong>{{ $errors->first('city_id') }}</strong>
                                     </span>
                             @endif
                         </div>

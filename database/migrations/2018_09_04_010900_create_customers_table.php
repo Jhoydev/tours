@@ -4,14 +4,16 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateAttendeesTable extends Migration {
+class CreateCustomersTable extends Migration
+{
 
     /**
      * Run the migrations.
      *
      * @return void
      */
-    public function up() {
+    public function up()
+    {
 
         Schema::create('document_types', function (Blueprint $table) {
             $table->increments('id');
@@ -19,21 +21,31 @@ class CreateAttendeesTable extends Migration {
             $table->timestamps();
         });
 
-        Schema::create('attendees', function (Blueprint $table) {
+        Schema::create('customers', function (Blueprint $table) {
             $table->increments('id');
             $table->string('first_name');
             $table->string('last_name')->nullable();
-            $table->string('document_type_id')->references('id')->on('document_type_ids');;
+            
+            $table->unsignedInteger('document_type_id')->nullable();
+            $table->foreign('document_type_id')->references('id')->on('states');
+
             $table->string('document');
             $table->string('email', 128)->unique();
             $table->string('phone')->nullable();
             $table->string('mobile')->nullable();
             $table->string('address')->nullable();
             $table->string('address2')->nullable();
-            $table->string('city')->nullable();
-            $table->string('state')->nullable();
+
+            $table->unsignedInteger('city_id')->nullable();
+            $table->foreign('city_id')->references('id')->on('cities');
+
+            $table->unsignedInteger('state_id')->nullable();
+            $table->foreign('state_id')->references('id')->on('states');
+
+            $table->unsignedInteger('country_id')->nullable();
+            $table->foreign('country_id')->references('id')->on('countries');
+
             $table->string('zip_code')->nullable();
-            $table->string('country')->nullable();
             $table->string('profession')->nullable();
             $table->string('workplace')->nullable();
             $table->string('password')->default(bcrypt('evento' . date("Y")));
@@ -55,9 +67,10 @@ class CreateAttendeesTable extends Migration {
      *
      * @return void
      */
-    public function down() {
+    public function down()
+    {
         Schema::dropIfExists('document_types');
-        Schema::dropIfExists('attendees');
+        Schema::dropIfExists('customers');
     }
 
 }

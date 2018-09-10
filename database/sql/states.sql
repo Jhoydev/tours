@@ -1,4 +1,4 @@
-INSERT INTO insignia.`states` (`id`, `name`, `country_id`) VALUES
+INSERT INTO `states` (`id`, `name`, `country_id`) VALUES
 (201, 'Barbuda', 9),
 (202, 'Saint George', 9),
 (203, 'Saint John', 9),

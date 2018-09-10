@@ -3,36 +3,36 @@
 @include('layouts.menssage_success')
 <div class="row mt-5">
     <div class="col-12">
-        <a href="{{ url('attendee/create') }}" class="btn btn-sm btn-success rounded"><i class="fa fa-plus"></i> Nuevo Asistente</a>
+        <a href="{{ url('customer/create') }}" class="btn btn-sm btn-success rounded"><i class="fa fa-plus"></i> Nuevo Asistente</a>
     </div>
 </div>
 <div class="row mt-3">
-    @foreach($attendees as $attendee)
+    @foreach($customers as $customer)
     <div class="col-md-3">
         <div class="card">
             <div class="card-body">
-                <h4 class="text-center">{{ ucfirst($attendee->first_name) }} {{ ucfirst($attendee->last_name) }}</h4>
+                <h4 class="text-center">{{ ucfirst($customer->first_name) }} {{ ucfirst($customer->last_name) }}</h4>
                 <hr>
                 <div class="row">
                     <div class="col-md-5"><strong>Correo Electronico</strong></div>
-                    <div class="col-md-7"><p class="text-secondary">{{ $attendee->email }}</p></div>
+                    <div class="col-md-7"><p class="text-secondary">{{ $customer->email }}</p></div>
                 </div>
                 <div class="row">
                     <div class="col-md-5"><strong>Telefono</strong></div>
-                    <div class="col-md-7"><p class="text-secondary">{{ $attendee->phone }}</p></div>
+                    <div class="col-md-7"><p class="text-secondary">{{ $customer->phone }}</p></div>
                 </div>
                 <div class="row">
                     <div class="col-md-5"><strong>Celular</strong></div>
-                    <div class="col-md-7"><p class="text-secondary">{{ $attendee->mobile }}</p></div>
+                    <div class="col-md-7"><p class="text-secondary">{{ $customer->mobile }}</p></div>
                 </div>
                 <div class="row">
-                    <div class="col-md-5"><strong>{{ $attendee->document_type->name }}</strong></div>
-                    <div class="col-md-7"><p class="text-secondary">{{ $attendee->document }}</p></div>
+                    <div class="col-md-5"><strong>{{ $customer->document_type->name }}</strong></div>
+                    <div class="col-md-7"><p class="text-secondary">{{ $customer->document }}</p></div>
                 </div>
                 <hr>
                 <div class="d-flex justify-content-around">
-                    <a href="{{ url("attendee/$attendee->id/edit") }}" class="btn btn-primary rounded btn-sm mr-2"><i class="fa fa-pencil"></i> Editar</a>
-                    <button type="button" class="btn btn-outline-danger rounded btn-sm" data-toggle="modal" data-target="#deleteModal" data-attendee_id="{{ $attendee->id }}">
+                    <a href="{{ url("customer/$customer->id/edit") }}" class="btn btn-primary rounded btn-sm mr-2"><i class="fa fa-pencil"></i> Editar</a>
+                    <button type="button" class="btn btn-outline-danger rounded btn-sm" data-toggle="modal" data-target="#deleteModal" data-customer_id="{{ $customer->id }}">
                         <i class="fa fa-eraser" aria-hidden="true"></i> Eliminar
                     </button>
                 </div>
@@ -41,8 +41,8 @@
     </div>
     @endforeach
 </div>
-<div class="modal fade" id="deleteModal" tabindex="-1" attendee="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" attendee="document">
+<div class="modal fade" id="deleteModal" tabindex="-1" customer="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" customer="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">Aviso</h5>
@@ -67,9 +67,9 @@
 <script>
     $('#deleteModal').on('show.bs.modal', function (event) {
         let button = $(event.relatedTarget);
-        let recipient = button.data('attendee_id');
+        let recipient = button.data('customer_id');
         let modal = $(this);
-        modal.find('form').attr('action', 'attendee/' + recipient);
+        modal.find('form').attr('action', 'customer/' + recipient);
     });
 </script>
 @endsection

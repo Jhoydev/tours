@@ -19,7 +19,7 @@ class AppServiceProvider extends ServiceProvider
         Schema::defaultStringLength(191);
         Carbon::setLocale(config('app.locale'));
         view()->composer('layouts.form.roles', function ($view){
-            $view->with('roles', \App\User::obtenerRoles())->with('permissions',\App\User::obtenerPermisos());
+            $view->with('roles', \App\User::getRoles())->with('permissions',\App\User::getPermissions());
         });
     }
 

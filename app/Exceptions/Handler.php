@@ -59,7 +59,7 @@ class Handler extends ExceptionHandler
         $guard = array_get($exception->guards(),0);
 
         switch ($guard){
-            case 'attendee':
+            case 'customer':
                 return redirect()->guest(route('portal.login'));
                 break;
             default:

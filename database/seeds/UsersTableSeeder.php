@@ -17,8 +17,6 @@ class UsersTableSeeder extends Seeder {
             'phone'      => '987654321',
             'mobile'     => '987654321',
             'address'    => 'Calle falsa 123',
-            'city'       => 'Medellin',
-            'state'      => 'Antioquia',
             'email'      => 'francisco@insignia.com.co',
             'password'   => bcrypt('123456'),
             'company_id' => '1'
@@ -30,8 +28,6 @@ class UsersTableSeeder extends Seeder {
             'phone'      => '987654321',
             'mobile'     => '987654321',
             'address'    => 'Calle falsa 123',
-            'city'       => 'Elx',
-            'state'      => 'Alicante',
             'email'      => 'jhoseph.dev@gmail.com',
             'password'   => bcrypt('123456'),
             'company_id' => '1'
@@ -43,8 +39,6 @@ class UsersTableSeeder extends Seeder {
             'phone'      => '987654321',
             'mobile'     => '987654321',
             'address'    => 'Calle falsa 123',
-            'city'       => 'Elx',
-            'state'      => 'Alicante',
             'email'      => 'soporte2@correo.com',
             'password'   => bcrypt('123456'),
             'company_id' => '2'

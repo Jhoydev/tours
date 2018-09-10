@@ -68,7 +68,7 @@
                     <a class="nav-link" href="{{ url('role') }}"><i class="fa fa-book"></i> Roles</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ url('attendee') }}"><i class="fa fa-users"></i> Asistentes</a>
+                    <a class="nav-link" href="{{ url('customer') }}"><i class="fa fa-users"></i> Asistentes</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{ url("events") }}"><i class="icon-calendar"></i> Eventos</a>

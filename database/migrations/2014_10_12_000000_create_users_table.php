@@ -6,6 +6,7 @@ use Illuminate\Database\Migrations\Migration;
 
 class CreateUsersTable extends Migration
 {
+
     /**
      * Run the migrations.
      *
@@ -18,16 +19,26 @@ class CreateUsersTable extends Migration
 
             $table->string('first_name');
             $table->string('last_name')->nullable();
-            $table->string('email',128)->unique();
+            $table->string('email', 128)->unique();
             $table->string('phone')->nullable();
             $table->string('mobile')->nullable();
             $table->string('address')->nullable();
-            $table->string('city')->nullable();
-            $table->string('state')->nullable();
+            
+            $table->unsignedInteger('city_id')->nullable();
+            $table->foreign('city_id')->references('id')->on('cities');
+
+            $table->unsignedInteger('state_id')->nullable();
+            $table->foreign('state_id')->references('id')->on('states');
+
+            $table->unsignedInteger('country_id')->nullable();
+            $table->foreign('country_id')->references('id')->on('countries');
+            
             $table->string('avatar')->default('default.jpg');
             $table->string('password');
+            
             $table->unsignedInteger('company_id');
             $table->foreign('company_id')->references('id')->on('companies');
+            
             $table->softDeletes();
             $table->rememberToken();
             $table->timestamps();
@@ -43,4 +54,5 @@ class CreateUsersTable extends Migration
     {
         Schema::dropIfExists('users');
     }
+
 }

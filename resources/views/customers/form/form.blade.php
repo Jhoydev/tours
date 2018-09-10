@@ -7,7 +7,7 @@
 </style>
 @endsection
 @section('content')
-<div id="attendee" class="row mt-5 justify-content-center" v-cloak>
+<div id="customer" class="row mt-5 justify-content-center" v-cloak>
     <div class="col-md-10">
         {!! Form::open(['url' => $url_form,'method' => $method]) !!}
         <div class="card">
@@ -21,22 +21,22 @@
                 <input type="hidden" name="created_by" value="{{ Auth::user()->id }}">
                 @endif
 
-                <input type="hidden" id="inp_first_name" name="first_name" value="{{ $attendee->first_name }}">
-                <input type="hidden" id="inp_last_name" name="last_name" value="{{ $attendee->last_name }}">
-                <input type="hidden" id="inp_document_type_id" name="document_type_id" value="{{ $attendee->document_type_id }}">
-                <input type="hidden" id="inp_document" name="document" value="{{ $attendee->document }}">
-                <input type="hidden" id="inp_email" name="email" value="{{ $attendee->email }}">
-                <input type="hidden" id="inp_phone" name="phone" value="{{ $attendee->phone }}">
-                <input type="hidden" id="inp_mobile" name="mobile" value="{{ $attendee->mobile }}">
-                <input type="hidden" id="inp_address" name="address" value="{{ $attendee->address }}">
-                <input type="hidden" id="inp_address2" name="address2" value="{{ $attendee->address2 }}">
-                <input type="hidden" id="inp_city" name="city" value="{{ $attendee->city }}">
-                <input type="hidden" id="inp_state" name="state" value="{{ $attendee->state }}">
-                <input type="hidden" id="inp_zip_code" name="zip_code" value="{{ $attendee->zip_code }}">
-                <input type="hidden" id="inp_country" name="country" value="{{ $attendee->country }}">
-                <input type="hidden" id="inp_profession" name="profession" value="{{ $attendee->profession }}">
-                <input type="hidden" id="inp_workplace" name="workplace" value="{{ $attendee->workplace }}">
-                <input type="hidden" id="inp_password" name="password" value="{{ $attendee->password }}">
+                <input type="hidden" id="inp_first_name" name="first_name" value="{{ $customer->first_name }}">
+                <input type="hidden" id="inp_last_name" name="last_name" value="{{ $customer->last_name }}">
+                <input type="hidden" id="inp_document_type_id" name="document_type_id" value="{{ $customer->document_type_id }}">
+                <input type="hidden" id="inp_document" name="document" value="{{ $customer->document }}">
+                <input type="hidden" id="inp_email" name="email" value="{{ $customer->email }}">
+                <input type="hidden" id="inp_phone" name="phone" value="{{ $customer->phone }}">
+                <input type="hidden" id="inp_mobile" name="mobile" value="{{ $customer->mobile }}">
+                <input type="hidden" id="inp_address" name="address" value="{{ $customer->address }}">
+                <input type="hidden" id="inp_address2" name="address2" value="{{ $customer->address2 }}">
+                <input type="hidden" id="inp_city_id" name="city_id" value="{{ $customer->city_id }}">
+                <input type="hidden" id="inp_state_id" name="state_id" value="{{ $customer->state_id }}">
+                <input type="hidden" id="inp_zip_code" name="zip_code" value="{{ $customer->zip_code }}">
+                <input type="hidden" id="inp_country_id" name="country_id" value="{{ $customer->country_id }}">
+                <input type="hidden" id="inp_profession" name="profession" value="{{ $customer->profession }}">
+                <input type="hidden" id="inp_workplace" name="workplace" value="{{ $customer->workplace }}">
+                <input type="hidden" id="inp_password" name="password" value="{{ $customer->password }}">
 
                 <div class="row">
                     <div class="col-6">
@@ -45,7 +45,7 @@
                     <div class="col-6">
                         <div class="form-row d-flex justify-content-end">
                             <div class="text-center">
-                                <a href="{{ url('attendee') }}" class="btn btn-light btn-sm rounded"><i class="fa fa-ban"></i> Cancelar</a>
+                                <a href="{{ url('customer') }}" class="btn btn-light btn-sm rounded"><i class="fa fa-ban"></i> Cancelar</a>
                             </div>
                             <div class="ml-5 mr-1 text-center">
                                 <button class="btn btn-success btn-sm rounded" type="submit">{!! $method == 'PUT' ? '<i class="fa fa-refresh"></i> Actualizar' : '<i class="fa fa-plus"></i> Crear' !!}</button>
@@ -69,7 +69,7 @@
                     <div class="row">
                         <div class="col-md-5">
                             <label for="document_type_id">Tipo de Documento</label>
-                            {{ Form::select('document_type_id', $document_types, $attendee->document_type_id , ['class' => "form-control rounded",'required' => true]) }}
+                            {{ Form::select('document_type_id', $document_types, $customer->document_type_id , ['class' => "form-control rounded",'required' => true]) }}
                         </div>
                         <div class="col-md-7">
                             <label for="document">Documento</label>
@@ -104,18 +104,18 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="country">Pais</label>
-                    <input id="country" name="country" type="text" class="form-control rounded" placeholder="Pais" v-model="country">
+                    <label for="country_id">Pais</label>
+                    <input id="country_id" name="country_id" type="text" class="form-control rounded" placeholder="Pais" v-model="country_id">
                 </div>
                 
                 <div class="form-group">
-                    <label for="state">Estado/Departamento</label>
-                    <input id="state" name="state" type="text" class="form-control rounded" placeholder="Estado/Departamento" v-model="state">
+                    <label for="state_id">Estado/Departamento</label>
+                    <input id="state_id" name="state_id" type="text" class="form-control rounded" placeholder="Estado/Departamento" v-model="state_id">
                 </div>
 
                 <div class="form-group">
-                    <label for="city">Ciudad</label>
-                    <input id="city" name="city" type="text" class="form-control rounded" placeholder="Ciudad" v-model="city">
+                    <label for="city_id">Ciudad</label>
+                    <input id="city_id" name="city_id" type="text" class="form-control rounded" placeholder="Ciudad" v-model="city_id">
                 </div>
 
                 <div class="form-group">
@@ -144,5 +144,5 @@
 </div>
 @endsection
 @section('script')
-<script src="{{ asset('js/vue/attendee.js') }}"></script>
+<script src="{{ asset('js/vue/customer.js') }}"></script>
 @endsection

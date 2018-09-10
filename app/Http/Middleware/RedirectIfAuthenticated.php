@@ -18,7 +18,7 @@ class RedirectIfAuthenticated
     public function handle($request, Closure $next, $guard = null)
     {
         switch ($guard){
-            case 'attendee':
+            case 'customer':
                 if (Auth::guard($guard)->check()) {
                     return redirect(route('portal'));
                 }

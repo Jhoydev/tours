@@ -1,4 +1,4 @@
-INSERT INTO insignia.`cities` (`id`, `name`, `state_id`) VALUES
+INSERT INTO `cities` (`id`, `name`, `state_id`) VALUES
 (6483, 'Codrington', 201),
 (6484, 'Catamarca', 209),
 (6485, 'Presidencia Roque Saenz Pena', 210),
@@ -1959,7 +1959,7 @@ INSERT INTO insignia.`cities` (`id`, `name`, `state_id`) VALUES
 (10706, 'Saint-Alexis-des-Monts', 673),
 (10707, 'Saint-Ambroise', 673),
 (10708, 'Saint-Andre-Avellin', 673);
-INSERT INTO insignia.`cities` (`id`, `name`, `state_id`) VALUES
+INSERT INTO `cities` (`id`, `name`, `state_id`) VALUES
 (10709, 'Saint-Anselme', 673),
 (10710, 'Saint-Apollinaire', 673),
 (10711, 'Saint-Augustin', 673),
@@ -4053,7 +4053,7 @@ INSERT INTO insignia.`cities` (`id`, `name`, `state_id`) VALUES
 (12886, 'Cartagena del Chaira', 783),
 (12887, 'Curillo', 783),
 (12888, 'El Doncello', 783);
-INSERT INTO insignia.`cities` (`id`, `name`, `state_id`) VALUES
+INSERT INTO `cities` (`id`, `name`, `state_id`) VALUES
 (12889, 'El Paujil', 783),
 (12890, 'Florencia', 783),
 (12891, 'La Montanita', 783),
@@ -5969,7 +5969,7 @@ INSERT INTO insignia.`cities` (`id`, `name`, `state_id`) VALUES
 (17883, 'Le Havre', 1294),
 (17884, 'Le Petit-Quevilly', 1294),
 (17885, 'Lillebonne', 1294);
-INSERT INTO insignia.`cities` (`id`, `name`, `state_id`) VALUES
+INSERT INTO `cities` (`id`, `name`, `state_id`) VALUES
 (17886, 'Maromme', 1294),
 (17887, 'Mont-Saint-Aignan', 1294),
 (17888, 'Montivilliers', 1294),
@@ -7850,7 +7850,7 @@ INSERT INTO insignia.`cities` (`id`, `name`, `state_id`) VALUES
 (19926, 'Westerkappeln', 1387),
 (19927, 'Wetter', 1387),
 (19928, 'Wickede', 1387);
-INSERT INTO insignia.`cities` (`id`, `name`, `state_id`) VALUES
+INSERT INTO `cities` (`id`, `name`, `state_id`) VALUES
 (19929, 'Wiehl', 1387),
 (19930, 'Willich', 1387),
 (19931, 'Wilnsdorf', 1387),
@@ -9700,7 +9700,7 @@ INSERT INTO insignia.`cities` (`id`, `name`, `state_id`) VALUES
 (23302, 'Casale Di Mezzani', 1862),
 (23303, 'Fontevivo', 1862),
 (23304, 'Solignano', 1862);
-INSERT INTO insignia.`cities` (`id`, `name`, `state_id`) VALUES
+INSERT INTO `cities` (`id`, `name`, `state_id`) VALUES
 (23305, 'Torrile', 1862),
 (23306, 'Codevilla', 1863),
 (23307, 'Marcignago', 1863),
@@ -11678,7 +11678,7 @@ INSERT INTO insignia.`cities` (`id`, `name`, `state_id`) VALUES
 (25669, 'Hwado', 2066),
 (25670, 'Hwasung', 2066),
 (25671, 'Ichon', 2066);
-INSERT INTO insignia.`cities` (`id`, `name`, `state_id`) VALUES
+INSERT INTO `cities` (`id`, `name`, `state_id`) VALUES
 (25672, 'Kihung', 2066),
 (25673, 'Kimpo', 2066),
 (25674, 'Koyang', 2066),
@@ -13515,7 +13515,7 @@ INSERT INTO insignia.`cities` (`id`, `name`, `state_id`) VALUES
 (29179, 'Texoloc', 2456),
 (29180, 'Tlaltelulco', 2456),
 (29181, 'Tlaxcala', 2456);
-INSERT INTO insignia.`cities` (`id`, `name`, `state_id`) VALUES
+INSERT INTO `cities` (`id`, `name`, `state_id`) VALUES
 (29182, 'Tlaxco', 2456),
 (29183, 'Tocatlan', 2456),
 (29184, 'Totolac', 2456),
@@ -15429,7 +15429,7 @@ INSERT INTO insignia.`cities` (`id`, `name`, `state_id`) VALUES
 (32969, 'Moreira de Conegos', 2908),
 (32970, 'Mozelos', 2908),
 (32971, 'Negrelos', 2908);
-INSERT INTO insignia.`cities` (`id`, `name`, `state_id`) VALUES
+INSERT INTO `cities` (`id`, `name`, `state_id`) VALUES
 (32972, 'Nogueira', 2908),
 (32973, 'Nogueira da Regedoura', 2908),
 (32974, 'Olival', 2908),
@@ -17349,7 +17349,7 @@ INSERT INTO insignia.`cities` (`id`, `name`, `state_id`) VALUES
 (38131, 'ALbatera', 3255),
 (38132, 'Alacant', 3255),
 (38133, 'Alcoi', 3255);
-INSERT INTO insignia.`cities` (`id`, `name`, `state_id`) VALUES
+INSERT INTO `cities` (`id`, `name`, `state_id`) VALUES
 (38134, 'Almoradi', 3255),
 (38135, 'Altea', 3255),
 (38136, 'Aspe', 3255),
@@ -19304,7 +19304,7 @@ INSERT INTO insignia.`cities` (`id`, `name`, `state_id`) VALUES
 (40739, 'Azdavay', 3710),
 (40740, 'Bozkurt', 3710),
 (40741, 'Daday', 3710);
-INSERT INTO insignia.`cities` (`id`, `name`, `state_id`) VALUES
+INSERT INTO `cities` (`id`, `name`, `state_id`) VALUES
 (40742, 'Devrekani', 3710),
 (40743, 'Doganyurt', 3710),
 (40744, 'Hanonu', 3710),
@@ -21235,7 +21235,7 @@ INSERT INTO insignia.`cities` (`id`, `name`, `state_id`) VALUES
 (42946, 'El Granada', 3924),
 (42947, 'El Monte', 3924),
 (42948, 'El Paso de Robles', 3924);
-INSERT INTO insignia.`cities` (`id`, `name`, `state_id`) VALUES
+INSERT INTO `cities` (`id`, `name`, `state_id`) VALUES
 (42949, 'El Segundo', 3924),
 (42950, 'El Sobrante', 3924),
 (42951, 'Elk Grove', 3924),
@@ -23113,7 +23113,7 @@ INSERT INTO insignia.`cities` (`id`, `name`, `state_id`) VALUES
 (44823, 'Havre de Grace', 3942),
 (44824, 'Hillandale', 3942),
 (44825, 'Hillcrest Heights', 3942);
-INSERT INTO insignia.`cities` (`id`, `name`, `state_id`) VALUES
+INSERT INTO `cities` (`id`, `name`, `state_id`) VALUES
 (44826, 'Hunt Valley', 3942),
 (44827, 'Hurlock', 3942),
 (44828, 'Hyattsville', 3942),
@@ -25015,7 +25015,7 @@ INSERT INTO insignia.`cities` (`id`, `name`, `state_id`) VALUES
 (46724, 'Newington', 3974),
 (46725, 'Newport News', 3974),
 (46726, 'Norfolk', 3974);
-INSERT INTO insignia.`cities` (`id`, `name`, `state_id`) VALUES
+INSERT INTO `cities` (`id`, `name`, `state_id`) VALUES
 (46727, 'North Springfield', 3974),
 (46728, 'Oakton', 3974),
 (46729, 'Orange', 3974),

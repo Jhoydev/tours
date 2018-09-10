@@ -41,9 +41,9 @@ return [
             'provider' => 'users',
         ],
 
-        'attendee' => [
+        'customer' => [
             'driver' => 'session',
-            'provider' => 'attendee',
+            'provider' => 'customer',
         ],
 
         'api' => [
@@ -75,9 +75,9 @@ return [
             'model' => App\User::class,
         ],
 
-        'attendee' => [
+        'customer' => [
             'driver' => 'eloquent',
-            'model' => App\Attendee::class,
+            'model' => App\Customer::class,
         ],
 
         // 'users' => [
@@ -107,8 +107,8 @@ return [
             'table' => 'password_resets',
             'expire' => 60,
         ],
-        'attendee' => [
-            'provider' => 'attendee',
+        'customer' => [
+            'provider' => 'customer',
             'table' => 'password_resets',
             'expire' => 60,
         ],

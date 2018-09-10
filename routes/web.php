@@ -15,17 +15,17 @@ Route::get('login/{key_app?}', 'Auth\LoginController@showLoginForm')->name('logi
 Route::get('/', 'HomeController@index')->name('home');
 
 Route::get('evento/{event}/{page}', 'PageController@show')->name('event.page');
-Route::get('redirect-authenticated', 'Attendee\Auth\LoginController@redirectAuthenticated');
+Route::get('redirect-authenticated', 'Customer\Auth\LoginController@redirectAuthenticated');
 
 Route::prefix('portal')->group(function () {
-    Route::get('login', 'Attendee\Auth\LoginController@showLoginForm')->name('portal.login');
-    Route::post('login', 'Attendee\Auth\LoginController@login')->name('portal.login');
-    Route::post('logout', 'Attendee\Auth\LoginController@logout')->name('portal.logout');
+    Route::get('login', 'Customer\Auth\LoginController@showLoginForm')->name('portal.login');
+    Route::post('login', 'Customer\Auth\LoginController@login')->name('portal.login');
+    Route::post('logout', 'Customer\Auth\LoginController@logout')->name('portal.logout');
 
 });
 
-Route::middleware(['auth:attendee'])->group(function () {
-    Route::get('portal/home', 'AttendeeController@portal')->name('portal');
+Route::middleware(['auth:customer'])->group(function () {
+    Route::get('portal/home', 'CustomerController@portal')->name('portal');
     Route::get('portal/shop', 'OrdenController@show')->name('shop');
 });
 
@@ -39,7 +39,7 @@ Route::middleware('auth:web')->group(function () {
 
     Route::resource('events','EventController');
     Route::resource('events/{event}/tickets','TicketController');
-    Route::resource('attendee', 'AttendeeController');
+    Route::resource('customer', 'CustomerController');
 
     Route::get('user/permissions', 'userController@getPermissionsAndRoles');
     Route::get('user/avatar/{company}/{id}', 'userController@getImageAvatar')->name('avatar.id');

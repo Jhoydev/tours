@@ -1,5 +1,5 @@
 function changeCountry(prefix = "") {
-    var country_id = $('select[id="' + prefix + 'country"]').find(':selected').val();
+    var country_id = $('select[id="' + prefix + 'country_id"]').find(':selected').val();
     $.ajax({
         type: 'POST',
         data: {
@@ -14,8 +14,8 @@ function changeCountry(prefix = "") {
             $.each(response, function (i, data) {
                 cb += '<option value="' + data.name + '" data-key="' + data.state_id + '">' + data.name + '</option>';
             });
-            $('select[id="' + prefix + 'state"]').html(cb);
-            var s_select = $('select[id="' + prefix + 'state"]');
+            $('select[id="' + prefix + 'state_id"]').html(cb);
+            var s_select = $('select[id="' + prefix + 'state_id"]');
             s_select.selectpicker('refresh');
         }
     }).fail(function (error) {
@@ -24,7 +24,7 @@ function changeCountry(prefix = "") {
 }
 
 function changeState(prefix = "") {
-    var state_id = $('select[id="' + prefix + 'state"]').find(':selected').attr('data-key');
+    var state_id = $('select[id="' + prefix + 'state_id"]').find(':selected').attr('data-key');
     $.ajax({
         type: 'POST',
         data: {
@@ -39,8 +39,8 @@ function changeState(prefix = "") {
             $.each(response, function (i, data) {
                 cb += '<option value="' + data.name + '" data-key="' + data.city_id + '">' + data.name + '</option>';
             });
-            $('select[id="' + prefix + 'city"]').html(cb);
-            var s_select = $('select[id="' + prefix + 'city"]');
+            $('select[id="' + prefix + 'city_id"]').html(cb);
+            var s_select = $('select[id="' + prefix + 'city_id"]');
             s_select.selectpicker('refresh');
         }
     }).fail(function (error) {

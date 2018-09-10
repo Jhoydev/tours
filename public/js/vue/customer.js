@@ -1,5 +1,5 @@
-var attendee = new Vue({
-    el: '#attendee',
+var customer = new Vue({
+    el: '#customer',
     data: {
         first_name: '',
         last_name: '',
@@ -10,10 +10,10 @@ var attendee = new Vue({
         mobile: '',
         address: '',
         address2: '',
-        city: '',
-        state: '',
+        city_id: '',
+        state_id: '',
         zip_code: '',
-        country: '',
+        country_id: '',
         profession: '',
         workplace: '',
         password: '',
@@ -31,10 +31,10 @@ var attendee = new Vue({
         this.mobile = document.querySelector("#inp_mobile").value;
         this.address = document.querySelector("#inp_address").value;
         this.address2 = document.querySelector("#inp_address2").value;
-        this.city = document.querySelector("#inp_city").value;
-        this.state = document.querySelector("#inp_state").value;
+        this.city_id = document.querySelector("#inp_city_id").value;
+        this.state_id = document.querySelector("#inp_state_id").value;
         this.zip_code = document.querySelector("#inp_zip_code").value;
-        this.country = document.querySelector("#inp_country").value;
+        this.country_id = document.querySelector("#inp_country_id").value;
         this.profession = document.querySelector("#inp_profession").value;
         this.workplace = document.querySelector("#inp_workplace").value;
         this.password = document.querySelector("#inp_password").value;

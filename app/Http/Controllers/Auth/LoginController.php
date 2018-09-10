@@ -47,7 +47,7 @@ class LoginController extends Controller
 
     public function showLoginForm()
     {
-        if  (Auth::guard('attendee')->check()){
+        if  (Auth::guard('customer')->check()){
             return view('errors.authenticated');
         }
         return view('auth.login');
