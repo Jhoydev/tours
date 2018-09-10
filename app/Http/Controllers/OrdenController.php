@@ -19,7 +19,7 @@ class OrdenController extends Controller
                     $data_ticket[$li['id']]['cant'] = $li['cant'];
                     array_push($arr_ticket_id,$li['id']);
                 }
-                $tickets = Ticket::WhereIn('id',$arr_ticket_id)->get();
+                $tickets = Ticket::with('event')->WhereIn('id',$arr_ticket_id)->get();
                 return view('portal.orden.create',compact('tickets','data_ticket','data'));
             }
             return redirect(route('event.page',[$request->key_app,$request->page_id]));

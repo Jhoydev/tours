@@ -1,12 +1,13 @@
 @extends('layouts.main')
 @section('content')
 @include('layouts.menssage_success')
+@push('navbar_items_right')
+    <li class="nav-item">
+        <a class="btn btn-success rounded mr-5" href="{{ url('customer/create') }}"><i class="fa fa-plus"></i> Nuevo Asistente</a>
+    </li>
+@endpush
+
 <div class="row mt-5">
-    <div class="col-12">
-        <a href="{{ url('customer/create') }}" class="btn btn-sm btn-success rounded"><i class="fa fa-plus"></i> Nuevo Asistente</a>
-    </div>
-</div>
-<div class="row mt-3">
     @foreach($customers as $customer)
     <div class="col-md-3">
         <div class="card">

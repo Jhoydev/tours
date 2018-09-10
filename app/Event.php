@@ -16,7 +16,7 @@ class Event extends Model {
     protected static function boot()
     {
         parent::boot();
-        if (Auth::guard()->check()){
+        if (Auth::guard('web')->check()){
             static::addGlobalScope(new CompanyScope);
         }
     }
@@ -36,7 +36,7 @@ class Event extends Model {
         return $this->belongsTo(EventStatus::class);
     }
 
-    public function Tickets()
+    public function tickets()
     {
         return $this->hasMany(Ticket::class);
     }

@@ -49,7 +49,7 @@ class PageController extends Controller
         $request->validate([
             'background' => 'required',
         ]);
-        if ($page = Page::create($request->all())){
+        if ($page = Page::create($request->all() + ['company_id' => Auth::user()->company_id])){
             if ($request->ajax()){
                 return response()->json([
                     'status' => true,
@@ -79,7 +79,7 @@ class PageController extends Controller
      */
     public function show($event_id,Page $page)
     {
-        $event =  Event::withoutGlobalScope(CompanyScope::class)->find($event_id);
+        $event = Event::withoutGlobalScope(CompanyScope::class)->find($event_id);
         return view('page.show',compact('page','event'));
     }
 

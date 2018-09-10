@@ -3,14 +3,16 @@
     @include('events.sidebar')
 @endpush
 @section('content')
+@push('navbar_items_right')
+    <li class="nav-item">
+        <button class="btn btn-success rounded mr-5" data-toggle="modal" data-target="#modal_create_ticket"><i class="fa fa-plus"></i> Nuevo Ticket</button>
+    </li>
+@endpush
 <div class="row" id="tickets">
     <div class="col-12">
         <div class="row mt-5 d-flex align-items-center mb-3">
             <div class="col-md-auto">
                 <h3 class="pb-0">Tickets - {{ $event->title }}</h3>
-            </div>
-            <div class="col text-right">
-                <button class="btn btn-sm btn-success rounded" data-toggle="modal" data-target="#modal_create_ticket"><i class="fa fa-plus"></i> Nuevo Ticket</button>
             </div>
         </div>
         <div class="row">

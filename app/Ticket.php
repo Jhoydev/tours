@@ -29,6 +29,10 @@ class Ticket extends Model
     public function user(){
         return $this->hasOne(User::class,'id','created_by');
     }
+    public function event(){
+        //dd( $this->belongsTo(Event::class));
+        return $this->belongsTo(Event::class);
+    }
 
 }
 

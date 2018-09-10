@@ -11,6 +11,7 @@ use App\Country;
 use App\State;
 use App\City;
 use App\User;
+use Illuminate\Support\Facades\Hash;
 
 class Customer extends Authenticatable
 {
