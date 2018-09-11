@@ -6,6 +6,7 @@ namespace App\Http\Controllers;
 use Caffeinated\Shinobi\Models\Permission;
 use Caffeinated\Shinobi\Models\Role;
 use Illuminate\Http\Request;
+use App\Http\Requests\RoleRequest;
 use Illuminate\Support\Facades\Auth;
 
 class RoleController extends Controller
@@ -39,7 +40,7 @@ class RoleController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(RoleRequest $request)
     {
         $role = new Role();
         $role->name = $request->name;
@@ -96,7 +97,7 @@ class RoleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(RoleRequest $request, $id)
     {
         $res = false;
         $role = Role::find($id);

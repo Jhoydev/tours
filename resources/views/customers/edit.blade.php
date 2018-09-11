@@ -1,5 +1,3 @@
-
-
 @include('customers.form.form',[
     'method' => 'PUT',
     'url_form' => url("customer/$customer->id"),

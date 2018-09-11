@@ -17,6 +17,7 @@ var customer = new Vue({
         profession: '',
         workplace: '',
         password: '',
+        password_confirmation: '',
     },
     computed: {
 

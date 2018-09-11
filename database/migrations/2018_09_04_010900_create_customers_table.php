@@ -29,7 +29,7 @@ class CreateCustomersTable extends Migration
             $table->unsignedInteger('document_type_id')->nullable();
             $table->foreign('document_type_id')->references('id')->on('document_types');
 
-            $table->string('document');
+            $table->string('document')->unique();
             $table->string('email', 128)->unique();
             $table->string('phone')->nullable();
             $table->string('mobile')->nullable();

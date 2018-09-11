@@ -41,7 +41,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        $companies = "";
+        $companies = Company::all();
         $roles = Role::all();
         $permissions = Permission::all();
         $user = new User();

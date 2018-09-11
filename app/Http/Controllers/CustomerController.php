@@ -6,6 +6,7 @@ use App\Customer;
 use App\DocumentType;
 use Caffeinated\Shinobi\Models\Permission;
 use Illuminate\Http\Request;
+use App\Http\Requests\CustomerRequest;
 use Illuminate\Support\Facades\Auth;
 
 class CustomerController extends Controller
@@ -42,29 +43,10 @@ class CustomerController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CustomerRequest $request)
     {
-        $customer                   = new Customer();
-        $customer->first_name       = $request->first_name;
-        $customer->last_name        = $request->last_name;
-        $customer->document_type_id = $request->document_type_id;
-        $customer->document         = $request->document;
-        $customer->email            = $request->email;
-        $customer->phone            = $request->phone;
-        $customer->mobile           = $request->mobile;
-        $customer->address          = $request->address;
-        $customer->address2         = $request->address2;
-        $customer->country_id       = $request->country_id;
-        $customer->state_id         = $request->state_id;
-        $customer->city_id          = $request->city_id;
-        $customer->zip_code         = $request->zip_code;
-        $customer->profession       = $request->profession;
-        $customer->workplace        = $request->workplace;
-        $customer->password         = $request->password;
-        $customer->edited_by        = null;
-        $customer->created_by       = $request->created_by;
-
-        $customer->save();
+        $customer = Customer::create($request->all());
+        
         session()->flash('message', "Asistente $customer->name creado");
         return redirect('customer');
     }
@@ -101,7 +83,7 @@ class CustomerController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(CustomerRequest $request, $id)
     {
         $customer = Customer::find($id);
         $customer->fill($request->all());

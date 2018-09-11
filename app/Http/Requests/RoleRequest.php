@@ -5,7 +5,7 @@ namespace App\Http\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Request;
 
-class UserRequest extends FormRequest
+class RoleRequest extends FormRequest
 {
 
     /**
@@ -26,12 +26,10 @@ class UserRequest extends FormRequest
     public function rules(Request $request)
     {
         $res = [
-            'first_name' => 'required|string|max:255',
-            'password'   => 'required|string|min:6|confirmed',
-            'email'      => 'required|string|email|max:255|unique:users'
+            'name' => 'required|string|max:255|unique:roles'
         ];
         if ($request->method == "PUT") {
-            $res['email'] = 'required|string|email|max:255|unique:users,email,' . $this->user;
+            $res['name'] = 'required|string|max:255|unique:roles,name,' . $this->role;
         }
         return $res;
     }
