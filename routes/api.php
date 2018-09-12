@@ -13,6 +13,9 @@ use Illuminate\Http\Request;
 |
 */
 
+Route::get('states/{id}','DynamicLocationController@get_states_by_country');
+Route::get('cities/{id}','DynamicLocationController@get_cities_by_state');
+
 Route::middleware('auth')->group(function () {
     Route::post('events', 'EventController@store');
 });

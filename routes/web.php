@@ -27,7 +27,8 @@ Route::prefix('portal')->group(function () {
 Route::middleware(['auth:customer'])->group(function () {
     Route::get('portal/home', 'CustomerController@portal')->name('portal');
     Route::get('portal/shop', 'OrdenController@show')->name('shop');
-    Route::get('portal/perfil', 'CustomerController@perfil')->name('perfil');
+    Route::get('portal/profile', 'CustomerController@profile')->name('profile');
+    Route::put('portal/profile/{customer}', 'CustomerController@update')->name('profile.update');
 });
 
 Route::middleware('auth:web')->group(function () {

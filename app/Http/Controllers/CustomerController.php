@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Customer;
 use App\DocumentType;
+use App\Event;
 use Caffeinated\Shinobi\Models\Permission;
 use Illuminate\Http\Request;
 use App\Http\Requests\CustomerRequest;
@@ -90,6 +91,9 @@ class CustomerController extends Controller
         $customer->save();
 
         session()->flash('message', "La información del asistente: $customer->first_name $customer->last_name ha sido actualizada");
+        if (Auth::guard('customer')->check()){
+            return redirect(route('portal'));
+        }
         return redirect('customer');
     }
 
@@ -109,11 +113,13 @@ class CustomerController extends Controller
 
     public function portal()
     {
-        return view('portal.home');
+        $events = Event::lastEvents(3);
+        return view('portal.home',compact('events'));
     }
 
-    public function perfil(){
-        return view('portal.perfil');
+    public function profile(){
+        $customer = Customer::find(Auth::user()->id);
+        return view('portal.profile',compact('customer'));
     }
 
 }

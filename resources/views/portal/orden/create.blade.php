@@ -12,7 +12,7 @@
                             <p><strong>Evento</strong> {{ $event->title }}</p>
                             <ul class="list-unstyled">
                                 <li>{{ $event->location }}</li>
-                                <li>{{ $event->address }}</li>
+                                <li>{{ $event->address }},{{ $event->cp }} - {{ $event->city }}</li>
                                 <li>{{ $event->start_date }}</li>
                             </ul>
                         </div>
@@ -20,7 +20,7 @@
                             <p><strong>Factura para</strong></p>
                             <ul class="list-unstyled">
                                 <li>{{ Auth::user()->full_name }}</li>
-                                <li>{{ Auth::user()->document }}</li>
+                                <li>{{ Auth::user()->document_type->name }} {{ Auth::user()->document }}</li>
                                 <li>{{ Auth::user()->address }}, {{ Auth::user()->zip_code }}</li>
                             </ul>
                         </div>
@@ -28,7 +28,7 @@
                     <div class="row">
                         <div class="col-12">
                             <ul class="list-unstyled">
-                                <li>{{ date('Y-m-d H:i:s') }}</li>
+                                <li>Fecha: {{ date('d-m-Y H:i:s') }}</li>
                             </ul>
                         </div>
                     </div>
@@ -54,7 +54,7 @@
                                         <tr>
                                             <td scope="row">{{ $cont_ticket }}</td>
                                             <td>
-                                                <strong>Tiquete: {{ $ticket->title }}</strong> {{ $ticket->description }}
+                                                <strong>Tiquete: {{ $ticket->title }}</strong> - {{ $ticket->description }}
                                             </td>
                                             <td class="text-right">{{ $data_ticket[$ticket->id]['cant'] }}</td>
                                             <td class="text-right">$ {{number_format($ticket->price, 2) }}</td>

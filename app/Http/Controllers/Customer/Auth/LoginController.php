@@ -58,7 +58,7 @@ class LoginController extends Controller
     public function showLoginForm()
     {
         if  (Auth::guard('web')->check()){
-            return back()->with('message_login','Ya estas autenticado en otro tipo de cuenta, por favor cierra esa sesión para poder realizar esta.');
+            return back();
         }
         return view('portal.auth.login');
     }

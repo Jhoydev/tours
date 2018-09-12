@@ -33,9 +33,9 @@
 </nav>
 
 <div class="container" style="margin-top: 100px">
-    @if (session('message_login'))
+    @if (Auth::guard('web')->check())
         <div class="alert alert-danger alert-dismissible fade show" role="alert">
-            {{ session('message_login') }}
+            <p>Ya estas autenticado en otro tipo de cuenta, por favor cierra esa sesión para poder realizar esta.</p>
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
@@ -102,21 +102,33 @@
                             @foreach ($event->tickets as $ticket)
                                 <div class="col-md-auto">
                                     <div class="card border-info rounded">
-                                        <div class="card-body text-center my-5 ticket" data-code="{{ $ticket->id }}" data-cant="1">
+                                        <div class="card-body text-center my-5 ticket" data-code="{{ $ticket->id }}" data-quantity_available="{{ $ticket->quantity_available }}">
                                             <p class="h3 font-weight-bold">{{ $ticket->title }}</p>
                                             <p class="h1"><strong>{{ $ticket->price }}$</strong></p>
                                             <p>{{ $ticket->description }}</p>
                                             <div class="d-flex align-items-center justify-content-center content-shopping-cart">
                                                 <input type="number" class="form-control form-control-sm ml-2 rounded text-center inp-number"
-                                                       style="width: 5em;" max="2" min="0">
+                                                       style="width: 5em;" max="{{ $ticket->max_per_person }}" min="{{ $ticket->min_per_person }}">
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             @endforeach
-                            <div class="col-12 text-center">
-                                <button id="btn-buy" class="btn btn-lg btn-warning rounded fade" ><i class="fa fa-shopping-cart" aria-hidden="true"></i> Comprar</button>
-                            </div>
+                            @if (Auth::guard('web')->check())
+                                <div class="col-12 text-center">
+                                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                        <p>Has iniciado sesión en la aplicacion de gestión, si desear realizar una compra debes de cerrar esa sesión.</p>
+                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                </div>
+                            @else
+                                <div class="col-12 text-center">
+                                    <button id="btn-buy" class="btn btn-lg btn-warning rounded fade" ><i class="fa fa-shopping-cart" aria-hidden="true"></i> Comprar</button>
+                                </div>
+                            @endif
+
                         </div>
                     </form>
                 </div>
@@ -171,6 +183,14 @@
         if (parseInt(inp.val()) > inp.attr('max')){
             inp.val(inp.attr('max'));
         }
+        let quantity_available = parseInt(inp.closest('.ticket').data('quantity_available'));
+        //quantity_available = $(quantity_available).attr('quantity_available');
+        if (parseInt(inp.val()) > quantity_available){
+            inp.val(quantity_available);
+        }
+        if (parseInt(inp.val()) < inp.attr('min')){
+            inp.val(inp.attr('min'));
+        }
         let checkComprar = false;
         inp_number.each(function (index,el){
             if (parseInt(el.value) > 0){
@@ -192,8 +212,6 @@
                     'cant' : $(e).find('.inp-number').val(),
                 };
                 arr_shopping_cart.push(value);
-            }else{
-                return false;
             }
         });
         if (arr_shopping_cart.length > 0){

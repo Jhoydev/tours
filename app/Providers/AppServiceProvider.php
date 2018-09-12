@@ -21,6 +21,12 @@ class AppServiceProvider extends ServiceProvider
         view()->composer('layouts.form.roles', function ($view){
             $view->with('roles', \App\User::getRoles())->with('permissions',\App\User::getPermissions());
         });
+        view()->composer('viewComposers.input_country', function ($view){
+            $view->with('country', \App\Country::where('id',47)->pluck('name','id'));
+        });
+        view()->composer('viewComposers.input_document_type', function ($view){
+            $view->with('document_type', \App\DocumentType::all()->pluck('name','id'));
+        });
     }
 
     /**

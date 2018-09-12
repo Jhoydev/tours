@@ -22,7 +22,7 @@
     <button class="navbar-toggler mobile-sidebar-toggler d-lg-none mr-auto" type="button">
         <span class="navbar-toggler-icon"></span>
     </button>
-    <a class="navbar-brand" href="{{ url('/') }}" style="background-image: url({{ asset('img/logo-dark.png') }})"></a>
+    <a class="navbar-brand" href="{{ route('portal')  }}" style="background-image: url({{ asset('img/logo-dark.png') }})"></a>
     <button class="navbar-toggler sidebar-toggler d-md-down-none" type="button">
         <span class="navbar-toggler-icon"></span>
     </button>
@@ -42,7 +42,7 @@
                 <div class="dropdown-header text-center">
                     <strong>Cuenta</strong>
                 </div>
-                <a class="dropdown-item" href="{{ route('perfil') }}">
+                <a class="dropdown-item" href="{{ route('profile') }}">
                     <i class="fa fa-user-o"></i> Perfil
                 </a>
                 <a class="dropdown-item" href="{{ route('portal.logout') }}"
