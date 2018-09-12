@@ -110,6 +110,8 @@ class RoleController extends Controller
                     $role->assignPermission($permission_id);
                     $role->save();
                 }
+            }else{
+                $role->revokeAllPermissions();
             }
             $res = true;
         }
@@ -131,5 +133,10 @@ class RoleController extends Controller
         $role->delete();
         session()->flash('message',"El rol $role->name ha sido eliminado correctamente");
         return redirect('role');
+    }
+
+    public function permissions($id){
+        $role = Role::find($id);
+        return $role->permissions()->get();
     }
 }

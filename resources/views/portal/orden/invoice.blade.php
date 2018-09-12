@@ -25,7 +25,10 @@
                             @foreach($tickets as $ticket)
                                 <tr>
                                     <td scope="row">{{ $cont_ticket }}</td>
-                                    <td>{{ $ticket->description }}</td>
+                                    <td>
+                                        <strong>{{ $ticket->event->title }}</strong> {{ $ticket->event->description }}<br>
+                                        <strong>Tiquete: {{ $ticket->title }}</strong> {{ $ticket->description }}
+                                    </td>
                                     <td class="text-right">{{ $data_ticket[$ticket->id]['cant'] }}</td>
                                     <td class="text-right">{{ $ticket->price }}</td>
                                     <td class="text-right">{{ $data_ticket[$ticket->id]['cant'] * $ticket->price }}</td>

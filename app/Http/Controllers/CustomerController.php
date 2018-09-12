@@ -112,4 +112,8 @@ class CustomerController extends Controller
         return view('portal.home');
     }
 
+    public function perfil(){
+        return view('portal.perfil');
+    }
+
 }

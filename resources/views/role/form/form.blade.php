@@ -60,9 +60,9 @@
                 <div class="form-group">
                     <h4>Permisos</h4>
                 </div>
-                <div class="row">
+                <div class="row" id="content_checkboxes_role">
                     <div class="col-12" v-if="special">
-                        <div class="alert alert-dark" role="alert">
+                        <div class="alert alert-primary" role="alert">
                             Este rol tiene ya asignados todos los permisos posibles.
                         </div>
                     </div>
@@ -85,4 +85,9 @@
 @endsection
 @section('script')
 <script src="{{ asset('js/vue/role.js') }}"></script>
+<script>
+    if (document.querySelector("#role-special").value == "all-access"){
+        $.map($("#content_checkboxes_role input"),(el)=> $(el).prop('checked',true));
+    }
+</script>
 @endsection

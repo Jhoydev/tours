@@ -3,27 +3,27 @@
 <input type="hidden" name="edited_by" id="edited_by" value="{{ Auth::user()->id }}">
 <div class="form-group">
     <label for="">Titulo</label>
-    <input class="form-control rounded" type="text" id="title"  name="title">
+    <input class="form-control rounded" type="text" id="title"  name="title" required>
 </div>
 <div class="form-row">
     <div class="form-group col-md-6">
         <label for="">Precio</label>
-        <input class="form-control rounded" type="text" id="price" name="price">
+        <input class="form-control rounded" type="number" id="price" name="price" required>
     </div>
     <div class="form-group col-md-6">
         <label for="">Cantidad disponible</label>
-        <input class="form-control rounded" type="text" id="quantity_available" name="quantity_available">
+        <input class="form-control rounded" type="number" id="quantity_available" name="quantity_available">
     </div>
 </div>
 <div class="form-group">
     <label for="">Descripción</label>
-    <input class="form-control rounded" type="text" id="description" name="description" >
+    <input class="form-control rounded" type="text" id="description" name="description" required>
 </div>
 <div class="form-row">
     <div class="form-group col-md-6">
         <label for="input_start">Inicio venta</label>
         <div class="input-group date" id="input_start__{{ $action }}" data-target-input="nearest">
-            <input type="text" class="form-control rounded-left datetimepicker-input" id="start_date" name="start_sale_date"  data-target="#input_start__{{ $action }}"/>
+            <input type="text" class="form-control rounded-left datetimepicker-input" id="start_date" name="start_sale_date"  data-target="#input_start__{{ $action }}" required/>
             <div class="input-group-append" data-target="#input_start__{{ $action }}" data-toggle="datetimepicker">
                 <div class="input-group-text"><i class="fa fa-calendar"></i></div>
             </div>
@@ -32,7 +32,7 @@
     <div class="form-group col-md-6">
         <label for="input_start">Finalizar venta</label>
         <div class="input-group date" id="input_end_{{ $action }}" data-target-input="nearest">
-            <input type="text" class="form-control rounded-left datetimepicker-input" id="end_sale_date" name="end_sale_date"  data-target="#input_end_{{ $action }}" />
+            <input type="text" class="form-control rounded-left datetimepicker-input" id="end_sale_date" name="end_sale_date"  data-target="#input_end_{{ $action }}"  required/>
             <div class="input-group-append" data-target="#input_end_{{ $action }}" data-toggle="datetimepicker">
                 <div class="input-group-text"><i class="fa fa-calendar"></i></div>
             </div>
@@ -42,11 +42,11 @@
 <div class="form-row">
     <div class="form-group col-6">
         <label for="">Tiquete minimo por orden</label>
-        <input class="form-control rounded" type="number" id="min_per_person" name="min_per_person">
+        <input class="form-control rounded" type="number" id="min_per_person" name="min_per_person" required>
     </div>
     <div class="form-group col-6">
         <label for="">Tiquete maximo por orden</label>
-        <input class="form-control rounded" type="number"  id="max_per_person" name="max_per_person" >
+        <input class="form-control rounded" type="number"  id="max_per_person" name="max_per_person" required>
     </div>
 </div>
 <div class="form-row">

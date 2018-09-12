@@ -31,7 +31,7 @@ var role = new Vue({
         if (inp_permissions.length > 0){
             inp_permissions = inp_permissions.split(";");
             inp_permissions.map((el) => {
-                this.permissions.push( $("#"+el).val());
+                this.permissions.push( $(`input[id='${el}']`).val());
             });
         }
 

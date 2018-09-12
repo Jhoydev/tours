@@ -40,7 +40,10 @@ class Customer extends Authenticatable
 
         $this->attributes['password'] = $password;
     }
-
+    public function getFullNameAttribute()
+    {
+        return ucfirst($this->first_name) . " " . ucfirst($this->last_name);
+    }
     public function document_type()
     {
         return $this->belongsTo(DocumentType::class);

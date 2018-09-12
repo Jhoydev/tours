@@ -27,6 +27,7 @@ Route::prefix('portal')->group(function () {
 Route::middleware(['auth:customer'])->group(function () {
     Route::get('portal/home', 'CustomerController@portal')->name('portal');
     Route::get('portal/shop', 'OrdenController@show')->name('shop');
+    Route::get('portal/perfil', 'CustomerController@perfil')->name('perfil');
 });
 
 Route::middleware('auth:web')->group(function () {
@@ -46,6 +47,7 @@ Route::middleware('auth:web')->group(function () {
     Route::resource('user','UserController');
 
     Route::resource('role','RoleController');
+    route::get('role/{role}/permissions','RoleController@permissions');
 
     Route::get('asset/page/public/backgrounds', 'ImageController@publicBackgrounds');
     Route::get('companies/{company}/events/{event}/flyer/{filename}', 'ImageController@flyer');

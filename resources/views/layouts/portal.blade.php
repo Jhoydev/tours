@@ -7,7 +7,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <link rel="shortcut icon" href="/img/favicon.png">
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>{{ config('app.name', 'Laravel') }} - Portal</title>
     <!-- Fonts -->
     <link rel="dns-prefetch" href="https://fonts.gstatic.com">
     <!-- Icons -->
@@ -42,7 +42,7 @@
                 <div class="dropdown-header text-center">
                     <strong>Cuenta</strong>
                 </div>
-                <a class="dropdown-item" href="{{ url('user/'.Auth::user()->id.'/edit') }}">
+                <a class="dropdown-item" href="{{ route('perfil') }}">
                     <i class="fa fa-user-o"></i> Perfil
                 </a>
                 <a class="dropdown-item" href="{{ route('portal.logout') }}"
@@ -61,9 +61,12 @@
     <div class="sidebar">
         <nav class="sidebar-nav">
             <ul class="nav">
-                {{--<li class="nav-item">
-                    <a class="nav-link" href="{{ url('user') }}"><i class="fa fa-user"></i> Usuarios</a>
-                </li>--}}
+                <li class="nav-item">
+                    <a class="nav-link" href="#"><i class="fa fa-user"></i> Historico</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#"><i class="fa fa-user"></i> Explorar</a>
+                </li>
                 @stack('sidebar')
             </ul>
         </nav>

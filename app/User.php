@@ -42,7 +42,7 @@ class User extends Authenticatable
     protected static function boot()
     {
         parent::boot();
-        if (Auth::guard()->check()) {
+        if (Auth::guard("web")->check()) {
             static::addGlobalScope(new CompanyScope);
         }
     }
