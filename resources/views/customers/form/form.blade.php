@@ -19,7 +19,7 @@
                 @else
                 <input type="hidden" name="created_by" value="{{ Auth::user()->id }}">
                 @endif
-                
+
                 <input type="hidden" id="inp_first_name" name="first_name" value="{{ $customer->first_name ? $customer->first_name : old('first_name') }}">
                 <input type="hidden" id="inp_last_name" name="last_name" value="{{ $customer->last_name ? $customer->last_name : old('last_name') }}">
                 <input type="hidden" id="inp_document_type_id" name="document_type_id" value="{{ $customer->document_type_id ? $customer->document_type_id : old('document_type_id') }}">
@@ -38,7 +38,7 @@
                 @if ($method == 'POST')
                 <input type="hidden" id="inp_password" name="password" value="{{ $customer->password ? $customer->password : old('password') }}">
                 @endif
-                
+
                 <div class="row">
                     <div class="col-6">
                         <h2 class="m-0">{{ $title }}</h2>
@@ -217,6 +217,37 @@
                                type="password" class="form-control  rounded" placeholder="Contraseña" 
                                v-model="password_confirmation" required>
                     </div>
+                </div>
+                @else
+                <hr>
+                <div class="form-group col-md-12 mt-3" v-show="show_password">
+                    <input type="hidden" name="pass_secret" id="pass_secret" value="{{ $customer->password }}">
+                    <div class="row">
+                        <div class="form-group col-md-6">
+                            <label for="password"><span class="fa fa-key"></span>   Contraseña</label>
+                            <input id="password" name="password" type="password" 
+                                   class="form-control rounded {{ $errors->has('password') ? ' is-invalid' : '' }} "  placeholder="Contraseña" 
+                                   v-model="password" required>
+                            @if ($errors->has('password'))
+                            <span class="invalid-feedback">
+                                <strong>{{ $errors->first('password') }}</strong>
+                            </span>
+                            @endif
+                        </div>
+
+                        <div class="form-group col-md-6">
+                            <label for="password-confirm"><span class="fa fa-key"></span>   Confirmar Contraseña</label>
+                            <input id="password-confirm" name="password_confirmation" 
+                                   type="password" class="form-control  rounded" placeholder="Contraseña" 
+                                   v-model="password_confirmation" required>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group col-md-12 text-center">
+                    <button class="btn btn-warning btn-sm rounded"  v-bind:class="{ 'btn-light' : btn_password_class }" type="button" v-on:click="change_password()">@{{ btn_password_text }}</button>
+                </div>
+                <div class="form-group col-md-12" v-show="show_password">
+                    <hr>
                 </div>
                 @endif
             </div>

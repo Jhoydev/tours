@@ -18,9 +18,15 @@ var customer = new Vue({
         workplace: '',
         password: '',
         password_confirmation: '',
+        show_password: false,
+        btn_password_text: '¿Cambiar contraseña?',
     },
     computed: {
 
+    },
+    created: function () {
+        this.password = $('#pass_secret').val();
+        this.password_confirmation = $('#pass_secret').val();
     },
     mounted() {
         this.first_name = document.querySelector("#inp_first_name").value;
@@ -39,5 +45,20 @@ var customer = new Vue({
         this.profession = document.querySelector("#inp_profession").value;
         this.workplace = document.querySelector("#inp_workplace").value;
         this.password = document.querySelector("#inp_password").value;
+    },
+    methods: {
+        change_password: function change_password() {
+            this.show_password = !this.show_password;
+            this.btn_password_class = !this.btn_password_class;
+            if (this.show_password) {
+                this.btn_password_text = "Cancelar";
+                this.password = '';
+                this.password_confirmation = '';
+            } else {
+                this.btn_password_text = "¿Cambiar contraseña?";
+                this.password = $('#pass_secret').val();
+                this.password_confirmation = $('#pass_secret').val();
+            }
+        }
     }
 });
