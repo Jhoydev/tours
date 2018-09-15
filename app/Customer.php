@@ -12,6 +12,7 @@ use App\State;
 use App\City;
 use App\User;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\DB;
 
 class Customer extends Authenticatable
 {
@@ -40,10 +41,12 @@ class Customer extends Authenticatable
 
         $this->attributes['password'] = $password;
     }
+
     public function getFullNameAttribute()
     {
         return ucfirst($this->first_name) . " " . ucfirst($this->last_name);
     }
+
     public function document_type()
     {
         return $this->belongsTo(DocumentType::class);
@@ -72,6 +75,24 @@ class Customer extends Authenticatable
     public function edited_by()
     {
         return $this->hasOne(User::class, 'id', 'edited_by');
+    }
+
+    function scopeFullName($query, $name)
+    {
+        if ($name) {
+            $id_customers = [];
+
+            $customers = Customer::Select(DB::raw('CONCAT_WS(" ",`first_name`,`last_name`) as `wholename`,id'))
+                            ->having('wholename', 'LIKE', "%$name%")->get();
+
+            foreach ($customers as $customer) {
+                array_push($id_customers, $customer->id);
+            }
+
+            return $query->whereIn('id', $id_customers);
+        }
+        
+        return $query;
     }
 
 }

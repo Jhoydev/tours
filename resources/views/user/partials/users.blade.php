@@ -1,27 +1,24 @@
 <div class="row animated bounceInRight">
-
-
-            @foreach($users as $user)
-            <div class="card rounded col-lg-3 col-md-4 col-sm-6">
-                <div class="card-body">
-                    <div class="text-center mb-2">
-                        <img class="img-fluid mx-auto avatar_user" src="{{ url("user/avatar/".$user->company_id."/".$user->id) }}" alt="">
-                    </div>
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item p-1"><i class="icon-user"></i> {{ $user->full_name }}</li>
-                        <li class="list-group-item p-1"><i class="fa fa-envelope-o"></i> {{ $user->email }}</li>
-                        <li class="list-group-item p-1"><i class="fa fa-phone"></i> {{ $user->phone }}</li>
-                    </ul>
-                    <div class="mt-2 text-center">
-                        <a href="{{ url("user/$user->id/edit") }}" class="btn btn-primary rounded-circle btn-sm mb-2"><i class="fa fa-pencil"></i></a>
-                        <button type="button" class="btn btn-danger rounded-circle btn-sm mb-2" data-toggle="modal" data-target="#deleteModal" data-user_id="{{ $user->id }}">
-                            <i class="fa fa-eraser" aria-hidden="true"></i>
-                        </button>
-                    </div>
-                </div>
+    @foreach($users as $user)
+    <div class="card rounded col-lg-3 col-md-4 col-sm-6">
+        <div class="card-body">
+            <div class="text-center mb-2">
+                <img class="img-fluid mx-auto avatar_user" src="{{ url("user/avatar/".$user->company_id."/".$user->id) }}" alt="">
             </div>
-            @endforeach
-
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item p-1"><i class="icon-user"></i> {{ $user->full_name }}</li>
+                <li class="list-group-item p-1"><i class="fa fa-envelope-o"></i> {{ $user->email }}</li>
+                <li class="list-group-item p-1"><i class="fa fa-phone"></i> {{ $user->phone }}</li>
+            </ul>
+            <div class="mt-2 text-center">
+                <a href="{{ url("user/$user->id/edit") }}" class="btn btn-primary rounded-circle btn-sm mb-2"><i class="fa fa-pencil"></i></a>
+                <button type="button" class="btn btn-danger rounded-circle btn-sm mb-2" data-toggle="modal" data-target="#deleteModal" data-user_id="{{ $user->id }}">
+                    <i class="fa fa-eraser" aria-hidden="true"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+    @endforeach
 </div>
 
 <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">

@@ -2,24 +2,29 @@
 
 namespace App\Http\Controllers;
 
-
 use Caffeinated\Shinobi\Models\Permission;
-use Caffeinated\Shinobi\Models\Role;
+use App\Role;
 use Illuminate\Http\Request;
 use App\Http\Requests\RoleRequest;
 use Illuminate\Support\Facades\Auth;
 
 class RoleController extends Controller
 {
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $roles = Role::all();
-        return view('role.index',compact('roles'));
+        $roles = Role::name($request->full_name)->orderBy('name', 'ASC')->paginate(10);
+
+        if ($request->ajax()) {
+            return view('role.partials.roles', compact('roles'));
+        }
+
+        return view('role.index', compact('roles'));
     }
 
     /**
@@ -30,8 +35,8 @@ class RoleController extends Controller
     public function create()
     {
         $permissions = Permission::all();
-        $role = new Role();
-        return view('role.create',compact('role','permissions'));
+        $role        = new Role();
+        return view('role.create', compact('role', 'permissions'));
     }
 
     /**
@@ -42,23 +47,22 @@ class RoleController extends Controller
      */
     public function store(RoleRequest $request)
     {
-        $role = new Role();
-        $role->name = $request->name;
-        $role->slug = $request->slug;
+        $role              = new Role();
+        $role->name        = $request->name;
+        $role->slug        = $request->slug;
         $role->description = $request->description;
 
-        if ($role->save()){
-            if ($request->permissions){
-                $array_permissions = explode(',',$request->permissions);
-                foreach ($array_permissions as $permission_id){
+        if ($role->save()) {
+            if ($request->permissions) {
+                $array_permissions = explode(',', $request->permissions);
+                foreach ($array_permissions as $permission_id) {
                     $role->assignPermission($permission_id);
                     $role->save();
                 }
             }
         }
-        session()->flash('message',"Rol $role->name creado");
+        session()->flash('message', "Rol $role->name creado");
         return redirect('role');
-
     }
 
     /**
@@ -70,7 +74,7 @@ class RoleController extends Controller
     public function show($id)
     {
         $role = Role::find($id);
-        if ($role->special == "all-access"){
+        if ($role->special == "all-access") {
             return $role;
         }
         return $role->Permissions;
@@ -84,10 +88,10 @@ class RoleController extends Controller
      */
     public function edit($id)
     {
-        $role = Role::find($id);
-        $role_permissions = implode(";",$role->getPermissions());
-        $permissions = Permission::all();
-        return view('role.edit',compact('role','permissions','role_permissions'));
+        $role             = Role::find($id);
+        $role_permissions = implode(";", $role->getPermissions());
+        $permissions      = Permission::all();
+        return view('role.edit', compact('role', 'permissions', 'role_permissions'));
     }
 
     /**
@@ -99,24 +103,24 @@ class RoleController extends Controller
      */
     public function update(RoleRequest $request, $id)
     {
-        $res = false;
+        $res  = false;
         $role = Role::find($id);
         $role->fill($request->all());
-        if ($role->update()){
-            if ($request->permissions){
-                $array_permissions = explode(',',$request->permissions);
+        if ($role->update()) {
+            if ($request->permissions) {
+                $array_permissions = explode(',', $request->permissions);
                 $role->revokeAllPermissions();
-                foreach ($array_permissions as $permission_id){
+                foreach ($array_permissions as $permission_id) {
                     $role->assignPermission($permission_id);
                     $role->save();
                 }
-            }else{
+            } else {
                 $role->revokeAllPermissions();
             }
             $res = true;
         }
-        if ($res){
-            session()->flash('message',"La información del rol: $role->name ha sido actualizada");
+        if ($res) {
+            session()->flash('message', "La información del rol: $role->name ha sido actualizada");
             return redirect('role');
         }
     }
@@ -131,12 +135,14 @@ class RoleController extends Controller
     {
         $role = Role::find($id);
         $role->delete();
-        session()->flash('message',"El rol $role->name ha sido eliminado correctamente");
+        session()->flash('message', "El rol $role->name ha sido eliminado correctamente");
         return redirect('role');
     }
 
-    public function permissions($id){
+    public function permissions($id)
+    {
         $role = Role::find($id);
         return $role->permissions()->get();
     }
+
 }

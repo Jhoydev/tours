@@ -9,6 +9,7 @@ use Caffeinated\Shinobi\Models\Permission;
 use Illuminate\Http\Request;
 use App\Http\Requests\CustomerRequest;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class CustomerController extends Controller
 {
@@ -18,9 +19,14 @@ class CustomerController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $customers = Customer::paginate(20);
+        $customers = Customer::fullName($request->full_name)->orderBy('first_name', 'ASC')->paginate(10);
+
+        if ($request->ajax()) {
+            return view('customers.partials.customers', compact('customers'));
+        }
+
         return view('customers.index', compact('customers'));
     }
 
@@ -47,7 +53,7 @@ class CustomerController extends Controller
     public function store(CustomerRequest $request)
     {
         $customer = Customer::create($request->all());
-        
+
         session()->flash('message', "Asistente $customer->name creado");
         return redirect('customer');
     }
@@ -91,7 +97,7 @@ class CustomerController extends Controller
         $customer->save();
 
         session()->flash('message', "La información del asistente: $customer->first_name $customer->last_name ha sido actualizada");
-        if (Auth::guard('customer')->check()){
+        if (Auth::guard('customer')->check()) {
             return redirect(route('portal'));
         }
         return redirect('customer');
@@ -114,12 +120,13 @@ class CustomerController extends Controller
     public function portal()
     {
         $events = Event::lastEvents(3);
-        return view('portal.home',compact('events'));
+        return view('portal.home', compact('events'));
     }
 
-    public function profile(){
+    public function profile()
+    {
         $customer = Customer::find(Auth::user()->id);
-        return view('portal.profile',compact('customer'));
+        return view('portal.profile', compact('customer'));
     }
 
 }
