@@ -6,8 +6,10 @@ use App\Scopes\CompanyScope;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
-class Event extends Model {
+class Event extends Model
+{
 
     protected $fillable = ["id", "title", "description", "location", "start_date", "end_date", "location", "flyer", "event_type_id", "created_by"];
     protected $dates    = ['deleted_at', "start_date", "end_date"];
@@ -16,7 +18,7 @@ class Event extends Model {
     protected static function boot()
     {
         parent::boot();
-        if (Auth::guard('web')->check()){
+        if (Auth::guard('web')->check()) {
             static::addGlobalScope(new CompanyScope);
         }
     }
@@ -54,6 +56,24 @@ class Event extends Model {
     public function setEndDateAttribute($value)
     {
         return $this->attributes['end_date'] = Carbon::parse($value);
+    }
+
+    function scopeTitle($query, $title)
+    {
+        if ($title) {
+            $id_events = [];
+
+            $events = Event::Select(DB::raw('title, id'))
+                            ->having('title', 'LIKE', "%$title%")->get();
+
+            foreach ($events as $event) {
+                array_push($id_events, $event->id);
+            }
+
+            return $query->whereIn('id', $id_events);
+        }
+
+        return $query;
     }
 
 }

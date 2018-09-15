@@ -9,26 +9,17 @@
 @endsection
 
 @section('content')
-{!! Form::open(['url' => $url_form,'method' => $method,'enctype'=>'multipart/form-data']) !!}
+@push('navbar_items_right')
+<li class="nav-item">
+    <a href="{{ url('user') }}" class="btn btn-light rounded mr-1"><i class="fa fa-ban"></i> Cancelar</a>
+</li>
+<li class="nav-item">    
+    <a href="#" class="btn btn-success rounded mr-5 submit_form_button">{!! $method == 'PUT' ? '<i class="fa fa-refresh"></i> Actualizar' : '<i class="fa fa-plus"></i> Crear' !!}</a>
+</li>
+@endpush
+{!! Form::open(['url' => $url_form,'method' => $method,'enctype'=>'multipart/form-data', 'id' =>'submit_form']) !!}
 @csrf
 <div class="row mt-2 justify-content-center mb-5"  id="user" v-cloak>
-    <div class="col-12">
-        <div class="row">
-            <div class="col-md-8">
-                <h2>{{ $title }}</h2>
-            </div>
-            <div class="col-md-4">
-                <div class="form-row mt-3 d-flex justify-content-end">
-                    <div class="form-group text-center">
-                        <a href="{{ url('user') }}" class="btn btn-light btn-sm rounded"><i class="fa fa-ban"></i> Cancelar</a>
-                    </div>
-                    <div class="ml-5 mr-1 form-group text-center">
-                        <button class="btn btn-success btn-sm rounded" type="submit">{!! $method == 'PUT' ? '<i class="fa fa-refresh"></i> Actualizar' : '<i class="fa fa-plus"></i> Crear' !!}</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
     <div class="col-md-2">
         <div class="card card-body">
             <div class="row">
@@ -63,6 +54,14 @@
     <div class="col-md-10">
         <div class="card">
             <div class="card-body">
+                <div class="col-12">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <h2>{{ $title }}</h2>
+                        </div>
+                    </div>
+                </div>
+                <hr>
                 <div class="form-row">
                     <div class="form-group col-md-6">
                         <label for="first_name"><span class="fa fa-user"></span> Nombre</label>

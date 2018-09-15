@@ -35,8 +35,7 @@ class CustomerRequest extends FormRequest
         } else if ($request->method == "PUT") {
             $res = [
                 'first_name' => 'required|string|max:255',
-                'email'      => 'required|string|email|max:255|unique:customers',
-                'document'   => 'required|string|max:255|unique:customers'
+                'password'   => 'string|min:6|confirmed',
             ];
 
             $res['email']    = 'required|string|email|max:255|unique:customers,email,' . $this->customer;

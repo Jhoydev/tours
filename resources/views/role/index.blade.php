@@ -5,7 +5,7 @@
 <li class="nav-item">
     <form id="form_search_role" action="{{ url('role') }}">
         <div class="col input-group">
-            <input type="text" id="full_name" class="form-control" placeholder="Buscar rol" aria-label="Buscar rol" aria-describedby="addon">
+            <input type="text" id="name" class="form-control" placeholder="Buscar rol" aria-label="Buscar rol" aria-describedby="addon">
             <div class="input-group-append">
                 <button class="btn btn-primary" type="button" onclick="searchRoles()"><span class="fa fa-search"></span> Buscar Rol </button>
             </div>
@@ -16,7 +16,7 @@
     <a class="btn btn-success rounded mr-5" href="{{ url('role/create') }}"><i class="fa fa-plus"></i> Nuevo Rol</a>
 </li>
 @endpush
-<div class="row mt-5">
+<div class="row mt-2">
     <div class="col-12" id="render_roles">
         @include('role.partials.roles')
     </div>
@@ -33,7 +33,7 @@
         url = $('#form_search_role').attr('action');
         axios.get(url, {
             params: {
-                "full_name": $('input[id = full_name ]').val()
+                "name": $('input[id = name ]').val()
             }
         }).then(response => {
             $("#render_roles").html(response.data);

@@ -1,6 +1,6 @@
-<div class="row animated bounceInRight">
+<div class="row animated bounceInRight mt-2">
     @foreach($users as $user)
-    <div class="card rounded col-lg-3 col-md-4 col-sm-6">
+    <div class="card rounded col-lg-3 col-md-4 col-sm-6 mr-1">
         <div class="card-body">
             <div class="text-center mb-2">
                 <img class="img-fluid mx-auto avatar_user" src="{{ url("user/avatar/".$user->company_id."/".$user->id) }}" alt="">

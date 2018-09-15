@@ -16,7 +16,7 @@
     <a class="btn btn-success rounded mr-5" href="{{ url('user/create') }}"><i class="fa fa-plus"></i> Nuevo usuario</a>
 </li>
 @endpush
-<div class="row mt-5">
+<div class="row mt-2">
     <div class="col-12" id="render_users">
         @include('user.partials.users')
     </div>

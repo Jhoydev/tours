@@ -1,6 +1,11 @@
 {
     "/js/main.js": "/js/main.js",
     "/css/main.css": "/css/main.css",
-    "/js/user.js": "/js/user.js",
+    "/js/vue/user.js": "/js/vue/user.js",
+    "/vue/user.js": "/vue/user.js",
+    "/js/vue/role.js": "/js/vue/role.js",
+    "/vue/role.js": "/vue/role.js",
+    "/js/vue/customer.js": "/js/vue/customer.js",
+    "/vue/customer.js": "/vue/customer.js",
     "/js/app.js": "/js/app.js"
 }

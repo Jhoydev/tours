@@ -18,7 +18,7 @@ class RoleController extends Controller
      */
     public function index(Request $request)
     {
-        $roles = Role::name($request->full_name)->orderBy('name', 'ASC')->paginate(10);
+        $roles = Role::name($request->name)->orderBy('name', 'ASC')->paginate(10);
 
         if ($request->ajax()) {
             return view('role.partials.roles', compact('roles'));

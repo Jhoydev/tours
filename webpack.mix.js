@@ -11,7 +11,15 @@ let mix = require('laravel-mix');
  |
  */
 mix.js('resources/assets/js/main.js', 'public/js')
-    .sass('resources/assets/sass/main.scss', 'public/css')
-    .js('resources/assets/js/user.js', 'public/js')
+        .sass('resources/assets/sass/main.scss', 'public/css')
 
-mix.babel('resources/assets/js/app.js','public/js/app.js')
+mix.js('resources/assets/js/vue/user.js', 'public/js/vue')
+        .js('resources/assets/js/vue/user.js', 'public/vue')
+
+mix.js('resources/assets/js/vue/customer.js', 'public/js/vue')
+        .js('resources/assets/js/vue/customer.js', 'public/vue')
+
+mix.js('resources/assets/js/vue/role.js', 'public/js/vue')
+        .js('resources/assets/js/vue/role.js', 'public/vue')
+
+mix.babel('resources/assets/js/app.js', 'public/js/app.js')

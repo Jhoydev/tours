@@ -15,3 +15,8 @@ function showAlertSuccess(mensaje) {
   $('main > .container-fluid').prepend(alert);
   $('#alert-ajax').modal('show');
 }
+
+$('.submit_form_button').click(function (e) {
+  e.preventDefault();
+  document.getElementById("submit_form").submit();
+});

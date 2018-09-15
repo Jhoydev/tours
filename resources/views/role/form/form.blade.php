@@ -7,12 +7,19 @@
 </style>
 @endsection
 @section('content')
-<div id="role" class="row mt-5 justify-content-center" v-cloak>
+@push('navbar_items_right')
+<li class="nav-item">
+    <a href="{{ url('role') }}" class="btn btn-light rounded mr-1"><i class="fa fa-ban"></i> Cancelar</a>
+</li>
+<li class="nav-item">    
+    <a href="#" class="btn btn-success rounded mr-5 submit_form_button">{!! $method == 'PUT' ? '<i class="fa fa-refresh"></i> Actualizar' : '<i class="fa fa-plus"></i> Crear' !!}</a>
+</li>
+@endpush
+<div id="role" class="row mt-2 justify-content-center mb-5" v-cloak>
     <div class="col-md-10">
-        {!! Form::open(['url' => $url_form,'method' => $method]) !!}
+        {!! Form::open(['url' => $url_form,'method' => $method, 'id' =>'submit_form']) !!}
         <div class="card">
             <div class="card-body">
-
                 <input type="hidden" name="permissions" :value="permissionsCheked">
                 <input type="hidden" name="slug" :value="nameToSlug">
                 <input type="hidden" id="inp_permissions" name="role_permissions" value="{{ (isset($role_permissions) && $role_permissions) ? $role_permissions : "" }}">
@@ -24,19 +31,9 @@
                     <div class="col-6">
                         <h2 class="m-0">{{ $title }}</h2>
                     </div>
-                    <div class="col-6">
-                        <div class="form-row d-flex justify-content-end">
-                            <div class="text-center">
-                                <a href="{{ url('role') }}" class="btn btn-light btn-sm rounded"><i class="fa fa-ban"></i> Cancelar</a>
-                            </div>
-                            <div class="ml-5 mr-1 text-center">
-                                <button class="btn btn-success btn-sm rounded" type="submit">{!! $method == 'PUT' ? '<i class="fa fa-refresh"></i> Actualizar' : '<i class="fa fa-plus"></i> Crear' !!}</button>
-                            </div>
-                        </div>
-                    </div>
                 </div>
                 <hr>
-                
+
                 <div class="form-group">
                     <label for="name">Nombre del rol</label>
                     <input id="name" name="name" type="text" class="form-control rounded {{ $errors->has('name') ? ' is-invalid' : '' }}" v-model="name" required>
@@ -46,7 +43,7 @@
                     </span>
                     @endif
                 </div>
-                
+
                 <div class="form-group">
                     <label for="description">Descripción</label>
                     <textarea class="form-control rounded {{ $errors->has('description') ? ' is-invalid' : '' }}" name="description" id="description" v-model="description"></textarea>
@@ -56,7 +53,7 @@
                     </span>
                     @endif
                 </div>
-                
+
                 <div class="form-group">
                     <h4>Permisos</h4>
                 </div>
@@ -86,8 +83,8 @@
 @section('script')
 <script src="{{ asset('js/vue/role.js') }}"></script>
 <script>
-    if (document.querySelector("#role-special").value == "all-access"){
-        $.map($("#content_checkboxes_role input"),(el)=> $(el).prop('checked',true));
-    }
+if (document.querySelector("#role-special").value == "all-access") {
+    $.map($("#content_checkboxes_role input"), (el) => $(el).prop('checked', true));
+}
 </script>
 @endsection

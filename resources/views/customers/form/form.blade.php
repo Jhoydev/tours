@@ -7,9 +7,17 @@
 </style>
 @endsection
 @section('content')
-<div id="customer" class="row mt-5 justify-content-center" v-cloak>
+@push('navbar_items_right')
+<li class="nav-item">
+    <a href="{{ url('customer') }}" class="btn btn-light rounded mr-1"><i class="fa fa-ban"></i> Cancelar</a>
+</li>
+<li class="nav-item">    
+    <a href="#" class="btn btn-success rounded mr-5 submit_form_button">{!! $method == 'PUT' ? '<i class="fa fa-refresh"></i> Actualizar' : '<i class="fa fa-plus"></i> Crear' !!}</a>
+</li>
+@endpush
+<div id="customer" class="row mt-2 justify-content-center mb-5" v-cloak>
     <div class="col-md-10">
-        {!! Form::open(['url' => $url_form,'method' => $method]) !!}
+        {!! Form::open(['url' => $url_form,'method' => $method, 'id' =>'submit_form']) !!}
         <div class="card">
             <div class="card-body">
                 @if ($method == 'PUT')
@@ -35,23 +43,10 @@
                 <input type="hidden" id="inp_country_id" name="country_id" value="{{ $customer->country_id ? $customer->country_id : old('country_id') }}">
                 <input type="hidden" id="inp_profession" name="profession" value="{{ $customer->profession ? $customer->profession : old('profession') }}">
                 <input type="hidden" id="inp_workplace" name="workplace" value="{{ $customer->workplace ? $customer->workplace : old('workplace') }}">
-                @if ($method == 'POST')
-                <input type="hidden" id="inp_password" name="password" value="{{ $customer->password ? $customer->password : old('password') }}">
-                @endif
 
                 <div class="row">
                     <div class="col-6">
                         <h2 class="m-0">{{ $title }}</h2>
-                    </div>
-                    <div class="col-6">
-                        <div class="form-row d-flex justify-content-end">
-                            <div class="text-center">
-                                <a href="{{ url('customer') }}" class="btn btn-light btn-sm rounded"><i class="fa fa-ban"></i> Cancelar</a>
-                            </div>
-                            <div class="ml-5 mr-1 text-center">
-                                <button class="btn btn-success btn-sm rounded" type="submit">{!! $method == 'PUT' ? '<i class="fa fa-refresh"></i> Actualizar' : '<i class="fa fa-plus"></i> Crear' !!}</button>
-                            </div>
-                        </div>
                     </div>
                 </div>
                 <hr>
@@ -201,7 +196,7 @@
                 <div class="row">
                     <div class="form-group col-md-6">
                         <label for="password"><span class="fa fa-key"></span>   Contraseña</label>
-                        <input id="password" name="password" type="password" 
+                        <input autocomplete="off" id="password" name="password" type="password" 
                                class="form-control rounded {{ $errors->has('password') ? ' is-invalid' : '' }} "  placeholder="Contraseña" 
                                v-model="password" required>
                         @if ($errors->has('password'))
@@ -213,19 +208,20 @@
 
                     <div class="form-group col-md-6">
                         <label for="password-confirm"><span class="fa fa-key"></span>   Confirmar Contraseña</label>
-                        <input id="password-confirm" name="password_confirmation" 
-                               type="password" class="form-control  rounded" placeholder="Contraseña" 
+                        <input autocomplete="off" id="password-confirm" name="password_confirmation" 
+                               type="password" class="form-control  rounded" placeholder="Confirmar Contraseña" 
                                v-model="password_confirmation" required>
                     </div>
                 </div>
                 @else
                 <hr>
+                <input type="hidden" value="{{ $errors->has('password') ? $errors->first('password'): "" }}" id="password_error">
                 <div class="form-group col-md-12 mt-3" v-show="show_password">
                     <input type="hidden" name="pass_secret" id="pass_secret" value="{{ $customer->password }}">
                     <div class="row">
                         <div class="form-group col-md-6">
                             <label for="password"><span class="fa fa-key"></span>   Contraseña</label>
-                            <input id="password" name="password" type="password" 
+                            <input autocomplete="off" id="password" name="password" type="password" 
                                    class="form-control rounded {{ $errors->has('password') ? ' is-invalid' : '' }} "  placeholder="Contraseña" 
                                    v-model="password" required>
                             @if ($errors->has('password'))
@@ -237,8 +233,8 @@
 
                         <div class="form-group col-md-6">
                             <label for="password-confirm"><span class="fa fa-key"></span>   Confirmar Contraseña</label>
-                            <input id="password-confirm" name="password_confirmation" 
-                                   type="password" class="form-control  rounded" placeholder="Contraseña" 
+                            <input autocomplete="off" id="password-confirm" name="password_confirmation" 
+                                   type="password" class="form-control  rounded" placeholder="Confirmar Contraseña" 
                                    v-model="password_confirmation" required>
                         </div>
                     </div>
