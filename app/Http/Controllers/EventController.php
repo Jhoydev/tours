@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Event;
 use App\EventType;
+use App\Order;
+use App\OrderDetail;
 use App\Page;
 use Image;
 use Illuminate\Http\Request;
@@ -179,5 +181,19 @@ class EventController extends Controller
     public function customers(Event $event)
     {
         return view('events.customers',compact('event'));
+    }
+
+    public function orders(Event $event)
+    {
+        return view('events.orders',compact('event'));
+    }
+
+    public function details(Event $event,Order $order)
+    {
+        $details = OrderDetail::where('order_id','=',$order->id)
+            ->where('event_id','=',$event->id)
+            ->get();
+        //dd($details);
+        return view('events.details',compact('event','order','details'));
     }
 }

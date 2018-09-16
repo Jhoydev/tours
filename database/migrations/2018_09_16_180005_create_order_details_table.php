@@ -21,6 +21,8 @@ class CreateOrderDetailsTable extends Migration
             $table->foreign('customer_id')->references('id')->on('customers');
             $table->unsignedInteger('order_id');
             $table->foreign('order_id')->references('id')->on('orders');
+            $table->unsignedInteger('event_id');
+            $table->foreign('event_id')->references('id')->on('events');
             $table->boolean('available')->default(true);
             $table->string('code')->unique();
             $table->decimal('price', 13, 2);

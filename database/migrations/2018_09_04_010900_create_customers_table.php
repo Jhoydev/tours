@@ -69,8 +69,8 @@ class CreateCustomersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('document_types');
         Schema::dropIfExists('customers');
+        Schema::dropIfExists('document_types');
     }
 
 }

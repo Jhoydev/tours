@@ -64,6 +64,11 @@ class Customer extends Authenticatable
         return $this->belongsTo(City::class);
     }
 
+    public function order()
+    {
+        return $this->hasOne(Order::class);
+    }
+
     public function created_by()
     {
         return $this->hasOne(User::class, 'id', 'created_by');

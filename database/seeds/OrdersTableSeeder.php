@@ -13,15 +13,18 @@ class OrdersTableSeeder extends Seeder
     {
         DB::table('orders')->insert([
             'customer_id' => 1,
-            'order_status_id' => 1
+            'order_status_id' => 1,
+            'event_id' => 1
         ]);
         DB::table('orders')->insert([
             'customer_id' => 1,
-            'order_status_id' => 1
+            'order_status_id' => 1,
+            'event_id' => 1,
         ]);
         DB::table('orders')->insert([
             'customer_id' => 2,
-            'order_status_id' => 1
+            'order_status_id' => 1,
+            'event_id' => 1
         ]);
     }
 }

@@ -45,6 +45,8 @@ Route::middleware('auth:web')->group(function () {
 
     Route::resource('events','EventController');
     Route::get('events/{event}/customers','EventController@customers')->name('event.customers');
+    Route::get('events/{event}/orders','EventController@orders')->name('event.orders');
+    Route::get('events/{event}/orders/{order}/details','EventController@details')->name('event.orders.details');
     Route::resource('events/{event}/tickets','TicketController');
     Route::resource('customer', 'CustomerController');
 
