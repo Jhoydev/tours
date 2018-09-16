@@ -42,10 +42,7 @@ class Customer extends Authenticatable
         $this->attributes['password'] = $password;
     }
 
-    public function getFullNameAttribute()
-    {
-        return ucfirst($this->first_name) . " " . ucfirst($this->last_name);
-    }
+    /* Relationships */
 
     public function document_type()
     {
@@ -76,6 +73,26 @@ class Customer extends Authenticatable
     {
         return $this->hasOne(User::class, 'id', 'edited_by');
     }
+
+    public function events()
+    {
+        return $this->belongsToMany(Event::class)->orderBy('start_date','DESC');
+    }
+
+    public function eventsActive()
+    {
+        return $this::with('events.page');
+    }
+    /* Mutators */
+
+    /* Accessors */
+
+    public function getFullNameAttribute()
+    {
+        return ucfirst($this->first_name) . " " . ucfirst($this->last_name);
+    }
+
+    /* Scopes */
 
     function scopeFullName($query, $name)
     {

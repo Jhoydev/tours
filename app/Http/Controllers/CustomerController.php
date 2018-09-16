@@ -154,12 +154,9 @@ class CustomerController extends Controller
      */
     public function events(Request $request)
     {
-        $events      = Event::title($request->title)->orderBy('title', 'ASC')->paginate(20);
-        $event_types = EventType::orderBy('name', 'ASC')->pluck('name', 'id')->all();
-        $event_form  = new Event();
-        $page        = new Page();
-
-        return view('portal.customer.events', compact('events', 'event_types', 'event_form', 'page'));
+        $events      = Customer::find(Auth::user()->id);
+        $events = $events->events;
+        return view('portal.customer.events', compact('events'));
 
     }
 

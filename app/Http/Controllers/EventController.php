@@ -20,6 +20,10 @@ class EventController extends Controller
      */
     public function index(Request $request)
     {
+        if (Auth::guard('customer')->check()){
+            $events      = Event::active()->paginate(20);
+            return view('portal.events', compact('events'));
+        }
         $events      = Event::title($request->title)->orderBy('title', 'ASC')->paginate(20);
         $event_types = EventType::orderBy('name', 'ASC')->pluck('name', 'id')->all();
         $event_form  = new Event();
@@ -28,9 +32,7 @@ class EventController extends Controller
         if ($request->ajax()) {
             return view('events.partials.events', compact('events', 'event_types', 'event_form', 'page'));
         }
-        if (Auth::guard('customer')->check()){
-            return view('portal.events', compact('events', 'event_types', 'event_form', 'page'));
-        }
+
         return view('events.index', compact('events', 'event_types', 'event_form', 'page'));
     }
 

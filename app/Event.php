@@ -23,9 +23,16 @@ class Event extends Model
         }
     }
 
+    /* Relationships */
+
+    public function company()
+    {
+        return $this->belongsTo(Company::class);
+    }
+
     public function page()
     {
-        return $this->hasOne(Page::class);
+        return $this->hasOne(Page::class)->where('is_live',1);
     }
 
     public function event_type()
@@ -43,10 +50,12 @@ class Event extends Model
         return $this->hasMany(Ticket::class);
     }
 
-    public static function lastEvents($num)
+    public function customers()
     {
-        return Event::orderBy('created_at', 'DESC')->take($num)->get();
+        return $this->belongsToMany(Customer::class);
     }
+
+    /* Mutators */
 
     public function setStartDateAttribute($value)
     {
@@ -57,6 +66,8 @@ class Event extends Model
     {
         return $this->attributes['end_date'] = Carbon::parse($value);
     }
+
+    /* Scopes */
 
     function scopeTitle($query, $title)
     {
@@ -74,6 +85,19 @@ class Event extends Model
         }
 
         return $query;
+    }
+
+    function scopeActive($query)
+    {
+        $query->with('company','page')->where('start_date','>=',NOW())->orderBy('start_date','ASC');
+        return $query;
+    }
+
+    /* Methods */
+
+    public static function lastEvents($num)
+    {
+        return Event::orderBy('created_at', 'DESC')->take($num)->get();
     }
 
 }

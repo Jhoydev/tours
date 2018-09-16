@@ -58,7 +58,7 @@ class LoginController extends Controller
     public function showLoginForm()
     {
         if  (Auth::guard('web')->check()){
-            return back();
+            return redirect('/')->withErrors(['login' => 'Para iniciar sesión en otra cuenta debes de cerrar session en esta.']);
         }
         return view('portal.auth.login');
     }

@@ -79,8 +79,11 @@ class PageController extends Controller
      */
     public function show($event_id,Page $page)
     {
-        $event = Event::withoutGlobalScope(CompanyScope::class)->find($event_id);
-        return view('page.show',compact('page','event'));
+        if ($page->is_live == 1){
+            $event = Event::withoutGlobalScope(CompanyScope::class)->find($event_id);
+            return view('page.show',compact('page','event'));
+        }
+        return abort(404);
     }
 
     /**
