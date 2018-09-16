@@ -1,6 +1,6 @@
 @extends('layouts.main')
 @section('content')
-@include('layouts.menssage_success')
+    @include('layouts.menssage_success')
 @push('navbar_items_right')
 <li class="nav-item">
     <form id="form_search_customer" action="{{ url('customer') }}">
@@ -17,6 +17,7 @@
 </li>
 @endpush
 <div class="row mt-2">
+
     <div class="col-12" id="render_customers">
         @include('customers.partials.customers')
     </div>

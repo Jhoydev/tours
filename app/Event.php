@@ -30,6 +30,11 @@ class Event extends Model
         return $this->belongsTo(Company::class);
     }
 
+    public function customers()
+    {
+        return $this->belongsToMany(Customer::class);
+    }
+
     public function page()
     {
         return $this->hasOne(Page::class)->where('is_live',1);
@@ -50,10 +55,6 @@ class Event extends Model
         return $this->hasMany(Ticket::class);
     }
 
-    public function customers()
-    {
-        return $this->belongsToMany(Customer::class);
-    }
 
     /* Mutators */
 

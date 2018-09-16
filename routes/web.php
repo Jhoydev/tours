@@ -44,6 +44,7 @@ Route::middleware('auth:web')->group(function () {
     Route::delete('page/{page}', 'PageController@destroy');
 
     Route::resource('events','EventController');
+    Route::get('events/{event}/customers','EventController@customers')->name('event.customers');
     Route::resource('events/{event}/tickets','TicketController');
     Route::resource('customer', 'CustomerController');
 

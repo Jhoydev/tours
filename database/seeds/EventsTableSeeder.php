@@ -26,7 +26,21 @@ class EventsTableSeeder extends Seeder
                 'end_date' => $end_date,
                 'event_type_id' => 1,
                 'created_by' => 1,
-                'company_id' => rand(1,2)
+                'company_id' => 1
+            ]);
+        }
+        foreach (range(1, 10) as $item) {
+            $end_date = $faker->dateTimeBetween($startDate = 'now', $endDate = '+60 days', $timezone = null);
+            $start_date = $faker->dateTimeBetween($startDate = '- 60 days', $endDate = $end_date, $timezone = null);
+            DB::table('events')->insert([
+                'title' => $faker->name,
+                'description' => $faker->text,
+                'location' => $faker->address,
+                'start_date' => $start_date,
+                'end_date' => $end_date,
+                'event_type_id' => 1,
+                'created_by' => 3,
+                'company_id' => 2
             ]);
         }
     }

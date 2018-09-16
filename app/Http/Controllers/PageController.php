@@ -49,7 +49,13 @@ class PageController extends Controller
         $request->validate([
             'background' => 'required',
         ]);
+
         if ($page = Page::create($request->all() + ['company_id' => Auth::user()->company_id])){
+
+            if ($request->is_live == 'on'){
+                $page->is_live = 1;
+                $page->update();
+            }
             if ($request->ajax()){
                 return response()->json([
                     'status' => true,

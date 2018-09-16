@@ -17,10 +17,10 @@
                     <div class="col-md-5"><strong>Celular</strong></div>
                     <div class="col-md-7"><p class="text-secondary">{{ $customer->mobile }}</p></div>
                 </div>
-                <div class="row">
+                {{--<div class="row">
                     <div class="col-md-5"><strong>{{ $customer->document_type->name }}</strong></div>
                     <div class="col-md-7"><p class="text-secondary">{{ $customer->document }}</p></div>
-                </div>
+                </div>--}}
                 <hr>
                 <div class="d-flex justify-content-around">
                     <a href="{{ url("customer/$customer->id/edit") }}" class="btn btn-primary rounded btn-sm mr-2"><i class="fa fa-pencil"></i> Editar</a>

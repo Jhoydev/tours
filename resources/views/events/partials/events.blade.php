@@ -13,8 +13,8 @@
                 <p class="card-text pb-3 description-block" data-toggle="tooltip" data-placement="top" title="{{ $event->location }}">{{ $event->location }}</p>
                 <hr>
                 <div class="d-flex justify-content-around">
-                    <a href="{{ url("events/$event->id") }}" class="btn btn-sm btn-success rounded"><i class="fa fa-cog"></i> Administrar</a>
-                    <a href="{{ url("events/$event->id/edit") }}" class="btn btn-sm btn-primary rounded"><i class="fa fa-pencil"></i> Editar</a>
+                    <a href="{{ url("events/$event->id") }}" class="btn btn-sm btn-success rounded"><i class="fa fa-tachometer"></i> </a>
+                    <a href="{{ url("events/$event->id/edit") }}" class="btn btn-sm btn-primary rounded"><i class="fa fa-cog"></i> </a>
                 </div>
             </div>
         </div>

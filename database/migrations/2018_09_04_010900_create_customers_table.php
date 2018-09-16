@@ -53,7 +53,7 @@ class CreateCustomersTable extends Migration
             $table->unsignedInteger('edited_by')->nullable();
             $table->foreign('edited_by')->references('id')->on('users');
 
-            $table->unsignedInteger('created_by');
+            $table->unsignedInteger('created_by')->nullable();
             $table->foreign('created_by')->references('id')->on('users');
 
             $table->softDeletes();

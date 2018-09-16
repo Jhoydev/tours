@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Company;
 use App\Customer;
 use App\DocumentType;
 use App\Event;
@@ -23,13 +24,13 @@ class CustomerController extends Controller
      */
     public function index(Request $request)
     {
-        $customers = Customer::fullName($request->full_name)->orderBy('first_name', 'ASC')->paginate(10);
+        $customers = Company::find(Auth::user()->company_id)->ownCustomers();
 
         if ($request->ajax()) {
             return view('customers.partials.customers', compact('customers'));
         }
 
-        return view('customers.index', compact('customers'));
+        return view('customers.index', compact('customers','company'));
     }
 
     /**

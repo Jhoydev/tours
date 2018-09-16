@@ -1,7 +1,6 @@
 @extends('layouts.main')
 
 @section('content')
-
     @if ($errors->any())
         <div class="row mt-2">
             <div class="col-12">

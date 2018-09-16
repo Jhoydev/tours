@@ -76,7 +76,7 @@ class Customer extends Authenticatable
 
     public function events()
     {
-        return $this->belongsToMany(Event::class)->orderBy('start_date','DESC');
+        return $this->belongsToMany(Event::class)->orderBy('start_date','DESC')->using(CustomerEvent::class);
     }
 
     public function eventsActive()

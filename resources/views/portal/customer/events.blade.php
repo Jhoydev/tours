@@ -14,7 +14,7 @@
                                 @endif
                             </div>
                             <div class="col-10 offset-1 text-center">
-                                <img src="http://www.urbanui.com/melody/template/images/samples/1280x768/12.jpg" alt="" class="img-fluid rounded">
+
                             </div>
                             <div class="col-10 offset-1 text-center">
                                 <p class="text-muted">{{ $event->description }}</p>
