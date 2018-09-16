@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Customer;
 use App\DocumentType;
 use App\Event;
+use App\EventType;
+use App\Page;
 use Caffeinated\Shinobi\Models\Permission;
 use Illuminate\Http\Request;
 use App\Http\Requests\CustomerRequest;
@@ -126,7 +128,39 @@ class CustomerController extends Controller
     public function profile()
     {
         $customer = Customer::find(Auth::user()->id);
-        return view('portal.profile', compact('customer'));
+        return view('portal.customer.profile', compact('customer'));
+    }
+
+    public function changePassword(){
+        return view('portal.customer.change_password');
+    }
+    public function updatePassword(Request $request){
+        if (Auth::guard('customer')->check()){
+            $request->validate([
+                'current_password' => 'current_password',
+                'password' => 'required|string|min:6|confirmed',
+            ]);
+            $customer = Customer::find(Auth::user()->id);
+            $customer->password = bcrypt($request->password);
+            $customer->update();
+            return redirect(route('profile'));
+        }
+
+    }
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function events(Request $request)
+    {
+        $events      = Event::title($request->title)->orderBy('title', 'ASC')->paginate(20);
+        $event_types = EventType::orderBy('name', 'ASC')->pluck('name', 'id')->all();
+        $event_form  = new Event();
+        $page        = new Page();
+
+        return view('portal.customer.events', compact('events', 'event_types', 'event_form', 'page'));
+
     }
 
 }

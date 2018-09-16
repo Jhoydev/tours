@@ -4,8 +4,10 @@ namespace App\Providers;
 
 use Carbon\Carbon;
 use DebugBar\DebugBar;
+use Hash;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
+use Validator;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -18,6 +20,10 @@ class AppServiceProvider extends ServiceProvider
     {
         Schema::defaultStringLength(191);
         Carbon::setLocale(config('app.locale'));
+        Validator::extendImplicit('current_password', function($attribute, $value, $parameters, $validator){
+            return Hash::check($value, auth()->user()->password);
+        },'Grave error');
+
         view()->composer('layouts.form.roles', function ($view){
             $view->with('roles', \App\User::getRoles())->with('permissions',\App\User::getPermissions());
         });

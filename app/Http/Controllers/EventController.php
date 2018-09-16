@@ -28,7 +28,9 @@ class EventController extends Controller
         if ($request->ajax()) {
             return view('events.partials.events', compact('events', 'event_types', 'event_form', 'page'));
         }
-
+        if (Auth::guard('customer')->check()){
+            return view('portal.events', compact('events', 'event_types', 'event_form', 'page'));
+        }
         return view('events.index', compact('events', 'event_types', 'event_form', 'page'));
     }
 
@@ -171,5 +173,4 @@ class EventController extends Controller
         session()->flash('message', 'No se ha podido eliminar el evento, por favor contacte con soporte');
         return redirect('events');
     }
-
 }

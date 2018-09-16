@@ -1,5 +1,10 @@
 @extends('layouts.portal')
 @section('content')
+@push('sidebar')
+    <li class="nav-item">
+        <a class="nav-link" href="{{ route("customer.changepassword") }}"><i class="icon-key"></i> Cambiar Contraseña</a>
+    </li>
+@endpush
 @push('navbar_items_right')
     <li class="nav-item">
         <button class="btn btn-success rounded mr-5" type="button" onclick="$('#form-customer').submit()"><i class="fa fa-save"></i> Guardar</button>
@@ -16,7 +21,7 @@
                     <div class="col-12">
                         <div class="row">
                             <div class="col-md-12 text-center">
-                                <img src="{{ asset('img/avatar_customer.png') }}" alt="" class="rounded-circle mb-5 mt-3" width="200" height="200">
+                                {{--<img src="{{ asset('img/avatar_customer.png') }}" alt="" class="rounded-circle mb-5 mt-3" width="200" height="200">--}}
                             </div>
                         </div>
                         <div class="row">
@@ -70,16 +75,11 @@
 
                                 <hr>
                                 <div class="row">
-                                    <div class="form-group col-md-4">
+                                    <div class="form-group col-md-4 info" data-toggle="tooltip" data-placement="top" title="Para cambiar el correo electronico debe solicitarlo a soporte@joinapp.com">
                                         <label for="email"><span class="fa fa-envelope"></span>   Correo Electronico</label>
-                                        <input id="email" name="email" type="email"
+                                        <input id="email" type="email"
                                                class="form-control rounded {{ $errors->has('email') ? ' is-invalid' : '' }} " placeholder="Correo Electronico"
-                                               value="{{ $customer->email ? $customer->email : old('email') }}" required>
-                                        @if ($errors->has('document'))
-                                            <span class="invalid-feedback">
-                                                <strong>{{ $errors->first('email') }}</strong>
-                                            </span>
-                                        @endif
+                                               value="{{ $customer->email ? $customer->email : old('email') }}" readonly>
                                     </div>
 
                                     <div class="form-group col-md-4">
@@ -158,26 +158,6 @@
                                         <input id="workplace" name="workplace" type="text"
                                                class="form-control rounded {{ $errors->has('workplace') ? ' is-invalid' : '' }}"  placeholder="Lugar de Trabajo"
                                                value="{{ $customer->workplace ? $customer->workplace : old('workplace') }}">
-                                    </div>
-                                </div>
-                                <hr>
-                                <div class="row">
-                                    <div class="form-group col-md-6">
-                                        <label for="password"><span class="fa fa-key"></span>   Contraseña</label>
-                                        <input id="password" name="password" type="password"
-                                               class="form-control rounded {{ $errors->has('password') ? ' is-invalid' : '' }} "  placeholder="Contraseña"
-                                               value="{{ $customer->password ? $customer->password : old('password') }}" required>
-                                        @if ($errors->has('password'))
-                                            <span class="invalid-feedback">
-                                                <strong>{{ $errors->first('password') }}</strong>
-                                            </span>
-                                        @endif
-                                    </div>
-                                    <div class="form-group col-md-6">
-                                        <label for="password-confirm"><span class="fa fa-key"></span>   Confirmar Contraseña</label>
-                                        <input id="password-confirm" name="password_confirmation"
-                                               type="password" class="form-control  rounded" placeholder="Contraseña"
-                                               value="{{ $customer->password ? $customer->password : old('password') }}" required>
                                     </div>
                                 </div>
                                 {!! Form::close() !!}

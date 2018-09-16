@@ -4,6 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class CustomerRequest extends FormRequest
 {
@@ -37,8 +38,9 @@ class CustomerRequest extends FormRequest
                 'first_name' => 'required|string|max:255',
                 'password'   => 'string|min:6|confirmed',
             ];
-
-            $res['email']    = 'required|string|email|max:255|unique:customers,email,' . $this->customer;
+            if (!Auth::guard('customer')->check()){
+                $res['email']    = 'required|string|email|max:255|unique:customers,email,' . $this->customer;
+            }
             $res['document'] = 'required|string|max:255|unique:customers,document,' . $this->customer;
         }
         return $res;

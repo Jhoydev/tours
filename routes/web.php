@@ -27,7 +27,11 @@ Route::prefix('portal')->group(function () {
 Route::middleware(['auth:customer'])->group(function () {
     Route::get('portal/home', 'CustomerController@portal')->name('portal');
     Route::get('portal/shop', 'OrdenController@show')->name('shop');
+    Route::get('portal/events', 'EventController@index')->name('portal.events');
+    Route::get('portal/historic', 'CustomerController@events')->name('customer.events');
     Route::get('portal/profile', 'CustomerController@profile')->name('profile');
+    Route::get('portal/customer/change-password', 'CustomerController@changePassword')->name('customer.changepassword');
+    Route::put('portal/customer/update-password', 'CustomerController@updatePassword')->name('customer.update.password');
     Route::put('portal/profile/{customer}', 'CustomerController@update')->name('profile.update');
 });
 

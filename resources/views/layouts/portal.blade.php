@@ -62,10 +62,10 @@
         <nav class="sidebar-nav">
             <ul class="nav">
                 <li class="nav-item">
-                    <a class="nav-link" href="#"><i class="fa fa-user"></i> Historico</a>
+                    <a class="nav-link" href="{{ route('customer.events') }}"><i class="fa fa-clock-o"></i> Historico</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#"><i class="fa fa-user"></i> Explorar</a>
+                    <a class="nav-link" href="{{ route('portal.events') }}"><i class="fa fa-calendar-o"></i> Explorar</a>
                 </li>
                 @stack('sidebar')
             </ul>
@@ -90,6 +90,9 @@
 <script src="{{ asset('js/app.js') }}"></script>
 <script src="{{ asset('js/pace.min.js') }}"></script>
 <script src="{{ asset('js/coreui.js') }}"></script>
+<script>
+    $('.info').tooltip()
+</script>
 @yield('script')
 @stack('scripts')
 </body>
