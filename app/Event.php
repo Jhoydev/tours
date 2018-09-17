@@ -60,6 +60,10 @@ class Event extends Model
         return $this->hasMany(Order::class);
     }
 
+    public function orderDetails()
+    {
+        return $this->hasMany(OrderDetail::class);
+    }
 
     /* Mutators */
 

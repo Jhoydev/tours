@@ -34,5 +34,22 @@ class OrderDetailsTableSeeder extends Seeder
             'order_id' => 1,
             'code' => '12342'
         ]);
+
+        DB::table('order_details')->insert([
+            'ticket_id' => 3,
+            'event_id' => 2,
+            'customer_id' => 4,
+            'price' => 120.00,
+            'order_id' => 4,
+            'code' => '123411'
+        ]);
+        DB::table('order_details')->insert([
+            'ticket_id' => 3,
+            'event_id' => 2,
+            'customer_id' => 5,
+            'price' => 120.00,
+            'order_id' => 5,
+            'code' => '123421'
+        ]);
     }
 }

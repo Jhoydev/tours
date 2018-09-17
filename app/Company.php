@@ -11,7 +11,7 @@ class Company extends Model
         return $this->hasOne(User::class);
     }
     public function events(){
-        return $this->belongsToMany(Event::class)->using(CustomerEvent::class);
+        return $this->hasMany(Event::class);
     }
     public function customers(){
         return $this->hasManyThrough(customer::class,Event::class)->wherePivot('company_id','=',1);
@@ -20,9 +20,9 @@ class Company extends Model
     public function ownCustomers()
     {
         return DB::table('customers')
-            ->join('customer_event','customers.id', '=', 'customer_event.customer_id')
+            ->join('order_details','customers.id', '=', 'order_details.customer_id')
             ->join('events',function ($join){
-                $join->on('events.id', '=', 'customer_event.event_id')
+                $join->on('events.id', '=', 'order_details.event_id')
                     ->where('company_id', '=', $this->id);
             })
             ->groupBy('customers.id')

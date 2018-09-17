@@ -180,7 +180,8 @@ class EventController extends Controller
 
     public function customers(Event $event)
     {
-        return view('events.customers',compact('event'));
+        $attendees = OrderDetail::Attendees($event->id);
+        return view('events.customers',compact('event','attendees'));
     }
 
     public function orders(Event $event)

@@ -26,5 +26,15 @@ class OrdersTableSeeder extends Seeder
             'order_status_id' => 1,
             'event_id' => 1
         ]);
+        DB::table('orders')->insert([
+            'customer_id' => 3,
+            'order_status_id' => 1,
+            'event_id' => 2
+        ]);
+        DB::table('orders')->insert([
+            'customer_id' => 4,
+            'order_status_id' => 1,
+            'event_id' => 2
+        ]);
     }
 }

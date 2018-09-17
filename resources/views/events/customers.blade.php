@@ -8,6 +8,7 @@
     <div class="col-12">
         <div class="card">
             <div class="card-body">
+                <p class="h1">Asistentes</p>
                 <table class="table">
                     <thead class="thead-dark">
                     <tr>
@@ -18,12 +19,12 @@
                     </tr>
                     </thead>
                     <tbody>
-                    @foreach($event->customers as $customer)
+                    @foreach($attendees as $attendee)
                         <tr>
-                            <td scope="row">{{ $customer->full_name }}</td>
-                            <td>{{ $customer->email }}</td>
-                            <td>{{ $customer->phone }}</td>
-                            <td>{{ $customer->mobile }}</td>
+                            <td scope="row">{{ $attendee->customer->full_name }}</td>
+                            <td scope="row">{{ $attendee->customer->email }}</td>
+                            <td scope="row">{{ $attendee->customer->mobile }}</td>
+                            <td scope="row">{{ $attendee->customer->phone }}</td>
                         </tr>
                     @endforeach
                     </tbody>

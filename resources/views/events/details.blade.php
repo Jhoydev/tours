@@ -6,8 +6,9 @@
     @endpush
     <div class="row mt-2">
         <div class="col-12">
-            <div class="card">
+            <div class="card rounded">
                 <div class="card-body">
+                    <p class="h1">Detalles de Orden</p>
                     <table class="table">
                         <thead class="thead-dark">
                         <tr>

@@ -38,5 +38,19 @@ class TicketsTableSeeder extends Seeder
             'event_id' => 1,
             'created_by' => 1
         ]);
+
+        DB::table('tickets')->insert([
+            'title' => 'ticket3',
+            'description' => 'description',
+            'price' => 120.00,
+            'max_per_person' => 1,
+            'min_per_person' => 1,
+            'quantity_available' => 50,
+            'quantity_sold' => 50,
+            'start_sale_date' => now(),
+            'end_sale_date' => now(),
+            'event_id' => 2,
+            'created_by' => 1
+        ]);
     }
 }

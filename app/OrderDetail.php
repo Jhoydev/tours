@@ -15,4 +15,11 @@ class OrderDetail extends Model
     {
         return $this->belongsTo(Ticket::class);
     }
+
+    public static function Attendees($event_id)
+    {
+        return OrderDetail::with('customer')->where('event_id','=',$event_id)->groupBy('customer_id')->get();
+    }
+
+
 }

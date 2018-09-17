@@ -8,6 +8,7 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
+                    <p class="h1">Ordenes</p>
                     <table class="table">
                         <thead class="thead-dark">
                         <tr>
