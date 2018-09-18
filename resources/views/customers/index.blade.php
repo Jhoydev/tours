@@ -17,7 +17,6 @@
 </li>
 @endpush
 <div class="row mt-2">
-
     <div class="col-12" id="render_customers">
         @include('customers.partials.customers')
     </div>

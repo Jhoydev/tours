@@ -1,4 +1,37 @@
-<div class="row animated bounceInRight mt-2">
+<div class="card rounded">
+    <div class="card-body">
+        <div class="table-responsive">
+            <table id="table_datatable" class="table">
+                <thead>
+                <tr>
+                    <th></th>
+                    <th>Nombre</th>
+                    <th>Correo Electronico</th>
+                    <th>Telefono</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                @foreach($users as $user)
+                    <tr>
+                        <td><img class="img-fluid rounded-circle avatar_user" src="{{ url("user/avatar/".$user->company_id."/".$user->id) }}" alt=""></td>
+                        <td>{{$user->full_name}}</td>
+                        <td>{{$user->email}}</td>
+                        <td>{{ $user->phone }}</td>
+                        <td>
+                            <a href="{{ url("user/$user->id/edit") }}" class="btn btn-primary rounded-circle btn-sm mb-2"><i class="fa fa-pencil"></i></a>
+                            <button type="button" class="btn btn-danger rounded-circle btn-sm mb-2" data-toggle="modal" data-target="#deleteModal" data-user_id="{{ $user->id }}">
+                                <i class="fa fa-eraser" aria-hidden="true"></i>
+                            </button>
+                        </td>
+                    </tr>
+                @endforeach
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{{--<div class="row animated bounceInRight mt-2">
     @foreach($users as $user)
     <div class="card rounded col-lg-3 col-md-4 col-sm-6 mr-1">
         <div class="card-body">
@@ -19,7 +52,7 @@
         </div>
     </div>
     @endforeach
-</div>
+</div>--}}
 
 <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -42,3 +75,6 @@
         </div>
     </div>
 </div>
+@push('scripts')
+    @include('layouts.js.datatable')
+@endpush

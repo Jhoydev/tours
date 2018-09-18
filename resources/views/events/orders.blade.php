@@ -9,7 +9,7 @@
             <div class="card">
                 <div class="card-body">
                     <p class="h1">Ordenes</p>
-                    <table class="table">
+                    <table id="table_datatable" class="table">
                         <thead class="thead-dark">
                         <tr>
                             <th>#</th>
@@ -38,3 +38,6 @@
         </div>
     </div>
 @endsection
+@push('scripts')
+    @include('layouts.js.datatable')
+@endpush

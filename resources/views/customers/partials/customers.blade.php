@@ -1,4 +1,29 @@
-<div class="row mt-2">
+<div class="card">
+    <div class="card-body">
+        <p class="h1">Asistentes</p>
+        <table id="table_datatable" class="table">
+            <thead class="thead-dark">
+            <tr>
+                <th>Nombre</th>
+                <th>Correo Electronico</th>
+                <th>Telefono</th>
+                <th>Celular</th>
+            </tr>
+            </thead>
+            <tbody>
+            @foreach($customers as $customer)
+                <tr>
+                    <td scope="row">{{ ucfirst($customer->first_name) }} {{ ucfirst($customer->last_name) }}</td>
+                    <td scope="row">{{ $customer->email }}</td>
+                    <td scope="row">{{ $customer->mobile }}</td>
+                    <td scope="row">{{ $customer->phone }}</td>
+                </tr>
+            @endforeach
+            </tbody>
+        </table>
+    </div>
+</div>
+{{--<div class="row mt-2">
     @foreach($customers as $customer)
     <div class="col-md-3">
         <div class="card">
@@ -17,10 +42,10 @@
                     <div class="col-md-5"><strong>Celular</strong></div>
                     <div class="col-md-7"><p class="text-secondary">{{ $customer->mobile }}</p></div>
                 </div>
-                {{--<div class="row">
+                --}}{{--<div class="row">
                     <div class="col-md-5"><strong>{{ $customer->document_type->name }}</strong></div>
                     <div class="col-md-7"><p class="text-secondary">{{ $customer->document }}</p></div>
-                </div>--}}
+                </div>--}}{{--
                 <hr>
                 <div class="d-flex justify-content-around">
                     <a href="{{ url("customer/$customer->id/edit") }}" class="btn btn-primary rounded btn-sm mr-2"><i class="fa fa-pencil"></i> Editar</a>
@@ -32,7 +57,7 @@
         </div>
     </div>
     @endforeach
-</div>
+</div>--}}
 <div class="modal fade" id="deleteModal" tabindex="-1" customer="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" customer="document">
         <div class="modal-content">
@@ -54,3 +79,7 @@
         </div>
     </div>
 </div>
+
+@push('scripts')
+    @include('layouts.js.datatable')
+@endpush

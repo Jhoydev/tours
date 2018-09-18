@@ -1,4 +1,33 @@
-<div class="row mt-2">
+<div class="card rounded">
+    <div class="card-body">
+        <div class="table-responsive">
+            <table id="table_datatable" class="table">
+                <thead>
+                <tr>
+                    <th>Evento</th>
+                    <th>Lugar</th>
+                    <th>Fecha</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                @foreach($events as $event)
+                    <tr>
+                        <td>{{ $event->title }}</td>
+                        <td>{{ $event->location }}</td>
+                        <td>{{ $event->start_date }}</td>
+                        <td class="text-center">
+                            <a href="{{ url("events/$event->id") }}" class="btn btn-sm btn-success rounded"><i class="fa fa-tachometer"></i> </a>
+                            <a href="{{ url("events/$event->id/edit") }}" class="btn btn-sm btn-primary rounded"><i class="fa fa-cog"></i> </a>
+                        </td>
+                    </tr>
+                @endforeach
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{{--<div class="row mt-2">
     @foreach($events as $event)
     <div class="col-lg-3 col-md-4">
         <div class="card rounded">
@@ -20,7 +49,7 @@
         </div>
     </div>
     @endforeach
-</div>
+</div>--}}
 <div class="modal fade" id="createModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
@@ -38,3 +67,6 @@
         </div>
     </div>
 </div>
+@push('scripts')
+    @include('layouts.js.datatable')
+@endpush
