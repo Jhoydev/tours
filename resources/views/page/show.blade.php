@@ -209,7 +209,7 @@
             if ($(e).find('.inp-number').val()){
                 let value = {
                     'id' : $(e).data('code'),
-                    'cant' : $(e).find('.inp-number').val(),
+                    'qty' : $(e).find('.inp-number').val(),
                 };
                 arr_shopping_cart.push(value);
             }

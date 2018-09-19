@@ -8,19 +8,22 @@ use Illuminate\Support\Facades\Storage;
 
 class ImageController extends Controller
 {
-    public function publicBackgrounds(){
+
+    public function publicBackgrounds()
+    {
 
         $files = scandir(public_path('img/backgrounds/thumbs'));
-        $res = [];
-        foreach ($files as $f){
-            if ($f != "." && $f != ".."){
-                array_push($res,asset('img/backgrounds/thumbs'.'/'.$f));
+        $res   = [];
+        foreach ($files as $f) {
+            if ($f != "." && $f != "..") {
+                array_push($res, asset('img/backgrounds/thumbs' . '/' . $f));
             }
         }
-        return  $res;
+        return $res;
     }
 
-    public function flyer($company,$event,$filename){
+    public function flyer($company, $event, $filename)
+    {
         return ImageStore::getImage("companies/$company/events/$event/flyer/$filename");
     }
 

@@ -56,13 +56,13 @@
                                             <td>
                                                 <strong>Tiquete: {{ $ticket->title }}</strong> - {{ $ticket->description }}
                                             </td>
-                                            <td class="text-right">{{ $data_ticket[$ticket->id]['cant'] }}</td>
+                                            <td class="text-right">{{ $data_ticket[$ticket->id]['qty'] }}</td>
                                             <td class="text-right">$ {{number_format($ticket->price, 2) }}</td>
-                                            <td class="text-right">$ {{number_format($data_ticket[$ticket->id]['cant'] * $ticket->price, 2) }}</td>
+                                            <td class="text-right">$ {{number_format($data_ticket[$ticket->id]['qty'] * $ticket->price, 2) }}</td>
                                         </tr>
                                         @php
                                             $cont_ticket++;
-                                            $total += $data_ticket[$ticket->id]['cant'] * $ticket->price;
+                                            $total += $data_ticket[$ticket->id]['qty'] * $ticket->price;
                                         @endphp
                                     @endforeach
                                     </tbody>

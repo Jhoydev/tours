@@ -167,6 +167,7 @@ return [
          * Our Services providers
          * */
         App\Providers\ImageStoreServiceProvider::class,
+        Alexo\LaravelPayU\LaravelPayUServiceProvider::class,
 
     ],
 
