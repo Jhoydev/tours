@@ -19,6 +19,7 @@ class CreateOrderTable extends Migration
             $table->string('reference')->nullable();
             $table->string('payu_order_id')->nullable();
             $table->string('transaction_id')->nullable();
+            $table->decimal('value', 13, 2)->default(0);
             $table->unsignedInteger('customer_id');
             $table->foreign('customer_id')->references('id')->on('customers');
             $table->unsignedInteger('event_id');

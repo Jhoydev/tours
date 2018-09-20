@@ -5,12 +5,16 @@ namespace App\Http\Controllers;
 use App\Event;
 use App\Ticket;
 use App\Order;
+use App\MyLaravelPayU;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Alexo\LaravelPayU\LaravelPayU;
 
 class OrderController extends Controller
 {
+
+    protected $successPayment = false;
+    protected $paymentErrors  = [];
+    protected $res            = '';
 
     public function show(Request $request)
     {
@@ -34,55 +38,99 @@ class OrderController extends Controller
         }
     }
 
-    public function doPing(Request $request)
+    public function doPing()
     {
-        LaravelPayU::doPing(function($response) {
+        MyLaravelPayU::doPing(function($response) {
             $code = $response->code;
-            // ... revisar el codigo de respuesta
+            return response()->json($code);
         }, function($error) {
-            // ... Manejo de errores PayUException
+            array_push($this->paymentErrors, $error->getMessage());
         });
     }
 
-    public function getPSEBanks(Request $request)
+    public function getPSEBanks()
     {
-        LaravelPayU::getPSEBanks(function($banks) {
+        MyLaravelPayU::getPSEBanks(function($banks) {
             //... Usar datos de bancos
+            $arrBanks = array();
             foreach ($banks as $bank) {
-                $bankCode = $bank->pseCode;
+                $arrBanks[$bank->pseCode] = $bank->description;
             }
+
+            return response()->json($arrBanks);
         }, function($error) {
-            // ... Manejo de errores PayUException, InvalidArgument
+            array_push($this->paymentErrors, $error->getMessage());
         });
     }
 
-    public function makePayment(Request $request, $id)
+    public function getPaymentMethods()
     {
-        $order = Order::find($id);
+        MyLaravelPayU::getPaymentMethods(function($methods) {
+            //... Usar datos de bancos
+            $arrMethods = array();
+            foreach ($methods as $method) {
+                $arrMethods[$method->id] = $method->description;
+            }
+
+            return response()->json($arrMethods);
+        }, function($error) {
+            array_push($this->paymentErrors, $error->getMessage());
+        });
+    }
+
+    public function makePayment(Request $request)
+    {
+        $order = new Order;
+
+        $order->reference = uniqid();
+        $order->status_id = 2; // Pending Status
+        $order->value     = $request->input('value');
+        $order->save();
+        $session          = md5('joinapp.com');
 
         $data = [
-            \PayUParameters::DESCRIPTION                 => 'Payment cc test', //descripcion
-            \PayUParameters::IP_ADDRESS                  => '127.0.0.1', //ip
-            \PayUParameters::CURRENCY                    => 'COP', //tipo de moneda
-            \PayUParameters::CREDIT_CARD_NUMBER          => '378282246310005', //numero de tarjeta
-            \PayUParameters::CREDIT_CARD_EXPIRATION_DATE => '2017/02', //fecha de expiracion
-            \PayUParameters::CREDIT_CARD_SECURITY_CODE   => '1234', //codigo de seguridad
-            \PayUParameters::INSTALLMENTS_NUMBER         => 1, //numero de cuotas
+            \PayUParameters::DESCRIPTION                 => 'Payment cc test',
+            \PayUParameters::IP_ADDRESS                  => '127.0.0.1',
+            \PayUParameters::USER_AGENT                  => $_SERVER['HTTP_USER_AGENT'],
+            \PayUParameters::CURRENCY                    => 'COP',
+            \PayUParameters::VALUE                       => $order->value,
+            \PayUParameters::PAYER_COOKIE                => 'cookie_' . time(),
+            \PayUParameters::REFERENCE_CODE              => $order->reference,
+            \PayUParameters::DEVICE_SESSION_ID           => session_id($session),
+            // Card Information 
+            \PayUParameters::PAYMENT_METHOD              => $request->input('card_name'),
+            \PayUParameters::CREDIT_CARD_NUMBER          => $request->input('card_number'),
+            \PayUParameters::CREDIT_CARD_EXPIRATION_DATE => $request->input('expiration_date'),
+            \PayUParameters::CREDIT_CARD_SECURITY_CODE   => $request->input('card_cvc'),
+            \PayUParameters::INSTALLMENTS_NUMBER         => $request->input('installments'),
+            \PayUParameters::PAYER_NAME                  => $request->input('payer_name'),
+            // Payer Information
+            \PayUParameters::PAYER_EMAIL                 => $request->input('payer_email'),
+            \PayUParameters::PAYER_DNI                   => $request->input('payer_dni'),
+            \PayUParameters::PAYER_CONTACT_PHONE         => $request->input('payer_phone'),
         ];
 
         $order->payWith($data, function($response, $order) {
             if ($response->code == 'SUCCESS') {
-                $order->update([
-                    'payu_order_id'  => $response->transactionResponse->orderId,
-                    'transaction_id' => $response->transactionResponse->transactionId
-                ]);
+                $order->payu_order_id  = $response->transactionResponse->orderId;
+                $order->transaction_id = $response->transactionResponse->transactionId;
+                $order->state          = 1;
+                $order->save();
+
+                $this->successPayment = true;
                 // ... El resto de acciones sobre la orden
             } else {
                 //... El código de respuesta no fue exitoso
             }
         }, function($error) {
-            // ... Manejo de errores PayUException, InvalidArgument
+            array_push($this->paymentErrors, $error->getMessage());
         });
+
+        if ($this->paymentErrors) {
+            return back()->with('errors', $this->paymentErrors);
+        }
+
+        return back()->with('status', 'Se ha pagado exitosamente');
     }
 
     public function getPaymentStatus(Request $request, $id)
@@ -92,19 +140,19 @@ class OrderController extends Controller
         $order->searchById(function($response, $order) {
             // ... Usar la información de respuesta
         }, function($error) {
-            // ... Manejo de errores PayUException, InvalidArgument
+            array_push($this->paymentErrors, $error->getMessage());
         });
 
         $order->searchByReference(function($response, $order) {
             // ... Usar la información de respuesta
         }, function($error) {
-            // ... Manejo de errores PayUException, InvalidArgument
+            array_push($this->paymentErrors, $error->getMessage());
         });
 
         $order->searchByTransaction(function($response, $order) {
             // ... Usar la información de respuesta
         }, function($error) {
-            // ... Manejo de errores PayUException, InvalidArgument
+            array_push($this->paymentErrors, $error->getMessage());
         });
     }
 
