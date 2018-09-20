@@ -3,11 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Event;
+use App\OrderDetail;
 use App\Ticket;
 use App\Order;
 use App\MyLaravelPayU;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 
 class OrderController extends Controller
 {
@@ -23,13 +25,38 @@ class OrderController extends Controller
             $arr_ticket_id = [];
             $data_ticket   = [];
             $ticket_id     = "";
+
             if ($arr_json      = json_decode($request->buy_json, 1)) {
+                $order_value = 0;
+                $event   = Event::find($request->event_id);
+                $order = new Order();
+                $customer_id = Auth::user()->id;
+                $order->event_id = $event->id;
+                $order->customer_id = $customer_id;
+                $order->order_status_id = 1;
+                $order->reference = Str::uuid();
+                $order->save();
                 foreach ($arr_json as $li) {
                     $data_ticket[$li['id']]['qty'] = $li['qty'];
                     array_push($arr_ticket_id, $li['id']);
+                    $ticket =  Ticket::find($li['id']);
+                    $order_value = $order_value + ($ticket->price * (int) $li['qty']);
+                    $ticket->decrementTickets($li['qty']);
+                    $order_detail = new OrderDetail();
+                    $order_detail->ticket_id = $li['id'];
+                    $order_detail->customer_id = $customer_id;
+                    $order_detail->order_id = $order->id;
+                    $order_detail->event_id = $order->event_id;
+                    $order_detail->available = 1;
+                    $order_detail->code = Str::uuid();
+                    $order_detail->price = $ticket->price;
+                    $order_detail->save();
                 }
                 $tickets = Ticket::WhereIn('id', $arr_ticket_id)->get();
-                $event   = Event::find($request->event_id);
+
+                $order->value = $order_value;
+                $order->update();
+
                 return view('portal.order.create', compact('tickets', 'data_ticket', 'data', 'event'));
             }
             return redirect(route('event.page', [$request->key_app, $request->page_id]));

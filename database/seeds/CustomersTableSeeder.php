@@ -18,6 +18,7 @@ class CustomersTableSeeder extends Seeder
             DB::table('customers')->insert([
                 'first_name' => $faker->name,
                 'last_name' => $faker->lastName,
+                'document_type_id' => 1,
                 'document' => $item,
                 'country_id' => 47,
                 'state_id' => 805,

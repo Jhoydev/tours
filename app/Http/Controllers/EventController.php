@@ -145,8 +145,9 @@ class EventController extends Controller
                 $constraint->aspectRatio();
             })->save(storage_path("app/" . $path_flyer) . "/$filename");
             $event->flyer = $path_flyer . "/" . $filename;
-            $event->update();
         }
+        $event->update();
+
         if ($request->delete_flyer == "true") {
             if (Storage::disk()->exists($event->flyer)) {
                 Storage::delete($event->flyer);
@@ -154,6 +155,7 @@ class EventController extends Controller
                 $event->update();
             }
         }
+
         if ($request->ajax()) {
             return response()->json([
                         'status' => true,
