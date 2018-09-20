@@ -34,14 +34,6 @@ class Ticket extends Model
         return $this->belongsTo(Event::class);
     }
 
-    /* Methods */
-    public function decrementTickets($num = 0){
-
-        if ($num){
-            $this->decrement('quantity_available',$num);
-        }
-        return false;
-    }
 }
 
 

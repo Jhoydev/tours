@@ -24,33 +24,38 @@ class OrderController extends Controller
             $data          = $request->all();
             $arr_ticket_id = [];
             $data_ticket   = [];
-            $ticket_id     = "";
+            $new_order = false;
 
             if ($arr_json      = json_decode($request->buy_json, 1)) {
-                $order_value = 0;
+
                 $event   = Event::find($request->event_id);
-                $order = new Order();
                 $customer_id = Auth::user()->id;
+
+                if (!$order = Order::where('reference','=',$request->reference)->first()){
+                    $order = new Order();
+                    $new_order = true;
+                }
+
                 $order->event_id = $event->id;
                 $order->customer_id = $customer_id;
                 $order->order_status_id = 1;
-                $order->reference = Str::uuid();
+                $order->reference = $request->reference;
                 $order->save();
+
+                $order_value = 0;
                 foreach ($arr_json as $li) {
+
                     $data_ticket[$li['id']]['qty'] = $li['qty'];
                     array_push($arr_ticket_id, $li['id']);
+
                     $ticket =  Ticket::find($li['id']);
+
                     $order_value = $order_value + ($ticket->price * (int) $li['qty']);
-                    $ticket->decrementTickets($li['qty']);
-                    $order_detail = new OrderDetail();
-                    $order_detail->ticket_id = $li['id'];
-                    $order_detail->customer_id = $customer_id;
-                    $order_detail->order_id = $order->id;
-                    $order_detail->event_id = $order->event_id;
-                    $order_detail->available = 1;
-                    $order_detail->code = Str::uuid();
-                    $order_detail->price = $ticket->price;
-                    $order_detail->save();
+                    if ($new_order){
+                        $ticket->decrement('quantity_available',$li['qty']);
+                        OrderDetail::addDetail($ticket,$order,$customer_id);
+                    }
+
                 }
                 $tickets = Ticket::WhereIn('id', $arr_ticket_id)->get();
 

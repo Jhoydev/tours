@@ -95,7 +95,7 @@
                     <form method="GET" action="{{ route('shop') }}" class="px-5 py-3" id="form-shopping-cart">
                         @csrf
                         <div class="row mt-3 d-flex justify-content-center">
-
+                            <input type="hidden" name="reference" value="{{ \Illuminate\Support\Str::uuid() }}">
                             <input type="hidden" id="buy_json" name="buy_json">
                             <input type="hidden" name="event_id" value="{{ $event->id }}">
                             <input type="hidden" name="page_id" value="{{ $page->id }}">
