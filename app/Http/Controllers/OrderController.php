@@ -38,7 +38,7 @@ class OrderController extends Controller
 
                 $order->event_id = $event->id;
                 $order->customer_id = $customer_id;
-                $order->order_status_id = 1;
+                $order->order_status_id = 5;
                 $order->reference = $request->reference;
                 $order->save();
 
@@ -62,11 +62,36 @@ class OrderController extends Controller
                 $order->value = $order_value;
                 $order->update();
 
-                return view('portal.order.create', compact('tickets', 'data_ticket', 'data', 'event'));
+                return view('portal.order.create', compact('tickets', 'data_ticket', 'data', 'event','order'));
             }
             return redirect(route('event.page', [$request->key_app, $request->page_id]));
         } else {
             return redirect(route('portal.login'));
+        }
+    }
+
+    public function  store(Request $request)
+    {
+        $res = true;
+        $order = Order::find($request->order_id);
+        $order->order_status_id = 1;
+        if ($request->method_payment == "card_payments"){
+            $order->payu_order_id = Str::uuid();
+            $order->transaction_id = Str::uuid();
+        }
+        foreach ($order->orderDetails as $order_detail){
+            $order_detail->complete = true;
+            if (!$order_detail->update()){
+                $res = false;
+            }
+        }
+        if(!$order->update()){
+            $res = false;
+        }
+        if ($res){
+            return redirect(route('portal'));
+        }else{
+            return back();
         }
     }
 

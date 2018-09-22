@@ -31,6 +31,11 @@ class Order extends Model
         return $this->belongsTo(Event::class);
     }
 
+    public function orderDetails()
+    {
+        return $this->hasMany(OrderDetail::class);
+    }
+
     public function order_status()
     {
         return $this->belongsTo(OrderStatus::class);

@@ -84,7 +84,9 @@
                             <p class="h1">Total: $ {{ number_format($total, 2) }}</p>
                         </div>
                     </div>
-                    <form action="" id="form_order">
+                    <form action="{{ route('shop.store') }}" id="form_order" method="POST">
+                        @csrf
+                        <input type="hidden" name="order_id" value="{{ $order->id }}">
                         <div class="row">
                             <div class="col-12">
                                 @if ($event->enable_offline_payments)

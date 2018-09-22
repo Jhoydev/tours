@@ -27,6 +27,7 @@ Route::prefix('portal')->group(function () {
 Route::middleware(['auth:customer'])->group(function () {
     Route::get('portal/home', 'CustomerController@portal')->name('portal');
     Route::get('portal/shop', 'OrderController@show')->name('shop');
+    Route::post('portal/shop', 'OrderController@store')->name('shop.store');
     Route::get('portal/events', 'EventController@index')->name('portal.events');
     Route::get('portal/historic', 'CustomerController@events')->name('customer.events');
     Route::get('portal/profile', 'CustomerController@profile')->name('profile');
