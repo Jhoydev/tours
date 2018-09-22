@@ -11,9 +11,8 @@
                         <div class="col-md-6">
                             <p><strong>Evento</strong> {{ $event->title }}</p>
                             <ul class="list-unstyled">
-                                <li>{{ $event->location }}</li>
-                                <li>{{ $event->address }},{{ $event->cp }} - {{ $event->city }}</li>
-                                <li>{{ $event->start_date }}</li>
+                                <li>{{ $event->address }},{{ $event->cp }} - {{ $event->city->name }}</li>
+                                <li>{{ $event->start_date->toFormattedDateString() }}</li>
                             </ul>
                         </div>
                         <div class="col-md-6 text-right">
@@ -28,8 +27,18 @@
                     <div class="row">
                         <div class="col-12">
                             <ul class="list-unstyled">
-                                <li>Fecha: {{ date('d-m-Y H:i:s') }}</li>
+                                <li>Fecha: {{  \Carbon\Carbon::now()->toFormattedDateString() }}</li>
                             </ul>
+                            <div class="alert alert-info" role="alert">
+                                <ul class="list-unstyled">
+                                    <li class="media">
+                                        <i class="fa fa-info-circle mr-3" style="font-size: 36px" aria-hidden="true"></i>
+                                        <div class="media-body">
+                                            <strong> {{ $event->pre_order_display_message }}</strong>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
                     <div class="row">
@@ -75,12 +84,57 @@
                             <p class="h1">Total: $ {{ number_format($total, 2) }}</p>
                         </div>
                     </div>
-                    <div class="text-right">
-                        <hr>
-                        <button class="btn btn-success btn-lg rounded">Pagar</button>
-                    </div>
+                    <form action="" id="form_order">
+                        <div class="row">
+                            <div class="col-12">
+                                @if ($event->enable_offline_payments)
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="method_payment" id="inlineRadio1" value="offline_payments">
+                                    <label class="form-check-label" for="inlineRadio1">Pago con efectivo</label>
+                                </div>
+                                @endif
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="method_payment" id="inlineRadio2" value="card_payments">
+                                    <label class="form-check-label" for="inlineRadio2">Pago con tarjeta</label>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                @if ($event->enable_offline_payments)
+                                    <div id="content_offline_payment_instructions" class="alert alert-success mt-3 fade" role="alert">
+                                        <ul class="list-unstyled">
+                                            <li class="media">
+                                                <i class="fa fa-check-circle mr-3" style="font-size: 36px" aria-hidden="true"></i>
+                                                <div class="media-body">
+                                                    <strong> {{ $event->offline_payment_instructions }}</strong>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                @endif
+                            </div>
+                            <div class="col-12 text-right">
+                                <hr>
+                                <button type="submit" class="btn btn-success btn-lg rounded fade">Pagar</button>
+                            </div>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
     </div>
 @endsection
+@push('scripts')
+    <script>
+        $('input[type=radio][name=method_payment]').change(()=>{
+            if ($("#inlineRadio1").prop("checked")){
+                $("#content_offline_payment_instructions").addClass('show');
+                $("#form_order").find('button[type=submit]').text('Confirmar');
+            }else{
+                $("#content_offline_payment_instructions").removeClass('show');
+                $("#form_order").find('button[type=submit]').text('Pagar');
+            }
+            $("#form_order").find('button[type=submit]').addClass('show');
+
+        });
+    </script>
+@endpush

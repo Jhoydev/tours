@@ -117,26 +117,7 @@
                                                value="{{ $customer->address2 ? $customer->address2 : old('address2') }}">
                                     </div>
 
-                                    <div class="form-group col-md-6">
-                                        <label for="country_id"><span class="fa fa-map-marker"></span>   Pais</label>
-                                        @include('viewComposers.input_country')
-                                    </div>
-
-                                    <div class="form-group col-md-6">
-                                        <input type="hidden" id="url_states" value="{{ url('api/states') }}">
-                                        <input type="hidden" id="value_state_id" value="{{ $customer->state->id }}">
-                                        <label for="state_id"><span class="fa fa-map-marker"></span>   Estado/Departamento</label>
-                                        {!!Form::select('state_id', ['' => ''], '', ['id' => 'state_id', 'class' => "form-control rounded"])!!}
-                                    </div>
-
-                                    <div class="form-group col-md-6">
-                                        <input type="hidden" id="url_cities" value="{{ url('api/cities') }}">
-                                        <input type="hidden" id="value_city_id" value="{{ $customer->city_id }}">
-
-                                        <label for="city_id"><span class="fa fa-map-marker"></span>   Ciudad</label>
-                                        {!!Form::select('city_id', ['' => ''], '', ['id' => 'city_id', 'class' => "form-control rounded"])!!}
-
-                                    </div>
+                                    @include('layouts.partials.forms.inputs_location',['input' => $customer])
 
                                     <div class="form-group col-md-6">
                                         <label for="zip_code"><span class="fa fa-map-marker"></span>   Codigo Postal</label>
@@ -171,79 +152,3 @@
     </div>
 </div>
 @endsection
-@push('scripts')
-    <script>
-        $(document).ready(function () {
-            getSates();
-        });
-
-        $("#inp_country").change(function(){
-            let id = this.value;
-            let url = $('#url_states').val() + "/" + id;
-            let text = "";
-            let sel = $('#state_id');
-            $.get(url,(res)=>{
-                sel.html(text);
-                text += `<option value=""></option>`;
-                $(res).each(function(index,val) {
-                    text += `<option value="${val.id}">${val.name}</option>`;
-                });
-                sel.html(text);
-                $('#city_id').html('');
-            })
-        });
-
-        $("#state_id").change(function(){
-            let id = this.value;
-            let url = $('#url_cities').val() + "/" + id;
-            let text = "";
-            let sel = $('#city_id');
-            $.get(url,(res)=>{
-                sel.html(text);
-                text += `<option value=""></option>`;
-                $(res).each(function(index,val) {
-                    text += `<option value="${val.id}">${val.name}</option>`;
-                });
-                sel.html(text);
-            })
-        });
-
-        function getSates(){
-            let country_id = $("#inp_country").val();
-            let url = $('#url_states').val() + "/" + country_id;
-            let id = $('#value_state_id').val();
-            let text = "";
-            let sel = $('#state_id');
-            $.get(url,(res)=>{
-                let selected = "";
-                $(res).each(function(index,val) {
-                    if (val.id == id){
-                        selected = "selected";
-                    }
-                    text += `<option value="${val.id}" ${selected}>${val.name}</option>`;
-                    selected = "";
-                });
-                sel.html(text);
-                getCities();
-            })
-        }
-        function getCities(){
-            let state_id = $("#state_id").val();
-            let url = $('#url_cities').val() + "/" + state_id;
-            let id = $('#value_city_id').val();
-            let text = "";
-            let sel = $('#city_id');
-            $.get(url,(res)=>{
-                let selected = "";
-                $(res).each(function(index,val) {
-                    if (val.id == id){
-                        selected = "selected";
-                    }
-                    text += `<option value="${val.id}" ${selected}>${val.name}</option>`;
-                    selected = "";
-                });
-                sel.html(text);
-            })
-        }
-    </script>
-@endpush

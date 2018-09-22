@@ -21,6 +21,10 @@ class Company extends Model
     {
         return DB::table('customers')
             ->join('order_details','customers.id', '=', 'order_details.customer_id')
+            ->join('orders',function ($join){
+                $join->on('orders.id', '=', 'order_details.order_id')
+                    ->where('orders.order_status_id', '<=', 4);
+            })
             ->join('events',function ($join){
                 $join->on('events.id', '=', 'order_details.event_id')
                     ->where('company_id', '=', $this->id);

@@ -26,6 +26,7 @@ class CreateOrderDetailsTable extends Migration
             $table->boolean('available')->default(true);
             $table->string('code')->unique();
             $table->decimal('price', 13, 2);
+            $table->boolean('complete')->default(false);
             $table->timestamps();
         });
     }

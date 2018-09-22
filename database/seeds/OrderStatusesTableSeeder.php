@@ -23,5 +23,8 @@ class OrderStatusesTableSeeder extends Seeder
         DB::table('order_statuses')->insert([
             'name' => 'Reembolsado'
         ]);
+        DB::table('order_statuses')->insert([
+            'name' => 'En proceso'
+        ]);
     }
 }

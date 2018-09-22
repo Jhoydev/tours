@@ -100,19 +100,34 @@
                             <input type="hidden" name="event_id" value="{{ $event->id }}">
                             <input type="hidden" name="page_id" value="{{ $page->id }}">
                             @foreach ($event->tickets as $ticket)
-                                <div class="col-md-auto">
-                                    <div class="card border-info rounded">
-                                        <div class="card-body text-center my-5 ticket" data-code="{{ $ticket->id }}" data-quantity_available="{{ $ticket->quantity_available }}">
-                                            <p class="h3 font-weight-bold">{{ $ticket->title }}</p>
-                                            <p class="h1"><strong>{{ $ticket->price }}$</strong></p>
-                                            <p>{{ $ticket->description }}</p>
-                                            <div class="d-flex align-items-center justify-content-center content-shopping-cart">
-                                                <input type="number" class="form-control form-control-sm ml-2 rounded text-center inp-number"
-                                                       style="width: 5em;" max="{{ $ticket->max_per_person }}" min="{{ $ticket->min_per_person }}">
+                                @if ($ticket->quantity_available)
+                                    <div class="col-md-auto">
+                                        <div class="card border-info rounded">
+                                            <div class="card-body text-center my-5 ticket" data-code="{{ $ticket->id }}" data-quantity_available="{{ $ticket->quantity_available }}">
+                                                <p class="h3 font-weight-bold">{{ $ticket->title }}</p>
+                                                <p class="h1"><strong>{{ $ticket->price }}$</strong></p>
+                                                <p>{{ $ticket->description }}</p>
+                                                <div class="d-flex align-items-center justify-content-center content-shopping-cart">
+                                                    <input type="number" class="form-control form-control-sm ml-2 rounded text-center inp-number"
+                                                           style="width: 5em;" max="{{ $ticket->max_per_person }}" min="{{ $ticket->min_per_person }}">
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                                @else
+                                    <div class="col-md-auto">
+                                        <div class="card border-light rounded">
+                                            <div class="card-body text-center my-5 ticket text-muted">
+                                                <p class="h3 font-weight-bold">{{ $ticket->title }}</p>
+                                                <p class="h1"><del>{{ $ticket->price }}$</del></p>
+                                                <p><del>{{ $ticket->description }}</del></p>
+                                                <div class="d-flex align-items-center justify-content-center content-shopping-cart">
+                                                    <strong class="h4 text-danger">AGOTADO</strong>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endif
                             @endforeach
                             @if (Auth::guard('web')->check())
                                 <div class="col-12 text-center">
@@ -141,7 +156,7 @@
             <div class="card rounded" style="background-color: rgba(255, 255,255, 0.9)">
                 <div class="card-body text-center">
                     <p>Ubicación</p>
-                    <p class="h5">{{ $event->location }}</p>
+                    <p class="h5">{{ $event->address }}</p>
                     <div class="mt-3 text-center" id="map">
                         <img class="img-fluid" style="max-height: 350px" src="{{ asset('img/map_event.jpg') }}">
                     </div>

@@ -3,16 +3,6 @@
 @include('layouts.menssage_success')
 @push('navbar_items_right')
 <li class="nav-item">
-    <form id="form_search_role" action="{{ url('role') }}">
-        <div class="col input-group">
-            <input type="text" id="name" class="form-control" placeholder="Buscar rol" aria-label="Buscar rol" aria-describedby="addon">
-            <div class="input-group-append">
-                <button class="btn btn-primary" type="button" onclick="searchRoles()"><span class="fa fa-search"></span> Buscar Rol </button>
-            </div>
-        </div>
-    </form>
-</li>
-<li class="nav-item">
     <a class="btn btn-success rounded mr-5" href="{{ url('role/create') }}"><i class="fa fa-plus"></i> Nuevo Rol</a>
 </li>
 @endpush

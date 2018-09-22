@@ -65,7 +65,7 @@ return [
     |
     */
 
-    'timezone' => 'UTC',
+    'timezone' => env('APP_TIMEZONE','UTC'),
 
     /*
     |--------------------------------------------------------------------------
@@ -224,5 +224,8 @@ return [
         'Debugbar' => Barryvdh\Debugbar\Facade::class,
         'ImageStore' => App\Helpers\ImageStore\ImageStore::class,
     ],
-
+    /*
+     *  Config personalizadas
+     * */
+    'order_time' => '-10 minutes'
 ];

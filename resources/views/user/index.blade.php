@@ -3,16 +3,6 @@
 @include('layouts.menssage_success')
 @push('navbar_items_right')
 <li class="nav-item">
-    <form id="form_search_user" action="{{ url('user') }}">
-        <div class="col input-group">
-            <input type="text" id="full_name" class="form-control" placeholder="Buscar usuario" aria-label="Buscar usuario" aria-describedby="addon">
-            <div class="input-group-append">
-                <button class="btn btn-primary" type="button" onclick="searchUsers()"><span class="fa fa-search"></span> Buscar usuario </button>
-            </div>
-        </div>
-    </form>
-</li>
-<li class="nav-item">
     <a class="btn btn-success rounded mr-5" href="{{ url('user/create') }}"><i class="fa fa-plus"></i> Nuevo usuario</a>
 </li>
 @endpush

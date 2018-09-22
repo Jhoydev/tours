@@ -50,7 +50,7 @@ class OrderController extends Controller
 
                     $ticket =  Ticket::find($li['id']);
 
-                    $order_value = $order_value + ($ticket->price * (int) $li['qty']);
+                    $order_value += ($ticket->price * (int) $li['qty']);
                     if ($new_order){
                         $ticket->decrement('quantity_available',$li['qty']);
                         OrderDetail::addDetail($ticket,$order,$customer_id);

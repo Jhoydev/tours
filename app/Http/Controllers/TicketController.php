@@ -15,6 +15,7 @@ class TicketController extends Controller
      */
     public function index(Event $event)
     {
+        Ticket::checkIncompleteTickets();
         return view('events.tickets.index',compact('event'));
     }
 

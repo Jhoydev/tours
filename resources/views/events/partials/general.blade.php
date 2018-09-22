@@ -12,13 +12,10 @@
     <div class="col-12">
         <hr>
     </div>
+    @include('layouts.partials.forms.inputs_location',['input' => $event_form])
     <div class="form-group col-md-6">
-        <label for=""><i class="fa fa-map-marker" aria-hidden="true"></i> Lugar</label>
-        <input type="text" class="form-control rounded" name="location" placeholder="Lugar" value="{{ $event_form->location }}">
-    </div>
-    <div class="form-group col-md-4">
-        <label for=""><i class="fa fa-map-marker" aria-hidden="true"></i> Ciudad</label>
-        <input type="text" class="form-control rounded" name="city_id" placeholder="Ciudad" value="{{ $event_form->city_id }}">
+        <label for=""><i class="fa fa-map-marker" aria-hidden="true"></i> Direccion</label>
+        <input type="text" class="form-control rounded" name="address" placeholder="Lugar" value="{{ $event_form->address }}">
     </div>
     <div class="form-group col-md-3">
         <label for=""><i class="fa fa-map-marker" aria-hidden="true"></i> Codigo postal</label>

@@ -27,17 +27,31 @@ class CreateEventsTable extends Migration
             $table->increments('id');
             $table->string('title');
             $table->text('description')->nullable();
-            $table->string('location')->nullable();
-            $table->string('address')->nullable();
-            $table->string('city')->nullable();
-            $table->string('cp')->nullable();
             $table->dateTime('start_date')->nullable();
             $table->dateTime('end_date')->nullable();
+
+            $table->unsignedInteger('country_id')->nullable();
+            $table->foreign('country_id')->references('id')->on('countries');
+            $table->unsignedInteger('state_id')->nullable();
+            $table->foreign('state_id')->references('id')->on('states');
+            $table->unsignedInteger('city_id')->nullable();
+            $table->foreign('city_id')->references('id')->on('cities');
+            $table->string('address')->nullable();
+            $table->string('cp')->nullable();
+
             $table->unsignedInteger('event_type_id');
-            $table->text('flyer')->nullable();
             $table->foreign('event_type_id')->references('id')->on('event_types');
             $table->unsignedInteger('event_status_id')->default(1);
             $table->foreign('event_status_id')->references('id')->on('event_status');
+
+            $table->text('flyer')->nullable();
+            $table->text('memories_url')->nullable();
+
+            $table->text('pre_order_display_message')->nullable();
+            $table->text('post_order_display_message')->nullable();
+            $table->boolean('enable_offline_payments')->default(false);
+            $table->text('offline_payment_instructions')->nullable();
+
             $table->unsignedInteger('created_by');
             $table->foreign('created_by')->references('id')->on('users');
             $table->unsignedInteger('company_id');

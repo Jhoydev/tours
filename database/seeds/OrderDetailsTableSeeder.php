@@ -17,14 +17,16 @@ class OrderDetailsTableSeeder extends Seeder
             'event_id' => 1,
             'price' => 10.00,
             'order_id' => 1,
-            'code' => '12345'
+            'code' => '12345',
+            'created_at' => now()
         ]);
         DB::table('order_details')->insert([
             'ticket_id' => 1,
             'event_id' => 1,
             'price' => 10.00,
             'order_id' => 1,
-            'code' => '12344'
+            'code' => '12344',
+            'created_at' => now()
         ]);
         DB::table('order_details')->insert([
             'ticket_id' => 2,
@@ -32,7 +34,8 @@ class OrderDetailsTableSeeder extends Seeder
             'customer_id' => 1,
             'price' => 120.00,
             'order_id' => 1,
-            'code' => '12342'
+            'code' => '12342',
+            'created_at' => now()
         ]);
 
         DB::table('order_details')->insert([
@@ -41,7 +44,8 @@ class OrderDetailsTableSeeder extends Seeder
             'customer_id' => 4,
             'price' => 120.00,
             'order_id' => 4,
-            'code' => '123411'
+            'code' => '123411',
+            'created_at' => now()
         ]);
         DB::table('order_details')->insert([
             'ticket_id' => 3,
@@ -49,7 +53,8 @@ class OrderDetailsTableSeeder extends Seeder
             'customer_id' => 5,
             'price' => 120.00,
             'order_id' => 5,
-            'code' => '123421'
+            'code' => '123421',
+            'created_at' => now()
         ]);
     }
 }

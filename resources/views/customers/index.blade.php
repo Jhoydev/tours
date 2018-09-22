@@ -3,16 +3,6 @@
     @include('layouts.menssage_success')
 @push('navbar_items_right')
 <li class="nav-item">
-    <form id="form_search_customer" action="{{ url('customer') }}">
-        <div class="col input-group">
-            <input type="text" id="full_name" class="form-control" placeholder="Buscar asistente" aria-label="Buscar asistente" aria-describedby="addon">
-            <div class="input-group-append">
-                <button class="btn btn-primary" type="button" onclick="searchCustomers()"><span class="fa fa-search"></span> Buscar Asistente </button>
-            </div>
-        </div>
-    </form>
-</li>
-<li class="nav-item">
     <a class="btn btn-success rounded mr-5" href="{{ url('customer/create') }}"><i class="fa fa-plus"></i> Nuevo Asistente</a>
 </li>
 @endpush

@@ -2,7 +2,7 @@
     <div class="card-body">
         <div class="table-responsive">
             <table id="table_datatable" class="table">
-                <thead>
+                <thead class="thead-dark">
                 <tr>
                     <th></th>
                     <th>Nombre</th>
@@ -18,7 +18,7 @@
                         <td>{{$user->full_name}}</td>
                         <td>{{$user->email}}</td>
                         <td>{{ $user->phone }}</td>
-                        <td>
+                        <td class="text-center">
                             <a href="{{ url("user/$user->id/edit") }}" class="btn btn-primary rounded-circle btn-sm mb-2"><i class="fa fa-pencil"></i></a>
                             <button type="button" class="btn btn-danger rounded-circle btn-sm mb-2" data-toggle="modal" data-target="#deleteModal" data-user_id="{{ $user->id }}">
                                 <i class="fa fa-eraser" aria-hidden="true"></i>

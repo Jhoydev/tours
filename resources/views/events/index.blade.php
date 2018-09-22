@@ -3,16 +3,6 @@
 @include('layouts.menssage_success')
 @push('navbar_items_right')
 <li class="nav-item">
-    <form id="form_search_event" action="{{ url('events') }}">
-        <div class="col input-group">
-            <input type="text" id="title" class="form-control" placeholder="Buscar evento" aria-label="Buscar evento" aria-describedby="addon">
-            <div class="input-group-append">
-                <button class="btn btn-primary" type="button" onclick="searchEvents()"><span class="fa fa-search"></span> Buscar Evento </button>
-            </div>
-        </div>
-    </form>
-</li>
-<li class="nav-item">
     <button type="button" class="btn btn-success rounded mr-5" data-toggle="modal" data-target="#createModal"><i class="fa fa-plus"></i> Crear evento </button>
 </li>
 @endpush

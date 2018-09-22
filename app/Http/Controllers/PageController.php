@@ -86,6 +86,7 @@ class PageController extends Controller
     public function show($event_id,Page $page)
     {
         if ($page->is_live == 1){
+            Ticket::checkIncompleteTickets();
             $event = Event::withoutGlobalScope(CompanyScope::class)->find($event_id);
             return view('page.show',compact('page','event'));
         }

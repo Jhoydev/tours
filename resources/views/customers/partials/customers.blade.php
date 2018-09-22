@@ -23,41 +23,6 @@
         </table>
     </div>
 </div>
-{{--<div class="row mt-2">
-    @foreach($customers as $customer)
-    <div class="col-md-3">
-        <div class="card">
-            <div class="card-body">
-                <h4 class="text-center">{{ ucfirst($customer->first_name) }} {{ ucfirst($customer->last_name) }}</h4>
-                <hr>
-                <div class="row">
-                    <div class="col-md-5"><strong>Correo Electronico</strong></div>
-                    <div class="col-md-7"><p class="text-secondary">{{ $customer->email }}</p></div>
-                </div>
-                <div class="row">
-                    <div class="col-md-5"><strong>Telefono</strong></div>
-                    <div class="col-md-7"><p class="text-secondary">{{ $customer->phone }}</p></div>
-                </div>
-                <div class="row">
-                    <div class="col-md-5"><strong>Celular</strong></div>
-                    <div class="col-md-7"><p class="text-secondary">{{ $customer->mobile }}</p></div>
-                </div>
-                --}}{{--<div class="row">
-                    <div class="col-md-5"><strong>{{ $customer->document_type->name }}</strong></div>
-                    <div class="col-md-7"><p class="text-secondary">{{ $customer->document }}</p></div>
-                </div>--}}{{--
-                <hr>
-                <div class="d-flex justify-content-around">
-                    <a href="{{ url("customer/$customer->id/edit") }}" class="btn btn-primary rounded btn-sm mr-2"><i class="fa fa-pencil"></i> Editar</a>
-                    <button type="button" class="btn btn-outline-danger rounded btn-sm" data-toggle="modal" data-target="#deleteModal" data-customer_id="{{ $customer->id }}">
-                        <i class="fa fa-eraser" aria-hidden="true"></i> Eliminar
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
-    @endforeach
-</div>--}}
 <div class="modal fade" id="deleteModal" tabindex="-1" customer="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" customer="document">
         <div class="modal-content">

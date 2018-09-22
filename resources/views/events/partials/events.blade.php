@@ -1,8 +1,8 @@
 <div class="card rounded">
     <div class="card-body">
         <div class="table-responsive">
-            <table id="table_datatable" class="table">
-                <thead>
+            <table id="table_datatable" class="table fade">
+                <thead class="thead-dark">
                 <tr>
                     <th>Evento</th>
                     <th>Lugar</th>
@@ -14,7 +14,7 @@
                 @foreach($events as $event)
                     <tr>
                         <td>{{ $event->title }}</td>
-                        <td>{{ $event->location }}</td>
+                        <td>{{ $event->address }}</td>
                         <td>{{ $event->start_date }}</td>
                         <td class="text-center">
                             <a href="{{ url("events/$event->id") }}" class="btn btn-sm btn-success rounded"><i class="fa fa-tachometer"></i> </a>

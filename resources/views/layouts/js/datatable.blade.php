@@ -1,6 +1,9 @@
 <script>
     $(document).ready(function() {
         $('#table_datatable').DataTable( {
+            "initComplete": function(settings, json) {
+                $('#table_datatable').addClass('show');
+            },
             processing: true,
             language: {
                 "sProcessing":     "Procesando...",

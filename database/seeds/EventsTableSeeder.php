@@ -21,9 +21,15 @@ class EventsTableSeeder extends Seeder
             DB::table('events')->insert([
                 'title' => $faker->name,
                 'description' => $faker->text,
-                'location' => $faker->address,
+                'address' => $faker->address,
                 'start_date' => $start_date,
                 'end_date' => $end_date,
+                'country_id' => 47,
+                'cp' => $faker->postcode,
+                'pre_order_display_message' => $faker->realText($maxNbChars = 200, $indexSize = 2),
+                'post_order_display_message' => $faker->realText($maxNbChars = 200, $indexSize = 2),
+                'state_id' => 805,
+                'city_id' => 48323,
                 'event_type_id' => 1,
                 'created_by' => 1,
                 'company_id' => 1
@@ -35,10 +41,14 @@ class EventsTableSeeder extends Seeder
             DB::table('events')->insert([
                 'title' => $faker->name,
                 'description' => $faker->text,
-                'location' => $faker->address,
+                'address' => $faker->address,
+                'cp' => $faker->postcode,
                 'start_date' => $start_date,
                 'end_date' => $end_date,
                 'event_type_id' => 1,
+                'country_id' => 47,
+                'state_id' => 805,
+                'city_id' => 48323,
                 'created_by' => 3,
                 'company_id' => 2
             ]);
