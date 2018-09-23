@@ -1,3 +1,4 @@
+{!! Form::open(['url' => route("event.memory_certificate.put",['event' => $event->id]),'method' => 'PUT']) !!}
 <div class="form-row">
 	<div class="form-group col-12">
 		<h4>Memorias & Certificados</h4>
@@ -5,8 +6,8 @@
 </div>
 <div class="form-row">
 	<div class="form-group col-12">
-		<label>ENLACE DE DESCARGA DE MEMORIAS</label>
-		<input type="text" class="form-control rounded">
+		<label for="memories_url">ENLACE DE DESCARGA DE MEMORIAS</label>
+		<input id="memories_url" type="text" name="memories_url" class="form-control rounded" value="{{ $event->memories_url }}">
 		<small>Puedes añadir un enlace de descarga de tus memorias en caso que el archivo sea demasiado pesado.</small>
 	</div>
 </div>
@@ -48,6 +49,7 @@
 <hr>
 <div class="form-row">
 	<div class="form-group col-md-12 text-right">
-		<button class="btn btn-sm btn-success rounded">Guardar</button>
+		<button type="submit" class="btn btn-sm btn-success rounded">Guardar</button>
 	</div>
 </div>
+{!! Form::close() !!}

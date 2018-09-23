@@ -14,7 +14,6 @@ use Illuminate\Support\Facades\Storage;
 
 class EventController extends Controller
 {
-
     /**
      * Display a listing of the resource.
      *
@@ -22,14 +21,14 @@ class EventController extends Controller
      */
     public function index(Request $request)
     {
-        if (Auth::guard('customer')->check()){
-            $events      = Event::active()->paginate(20);
+        if (Auth::guard('customer')->check()) {
+            $events = Event::active()->paginate(20);
             return view('portal.events', compact('events'));
         }
-        $events      = Event::title($request->title)->orderBy('title', 'ASC')->paginate(20);
+        $events = Event::title($request->title)->orderBy('title', 'ASC')->paginate(20);
         $event_types = EventType::orderBy('name', 'ASC')->pluck('name', 'id')->all();
-        $event_form  = new Event();
-        $page        = new Page();
+        $event_form = new Event();
+        $page = new Page();
 
         if ($request->ajax()) {
             return view('events.partials.events', compact('events', 'event_types', 'event_form', 'page'));
@@ -45,30 +44,30 @@ class EventController extends Controller
      */
     public function create()
     {
-        $event       = new Event;
+        $event = new Event;
         $event_types = EventType::orderBy('name', 'ASC')->pluck('name', 'id')->all();
-        $page        = new Page();
+        $page = new Page();
         return view('events.create', compact('event', 'event_types', 'page'));
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
         $event = Event::create($request->all());
         if ($request->background || $request->text_color) {
-            $page             = new Page();
+            $page = new Page();
             $page->background = $request->background;
             //$page->text_color = $request->text_color;
-            $page->event_id   = $event->id;
+            $page->event_id = $event->id;
             $page->save();
         }
         if ($request->hasFile('flyer')) {
-            $flyer    = $request->file('flyer');
+            $flyer = $request->file('flyer');
             $filename = "flyer." . $flyer->getClientOriginalExtension();
 
             $path_flyer = "companies/" . Auth::user()->company_id . "/events/$event->id/flyer";
@@ -81,7 +80,7 @@ class EventController extends Controller
         }
         if ($request->ajax()) {
             return response()->json([
-                        'status' => true,
+                'status' => true,
             ]);
         }
         //return redirect("events/$event->id");
@@ -90,7 +89,7 @@ class EventController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Event  $event
+     * @param  \App\Event $event
      * @return \Illuminate\Http\Response
      */
     public function show(Event $event)
@@ -101,10 +100,10 @@ class EventController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Event  $event
+     * @param  \App\Event $event
      * @return \Illuminate\Http\Response
      */
-    public function edit(Event $event)
+    /*public function edit(Request $request, Event $event, $section = "")
     {
         $event_types = EventType::orderBy('name', 'ASC')->pluck('name', 'id')->all();
         $event_form  = $event;
@@ -116,14 +115,34 @@ class EventController extends Controller
             $page_form['method'] = "POST";
             $page_form['url']    = url("page");
         }
-        return view('events.edit', compact('event', 'event_types', 'event_form', 'page', 'page_form'));
+        return view('events.edit', compact('event', 'event_types', 'event_form', 'page', 'page_form','section'));
+    }*/
+
+    public function edit(Event $event)
+    {
+        $event_types = EventType::orderBy('name', 'ASC')->pluck('name', 'id')->all();
+        $event_form = $event;
+        return view('events.edit.index', compact('event', 'event_types', 'event_form'));
+    }
+
+    public function page(Event $event)
+    {
+        if ($page = Page::where("event_id", $event->id)->first()) {
+            $page_form['method'] = "PUT";
+            $page_form['url'] = url("page/$page->id");
+        } else {
+            $page = new Page();
+            $page_form['method'] = "POST";
+            $page_form['url'] = url("page");
+        }
+        return view('events.edit.page', compact('event', 'page', 'page_form'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Event  $event
+     * @param  \Illuminate\Http\Request $request
+     * @param  \App\Event $event
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Event $event)
@@ -134,7 +153,7 @@ class EventController extends Controller
         $event->fill($request->all());
 
         if ($request->hasFile('flyer')) {
-            $flyer    = $request->file('flyer');
+            $flyer = $request->file('flyer');
             $filename = "flyer." . $flyer->getClientOriginalExtension();
 
             $path_flyer = "companies/" . Auth::user()->company_id . "/events/$event->id/flyer";
@@ -158,16 +177,17 @@ class EventController extends Controller
 
         if ($request->ajax()) {
             return response()->json([
-                        'status' => true,
+                'status' => true,
             ]);
         }
+        session()->flash('message',"Guardado Correctamente");
         return redirect("events/$event->id");
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Event  $event
+     * @param  \App\Event $event
      * @return \Illuminate\Http\Response
      */
     public function destroy(Event $event)
@@ -183,20 +203,47 @@ class EventController extends Controller
     public function customers(Event $event)
     {
         $attendees = OrderDetail::Attendees($event->id);
-        return view('events.customers',compact('event','attendees'));
+        return view('events.customers', compact('event', 'attendees'));
     }
 
     public function orders(Event $event)
     {
-        return view('events.orders',compact('event'));
+        return view('events.orders', compact('event'));
     }
 
-    public function details(Event $event,Order $order)
+    public function orderDescription(Event $event)
     {
-        $details = OrderDetail::where('order_id','=',$order->id)
-            ->where('event_id','=',$event->id)
+        return view("events.edit.order",compact('event'));
+    }
+
+    public function details(Event $event, Order $order)
+    {
+        $details = OrderDetail::where('order_id', '=', $order->id)
+            ->where('event_id', '=', $event->id)
             ->get();
         //dd($details);
-        return view('events.details',compact('event','order','details'));
+        return view('events.details', compact('event', 'order', 'details'));
+    }
+
+    public function memoryAndCertificate(Event $event)
+    {
+        return view("events.edit.memory-certificate",compact('event'));
+    }
+
+    public function memoryAndCertificateUpdate(Request $request, Event $event)
+    {
+        $event->fill($request->all());
+        $event->update();
+        session()->flash('message',"Guardado Correctamente");
+        return redirect("events/$event->id/edit");
+    }
+
+    public function orderDescriptionUpdate(Request $request, Event $event)
+    {
+        $event->fill($request->all());
+        $event->enable_offline_payments = ($request->enable_offline_payments) ? 1 : 0;
+        $event->update();
+        session()->flash('message',"Guardado Correctamente");
+        return redirect("events/$event->id/edit");
     }
 }

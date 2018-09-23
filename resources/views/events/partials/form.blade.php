@@ -31,4 +31,11 @@
         </div>
     </div>
 </div>
-
+@push ('scripts')
+    <script>
+        $(document).ready(function(){
+            let seccion = location.hash;
+            $(seccion).tab('show');
+        })
+    </script>
+@endpush

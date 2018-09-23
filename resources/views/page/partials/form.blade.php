@@ -1,6 +1,6 @@
 {!! Form::open(['url' => $page_form['url'],'method' => $page_form['method'],'enctype'=>'multipart/form-data','id' => 'form_page']) !!}
 <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-12">
         <input type="hidden" name="event_id" value="{{ $event->id }}">
         <div class="form-group">
             {!! Form::checkbox('is_live',null,$page->is_live,['id' => 'is_live']); !!}
@@ -57,7 +57,7 @@
             @endif
         </div>
     </div>
-    <div class="col-md-8">
+    <div class="col-md-12">
         <div class="card">
             <iframe id="iframe_page" style="width: 100%;height: 100vh;pointer-events: none;" src="{{ ($page->id) ? url('evento/' . $event->id . '/' . $page->id ) : "" }}" frameborder="0"></iframe>
         </div>
@@ -66,7 +66,7 @@
 <hr>
 <div class="row">
     <div class="form-group col-12 text-right">
-        <button class="btn btn-success btn-sm rounded" type="button" onclick="savePage()"><i class="fa fa-save"></i> Guardar</button>
+        <button class="btn btn-success btn-sm rounded" type="submit"><i class="fa fa-save"></i> Guardar</button>
     </div>
 </div>
 {!! Form::close() !!}

@@ -28,6 +28,7 @@ Route::middleware(['auth:customer'])->group(function () {
     Route::get('portal/home', 'CustomerController@portal')->name('portal');
     Route::get('portal/shop', 'OrderController@show')->name('shop');
     Route::post('portal/shop', 'OrderController@store')->name('shop.store');
+    Route::get('portal/order/{order}/invoice', 'OrderController@invoice')->name('order.invoice');
     Route::get('portal/events', 'EventController@index')->name('portal.events');
     Route::get('portal/historic', 'CustomerController@events')->name('customer.events');
     Route::get('portal/profile', 'CustomerController@profile')->name('profile');
@@ -45,12 +46,18 @@ Route::middleware('auth:web')->group(function () {
     Route::delete('page/{page}', 'PageController@destroy');
 
     Route::resource('events','EventController');
+    Route::get('events/{event}/edit','EventController@edit');
+    Route::get('events/{event}/edit/page','EventController@page')->name('event.edit.page');
+    Route::get('events/{event}/edit/order_description','EventController@orderDescription')->name('event.order_description');
+    Route::put('events/{event}/edit/order_description','EventController@orderDescriptionUpdate')->name('event.order_description.put');
+    Route::get('events/{event}/edit/memory-certificate','EventController@memoryAndCertificate')->name('event.memory_certificate');
+    Route::put('events/{event}/edit/memory-certificate','EventController@memoryAndCertificateUpdate')->name('event.memory_certificate.put');
     Route::get('events/{event}/customers','EventController@customers')->name('event.customers');
     Route::get('events/{event}/orders','EventController@orders')->name('event.orders');
     Route::get('events/{event}/orders/{order}/details','EventController@details')->name('event.orders.details');
     Route::resource('events/{event}/tickets','TicketController');
-    Route::resource('customer', 'CustomerController');
 
+    Route::resource('customer', 'CustomerController');
     Route::get('user/permissions', 'userController@getPermissionsAndRoles');
     Route::get('user/avatar/{company}/{id}', 'userController@getImageAvatar')->name('avatar.id');
     Route::resource('user','UserController');

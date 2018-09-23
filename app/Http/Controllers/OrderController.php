@@ -89,10 +89,15 @@ class OrderController extends Controller
             $res = false;
         }
         if ($res){
-            return redirect(route('portal'));
+            return redirect(route('order.invoice',['order' => $order]));
         }else{
             return back();
         }
+    }
+
+    public function invoice(Request $request, Order $order)
+    {
+        return view('portal.order.invoice',compact('order'));
     }
 
     public function doPing()

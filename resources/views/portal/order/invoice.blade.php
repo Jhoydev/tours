@@ -4,16 +4,14 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
-                    <p class="text-right"><a href="{{ route('event.page',[$data['event_id'],$data['page_id']]) }}">volver a la pagina del evento</a></p>
-                    <p class="h3">Detalle de compra</p>
+                    <p class="h3">Factura: {{ $order->reference }}</p>
                     <div class="table-responsive mt-4">
                         <table class="table">
-                            <thead>
+                            <thead class="thead-dark">
                             <tr>
                                 <th>#</th>
                                 <th>Descripción</th>
                                 <th class="text-right">Cantidad</th>
-                                <th class="text-right">Coste Unitario</th>
                                 <th class="text-right">Total</th>
                             </tr>
                             </thead>
@@ -22,30 +20,25 @@
                                 $cont_ticket = 1;
                                 $total = 0;
                             @endphp
-                            @foreach($tickets as $ticket)
+                            @foreach($order->orderDetails as $orderDetail)
                                 <tr>
                                     <td scope="row">{{ $cont_ticket }}</td>
                                     <td>
-                                        <strong>{{ $ticket->event->title }}</strong> {{ $ticket->event->description }}<br>
-                                        <strong>Tiquete: {{ $ticket->title }}</strong> {{ $ticket->description }}
+                                        <strong>{{ $orderDetail->ticket->event->title }}</strong> {{ $orderDetail->ticket->event->description }}<br>
+                                        <strong>Tiquete: {{ $orderDetail->ticket->title }}</strong> {{ $orderDetail->ticket->description }}
                                     </td>
-                                    <td class="text-right">{{ $data_ticket[$ticket->id]['qty'] }}</td>
-                                    <td class="text-right">{{ $ticket->price }}</td>
-                                    <td class="text-right">{{ $data_ticket[$ticket->id]['qty'] * $ticket->price }}</td>
+                                    <td class="text-right">1</td>
+                                    <td class="text-right">{{ $orderDetail->ticket->price }}</td>
                                 </tr>
                                 @php
                                     $cont_ticket++;
-                                    $total += $data_ticket[$ticket->id]['qty'] * $ticket->price;
+                                    $total += $orderDetail->ticket->price;
                                 @endphp
                             @endforeach
                             </tbody>
                         </table>
                     </div>
-                    <p class="text-right h5">Total {{ $total }}</p>
-                    <hr>
-                    <div class="text-right">
-                        <button class="btn btn-success btn-lg rounded">Pagar</button>
-                    </div>
+                    <p class="text-right h5">Total $ {{ $total }}</p>
                 </div>
             </div>
         </div>

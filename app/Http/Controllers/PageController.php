@@ -133,7 +133,7 @@ class PageController extends Controller
                 ]);
             }
             session()->flash('message',"Pagina Actualizada");
-            return redirect("events/$page->event_id");
+            return back();
         }else{
             session()->flash('message',"Error al actualizar la pagina");
             return redirect('events');
