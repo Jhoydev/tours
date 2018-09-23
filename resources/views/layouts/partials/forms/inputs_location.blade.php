@@ -1,5 +1,5 @@
 <div class="form-group col-md-6">
-    <label for="country_id"><span class="fa fa-map-marker"></span>   Pais</label>
+    <label for="inp_country"><span class="fa fa-map-marker"></span>   Pais</label>
     @include('viewComposers.input_country')
 </div>
 <div class="form-group col-md-6">

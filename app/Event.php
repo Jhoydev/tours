@@ -11,8 +11,8 @@ use Illuminate\Support\Facades\DB;
 class Event extends Model
 {
 
-    protected $fillable = ["id", "title", "description", "address", "start_date", "end_date", "city_id", "state_id",'country_id',"flyer",
-                            "event_type_id","post_order_display_message","pre_order_display_message","enable_offline_payments","memories_url", "created_by"];
+    protected $fillable = ["id", "title", "description", "address","cp", "start_date", "end_date", "city_id", "state_id",'country_id',"flyer",
+                            "event_type_id","post_order_display_message","pre_order_display_message","enable_offline_payments","offline_payment_instructions","memories_url", "created_by"];
     protected $dates    = ['deleted_at', "start_date", "end_date"];
     protected $casts    = ["start_date", "end_date"];
 

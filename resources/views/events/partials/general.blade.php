@@ -102,34 +102,9 @@
             }
         });
 
-        $('#form_create_event').on('submit', function(e){
-            e.preventDefault();
-            var $form = $("#form_create_event");
-            $.ajax({
-                url: $form.attr('action'),
-                method:"POST",
-                data:new FormData(this),
-                contentType:false,
-                async: false,
-                processData:false,
-                success:function(res)
-                {
-                    if (res.status){
-                        showAlertSuccess("Guardado correctamente");
-                        var delete_flyer = $('#delete_flyer');
-                        if (delete_flyer.prop('checked')){
-                            document.querySelector("#preview_flyer").src = "";
-                            delete_flyer.prop('checked',false);
-                        }
-                    }
-                },
-                error: function (res) {
-                    if (res.responseJSON.errors){
-                        var errors = res.responseJSON.errors;
-                        showAlertError(errors);
-                    }
-                }
-            })
+        $('#form_create_event').on('submit', function(){
+            document.querySelector('#descriptionHTML').value = editor.root.innerHTML;
+            $("#form_create_event").submit();
         });
     </script>
 @endpush

@@ -103,21 +103,6 @@ class EventController extends Controller
      * @param  \App\Event $event
      * @return \Illuminate\Http\Response
      */
-    /*public function edit(Request $request, Event $event, $section = "")
-    {
-        $event_types = EventType::orderBy('name', 'ASC')->pluck('name', 'id')->all();
-        $event_form  = $event;
-        if ($page        = Page::where("event_id", $event->id)->first()) {
-            $page_form['method'] = "PUT";
-            $page_form['url']    = url("page/$page->id");
-        } else {
-            $page                = new Page();
-            $page_form['method'] = "POST";
-            $page_form['url']    = url("page");
-        }
-        return view('events.edit', compact('event', 'event_types', 'event_form', 'page', 'page_form','section'));
-    }*/
-
     public function edit(Event $event)
     {
         $event_types = EventType::orderBy('name', 'ASC')->pluck('name', 'id')->all();
@@ -181,7 +166,7 @@ class EventController extends Controller
             ]);
         }
         session()->flash('message',"Guardado Correctamente");
-        return redirect("events/$event->id");
+        return back();
     }
 
     /**
@@ -244,6 +229,6 @@ class EventController extends Controller
         $event->enable_offline_payments = ($request->enable_offline_payments) ? 1 : 0;
         $event->update();
         session()->flash('message',"Guardado Correctamente");
-        return redirect("events/$event->id/edit");
+        return back();
     }
 }

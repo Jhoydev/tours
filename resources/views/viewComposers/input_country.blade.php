@@ -1,1 +1,1 @@
-{!!Form::select('country_id', $country, $input->country_id ? $input->country_id : old('country_id'), ['id' => 'inp_country', 'class' => 'form-control rounded','placeholder' => 'Seleciona un país'])!!}
+{!!Form::select('country_id', $country, $input->country_id ? $input->country_id : old('country_id'), ['id' => 'inp_country', 'class' => 'form-control rounded'])!!}
