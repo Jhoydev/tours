@@ -8,30 +8,34 @@
     <div class="col-12 mb-2">
         <h4 class="text-center"><span class="fa fa-shield"></span> Roles</h4>
     </div>
-    <div class="col-12 d-flex justify-content-between">
-        <div v-for="role in roles" class="mb-2">
-            <label class="switch switch-icon switch-pill switch-primary-outline-alt">
-                <input type="radio" class="switch-input" name="role_id"
-                       v-model="rolepicked" :value="role.id" v-on:change="getPermissions" required>
-                <span class="switch-label" data-on="&#10004" data-off="&#10006"></span>
-                <span class="switch-handle"></span>
-            </label>
-            <span>@{{ role.name }}</span>
+    <div class="col-12">
+        <div class="row d-flex justify-content-center">
+            <div v-for="role in roles" class="col-auto mb-2">
+                <label class="switch switch-icon switch-pill switch-primary-outline-alt">
+                    <input type="radio" class="switch-input" name="role_id"
+                           v-model="rolepicked" :value="role.id" v-on:change="getPermissions" required>
+                    <span class="switch-label" data-on="&#10004" data-off="&#10006"></span>
+                    <span class="switch-handle"></span>
+                </label>
+                <span>@{{ role.name }}</span>
+            </div>
         </div>
     </div>
     <div class="col-12" v-if="rolepicked">
         <hr>
         <h4 class="text-center"><span class="fa fa-flag"></span> Permisos <span v-show="show_permissions" class="text-center"><i class="fa fa-spinner fa-pulse" arial-hidden="true"></i><span class="sr-only">Refreshing...</span></span></h4>
-
-        <div v-for="permission in permissions">
-            <label class="switch switch-icon switch-pill switch-primary-outline-alt"
-                   v-bind:class="{ 'switch-secondary-outline-alt': permission.disabled }">
-                <input type="checkbox" class="switch-input" v-on:change="setInputChecked" v-model="permission.checked"
-                       :disabled="permission.disabled">
-                <span class="switch-label" data-on="&#10004" data-off="&#10006"></span>
-                <span class="switch-handle"></span>
-            </label>
-            <span>@{{ permission.name }}</span>
+        <div class="row pt-3 justify-content-center">
+            <div class="col-auto mb-3" v-for="permission in permissions">
+                <label class="switch switch-icon switch-pill switch-primary-outline-alt"
+                       v-bind:class="{ 'switch-secondary-outline-alt': permission.disabled }">
+                    <input type="checkbox" class="switch-input" v-on:change="setInputChecked" v-model="permission.checked"
+                           :disabled="permission.disabled">
+                    <span class="switch-label" data-on="&#10004" data-off="&#10006"></span>
+                    <span class="switch-handle"></span>
+                </label>
+                <span>@{{ permission.name }}</span>
+            </div>
         </div>
+
     </div>
 </div>

@@ -63,7 +63,7 @@ class PageController extends Controller
                 ]);
             }
             session()->flash('message',"Pagina creada");
-            return redirect('events');
+            return back();
         }else{
             session()->flash('message',"Error al crear la pagina");
             return redirect('events');

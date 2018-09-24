@@ -231,4 +231,19 @@ class EventController extends Controller
         session()->flash('message',"Guardado Correctamente");
         return back();
     }
+
+    public function taxes(Event $event)
+    {
+        return view('events.edit.taxes',compact('event'));
+    }
+
+    public function taxesUpdate(Request $request, Event $event)
+    {
+        $event->fill($request->all());
+        $event->update();
+        session()->flash('message',"Guardado Correctamente");
+        return back();
+    }
+
+
 }

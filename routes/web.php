@@ -52,11 +52,13 @@ Route::middleware('auth:web')->group(function () {
     Route::put('events/{event}/edit/order_description','EventController@orderDescriptionUpdate')->name('event.order_description.put');
     Route::get('events/{event}/edit/memory-certificate','EventController@memoryAndCertificate')->name('event.memory_certificate');
     Route::put('events/{event}/edit/memory-certificate','EventController@memoryAndCertificateUpdate')->name('event.memory_certificate.put');
+    Route::get('events/{event}/edit/taxes','EventController@taxes')->name('event.taxes');
+    Route::put('events/{event}/edit/taxes','EventController@taxesUpdate')->name('event.taxes.put');
     Route::get('events/{event}/customers','EventController@customers')->name('event.customers');
     Route::get('events/{event}/orders','EventController@orders')->name('event.orders');
     Route::get('events/{event}/orders/{order}/details','EventController@details')->name('event.orders.details');
-    Route::resource('events/{event}/tickets','TicketController');
 
+    Route::resource('events/{event}/tickets','TicketController');
     Route::resource('customer', 'CustomerController');
     Route::get('user/permissions', 'userController@getPermissionsAndRoles');
     Route::get('user/avatar/{company}/{id}', 'userController@getImageAvatar')->name('avatar.id');
