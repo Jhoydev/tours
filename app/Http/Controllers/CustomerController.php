@@ -7,6 +7,7 @@ use App\Customer;
 use App\DocumentType;
 use App\Event;
 use App\EventType;
+use App\Order;
 use App\Page;
 use Caffeinated\Shinobi\Models\Permission;
 use Illuminate\Http\Request;
@@ -16,7 +17,6 @@ use Illuminate\Support\Facades\DB;
 
 class CustomerController extends Controller
 {
-
     /**
      * Display a listing of the resource.
      *
@@ -135,6 +135,7 @@ class CustomerController extends Controller
     public function changePassword(){
         return view('portal.customer.change_password');
     }
+
     public function updatePassword(Request $request){
         if (Auth::guard('customer')->check()){
             $request->validate([
@@ -148,6 +149,7 @@ class CustomerController extends Controller
         }
 
     }
+
     /**
      * Display a listing of the resource.
      *
@@ -155,10 +157,16 @@ class CustomerController extends Controller
      */
     public function events(Request $request)
     {
-        $events      = Customer::find(Auth::user()->id);
-        $events = $events->events;
-        return view('portal.customer.events', compact('events'));
+        $customer_id  = Auth::user()->id;
+        $customer  = Customer::find($customer_id);
+        $orders     = $customer->orders;
+        $details    = $customer->orderDetails;
+        return view('portal.customer.events', compact('orders','details'));
 
     }
 
+    public function order(Order $order)
+    {
+        return view ('portal.customer.order',compact('order'));
+    }
 }

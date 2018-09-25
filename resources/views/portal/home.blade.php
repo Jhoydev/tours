@@ -16,8 +16,8 @@
                                     <div class="col-12">
                                         <p>{{ $event->title }} <i class="icon-calendar"></i> {{ $event->start_date }}</p>
                                     </div>
-                                    <div class="col-10 offset-1 text-center">
-                                        <p class="text-muted">{{ $event->description }}</p>
+                                    <div class="col-12 text-justify">
+                                        <p class="text-muted">{!! $event->description !!}</p>
                                     </div>
                                     <div class="col-12 my-4">
                                         <hr>

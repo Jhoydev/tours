@@ -64,9 +64,14 @@ class Customer extends Authenticatable
         return $this->belongsTo(City::class);
     }
 
-    public function order()
+    public function orders()
     {
-        return $this->hasOne(Order::class);
+        return $this->hasMany(Order::class);
+    }
+
+    public function orderDetails()
+    {
+        return $this->hasMany(OrderDetail::class);
     }
 
     public function created_by()

@@ -24,11 +24,11 @@
                                 <tr>
                                     <td scope="row">{{ $cont_ticket }}</td>
                                     <td>
-                                        <strong>{{ $orderDetail->ticket->event->title }}</strong> {{ $orderDetail->ticket->event->description }}<br>
+                                        <strong>{{ $orderDetail->ticket->event->title }}</strong><br>
                                         <strong>Tiquete: {{ $orderDetail->ticket->title }}</strong> {{ $orderDetail->ticket->description }}
                                     </td>
                                     <td class="text-right">1</td>
-                                    <td class="text-right">{{ $orderDetail->ticket->price }}</td>
+                                    <td class="text-right">$ {{ number_format($orderDetail->ticket->price,2) }}</td>
                                 </tr>
                                 @php
                                     $cont_ticket++;
@@ -38,7 +38,7 @@
                             </tbody>
                         </table>
                     </div>
-                    <p class="text-right h5">Total $ {{ $total }}</p>
+                    <p class="text-right h5">Total $ {{ number_format($total,2)}}</p>
                 </div>
             </div>
         </div>

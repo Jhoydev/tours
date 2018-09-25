@@ -1,25 +1,21 @@
 @extends('layouts.portal')
-
 @section('content')
     <div class="row mt-5 d-flex justify-content-center">
         <div class="col-md-9">
             <div class="card">
                 <div class="card-body">
-                    @foreach($events as $event)
-                        <div class="row">
+                    @foreach($orders as $order)
+                        @php($event = $order->event)
+                        <div class="row mb-3">
                             <div class="col-12">
-                                <p>{{ $event->title }} <i class="icon-calendar"></i> {{ $event->start_date }}</p>
-                                @if($event->start_date > now() && $event->page)
-                                    <a href="{{ url('evento/' . $event->id . '/' . $event->page->id ) }}" target="_blank">WEB</a>
-                                @endif
-                            </div>
-                            <div class="col-10 offset-1 text-center">
-
-                            </div>
-                            <div class="col-10 offset-1 text-center">
-                                <p class="text-muted">{{ $event->description }}</p>
-                            </div>
-                            <div class="col-12 my-4">
+                                <p>
+                                    {{ $event->title }} <i class="icon-calendar"></i> {{ $event->start_date }}
+                                    @if($event->start_date > now() && $event->page)
+                                        <a href="{{ url('evento/' . $event->id . '/' . $event->page->id ) }}" target="_blank">WEB</a>
+                                    @endif
+                                </p>
+                                <p>{{ $order->reference }}</p>
+                                <a href="{{ route('customer.events.order',[$order->id]) }}">Ver Order</a>
                                 <hr>
                             </div>
                         </div>

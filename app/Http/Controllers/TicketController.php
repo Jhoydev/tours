@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Event;
+use App\Order;
+use App\OrderDetail;
 use App\Ticket;
 use Illuminate\Http\Request;
 
@@ -91,4 +93,11 @@ class TicketController extends Controller
         $ticket->delete();
         return back();
     }
+
+    public function sendTicketByEmail(Order $order, OrderDetail $orderDetail,Request $request)
+    {
+        dd($request->email);
+        return "hola";
+    }
+
 }

@@ -34,7 +34,6 @@
         <li class="nav-item dropdown">
             <a class="nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true"
                aria-expanded="false" style="position: relative;padding-left: 50px">
-                <img style="width: 32px; height: 32px; position: absolute;top: -6px; left: 10px; border-radius: 50%" class="img-fluid" src="{{ url("user/avatar/".Auth::user()->company_id."/".Auth::user()->id) }}" alt="">
                 {{ ucfirst(Auth::user()->first_name) }}
                 <i class="fa fa-angle-down" aria-hidden="true"></i>
             </a>
@@ -62,10 +61,10 @@
         <nav class="sidebar-nav">
             <ul class="nav">
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('customer.events') }}"><i class="fa fa-clock-o"></i> Historico</a>
+                    <a class="nav-link" href="{{ route('customer.events') }}"><i class="fa fa-clock-o"></i> Eventos</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('portal.events') }}"><i class="fa fa-calendar-o"></i> Explorar</a>
+                    <a class="nav-link" href="{{ route('portal.explorer.events') }}"><i class="fa fa-calendar-o"></i> Explorar</a>
                 </li>
                 @stack('sidebar')
             </ul>

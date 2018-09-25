@@ -29,12 +29,14 @@ Route::middleware(['auth:customer'])->group(function () {
     Route::get('portal/shop', 'OrderController@show')->name('shop');
     Route::post('portal/shop', 'OrderController@store')->name('shop.store');
     Route::get('portal/order/{order}/invoice', 'OrderController@invoice')->name('order.invoice');
-    Route::get('portal/events', 'EventController@index')->name('portal.events');
-    Route::get('portal/historic', 'CustomerController@events')->name('customer.events');
+    Route::get('portal/explorer', 'EventController@index')->name('portal.explorer.events');
+    Route::get('portal/events', 'CustomerController@events')->name('customer.events');
+    Route::get('portal/events/order/{order}', 'CustomerController@order')->name('customer.events.order');
     Route::get('portal/profile', 'CustomerController@profile')->name('profile');
     Route::get('portal/customer/change-password', 'CustomerController@changePassword')->name('customer.changepassword');
     Route::put('portal/customer/update-password', 'CustomerController@updatePassword')->name('customer.update.password');
     Route::put('portal/profile/{customer}', 'CustomerController@update')->name('profile.update');
+    Route::post('portal/events/order/{order}/send-ticket-email/{orderDetail}', 'TicketController@sendTicketByEmail');
 });
 
 Route::middleware('auth:web')->group(function () {
