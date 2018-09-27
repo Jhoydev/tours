@@ -14,7 +14,7 @@
                                 <li>{{ $detail->customer->full_name }} - {{ $detail->customer->email }}</li>
                             @else
                                 <li>Sin asignar
-                                    <form action="{{ url("portal/events/order/$order->id/send-ticket-email/$detail->id") }}" method="POST">
+                                    <form action="{{ url("portal/events/order/$order->id/assign-ticket/$detail->id") }}" method="POST">
                                         @csrf
                                         <input type="text" name="email"><button>Enviar</button>
                                     </form>

@@ -13,6 +13,7 @@
 Auth::routes();
 Route::get('login/{key_app?}', 'Auth\LoginController@showLoginForm')->name('login');
 Route::get('/', 'HomeController@index')->name('home');
+Route::get('verify-ticket', 'TicketController@verify');
 
 Route::get('evento/{event}/{page}', 'PageController@show')->name('event.page');
 Route::get('redirect-authenticated', 'Customer\Auth\LoginController@redirectAuthenticated');
@@ -36,7 +37,7 @@ Route::middleware(['auth:customer'])->group(function () {
     Route::get('portal/customer/change-password', 'CustomerController@changePassword')->name('customer.changepassword');
     Route::put('portal/customer/update-password', 'CustomerController@updatePassword')->name('customer.update.password');
     Route::put('portal/profile/{customer}', 'CustomerController@update')->name('profile.update');
-    Route::post('portal/events/order/{order}/send-ticket-email/{orderDetail}', 'TicketController@sendTicketByEmail');
+    Route::post('portal/events/order/{order}/assign-ticket/{orderDetail}', 'TicketController@assignToCustomer');
 });
 
 Route::middleware('auth:web')->group(function () {

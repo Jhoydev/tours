@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Customer;
 use App\Event;
+use App\Mail\OrderShipped;
 use App\Order;
 use App\OrderDetail;
 use App\Ticket;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class TicketController extends Controller
 {
@@ -94,10 +97,25 @@ class TicketController extends Controller
         return back();
     }
 
-    public function sendTicketByEmail(Order $order, OrderDetail $orderDetail,Request $request)
+    public function assignToCustomer(Order $order, OrderDetail $orderDetail,Request $request)
     {
-        dd($request->email);
-        return "hola";
+        if ($request->email){
+            $customer = Customer::whereEmail($request->email)->first();
+            if ($customer){
+                $orderDetail->customer_id = $customer->id;
+                $orderDetail->update();
+                return "hecho";
+            }
+
+            Mail::to(['email' => $request->email])->send(new OrderShipped($orderDetail));
+            return "enviado";
+        }
+        return "falta el email";
+    }
+
+    public  function verify($token)
+    {
+        return "ticketController@verify";
     }
 
 }
