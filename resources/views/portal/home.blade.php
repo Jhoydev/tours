@@ -40,7 +40,7 @@
                                 </dd>
                                 <dt class="col-md-6"><span class="fa fa-map-marker"></span> Dirección</dt>
                                 <dd class="col-md-6">{{ Auth::user()->address }}</dd>
-                                <dt class="col-md-6"><span class="fa fa-map-marker"></span> Direccion 2</dt>
+                                <dt class="col-md-6"><span class="fa fa-map-marker"></span> Dirección 2</dt>
                                 <dd class="col-md-6">{{ Auth::user()->address2 }}</dd>
                                 <dt class="col-md-6"><span class="fa fa-map-marker"></span> Pais</dt>
                                 <dd class="col-md-6">{{ Auth::user()->country->name }}</dd>
