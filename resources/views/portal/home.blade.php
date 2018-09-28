@@ -38,7 +38,7 @@
                                 <dd class="col-12">
                                     <hr>
                                 </dd>
-                                <dt class="col-md-6"><span class="fa fa-map-marker"></span> Direccion</dt>
+                                <dt class="col-md-6"><span class="fa fa-map-marker"></span> Dirección</dt>
                                 <dd class="col-md-6">{{ Auth::user()->address }}</dd>
                                 <dt class="col-md-6"><span class="fa fa-map-marker"></span> Direccion 2</dt>
                                 <dd class="col-md-6">{{ Auth::user()->address2 }}</dd>
