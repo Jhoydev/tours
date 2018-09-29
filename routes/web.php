@@ -37,7 +37,7 @@ Route::middleware(['auth:customer'])->group(function () {
     Route::get('portal/customer/change-password', 'CustomerController@changePassword')->name('customer.changepassword');
     Route::put('portal/customer/update-password', 'CustomerController@updatePassword')->name('customer.update.password');
     Route::put('portal/profile/{customer}', 'CustomerController@update')->name('profile.update');
-    Route::post('portal/events/order/{order}/assign-ticket/{orderDetail}', 'TicketController@assignToCustomer');
+    Route::post('portal/events/order/assign-ticket/{orderDetail}', 'TicketController@assignToCustomer');
 });
 
 Route::middleware('auth:web')->group(function () {

@@ -1,25 +1,37 @@
 @extends('layouts.portal')
 @section('content')
     <div class="row mt-5 d-flex justify-content-center">
-        <div class="col-md-9">
+        <div class="col-md-12">
             <div class="card">
                 <div class="card-body">
+                    <h1 class="text-center"><i class="icon-calendar"></i> Eventos</h1>
+                    <hr>
+                    <div class="row">
                     @foreach($orders as $order)
                         @php($event = $order->event)
-                        <div class="row mb-3">
-                            <div class="col-12">
-                                <p>
-                                    {{ $event->title }} <i class="icon-calendar"></i> {{ $event->start_date }}
-                                    @if($event->start_date > now() && $event->page)
-                                        <a href="{{ url('evento/' . $event->id . '/' . $event->page->id ) }}" target="_blank">WEB</a>
-                                    @endif
-                                </p>
-                                <p>{{ $order->reference }}</p>
-                                <a href="{{ route('customer.events.order',[$order->id]) }}">Ver Order</a>
-                                <hr>
+                        <div class="col-lg-6">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="d-flex justify-content-between">
+                                        <div><i class="icon-calendar"></i> {{ $event->start_date->toFormattedDateString() }}</div>
+                                        <div><strong>{{ $event->title }}</strong></div>
+                                        @if($event->start_date > now() && $event->page)
+                                            <div><a class="badge badge-warning" href="{{ url('evento/' . $event->id . '/' . $event->page->id ) }}" target="_blank">Ir a la web <i class="fa fa-external-link" aria-hidden="true"></i></a></div>
+                                        @endif
+                                    </div>
+                                    <p>
+
+                                    </p>
+                                    <p>Referencia de compra {{ $order->reference }}</p>
+                                    <a class="btn btn-block btn-outline-info rounded" href="{{ route('customer.events.order',[$order->id]) }}"><i class="fa fa-shopping-cart" aria-hidden="true"></i>
+                                        Ver compra</a>
+                                    <hr>
+
+                                </div>
                             </div>
                         </div>
                     @endforeach
+                    </div>
                 </div>
             </div>
         </div>

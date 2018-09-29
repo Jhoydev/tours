@@ -10,6 +10,7 @@ use App\OrderDetail;
 use App\Ticket;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Str;
 
 class TicketController extends Controller
 {
@@ -99,18 +100,29 @@ class TicketController extends Controller
 
     public function assignToCustomer(Order $order, OrderDetail $orderDetail,Request $request)
     {
-        if ($request->email){
+        if  (isset($request->owner)){
+            $orderDetail->customer_id = $request->user()->id;
+            $orderDetail->update();
+            session()->flash('message','Tiquete asignado a ' . $request->user()->full_name);
+            return back();
+        }
+        if ($request->email && $orderDetail->customer_id == null){
             $customer = Customer::whereEmail($request->email)->first();
             if ($customer){
                 $orderDetail->customer_id = $customer->id;
                 $orderDetail->update();
-                return "hecho";
+                session()->flash('message','Tiquete asignado al usuario ' . $customer->email);
+                return back();
             }
-
+            $orderDetail->send_to_email = $request->email;
+            $orderDetail->token_verify = Str::uuid();
+            $orderDetail->update();
             Mail::to(['email' => $request->email])->send(new OrderShipped($orderDetail));
-            return "enviado";
+            session()->flash('message','Tiquete enviado al correo ' . $request->email);
+            return back();
         }
-        return "falta el email";
+        session()->flash('message',"Falta el email o el tiquete ya esta asignado");
+        return back();
     }
 
     public  function verify($token)

@@ -17,6 +17,16 @@ class OrderDetail extends Model
         return $this->belongsTo(Ticket::class);
     }
 
+    public function Order()
+    {
+        return $this->belongsTo(Order::class);
+    }
+
+    public function Event()
+    {
+        return $this->belongsTo(Event::class);
+    }
+
     public static function Attendees($event_id)
     {
         return OrderDetail::with('customer')->where('event_id','=',$event_id)->groupBy('customer_id')->get();

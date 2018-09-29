@@ -27,6 +27,8 @@ class CreateOrderDetailsTable extends Migration
             $table->string('code')->unique();
             $table->decimal('price', 13, 2);
             $table->boolean('complete')->default(false);
+            $table->string('send_to_email')->nullable();
+            $table->string('token_verify')->nullable();
             $table->timestamps();
         });
     }
