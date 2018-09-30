@@ -17,12 +17,16 @@ Route::get('verify-ticket', 'TicketController@verify');
 
 Route::get('evento/{event}/{page}', 'PageController@show')->name('event.page');
 Route::get('redirect-authenticated', 'Customer\Auth\LoginController@redirectAuthenticated');
+Route::get('asset/page/public/backgrounds', 'ImageController@publicBackgrounds');
+Route::get('companies/{company}/events/{event}/flyer/{filename}', 'ImageController@flyer');
+
+
 
 Route::prefix('portal')->group(function () {
     Route::get('login', 'Customer\Auth\LoginController@showLoginForm')->name('portal.login');
     Route::post('login', 'Customer\Auth\LoginController@login')->name('portal.login');
     Route::post('logout', 'Customer\Auth\LoginController@logout')->name('portal.logout');
-
+    Route::get('register','Customer\Auth\RegisterController@showRegistrationForm');
 });
 
 Route::middleware(['auth:customer'])->group(function () {
@@ -41,13 +45,11 @@ Route::middleware(['auth:customer'])->group(function () {
 });
 
 Route::middleware('auth:web')->group(function () {
-
     Route::post('page', 'PageController@store');
     Route::get('page/{event}/create', 'PageController@create');
     Route::get('page/{page}/edit', 'PageController@edit');
     Route::put('page/{page}', 'PageController@update');
     Route::delete('page/{page}', 'PageController@destroy');
-
     Route::resource('events','EventController');
     Route::get('events/{event}/edit','EventController@edit');
     Route::get('events/{event}/edit/page','EventController@page')->name('event.edit.page');
@@ -68,10 +70,6 @@ Route::middleware('auth:web')->group(function () {
     Route::resource('user','UserController');
 
     Route::resource('role','RoleController');
-    route::get('role/{role}/permissions','RoleController@permissions');
-
-    Route::get('asset/page/public/backgrounds', 'ImageController@publicBackgrounds');
-    Route::get('companies/{company}/events/{event}/flyer/{filename}', 'ImageController@flyer');
-
+    Route::get('role/{role}/permissions','RoleController@permissions');
 });
 

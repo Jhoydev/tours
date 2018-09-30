@@ -11,7 +11,7 @@
 <body style="color:{{ $page->color_text }}; background-position: center; background-repeat: no-repeat; background-size: cover; background-image: url({{ $page->background }});">
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container">
-        <a class="navbar-brand font-weight-bold" href="#">Insignia</a>
+        <a class="navbar-brand font-weight-bold" href="#">{{ $event->company->name }}</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -45,9 +45,17 @@
         <div class="col-12">
             <div class="card rounded" style="background-color: rgba(255, 255,255, 0.9)">
                 <div class="card-body text-center">
+
                     <h1 class="text-center">{{ $event->title }}</h1>
+                    @if ($event->flyer)
+                    <div class="row justify-content-center mb-3">
+                        <div class="col-6">
+                            <img src="{{ url($event->flyer) }}" class="img-fluid" style="min-width: 100%; min-height:150px"  alt="">
+                        </div>
+                    </div>
+                    @endif
                     <p>{!! $event->description !!}</p>
-                    <p><i class="icon-calendar"></i> {{ $event->start_date }}</p>
+                    <p><i class="icon-calendar"></i> {{ $event->start_date->toFormattedDateString() }}</p>
                     <hr>
                     <div class=" d-flex justify-content-around">
                         <div>

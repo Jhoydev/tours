@@ -4,7 +4,30 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
-                    <p class="h3">Factura: {{ $order->reference }}</p>
+                    <p class="h3 text-right">Factura #{{ $order->reference }}</p>
+                    <hr>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <ul class="list-unstyled">
+                                <li><strong>{{ $order->event->company->name }}</strong></li>
+                                <li>{{ $order->event->title }}</li>
+                                <li>{{ $order->event->address }}, {{ $order->event->cp }}</li>
+                            </ul>
+                        </div>
+                        <div class="col-lg-6 text-right">
+                            <ul class="list-unstyled">
+                                <li><strong>Para</strong></li>
+                                <li>{{ $order->customer->full_name }}</li>
+                                <li>{{ $order->customer->document }}</li>
+                                <li>{{ $order->customer->email }}</li>
+                                <li>{{ $order->customer->phone }}</li>
+                                <li>{{ $order->customer->mobile }}</li>
+                            </ul>
+                        </div>
+                        <div class="col-lg-12">
+                            <p>Fecha de la factura: {{ now()->toFormattedDateString() }}</p>
+                        </div>
+                    </div>
                     <div class="table-responsive mt-4">
                         <table class="table">
                             <thead class="thead-dark">

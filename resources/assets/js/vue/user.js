@@ -68,7 +68,46 @@ var user = new Vue({
             this.getPermissions();
         }
     },
+    mounted(){
+        $("#inp_country").change(function(){
+            let id = this.value;
+            let url = $('#url_states').val() + "/" + id;
+            let text = "";
+            let sel = $('#state_id');
+            if (id){
+                blockInputsLocation(true);
+                $.get(url,(res)=>{
+                    sel.html(text);
+                    text += `<option value=""></option>`;
+                    $(res).each(function(index,val) {
+                        text += `<option value="${val.id}">${val.name}</option>`;
+                    });
+                    sel.html(text);
+                    blockInputsLocation(false);
+                    $('#city_id').html('');
+                })
+            }
 
+        });
+        $("#state_id").change(function(){
+            let id = this.value;
+            let url = $('#url_cities').val() + "/" + id;
+            let text = "";
+            let sel = $('#city_id');
+            if (id){
+                blockInputsLocation(true);
+            }
+            $.get(url,(res)=>{
+                sel.html(text);
+                text += `<option value=""></option>`;
+                $(res).each(function(index,val) {
+                    text += `<option value="${val.id}">${val.name}</option>`;
+                });
+                sel.html(text);
+                blockInputsLocation(false);
+            })
+        });
+    },
     methods: {
         setInputChecked: function setInputChecked() {
             var permi = [];
@@ -80,7 +119,6 @@ var user = new Vue({
             });
             this.checked_permissions = permi;
         },
-
         getPermissions: function getPermissions() {
             var _this = this;
 
@@ -265,7 +303,6 @@ var user = new Vue({
             };
             reader.readAsDataURL(file);
         },
-
         removeImage: function removeImage(e) {
             this.image = '';
             this.delete_avatar = true;

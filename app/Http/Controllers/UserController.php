@@ -87,7 +87,7 @@ class UserController extends Controller
             $user->update();
         }
 
-        session()->flash('message',"Usuario con ID: $user->id creado");
+        session()->flash('message',"Usuario creado");
         return redirect('user');
     }
 

@@ -13,19 +13,21 @@
                     <thead class="thead-dark">
                     <tr>
                         <th>Nombre</th>
-                        <th>Correo Electronico</th>
-                        <th>Telefono</th>
+                        <th>Correo Electrónico</th>
+                        <th>Teléfono</th>
                         <th>Celular</th>
                     </tr>
                     </thead>
                     <tbody>
                     @foreach($attendees as $attendee)
-                        <tr>
-                            <td scope="row">{{ $attendee->customer->full_name }}</td>
-                            <td scope="row">{{ $attendee->customer->email }}</td>
-                            <td scope="row">{{ $attendee->customer->mobile }}</td>
-                            <td scope="row">{{ $attendee->customer->phone }}</td>
-                        </tr>
+                        @if($attendee->customer)
+                            <tr>
+                                <td scope="row">{{ $attendee->customer->full_name }}</td>
+                                <td scope="row">{{ $attendee->customer->email }}</td>
+                                <td scope="row">{{ $attendee->customer->mobile }}</td>
+                                <td scope="row">{{ $attendee->customer->phone }}</td>
+                            </tr>
+                        @endif
                     @endforeach
                     </tbody>
                 </table>

@@ -32,11 +32,10 @@ class OrderDetail extends Model
         return OrderDetail::with('customer')->where('event_id','=',$event_id)->groupBy('customer_id')->get();
     }
 
-    public static function addDetail(Ticket $ticket,Order $order, $customer_id)
+    public static function addDetail(Ticket $ticket,Order $order)
     {
         $order_detail = new OrderDetail();
         $order_detail->ticket_id = $ticket->id;
-        $order_detail->customer_id = $customer_id;
         $order_detail->order_id = $order->id;
         $order_detail->event_id = $order->event_id;
         $order_detail->available = 1;

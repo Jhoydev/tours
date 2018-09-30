@@ -76,16 +76,16 @@
                                 <hr>
                                 <div class="row">
                                     <div class="form-group col-md-4 info" data-toggle="tooltip" data-placement="top" title="Para cambiar el correo electronico debe solicitarlo a soporte@joinapp.com">
-                                        <label for="email"><span class="fa fa-envelope"></span>   Correo Electronico</label>
+                                        <label for="email"><span class="fa fa-envelope"></span>   Correo Electrónico</label>
                                         <input id="email" type="email"
-                                               class="form-control rounded {{ $errors->has('email') ? ' is-invalid' : '' }} " placeholder="Correo Electronico"
+                                               class="form-control rounded {{ $errors->has('email') ? ' is-invalid' : '' }} " placeholder="Correo Electrónico"
                                                value="{{ $customer->email ? $customer->email : old('email') }}" readonly>
                                     </div>
 
                                     <div class="form-group col-md-4">
-                                        <label for="phone"><span class="fa fa-phone"></span>   Telefono</label>
+                                        <label for="phone"><span class="fa fa-phone"></span>   Teléfono</label>
                                         <input id="phone" name="phone" type="text"
-                                               class="form-control rounded {{ $errors->has('phone') ? ' is-invalid' : '' }} " placeholder="Telefono"
+                                               class="form-control rounded {{ $errors->has('phone') ? ' is-invalid' : '' }} " placeholder="Teléfono"
                                                value="{{ $customer->phone ? $customer->phone : old('phone') }}">
                                     </div>
 

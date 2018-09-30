@@ -88,7 +88,7 @@
                         @endif
                     </div>
                     <div class="form-group col-md-4">
-                        <label for="phone"><span class="fa fa-phone"></span> Telefono</label>
+                        <label for="phone"><span class="fa fa-phone"></span> Teléfono</label>
                         <input id="phone" type="text"
                                class="rounded form-control{{ $errors->has('phone') ? ' is-invalid' : '' }}" name="phone"
                                value="{{ $user->phone ? $user->phone : old('phone') }}" required autofocus>
@@ -120,30 +120,12 @@
                         </span>
                         @endif
                     </div>
-                    <div class="form-group col-md-4">
-                        <label for="state_id"><span class="fa fa-map-marker"></span> Departamento</label>
-                        <input id="state_id" type="text"
-                               class="rounded form-control{{ $errors->has('state_id') ? ' is-invalid' : '' }}" name="state_id"
-                               value="{{ $user->state_id ? $user->state_id : old('state_id') }}" required autofocus>
-                        @if ($errors->has('state_id'))
-                        <span class="invalid-feedback">
-                            <strong>{{ $errors->first('state_id') }}</strong>
-                        </span>
-                        @endif
+                    <div class="col-12">
+                        <hr>
                     </div>
-                    <div class="form-group col-md-4">
-                        <label for="city_id"><span class="fa fa-map-marker"></span> Ciudad</label>
-                        <input id="city_id" type="text"
-                               class="rounded form-control{{ $errors->has('city_id') ? ' is-invalid' : '' }}" name="city_id"
-                               value="{{ $user->city_id ? $user->city_id : old('city_id') }}" required autofocus>
-                        @if ($errors->has('city_id'))
-                        <span class="invalid-feedback">
-                            <strong>{{ $errors->first('city_id') }}</strong>
-                        </span>
-                        @endif
-                    </div>
-                    <div class="form-group col-md-4">
-                        <label for="address"><span class="fa fa-map-marker"></span> Domicilio</label>
+                    @include('layouts.partials.forms.inputs_location',['input' => $user])
+                    <div class="form-group col-md-6">
+                        <label for="address"><span class="fa fa-map-marker"></span> Dirección</label>
                         <input id="address" type="text"
                                class="rounded form-control{{ $errors->has('address') ? ' is-invalid' : '' }}" name="address"
                                value="{{ $user->address ? $user->address : old('address') }}" required autofocus>
@@ -153,7 +135,9 @@
                         </span>
                         @endif
                     </div>
-
+                    <div class="col-12">
+                        <hr>
+                    </div>
                     <input type="hidden" name="company_id" id="company_id" value="{{ Auth::user()->company_id }}">
 
                     @if ($method == "PUT")

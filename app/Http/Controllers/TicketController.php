@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Customer;
 use App\Event;
 use App\Mail\OrderShipped;
+use App\Mail\TicketNotification;
 use App\Order;
 use App\OrderDetail;
 use App\Ticket;
@@ -111,6 +112,7 @@ class TicketController extends Controller
             if ($customer){
                 $orderDetail->customer_id = $customer->id;
                 $orderDetail->update();
+                //Mail::to(['email' => $request->email])->send(new TicketNotification($orderDetail));
                 session()->flash('message','Tiquete asignado al usuario ' . $customer->email);
                 return back();
             }

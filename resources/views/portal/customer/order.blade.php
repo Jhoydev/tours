@@ -6,6 +6,7 @@
             <div class="card">
                 <div class="card-body">
                     <h2><strong>Referencia</strong> {{ $order->reference }}</h2>
+                    <hr>
                     <div class="row">
                         @foreach($order->orderDetails as $detail)
                             <div class="col-md-4">
@@ -15,8 +16,16 @@
                                         <p class="text-center h2">${{ number_format($detail->price,2) }}</p>
                                         @if ($detail->customer)
                                             <p class="text-center">{{ $detail->customer->full_name }} - {{ $detail->customer->email }}</p>
+                                            <div class="d-flex justify-content-center">
+                                                <button class="btn btn-outline-info mr-2"><i class="fa fa-repeat" aria-hidden="true"></i></button>
+                                                <button class="btn btn-outline-danger"><i class="fa fa-chain-broken" aria-hidden="true"></i></button>
+                                            </div>
                                         @elseif($detail->send_to_email)
                                             <p class="text-center">Esperando que el usuario con correo {{ $detail->send_to_email }} acepte el tiquete</p>
+                                            <div class="d-flex justify-content-center">
+                                                <button class="btn btn-outline-info mr-2"><i class="fa fa-repeat" aria-hidden="true"></i></button>
+                                                <button class="btn btn-outline-danger"><i class="fa fa-chain-broken" aria-hidden="true"></i></button>
+                                            </div>
                                         @else
                                             <div class="content-radios mb-3">
                                                 <div class="form-check">

@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\DB;
 class Event extends Model
 {
 
-    protected $fillable = ["id", "title", "description", "address","cp", "start_date", "end_date", "city_id", "state_id",'country_id',"flyer",
+    protected $fillable = ["id", "title", "description", "address","cp", "start_date", "end_date", "city_id", "state_id",'country_id',"flyer","company_id",
                             "event_type_id","post_order_display_message","pre_order_display_message","enable_offline_payments","offline_payment_instructions","memories_url", "created_by"];
     protected $dates    = ['deleted_at', "start_date", "end_date"];
     protected $casts    = ["start_date", "end_date"];
@@ -78,6 +78,16 @@ class Event extends Model
     public function orderDetails()
     {
         return $this->hasMany(OrderDetail::class);
+    }
+
+    public function ordersPaid()
+    {
+        return $this->hasMany(Order::class)->where('order_status_id','=','1');
+    }
+
+    public function ordersPending()
+    {
+        return $this->hasMany(Order::class)->where('order_status_id','=','5');
     }
 
     /* Mutators */

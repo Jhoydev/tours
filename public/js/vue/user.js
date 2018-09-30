@@ -146,6 +146,45 @@ var user = new Vue({
             this.getPermissions();
         }
     },
+    mounted: function mounted() {
+        $("#inp_country").change(function () {
+            var id = this.value;
+            var url = $('#url_states').val() + "/" + id;
+            var text = "";
+            var sel = $('#state_id');
+            if (id) {
+                blockInputsLocation(true);
+                $.get(url, function (res) {
+                    sel.html(text);
+                    text += '<option value=""></option>';
+                    $(res).each(function (index, val) {
+                        text += '<option value="' + val.id + '">' + val.name + '</option>';
+                    });
+                    sel.html(text);
+                    blockInputsLocation(false);
+                    $('#city_id').html('');
+                });
+            }
+        });
+        $("#state_id").change(function () {
+            var id = this.value;
+            var url = $('#url_cities').val() + "/" + id;
+            var text = "";
+            var sel = $('#city_id');
+            if (id) {
+                blockInputsLocation(true);
+            }
+            $.get(url, function (res) {
+                sel.html(text);
+                text += '<option value=""></option>';
+                $(res).each(function (index, val) {
+                    text += '<option value="' + val.id + '">' + val.name + '</option>';
+                });
+                sel.html(text);
+                blockInputsLocation(false);
+            });
+        });
+    },
 
     methods: {
         setInputChecked: function setInputChecked() {
@@ -158,7 +197,6 @@ var user = new Vue({
             });
             this.checked_permissions = permi;
         },
-
         getPermissions: function getPermissions() {
             var _this = this;
 
@@ -342,7 +380,6 @@ var user = new Vue({
             };
             reader.readAsDataURL(file);
         },
-
         removeImage: function removeImage(e) {
             this.image = '';
             this.delete_avatar = true;

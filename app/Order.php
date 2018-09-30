@@ -31,6 +31,12 @@ class Order extends Model
         return $this->belongsTo(Event::class);
     }
 
+    public function event_active()
+    {
+        return $this->belongsTo(Event::class,'event_id')->where('start_date','>',now());
+    }
+
+
     public function orderDetails()
     {
         return $this->hasMany(OrderDetail::class);
@@ -40,7 +46,5 @@ class Order extends Model
     {
         return $this->belongsTo(OrderStatus::class);
     }
-
-
 
 }

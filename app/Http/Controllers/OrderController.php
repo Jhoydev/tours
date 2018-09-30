@@ -53,7 +53,9 @@ class OrderController extends Controller
                     $order_value += ($ticket->price * (int) $li['qty']);
                     if ($new_order){
                         $ticket->decrement('quantity_available',$li['qty']);
-                        OrderDetail::addDetail($ticket,$order,$customer_id);
+                        for ($i = 1; $i <= $li['qty']; $i++) {
+                            OrderDetail::addDetail($ticket,$order);
+                        }
                     }
 
                 }

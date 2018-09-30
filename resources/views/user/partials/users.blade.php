@@ -1,13 +1,15 @@
 <div class="card rounded">
     <div class="card-body">
+        <h1 class="text-center">Usuarios</h1>
+        <hr>
         <div class="table-responsive">
             <table id="table_datatable" class="table">
                 <thead class="thead-dark">
                 <tr>
                     <th></th>
                     <th>Nombre</th>
-                    <th>Correo Electronico</th>
-                    <th>Telefono</th>
+                    <th>Correo Electrónico</th>
+                    <th>Teléfono</th>
                     <th></th>
                 </tr>
                 </thead>
@@ -18,10 +20,10 @@
                         <td>{{$user->full_name}}</td>
                         <td>{{$user->email}}</td>
                         <td>{{ $user->phone }}</td>
-                        <td class="text-center">
-                            <a href="{{ url("user/$user->id/edit") }}" class="btn btn-primary rounded-circle btn-sm mb-2"><i class="fa fa-pencil"></i></a>
-                            <button type="button" class="btn btn-danger rounded-circle btn-sm mb-2" data-toggle="modal" data-target="#deleteModal" data-user_id="{{ $user->id }}">
-                                <i class="fa fa-eraser" aria-hidden="true"></i>
+                        <td class="text-right">
+                            <a href="{{ url("user/$user->id/edit") }}" class="btn btn-primary btn-sm mb-2 rounded"><i class="fa fa-pencil"></i> Editar</a>
+                            <button type="button" class="btn btn-outline-danger btn-sm mb-2 rounded" data-toggle="modal" data-target="#deleteModal" data-user_id="{{ $user->id }}">
+                                <i class="fa fa-eraser" aria-hidden="true"></i> Eliminar
                             </button>
                         </td>
                     </tr>

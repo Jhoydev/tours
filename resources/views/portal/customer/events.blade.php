@@ -8,7 +8,8 @@
                     <hr>
                     <div class="row">
                     @foreach($orders as $order)
-                        @php($event = $order->event)
+                        @php($event = $order->event_active)
+                        @continue(!$event)
                         <div class="col-lg-6">
                             <div class="card">
                                 <div class="card-body">

@@ -58,6 +58,7 @@ class EventController extends Controller
      */
     public function store(Request $request)
     {
+        $request->request->add(['company_id' => $request->user()->company_id]);
         $event = Event::create($request->all());
         if ($request->background || $request->text_color) {
             $page = new Page();
@@ -83,7 +84,7 @@ class EventController extends Controller
                 'status' => true,
             ]);
         }
-        //return redirect("events/$event->id");
+        return redirect("events/$event->id");
     }
 
     /**
@@ -94,7 +95,9 @@ class EventController extends Controller
      */
     public function show(Event $event)
     {
-        return view('events.show', compact('event'));
+        $attended = OrderDetail::where('event_id','=',$event->id)->where('customer_id','!=',null)->count();
+        $pending_tickets = OrderDetail::where('event_id','=',$event->id)->where('customer_id','=',null)->count();
+        return view('events.show', compact('event','attended','pending_tickets'));
     }
 
     /**
@@ -187,7 +190,7 @@ class EventController extends Controller
 
     public function customers(Event $event)
     {
-        $attendees = OrderDetail::Attendees($event->id);
+        $attendees = OrderDetail::Where('event_id','=',$event->id)->where('complete','=',1)->get();
         return view('events.customers', compact('event', 'attendees'));
     }
 

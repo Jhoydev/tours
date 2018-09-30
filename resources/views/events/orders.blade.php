@@ -14,7 +14,7 @@
                         <tr>
                             <th>#</th>
                             <th>Nombre</th>
-                            <th>Correo Electronico</th>
+                            <th>Correo Electrónico</th>
                             <th>Evento</th>
                             <th>Estado</th>
                             <th></th>

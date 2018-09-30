@@ -5,8 +5,8 @@
             <thead class="thead-dark">
             <tr>
                 <th>Nombre</th>
-                <th>Correo Electronico</th>
-                <th>Telefono</th>
+                <th>Correo Electrónico</th>
+                <th>Teléfono</th>
                 <th>Celular</th>
             </tr>
             </thead>
