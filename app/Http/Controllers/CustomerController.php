@@ -8,6 +8,7 @@ use App\DocumentType;
 use App\Event;
 use App\EventType;
 use App\Order;
+use App\OrderDetail;
 use App\Page;
 use Caffeinated\Shinobi\Models\Permission;
 use Illuminate\Http\Request;
@@ -160,13 +161,28 @@ class CustomerController extends Controller
         $customer_id  = Auth::user()->id;
         $customer  = Customer::find($customer_id);
         $orders     = $customer->orders;
-        $details    = $customer->orderDetails;
-        return view('portal.customer.events', compact('orders','details'));
+        $details = OrderDetail::where('customer_id','=',$customer_id)->with(['event' => function ($query) {
+            $query->where('start_date','>',now());
+        }])->groupBy('event_id')->get();
+        return view('portal.customer.events', compact('details'));
 
     }
 
     public function order(Order $order)
     {
         return view ('portal.customer.order',compact('order'));
+    }
+
+    public function Calendar(Customer $customer)
+    {
+        $order_details = OrderDetail::where('customer_id','=',$customer->id)->get();
+        $events = [];
+        foreach ($order_details as $detail){
+            $events[] = [
+                'title' => $detail->event->title,
+                'start' => $detail->event->start_date->toDateTimeString()
+            ];
+        }
+        return response()->json($events);
     }
 }

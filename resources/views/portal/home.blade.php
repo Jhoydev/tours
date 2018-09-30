@@ -6,25 +6,8 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col-lg-8  mb-5">
-                            <div class="row">
-                                <div class="col-12">
-                                    <p class="h2"><i class="icon-calendar"></i> Ultimos Eventos</p>
-                                </div>
-                            </div>
-                            @foreach($events as $event)
-                                <div class="row">
-                                    <div class="col-12">
-                                        <p>{{ $event->title }} <i class="icon-calendar"></i> {{ $event->start_date }}</p>
-                                    </div>
-                                    <div class="col-12 text-justify">
-                                        <p class="text-muted">{!! $event->description !!}</p>
-                                    </div>
-                                    <div class="col-12 my-4">
-                                        <hr>
-                                    </div>
-                                </div>
-                            @endforeach
-
+                            <input type="hidden" id="url-calendar" value="{{ url('api/calendar/customer/'.Auth::user()->id) }}">
+                            <div id='calendar'></div>
                         </div>
                         <div class="col-lg-4">
                             <p class="h2">{{ Auth::user()->full_name }}</p>
@@ -73,3 +56,19 @@
 
     </div>
 @endsection
+@push('scripts')
+    <script>
+        $(document).ready(function () {
+            $("#calendar").fullCalendar({
+                header: {
+                    left: 'prev,next today',
+                    center: 'title',
+                    right: 'month'
+                },
+                events: {
+                    url: document.querySelector('#url-calendar').value,
+                }
+            });
+        })
+    </script>
+@endpush

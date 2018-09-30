@@ -7,9 +7,9 @@
                     <h1 class="text-center"><i class="icon-calendar"></i> Eventos</h1>
                     <hr>
                     <div class="row">
-                    @foreach($orders as $order)
-                        @php($event = $order->event_active)
-                        @continue(!$event)
+                    @foreach($details as  $detail)
+                        @continue(!$detail->event)
+                        @php($event = $detail->event)
                         <div class="col-lg-6">
                             <div class="card">
                                 <div class="card-body">
@@ -20,14 +20,9 @@
                                             <div><a class="badge badge-warning" href="{{ url('evento/' . $event->id . '/' . $event->page->id ) }}" target="_blank">Ir a la web <i class="fa fa-external-link" aria-hidden="true"></i></a></div>
                                         @endif
                                     </div>
-                                    <p>
-
-                                    </p>
-                                    <p>Referencia de compra {{ $order->reference }}</p>
-                                    <a class="btn btn-block btn-outline-info rounded" href="{{ route('customer.events.order',[$order->id]) }}"><i class="fa fa-shopping-cart" aria-hidden="true"></i>
+                                    <a class="btn btn-block btn-outline-info rounded" href="{{ route('customer.events.order',[$detail->order_id]) }}"><i class="fa fa-shopping-cart" aria-hidden="true"></i>
                                         Ver compra</a>
                                     <hr>
-
                                 </div>
                             </div>
                         </div>
