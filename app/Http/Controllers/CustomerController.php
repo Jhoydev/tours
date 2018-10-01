@@ -156,6 +156,13 @@ class CustomerController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function event(Request $request,Event $event)
+    {
+        $detail = OrderDetail::where('customer_id','=',$request->user()->id)->where('event_id','=',$event->id)->first();
+        $event = $detail->event;
+        return view('portal.event.index', compact('event'));
+    }
+
     public function events(Request $request)
     {
         $customer_id  = Auth::user()->id;
@@ -168,9 +175,15 @@ class CustomerController extends Controller
 
     }
 
-    public function order(Order $order)
+    public function order(Event $event, Order $order)
     {
         return view ('portal.customer.order',compact('order'));
+    }
+
+    public function orders(Request $request, Event $event)
+    {
+        $details = OrderDetail::with('order.order_status')->where('customer_id','=',$request->user()->id)->where('event_id','=',$event->id)->groupBy('order_id')->get();
+        return view ('portal.order.index',compact('details','event'));
     }
 
     public function Calendar(Customer $customer)

@@ -35,8 +35,10 @@ Route::middleware(['auth:customer'])->group(function () {
     Route::post('portal/shop', 'OrderController@store')->name('shop.store');
     Route::get('portal/order/{order}/invoice', 'OrderController@invoice')->name('order.invoice');
     Route::get('portal/explorer', 'EventController@index')->name('portal.explorer.events');
+    Route::get('portal/event/{event}', 'CustomerController@event')->name('customer.event');
     Route::get('portal/events', 'CustomerController@events')->name('customer.events');
-    Route::get('portal/events/order/{order}', 'CustomerController@order')->name('customer.events.order');
+    Route::get('portal/event/{event}/orders', 'CustomerController@orders')->name('customer.event.orders');
+    Route::get('portal/event/{event}/order/{order}', 'CustomerController@order')->name('customer.event.order');
     Route::get('portal/profile', 'CustomerController@profile')->name('profile');
     Route::get('portal/customer/change-password', 'CustomerController@changePassword')->name('customer.changepassword');
     Route::put('portal/customer/update-password', 'CustomerController@updatePassword')->name('customer.update.password');
