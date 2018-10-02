@@ -14,10 +14,6 @@ use Illuminate\Support\Str;
 class OrderController extends Controller
 {
 
-    protected $successPayment = false;
-    protected $paymentErrors  = [];
-    protected $res            = '';
-
     public function show(Request $request)
     {
         if (Auth::guard('customer')->check()) {
