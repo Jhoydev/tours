@@ -57,7 +57,7 @@
                                     </span>
                                 @endif
                             </div>
-                            <div class="row">
+                            <div class="row mb-4">
                                 <div class="col-lg-12 d-flex justify-content-center">
                                     <button type="submit" class="btn btn-primary rounded px-4">{{ __('Ingresar') }}</button>
                                 </div>
@@ -66,6 +66,11 @@
                                         {{ __('Olvidaste tu Contraseña?') }}
                                     </a>
                                 </div>--}}
+                            </div>
+                            <div class="row">
+                                <div class="col-12 text-center">
+                                    <a href="{{ route('portal.register') }}">Crear Cuenta</a>
+                                </div>
                             </div>
                         </form>
                     </div>

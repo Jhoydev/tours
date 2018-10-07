@@ -119,7 +119,7 @@ class TicketController extends Controller
             $orderDetail->send_to_email = $request->email;
             $orderDetail->token_verify = Str::uuid();
             $orderDetail->update();
-            Mail::to(['email' => $request->email])->send(new OrderShipped($orderDetail));
+            //Mail::to(['email' => $request->email])->send(new OrderShipped($orderDetail));
             session()->flash('message','Tiquete enviado al correo ' . $request->email);
             return back();
         }
@@ -127,9 +127,30 @@ class TicketController extends Controller
         return back();
     }
 
-    public  function verify($token)
+    public function verify(Request $request)
     {
-        return "ticketController@verify";
+        $status = false;
+        if (OrderDetail::where('token_verify','=',$request->token)->first()){
+            $status = true;
+        }
+
+        return response()->json([
+            'status' => $status
+        ]);
     }
 
+    public function asiggnByToken(Request $request)
+    {
+        if ($detail = OrderDetail::where('token_verify','=',$request->token)->first()){
+            $detail->token_verify = null;
+            $detail->send_to_email = null;
+            $detail->customer_id = $request->user()->id;
+            $detail->update();
+            // Enviar email de tiquete asignado
+            //return redirect(route(''));
+            session()->flash('message','Tiquete asignado para el evento ' . $detail->event->title);
+        }
+        return back();
+
+    }
 }

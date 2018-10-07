@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers\Customer\Auth;
 
+use App\Customer;
 use App\User;
 use App\Http\Controllers\Controller;
+use Illuminate\Auth\Events\Registered;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -29,7 +32,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/';
+    protected $redirectTo = 'portal/home';
 
     /**
      * Create a new controller instance.
@@ -55,8 +58,9 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'first_name' => 'required|string|max:2',
-            'email' => 'required|string|email|max:255|unique:users',
+            'first_name' => 'required|string',
+            'email' => 'required|string|email|max:255|unique:customers',
+            'document' => 'max:255|unique:customers',
             'password' => 'required|string|min:6|confirmed',
         ]);
     }
@@ -69,12 +73,7 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
-            'first_name' => $data['first_name'],
-            'last_name' => $data['last_name'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
-        ]);
+        return Customer::create($data);
     }
 
     /**
@@ -84,6 +83,26 @@ class RegisterController extends Controller
      */
     public function showRegistrationForm()
     {
-        return view('portal.auth.register');
+        $customer = new Customer;
+        return view('portal.auth.register',compact('customer'));
+    }
+
+    /**
+     * Handle a registration request for the application.
+     *
+     * @param  \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\Response
+     */
+    public function register(Request $request)
+    {
+        $this->validator($request->all())->validate();
+
+        event(new Registered($user = $this->create($request->all())));
+        //PREPARARLO
+        //Mail::to(['email' => $request->email])->send(new OrderShipped($orderDetail));
+        $this->guard()->login($user);
+
+        return $this->registered($request, $user)
+            ?: redirect($this->redirectPath());
     }
 }

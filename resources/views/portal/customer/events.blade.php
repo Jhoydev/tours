@@ -22,11 +22,9 @@
                                     </div>
                                     <hr>
                                     <div class="d-flex justify-content-center">
-                                        @if($detail->event->event_type_id == 2)
-                                            <a class="btn btn-info rounded mr-3" href="{{ route('customer.event',['id' => $detail->event_id]) }}"><i class="fa fa-home" aria-hidden="true"></i> Tablero</a>
-                                        @endif
-                                        <a class="btn btn-light border rounded" href="{{ route('customer.event.orders',['id' => $detail->event_id]) }}"><i class="fa fa-balance-scale" aria-hidden="true"></i>
-                                            Ordenes</a>
+                                        <a class="btn btn-primary rounded mr-3" data-toggle="tooltip" data-placement="top" title="Panel de Control" href="{{ route('customer.event',['id' => $event->id]) }}"><i class="fa fa-home" aria-hidden="true"></i></a>
+                                        <button class="btn btn-light border rounded mr-3" data-toggle="tooltip" data-placement="top" title="Descargar Memorias"><i class="fa fa-download" aria-hidden="true"></i></button>
+                                        <button class="btn btn-light border rounded mr-3" data-toggle="tooltip" data-placement="top" title="Descargar Certificado"><i class="fa fa-download" aria-hidden="true"></i></button>
                                     </div>
                                 </div>
                             </div>

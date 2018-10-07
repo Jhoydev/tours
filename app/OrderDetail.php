@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 
 class OrderDetail extends Model
@@ -44,4 +45,8 @@ class OrderDetail extends Model
         $order_detail->save();
     }
 
+    public static function DetailsNull(Event $event, Customer $customer)
+    {
+       return count(DB::select("select * from `order_details` where order_id in  (select id from orders where customer_id = :customer_id and event_id = :event_id) and customer_id is null",['customer_id'=>$customer->id,'event_id'=>$event->id]));
+    }
 }

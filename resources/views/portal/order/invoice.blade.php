@@ -1,6 +1,23 @@
 @extends('layouts.portal')
 @section('content')
     <div class="row mt-5">
+        @if ($order->event->post_order_display_message)
+        <div class="col-12 mb-3">
+            <div class="alert alert-info" role="alert">
+                <ul class="list-unstyled">
+                    <li class="media">
+                        <i class="fa fa-info-circle mr-3" style="font-size: 36px" aria-hidden="true"></i>
+                        <div class="media-body">
+                            <strong> {{ $order->event->post_order_display_message }}</strong>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        @endif
+        <div class="col-12 mb-3 text-right">
+            <a class="btn btn-success rounded" href="{{ route('customer.event.order',['event'=>$order->event_id,'order'=>$order->id]) }}"><i class="fa fa-shopping-cart" aria-hidden="true"></i> Tiquetes</a>
+        </div>
         <div class="col-12">
             <div class="card">
                 <div class="card-body">

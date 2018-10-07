@@ -24,5 +24,8 @@
     <main class="py-4">
         @yield('content')
     </main>
+<script src="{{ mix('js/main.js') }}"></script>
+<script src="{{ asset('js/app.js') }}"></script>
+@stack('scripts')
 </body>
 </html>

@@ -33,7 +33,6 @@ class EventController extends Controller
         if ($request->ajax()) {
             return view('events.partials.events', compact('events', 'event_types', 'event_form', 'page'));
         }
-
         return view('events.index', compact('events', 'event_types', 'event_form', 'page'));
     }
 
@@ -138,6 +137,7 @@ class EventController extends Controller
         $request->validate([
             'title' => 'required'
         ]);
+
         $event->fill($request->all());
 
         if ($request->hasFile('flyer')) {

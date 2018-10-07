@@ -9,7 +9,7 @@
                     <div class="row">
                         <div class="col-12">
                             <div class="table-responsive">
-                                <table id="table_datatable" class="table fade">
+                                <table id="table_datatable" class="table">
                                     <thead class="thead-dark">
                                     <tr>
                                         <th>#</th>
@@ -20,15 +20,14 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    @foreach($details as $detail)
-                                        @php($order = $detail->order)
+                                    @foreach($orders as $order)
                                         <tr>
                                             <td>{{ $order->id }}</td>
                                             <td>{{ $order->reference }}</td>
                                             <td class="text-right">${{ number_format($order->value,2) }}</td>
                                             <td class="text-center"><span class="badge badge-success p-1">{{ $order->order_status->name }}</span></td>
                                             <td class="text-right">
-                                                <a href="{{ route('customer.event.order',['event' => $detail->event_id,'order' => $detail->order_id]) }}" class="btn btn-sm btn-success rounded"><i class="fa fa-file"></i> Revisar</a>
+                                                <a href="{{ route('customer.event.order',['event' => $event->id,'order' => $order->id]) }}" class="btn btn-sm btn-success rounded"><i class="fa fa-file"></i> Revisar {{ $details_null }}</a>
                                             </td>
                                         </tr>
                                     @endforeach

@@ -3,7 +3,7 @@
     <div class="col-md-12">
         <input type="hidden" name="event_id" value="{{ $event->id }}">
         <div class="form-group">
-            {!! Form::checkbox('is_live',null,$page->is_live,['id' => 'is_live']); !!}
+            {!! Form::checkbox('is_live',null,$page->is_live,['id' => 'is_live']) !!}
             <label class="form-check-label" for="is_live">
                 Web del evento visible
             </label>

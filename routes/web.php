@@ -13,7 +13,6 @@
 Auth::routes();
 Route::get('login/{key_app?}', 'Auth\LoginController@showLoginForm')->name('login');
 Route::get('/', 'HomeController@index')->name('home');
-Route::get('verify-ticket', 'TicketController@verify');
 
 Route::get('evento/{event}/{page}', 'PageController@show')->name('event.page');
 Route::get('redirect-authenticated', 'Customer\Auth\LoginController@redirectAuthenticated');
@@ -27,6 +26,7 @@ Route::prefix('portal')->group(function () {
     Route::post('login', 'Customer\Auth\LoginController@login')->name('portal.login');
     Route::post('logout', 'Customer\Auth\LoginController@logout')->name('portal.logout');
     Route::get('register','Customer\Auth\RegisterController@showRegistrationForm');
+    Route::post('register','Customer\Auth\RegisterController@register')->name('portal.register');
 });
 
 Route::middleware(['auth:customer'])->group(function () {
@@ -35,15 +35,18 @@ Route::middleware(['auth:customer'])->group(function () {
     Route::post('portal/shop', 'OrderController@store')->name('shop.store');
     Route::get('portal/order/{order}/invoice', 'OrderController@invoice')->name('order.invoice');
     Route::get('portal/explorer', 'EventController@index')->name('portal.explorer.events');
+    Route::get('portal/history', 'CustomerController@history')->name('customer.history');
     Route::get('portal/event/{event}', 'CustomerController@event')->name('customer.event');
     Route::get('portal/events', 'CustomerController@events')->name('customer.events');
     Route::get('portal/event/{event}/orders', 'CustomerController@orders')->name('customer.event.orders');
+    Route::get('portal/customer/event/{event}/details', 'CustomerController@Details')->name('customer.event.details');
     Route::get('portal/event/{event}/order/{order}', 'CustomerController@order')->name('customer.event.order');
     Route::get('portal/profile', 'CustomerController@profile')->name('profile');
     Route::get('portal/customer/change-password', 'CustomerController@changePassword')->name('customer.changepassword');
     Route::put('portal/customer/update-password', 'CustomerController@updatePassword')->name('customer.update.password');
     Route::put('portal/profile/{customer}', 'CustomerController@update')->name('profile.update');
     Route::post('portal/events/order/assign-ticket/{orderDetail}', 'TicketController@assignToCustomer');
+    Route::post('portal/asiggn-by-token', 'TicketController@asiggnByToken');
 });
 
 Route::middleware('auth:web')->group(function () {

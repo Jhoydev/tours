@@ -63,7 +63,10 @@
         <nav class="sidebar-nav">
             <ul class="nav">
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('customer.events') }}"><i class="fa fa-clock-o"></i> Eventos</a>
+                    <a class="nav-link" href="{{ route('customer.events') }}"><i class="fa fa-calendar-o"></i> Eventos</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('customer.history') }}"><i class="fa fa-clock-o"></i> Eventos Anteriores</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('portal.explorer.events') }}"><i class="fa fa-calendar-o"></i> Explorar</a>
@@ -94,7 +97,7 @@
 <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
 <script>
-    $('.info').tooltip()
+    $('[data-toggle="tooltip"]').tooltip();
 </script>
 @yield('script')
 @stack('scripts')

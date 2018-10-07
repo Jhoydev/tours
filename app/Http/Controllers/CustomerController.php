@@ -158,17 +158,16 @@ class CustomerController extends Controller
      */
     public function event(Request $request,Event $event)
     {
+        $details = OrderDetail::where('customer_id','=',$request->user()->id)->where('event_id','=',$event->id)->get();
         $detail = OrderDetail::where('customer_id','=',$request->user()->id)->where('event_id','=',$event->id)->first();
         $event = $detail->event;
-        return view('portal.event.index', compact('event'));
+        $details_null = OrderDetail::DetailsNull($event,$request->user());
+        return view('portal.event.index', compact('event','details','details_null'));
     }
 
     public function events(Request $request)
     {
-        $customer_id  = Auth::user()->id;
-        $customer  = Customer::find($customer_id);
-        $orders     = $customer->orders;
-        $details = OrderDetail::where('customer_id','=',$customer_id)->with(['event' => function ($query) {
+        $details = OrderDetail::where('customer_id','=',$request->user()->id)->with(['event' => function ($query) {
             $query->where('start_date','>',now());
         }])->groupBy('event_id')->get();
         return view('portal.customer.events', compact('details'));
@@ -182,8 +181,15 @@ class CustomerController extends Controller
 
     public function orders(Request $request, Event $event)
     {
-        $details = OrderDetail::with('order.order_status')->where('customer_id','=',$request->user()->id)->where('event_id','=',$event->id)->groupBy('order_id')->get();
-        return view ('portal.order.index',compact('details','event'));
+        $orders = Order::with('order_status')->where('customer_id','=',$request->user()->id)->where('event_id','=',$event->id)->groupBy('id')->get();
+        $details_null = OrderDetail::DetailsNull($event,$request->user());
+        return view ('portal.order.index',compact('orders','event','details_null'));
+    }
+
+    public function Details(Request $request, Event $event)
+    {
+        $details = OrderDetail::where('customer_id','=',$request->user()->id)->where('event_id','=',$event->id)->get();
+        return view ('portal.customer.details',compact('details','event'));
     }
 
     public function Calendar(Customer $customer)
@@ -197,5 +203,13 @@ class CustomerController extends Controller
             ];
         }
         return response()->json($events);
+    }
+
+    public function History(Request $request)
+    {
+        $details = OrderDetail::where('customer_id','=',$request->user()->id)->with(['event' => function ($query) {
+            $query->where('start_date','<',now());
+        }])->groupBy('event_id')->get();
+        return view('portal.customer.events', compact('details'));
     }
 }

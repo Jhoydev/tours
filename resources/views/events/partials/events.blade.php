@@ -1,7 +1,7 @@
 <div class="card rounded">
     <div class="card-body">
         <div class="table-responsive">
-            <table id="table_datatable" class="table fade">
+            <table id="table_datatable" class="table">
                 <thead class="thead-dark">
                 <tr>
                     <th>Evento</th>

@@ -12,7 +12,7 @@
     </div>
 </div>
 @push('modals')
-    <div class="modal fade" id="modalGallery" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+    <div class="modal fade" id="modalGallery" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true" data-url="{{ url('asset/page/public/backgrounds') }}">
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-body">
@@ -46,7 +46,7 @@
             let modal = $("#modalGallery");
             var content =  document.querySelector("#content_gallery");
             $(content).html(`<i class="fa fa-spinner fa-pulse fa-3x fa-fw text-secondary" style="font-size: 3em"></i><span class="sr-only">Loading...</span>`);
-            axios.get("http://tour.local/asset/page/public/backgrounds").then(response => {
+            axios.get(modal.data('url')).then(response => {
                 var text = "";
                 for (image of response.data){
                     text += `<img src="${image}" class="img-thumbnail m-2" style="height: 100px;width: 120px">`;
