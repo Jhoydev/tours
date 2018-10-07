@@ -96,7 +96,7 @@
                                 </div>
                                 @endif
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="method_payment" id="inlineRadio2" value="card_payments">
+                                    <input class="form-check-input" type="radio" name="method_payment" id="inlineRadio2" value="online_payment">
                                     <label class="form-check-label" for="inlineRadio2">Pago con tarjeta</label>
                                 </div>
                             </div>

@@ -27,7 +27,13 @@
                                             <td class="text-right">${{ number_format($order->value,2) }}</td>
                                             <td class="text-center"><span class="badge badge-success p-1">{{ $order->order_status->name }}</span></td>
                                             <td class="text-right">
-                                                <a href="{{ route('customer.event.order',['event' => $event->id,'order' => $order->id]) }}" class="btn btn-sm btn-success rounded"><i class="fa fa-file"></i> Revisar {{ $details_null }}</a>
+                                                <a href="{{ route('customer.event.order',['event' => $event->id,'order' => $order->id]) }}" class="btn btn-sm btn-success rounded">
+                                                    <i class="fa fa-file"></i>
+                                                    Revisar
+                                                    @if ($order->pending_assign)
+                                                        <span class="badge badge-danger"  data-toggle="tooltip" data-placement="top" title="Tiquetes sin asignar">{{$order->pending_assign}}</span>
+                                                    @endif
+                                                </a>
                                             </td>
                                         </tr>
                                     @endforeach

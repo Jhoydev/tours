@@ -21,7 +21,7 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
-                    <p class="h3 text-right">Factura #{{ $order->reference }}</p>
+                    <p class="h3 text-right"><span class="badge badge-danger">{{ $order->order_status->name }}</span> Factura #{{ $order->reference }}</p>
                     <hr>
                     <div class="row">
                         <div class="col-lg-6">

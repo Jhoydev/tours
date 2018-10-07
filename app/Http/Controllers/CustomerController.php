@@ -158,11 +158,10 @@ class CustomerController extends Controller
      */
     public function event(Request $request,Event $event)
     {
+        $orders = Order::where('customer_id','=',$request->user()->id)->where('event_id','=',$event->id)->get();
         $details = OrderDetail::where('customer_id','=',$request->user()->id)->where('event_id','=',$event->id)->get();
-        $detail = OrderDetail::where('customer_id','=',$request->user()->id)->where('event_id','=',$event->id)->first();
-        $event = $detail->event;
         $details_null = OrderDetail::DetailsNull($event,$request->user());
-        return view('portal.event.index', compact('event','details','details_null'));
+        return view('portal.event.index', compact('event','details','details_null','orders'));
     }
 
     public function events(Request $request)
@@ -181,7 +180,14 @@ class CustomerController extends Controller
 
     public function orders(Request $request, Event $event)
     {
-        $orders = Order::with('order_status')->where('customer_id','=',$request->user()->id)->where('event_id','=',$event->id)->groupBy('id')->get();
+
+        $orders = Order::with('order_status')->where('customer_id','=',$request->user()->id)->where('event_id','=',$event->id)->withCount([
+            'orderDetails',
+            'orderDetails as pending_assign' => function ($query) {
+                $query->where('customer_id', null);
+            }
+        ])->get();
+
         $details_null = OrderDetail::DetailsNull($event,$request->user());
         return view ('portal.order.index',compact('orders','event','details_null'));
     }

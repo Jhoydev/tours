@@ -10,6 +10,7 @@ use App\MyLaravelPayU;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
+use Illuminate\Support\Collection;
 
 class OrderController extends Controller
 {
@@ -73,9 +74,9 @@ class OrderController extends Controller
         $res = true;
         $order = Order::find($request->order_id);
         $order->order_status_id = 1;
-        if ($request->method_payment == "card_payments"){
-            $order->payu_order_id = Str::uuid();
-            $order->transaction_id = Str::uuid();
+        if ($request->method_payment == "online_payment"){
+            $payu = (object) ['url' => 'laurl.php'];
+            return view('portal.order.online_payment',compact('payu'));
         }
         foreach ($order->orderDetails as $order_detail){
             $order_detail->complete = true;
@@ -97,5 +98,5 @@ class OrderController extends Controller
     {
         return view('portal.order.invoice',compact('order'));
     }
-    
+
 }
