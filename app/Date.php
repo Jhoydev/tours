@@ -2,10 +2,13 @@
 
 namespace App;
 
+use App\Traits\DatesTranslator;
 use Illuminate\Database\Eloquent\Model;
 
 class Date extends Model
 {
+    use DatesTranslator;
+
     protected $dates    = ['date_start','date_end'];
     protected $casts    = ['date_start','date_end'];
 

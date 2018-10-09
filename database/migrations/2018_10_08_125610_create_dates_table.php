@@ -15,8 +15,8 @@ class CreateDatesTable extends Migration
     {
         Schema::create('dates', function (Blueprint $table) {
             $table->increments('id');
-            $table->dateTime('date_start')->nullable();
-            $table->dateTime('date_end')->nullable();
+            $table->dateTime('start_date')->nullable();
+            $table->dateTime('end_date')->nullable();
             $table->text('message')->nullable();
             $table->unsignedInteger('customer_id');
             $table->foreign('customer_id')->references('id')->on('customers');

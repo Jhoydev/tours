@@ -30,6 +30,7 @@ Route::prefix('portal')->group(function () {
 });
 
 Route::middleware(['auth:customer'])->group(function () {
+    Route::get('portal', 'CustomerController@portal');
     Route::get('portal/home', 'CustomerController@portal')->name('portal');
     Route::get('portal/shop', 'OrderController@show')->name('shop');
     Route::post('portal/shop', 'OrderController@store')->name('shop.store');

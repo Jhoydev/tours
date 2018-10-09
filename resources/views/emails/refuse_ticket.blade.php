@@ -41,4 +41,10 @@
             </td>
         </tr>
     </table>
-@endsection
+@endsection<?php
+/**
+ * Created by PhpStorm.
+ * User: jhoy
+ * Date: 09/10/2018
+ * Time: 16:19
+ */

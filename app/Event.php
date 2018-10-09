@@ -3,6 +3,7 @@
 namespace App;
 
 use App\Scopes\CompanyScope;
+use App\Traits\DatesTranslator;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
@@ -10,6 +11,7 @@ use Illuminate\Support\Facades\DB;
 
 class Event extends Model
 {
+    use DatesTranslator;
 
     protected $fillable = ["id", "title", "description", "address","cp", "start_date", "end_date", "city_id", "state_id",'country_id',"flyer","company_id",
                             "event_type_id","post_order_display_message","pre_order_display_message","enable_offline_payments","offline_payment_instructions","memories_url", "created_by"];
@@ -101,6 +103,8 @@ class Event extends Model
     {
         return $this->attributes['start_date'] = Carbon::parse($value);
     }
+
+
 
     public function setEndDateAttribute($value)
     {

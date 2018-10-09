@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Customer;
 use App\Event;
 use App\Mail\OrderShipped;
+use App\Mail\RefuseTicket;
 use App\Mail\TicketNotification;
 use App\Order;
 use App\OrderDetail;
@@ -105,6 +106,7 @@ class TicketController extends Controller
             $orderDetail->customer_id = $request->user()->id;
             $orderDetail->update();
             session()->flash('message','Tiquete asignado a ' . $request->user()->full_name);
+            Mail::to(['email' => $request->user()->email])->send(new OrderShipped($orderDetail));
             return back();
         }
         if ($request->email && $orderDetail->customer_id == null){
@@ -112,14 +114,14 @@ class TicketController extends Controller
             if ($customer){
                 $orderDetail->customer_id = $customer->id;
                 $orderDetail->update();
-                //Mail::to(['email' => $request->email])->send(new TicketNotification($orderDetail));
+                Mail::to(['email' => $request->email])->send(new OrderShipped($orderDetail));
                 session()->flash('message','Tiquete asignado al usuario ' . $customer->email);
                 return back();
             }
             $orderDetail->send_to_email = $request->email;
             $orderDetail->token_verify = Str::uuid();
             $orderDetail->update();
-            //Mail::to(['email' => $request->email])->send(new OrderShipped($orderDetail));
+            Mail::to(['email' => $request->email])->send(new OrderShipped($orderDetail));
             session()->flash('message','Tiquete enviado al correo ' . $request->email);
             return back();
         }
@@ -152,5 +154,14 @@ class TicketController extends Controller
         }
         return back();
 
+    }
+
+    public function refuse(Request $request, OrderDetail $detail)
+    {
+        $detail->customer_id = null;
+        $detail->update();
+        session()->flash('message','Tiquete rechazado');
+        Mail::to(['email' => $detail->order->customer->email])->send(new RefuseTicket($detail,$request->user()));
+        return redirect(route('portal'));
     }
 }

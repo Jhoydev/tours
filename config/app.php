@@ -168,6 +168,7 @@ return [
          * */
         App\Providers\ImageStoreServiceProvider::class,
         Alexo\LaravelPayU\LaravelPayUServiceProvider::class,
+        Jenssegers\Date\DateServiceProvider::class,
 
     ],
 
@@ -223,6 +224,7 @@ return [
         'Image' => Intervention\Image\Facades\Image::class,
         'Debugbar' => Barryvdh\Debugbar\Facade::class,
         'ImageStore' => App\Helpers\ImageStore\ImageStore::class,
+        'Date' => Jenssegers\Date\Date::class,
     ],
     /*
      *  Config personalizadas
