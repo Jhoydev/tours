@@ -46,7 +46,7 @@
 
                 <div class="form-group">
                     <label for="description">Descripción</label>
-                    <textarea class="form-control rounded {{ $errors->has('description') ? ' is-invalid' : '' }}" name="description" id="description" v-model="description"></textarea>
+                    <textarea class="form-control rounded {{ $errors->has('description') ? ' is-invalid' : '' }}" name="description" id="description" v-model="description" readonly></textarea>
                     @if ($errors->has('description'))
                     <span class="invalid-feedback">
                         <strong>{{ $errors->first('description') }}</strong>

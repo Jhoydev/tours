@@ -24,7 +24,7 @@
                                                 </div>
                                                 <div class="row justify-content-center mb-3">
                                                     <div class="col-6">
-                                                        <img src="{{ ($event->flyer) ?url($event->flyer):'http://cdn.cavemancircus.com//wp-content/uploads/images/2015/january/karlee_grey/karlee_grey_8.jpg' }}" class="img-fluid" style="min-width: 100%; min-height:150px"  alt="">
+                                                        <img src="{{ ($event->flyer) ?url($event->flyer):'' }}" class="img-fluid" style="min-width: 100%; min-height:150px"  alt="">
                                                     </div>
                                                 </div>
                                             </div>

@@ -63,13 +63,13 @@
         <nav class="sidebar-nav">
             <ul class="nav">
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('customer.events') }}"><i class="fa fa-calendar-o"></i> Eventos</a>
+                    <a class="nav-link" href="{{ route('portal') }}"><i class="fa fa-calendar-o"></i> Mis Eventos</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('customer.history') }}"><i class="fa fa-clock-o"></i> Eventos Anteriores</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('portal.explorer.events') }}"><i class="fa fa-calendar-o"></i> Explorar</a>
+                    <a class="nav-link" href="{{ route('portal.explorer.events') }}"><i class="fa fa-calendar-o"></i> Mas Eventos</a>
                 </li>
                 @stack('sidebar')
             </ul>
@@ -81,6 +81,7 @@
     <main class="main">
 
         <div class="container-fluid">
+            @include('layouts.menssage_success')
             @yield('content')
         </div>
         <!-- /.conainer-fluid -->

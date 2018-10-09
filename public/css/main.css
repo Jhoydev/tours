@@ -5240,3 +5240,12 @@ img.filter-grayscale {
   text-overflow: ellipsis;
 }
 
+.collapse-event a {
+  text-decoration: none;
+}
+
+.collapse-event .collapse.show {
+  display: -ms-flexbox !important;
+  display: flex !important;
+}
+

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Company;
 use App\Customer;
+use App\Date;
 use App\DocumentType;
 use App\Event;
 use App\EventType;
@@ -121,10 +122,15 @@ class CustomerController extends Controller
         return redirect('customer');
     }
 
-    public function portal()
+    public function portal(Request $request)
     {
-        $events = Event::lastEvents(3);
-        return view('portal.home', compact('events'));
+        $details = OrderDetail::where('customer_id','=',$request->user()->id)
+            ->whereHas('event',function ($query){
+                $query->where('start_date','>',now());
+            })
+            ->groupBy('event_id')
+            ->get();
+        return view('portal.home', compact('details'));
     }
 
     public function profile()
@@ -198,17 +204,46 @@ class CustomerController extends Controller
         return view ('portal.customer.details',compact('details','event'));
     }
 
-    public function Calendar(Customer $customer)
+    public function Calendar(Event $event, Customer $customer)
     {
-        $order_details = OrderDetail::where('customer_id','=',$customer->id)->get();
-        $events = [];
-        foreach ($order_details as $detail){
-            $events[] = [
-                'title' => $detail->event->title,
-                'start' => $detail->event->start_date->toDateTimeString()
-            ];
+        $dates = Date::where('customer_id','=',$customer->id)
+            ->where('event_id','=',$event->id)
+            ->orWhere(function ($query) use ($customer,$event){
+                $query->where('contact_id','=',$customer->id)
+                    ->where('event_id','=',$event->id);
+            })->where('date_status_id','!=','3')
+            ->get();
+        $res = [];
+        if (count($dates)){
+            foreach ($dates as $date){
+                $name = $date->contact->full_name;
+                $contact = $date->contact;
+                // Ponemos la subfijo solcitada cuando es una cita pedida por nosotros
+                if ($date->contact->full_name == $customer->full_name){
+                    $name = $date->customer->full_name . " - Solicitada";
+                    $contact = $date->customer;
+
+                }
+                $color = '#20a8d8';
+                if ($date->date_status_id == 1) {
+                    $color = '#4dbd74';
+                }
+                if ($date->date_status_id == 2) {
+                    $color = 'gold';
+                }
+
+                $res[] = [
+                    'title' => "$name",
+                    'start' => $date->date_start->toDateTimeString(),
+                    'color' => $color,
+                    'message' => $date->message,
+                    'status' => $date->date_status_id,
+                    'req' => url("portal/event/$event->id/date/$date->id"),
+                    'contact' => $contact
+                ];
+            }
         }
-        return response()->json($events);
+        return response()->json($res);
     }
 
     public function History(Request $request)

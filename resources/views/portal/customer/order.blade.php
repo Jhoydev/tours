@@ -1,6 +1,5 @@
 @extends('layouts.portal')
 @section('content')
-    @include('layouts.menssage_success')
     <div class="row mt-5">
         @if ($order->customer_id == Auth::user()->id)
         <div class="col-12 mb-3 text-right">

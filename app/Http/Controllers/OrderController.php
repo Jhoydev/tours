@@ -9,6 +9,7 @@ use App\Order;
 use App\MyLaravelPayU;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Illuminate\Support\Collection;
 
@@ -50,6 +51,12 @@ class OrderController extends Controller
                     $order_value += ($ticket->price * (int) $li['qty']);
                     if ($new_order){
                         $ticket->decrement('quantity_available',$li['qty']);
+                        for ($i = 1; $i <= $li['qty']; $i++) {
+                            OrderDetail::addDetail($ticket,$order);
+                        }
+                    }else{
+                        $ticket->increment('quantity_available',count($order->orderDetails));
+                        DB::table('order_details')->where('order_id', '=', $order->id)->delete();
                         for ($i = 1; $i <= $li['qty']; $i++) {
                             OrderDetail::addDetail($ticket,$order);
                         }

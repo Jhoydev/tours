@@ -80,6 +80,11 @@ class Event extends Model
         return $this->hasMany(OrderDetail::class);
     }
 
+    public function orderDetailsByCustomer()
+    {
+        return $this->hasMany(OrderDetail::class)->where('customer_id','=',Auth::user()->id);
+    }
+
     public function ordersPaid()
     {
         return $this->hasMany(Order::class)->where('order_status_id','=','1');

@@ -15,7 +15,8 @@ class CreateDatesTable extends Migration
     {
         Schema::create('dates', function (Blueprint $table) {
             $table->increments('id');
-            $table->dateTime('date')->nullable();
+            $table->dateTime('date_start')->nullable();
+            $table->dateTime('date_end')->nullable();
             $table->text('message')->nullable();
             $table->unsignedInteger('customer_id');
             $table->foreign('customer_id')->references('id')->on('customers');
@@ -23,6 +24,8 @@ class CreateDatesTable extends Migration
             $table->foreign('event_id')->references('id')->on('events');
             $table->unsignedInteger('contact_id')->nullable();
             $table->foreign('contact_id')->references('id')->on('customers');
+            $table->unsignedInteger('date_status_id');
+            $table->foreign('date_status_id')->references('id')->on('date_statuses');
             $table->timestamps();
         });
     }
