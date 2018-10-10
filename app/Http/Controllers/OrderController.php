@@ -76,27 +76,36 @@ class OrderController extends Controller
         }
     }
 
-    public function  store(Request $request)
+    public function store(Request $request)
     {
-        $res = true;
-        $order = Order::find($request->order_id);
+        $completed              = true;
+        $url                    = "";
+        $order                  = Order::find($request->order_id);
         $order->order_status_id = 1;
-        if ($request->method_payment == "online_payment"){
-            $payu = (object) ['url' => 'laurl.php'];
-            return view('portal.order.online_payment',compact('payu'));
-        }
-        foreach ($order->orderDetails as $order_detail){
+
+        foreach ($order->orderDetails as $order_detail) {
             $order_detail->complete = true;
-            if (!$order_detail->update()){
-                $res = false;
+            if (!$order_detail->update()) {
+                $completed = false;
             }
         }
-        if(!$order->update()){
-            $res = false;
+        
+        if (!$order->update()) {
+            $completed = false;
         }
-        if ($res){
-            return redirect(route('order.invoice',['order' => $order]));
-        }else{
+
+        if ($request->method_payment != "online_payment") {
+            $url = route('order.invoice', ['order' => $order]);
+        }
+
+        $res[] = [
+            'success'  => $completed,
+            'redirect' => $url,
+        ];
+
+        if ($completed) {
+            return response()->json($res);
+        } else {
             return back();
         }
     }
