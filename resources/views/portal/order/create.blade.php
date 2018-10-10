@@ -116,7 +116,7 @@
                             </div>
                             <div class="col-12 text-right">
                                 <hr>
-                                <button type="submit" class="btn btn-success btn-lg rounded fade">Pagar</button>
+                                <button type="submit" id="pay_button" class="btn btn-success btn-lg rounded fade">Pagar</button>
                             </div>
                         </div>
                     </form>
@@ -136,6 +136,24 @@
                 $("#form_order").find('button[type=submit]').text('Pagar');
             }
             $("#form_order").find('button[type=submit]').addClass('show');
+
+        });
+        
+        
+        $("#form_order").submit(function(e) {
+            e.preventDefault();
+            var form = $(this);
+            var url = form.attr('action');
+
+            $.ajax({
+                   type: "POST",
+                   url: url,
+                   data: form.serialize(),
+                   success: function(data)
+                   {
+                       alert(data);
+                   }
+                 });
 
         });
     </script>

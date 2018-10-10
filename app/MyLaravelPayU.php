@@ -5,7 +5,7 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 
-Class MyLaravelPayU extends Alexo\LaravelPayU\LaravelPayU
+Class MyLaravelPayU extends \Alexo\LaravelPayU\LaravelPayU
 {
 
     /**
@@ -29,5 +29,5 @@ Class MyLaravelPayU extends Alexo\LaravelPayU\LaravelPayU
             $onError($exc);
         }
     }
-
+    
 }
