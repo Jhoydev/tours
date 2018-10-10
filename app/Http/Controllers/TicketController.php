@@ -156,12 +156,22 @@ class TicketController extends Controller
 
     }
 
-    public function refuse(Request $request, OrderDetail $detail)
+    public function refuse(Request $request, OrderDetail $orderDetail)
     {
-        $detail->customer_id = null;
-        $detail->update();
+
         session()->flash('message','Tiquete rechazado');
-        Mail::to(['email' => $detail->order->customer->email])->send(new RefuseTicket($detail,$request->user()));
+        if ($orderDetail->customer_id && $orderDetail->order->customer_id != $orderDetail->customer_id){
+            Mail::to(['email' => $orderDetail->customer->email])->send(new RefuseTicket($orderDetail,$request->user()));
+        }
+        Mail::to(['email' => $orderDetail->order->customer->email])->send(new RefuseTicket($orderDetail,$request->user()));
+        $orderDetail->customer_id = null;
+        $orderDetail->update();
         return redirect(route('portal'));
+    }
+
+    public function resendEmail(OrderDetail $orderDetail){
+        Mail::to(['email' => $orderDetail->send_to_email])->send(new OrderShipped($orderDetail));
+        session()->flash('message','Correo reenviado');
+        return back();
     }
 }

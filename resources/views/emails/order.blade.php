@@ -32,7 +32,7 @@
                         </tbody>
                     </table>
                 @else
-                    <p>Puedes verlo desde tu panel de <a href="{{ url('portal') }}" target="_blank">{{ config('app.name', 'Laravel') }}</a></p>
+                    <p>Puedes verlo desde tu panel de <a href="{{ url('portal') }}" target="_blank">{{ config('app.name', 'JoinApp') }}</a></p>
                 @endif
                 <br>
                 Evento organizado por {{ $orderDetail->event->company->name }}<br>

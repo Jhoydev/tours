@@ -12,7 +12,9 @@
                     <hr>
                     <div class="row justify-content-center">
                         <div class="col-auto mb-2">
+                            @if($event->memories_url)
                             <button class="btn btn-light border rounded"><i class="fa fa-download" aria-hidden="true"></i> Descargar Memoria</button>
+                            @endif
                             <button class="btn btn-light border rounded"><i class="fa fa-download" aria-hidden="true"></i> Descargar Certificado</button>
                         </div>
                         <div class="col-auto mb-2">

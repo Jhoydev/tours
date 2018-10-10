@@ -12,7 +12,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 class RefuseTicket extends Mailable
 {
     use Queueable, SerializesModels;
-    public $detail,$customer;
+    public $orderDetail,$customer;
     /**
      * Create a new message instance.
      *
@@ -20,7 +20,7 @@ class RefuseTicket extends Mailable
      */
     public function __construct(OrderDetail $detail,Customer $customer)
     {
-        $this->detail = $detail;
+        $this->orderDetail = $detail;
         $this->customer = $customer;
     }
 
@@ -31,6 +31,9 @@ class RefuseTicket extends Mailable
      */
     public function build()
     {
-        return $this->view('emails.refuse_ticket');
+        return $this->view('emails.refuse_ticket')
+            ->with([
+                'email_to' => $this->to[0]['address']
+            ]);
     }
 }

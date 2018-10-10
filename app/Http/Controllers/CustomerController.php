@@ -179,9 +179,13 @@ class CustomerController extends Controller
 
     }
 
-    public function order(Event $event, Order $order)
+    public function order(Request $request, Event $event, Order $order)
     {
-        return view ('portal.customer.order',compact('order'));
+        $details = OrderDetail::where('customer_id','=',$request->user()->id);
+
+        $details = $order->orderDetails;
+
+        return view ('portal.customer.order',compact('order','details'));
     }
 
     public function orders(Request $request, Event $event)
@@ -207,7 +211,7 @@ class CustomerController extends Controller
     public function Calendar(Event $event, Customer $customer)
     {
         $dates = Date::where('customer_id','=',$customer->id)
-            ->where('event_id','=',$event->id)
+            ->where('event_id','=',$event->id)->where('date_status_id','!=','3')
             ->orWhere(function ($query) use ($customer,$event){
                 $query->where('contact_id','=',$customer->id)
                     ->where('event_id','=',$event->id);
@@ -234,7 +238,7 @@ class CustomerController extends Controller
 
                 $res[] = [
                     'title' => "$name",
-                    'start' => $date->date_start->toDateTimeString(),
+                    'start' => $date->start_date->toDateTimeString(),
                     'color' => $color,
                     'message' => $date->message,
                     'status' => $date->date_status_id,

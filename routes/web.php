@@ -50,6 +50,8 @@ Route::middleware(['auth:customer'])->group(function () {
     Route::delete('portal/event/{event}/date/{date}', 'DateController@destroy');
     Route::post('portal/events/order/assign-ticket/{orderDetail}', 'TicketController@assignToCustomer');
     Route::post('portal/asiggn-by-token', 'TicketController@asiggnByToken');
+    Route::delete('portal/ticket/{orderDetail}', 'TicketController@refuse');
+    Route::post('portal/ticket/{orderDetail}', 'TicketController@resendEmail');
 });
 
 Route::middleware('auth:web')->group(function () {
