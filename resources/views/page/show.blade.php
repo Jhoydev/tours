@@ -107,7 +107,7 @@
                             <input type="hidden" id="buy_json" name="buy_json">
                             <input type="hidden" name="event_id" value="{{ $event->id }}">
                             <input type="hidden" name="page_id" value="{{ $page->id }}">
-                            @foreach ($event->tickets as $ticket)
+                            @foreach ($event->ticketsPage as $ticket)
                                 @if ($ticket->quantity_available)
                                     <div class="col-md-auto">
                                         <div class="card border-info rounded">

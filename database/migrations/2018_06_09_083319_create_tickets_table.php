@@ -29,10 +29,7 @@ class CreateTicketsTable extends Migration
             $table->decimal('organiser_fees_volume', 13, 2)->default(0);
             $table->tinyInteger('is_paused')->default(0);
 
-            //$table->unsignedInteger('public_id')->nullable()->index();
-
-            //$table->unsignedInteger('order_id')->nullable();
-            //$table->foreign('order_id')->references('id')->on('orders');
+            $table->enum('type',['simple','courtesy','expositor'])->default('simple');
 
             $table->unsignedInteger('event_id')->index();
             $table->foreign('event_id')->references('id')->on('events')->onDelete('cascade');

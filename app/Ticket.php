@@ -12,7 +12,7 @@ class Ticket extends Model
     protected $fillable = [
         'id','title','description','max_per_person','min_per_person',
         'quantity_available','quantity_sold','start_sale_date',
-        'end_sale_date','is_paused','price','sales_volume',
+        'end_sale_date','is_paused','price','sales_volume','type',
         'event_id','edited_by','created_by'];
 
     protected $dates = ['deleted_at',"start_sale_date","end_sale_date"];

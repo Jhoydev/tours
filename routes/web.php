@@ -73,7 +73,7 @@ Route::middleware('auth:web')->group(function () {
     Route::get('events/{event}/orders/{order}/details','EventController@details')->name('event.orders.details');
 
     Route::resource('events/{event}/tickets','TicketController');
-    Route::resource('events/{event}/courtesy-tickets','CourtesyController');
+    Route::resource("events/{event}/tickets/{ticket}/assign-ticket",'SpecialTicketController');
     Route::resource('customer', 'CustomerController');
     Route::get('user/permissions', 'userController@getPermissionsAndRoles');
     Route::get('user/avatar/{company}/{id}', 'userController@getImageAvatar')->name('avatar.id');

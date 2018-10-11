@@ -2,6 +2,14 @@
 <input type="hidden" name="created_by" id="created_by" value="{{ $event->created_by }}">
 <input type="hidden" name="edited_by" id="edited_by" value="{{ Auth::user()->id }}">
 <div class="form-group">
+    <label for="">Tipo de Tiquete</label>
+    <select class="form-control rounded" name="type" id="type">
+        <option value="simple">Simple</option>
+        <option value="courtesy">Cortesia</option>
+        <option value="expositor">Expositor</option>
+    </select>
+</div>
+<div class="form-group">
     <label for="">Titulo</label>
     <input class="form-control rounded" type="text" id="title"  name="title" required>
 </div>

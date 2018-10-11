@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Courtesy;
+use App\Customer;
 use App\Event;
+use App\OrderDetail;
 use Illuminate\Http\Request;
 
 class CourtesyController extends Controller
@@ -16,7 +18,7 @@ class CourtesyController extends Controller
     public function index(Event $event)
     {
         $courtesies = Courtesy::where('event_id','=',$event->id)->get();
-        return view('event.courtesy.index',compact('courtesies'));
+        return view('events.courtesy.index',compact('courtesies','event'));
     }
 
     /**
@@ -24,10 +26,10 @@ class CourtesyController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Event $event)
     {
         $courtesy = new Courtesy;
-        return view('event.courtesy.create',compact('courtesy'));
+        return view('events.courtesy.create',compact('courtesy','event'));
     }
 
     /**
@@ -36,11 +38,11 @@ class CourtesyController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Event $event, Request $request)
     {
         Courtesy::create($request->all());
         session()->flash('message','Tiquet de Cortesía creado');
-        return redirect(route('event.courtesy.index'));
+        return redirect(url("events/$event->id/courtesy"));
     }
 
     /**
@@ -52,7 +54,7 @@ class CourtesyController extends Controller
     public function show(Event $event, Courtesy $courtesy)
     {
         $customers = OrderDetail::Where('event_id','=',$event->id)->where('complete','=',1)->groupBy('customer_id')->get();
-        return view('event.courtesy.show',compact('courtesy','customers'));
+        return view('events.courtesy.show',compact('courtesy','customers'));
     }
 
     /**
@@ -61,9 +63,9 @@ class CourtesyController extends Controller
      * @param  \App\Courtesy  $courtesy
      * @return \Illuminate\Http\Response
      */
-    public function edit(Courtesy $courtesy)
+    public function edit(Event $event, Courtesy $courtesy)
     {
-        return view('event.courtesy.edit',compact('courtesy'));
+        return view('events.courtesy.edit',compact('courtesy','event'));
     }
 
     /**
@@ -73,12 +75,12 @@ class CourtesyController extends Controller
      * @param  \App\Courtesy  $courtesy
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Courtesy $courtesy)
+    public function update(Request $request, Event $event, Courtesy $courtesy)
     {
         $courtesy->fill($request->all());
         $courtesy->update();
         session()->flash('message','Tiquet de Cortesía actualizado');
-        return redirect(route('event.courtesy.index'));
+        return redirect(url("events/$event->id/courtesy"));
     }
 
     /**
@@ -87,10 +89,18 @@ class CourtesyController extends Controller
      * @param  \App\Courtesy  $courtesy
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Courtesy $courtesy)
+    public function destroy(Event $event, Courtesy $courtesy)
     {
         $courtesy->delete();
         session()->flash('message','Tiquet de Cortesía eliminado');
-        return redirect(route('event.courtesy.index'));
+        return redirect(url("events/$event->id/courtesy"));
+    }
+
+    public function assignToCustomer(Request $request, Event $event, Courtesy $courtesy,Customer $customer)
+    {
+        $courtesy->customers()->save($customer,['event_id' => $event->id,'created_at'=>now()]);
+        $courtesy->decrement('quantity_available');
+        $courtesy->update();
+        return redirect(url("events/$event->id/courtesy/$courtesy->id"));
     }
 }

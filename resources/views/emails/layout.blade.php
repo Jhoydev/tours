@@ -300,8 +300,6 @@
                     <table border="0" cellpadding="0" cellspacing="0">
                         <tr>
                             <td class="content-block">
-                                <span class="apple-link">{{ $orderDetail->event->company->name }}, {{ $orderDetail->event->company->address }}</span>
-                                <br> ¿No quieres recibir mas correos electrónicos como este? <a href="#">Darse de baja</a>.
                             </td>
                         </tr>
                     </table>

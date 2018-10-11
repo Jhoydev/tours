@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Date;
 use App\Event;
+use App\Mail\DateNotification;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class DateController extends Controller
 {
@@ -72,7 +74,8 @@ class DateController extends Controller
     {
         $date->date_status_id = 1;
         $date->update();
-        //Enviar correo de confirmacion de cita aceptada
+        Mail::to(['email'=>$date->customer->email])->send(new DateNotification($date,'accepted'));
+        Mail::to(['email'=>$date->contact->email])->send(new DateNotification($date,'accepted_to'));
         session()->flash('message','Cita Aceptada');
         return back();
     }
@@ -87,7 +90,9 @@ class DateController extends Controller
     {
         $date->date_status_id = 3;
         $date->update();
-        //Enviar correo de confirmacion de cita cancelada
+        Mail::to(['email'=>$date->customer->email])->send(new DateNotification($date,'refuse'));
+        Mail::to(['email'=>$date->contact->email])->send(new DateNotification($date,'refuse_to'));
+
         session()->flash('message','Cita Cancelada');
         return back();
     }

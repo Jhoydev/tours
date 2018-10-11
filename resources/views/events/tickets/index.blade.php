@@ -25,6 +25,7 @@
                                     <div class="col-md-auto">
                                         <div class="card border-info rounded">
                                             <div class="card-body text-center">
+                                                <p><span class="badge badge-info text-white">{{ $ticket->type }}</span></p>
                                                 <p class="h3 font-weight-bold">{{ $ticket->title }}</p>
                                                 <p class="h1"><strong>{{ $ticket->price }}$</strong></p>
                                                 <p>{{ $ticket->description }}</p>
@@ -37,6 +38,9 @@
                                                 </div>
                                                 <p><small>Creado por: {{ $ticket->user->full_name }}</small></p>
                                                 <div>
+                                                    @if ($ticket->type != 'simple')
+                                                    <a class="btn btn-success btn-sm rounded" href="{{ url("events/$event->id/tickets/$ticket->id/assign-ticket") }}"><i class="fa fa-plus" aria-hidden="true"></i> Enviar Tiquete</a>
+                                                    @endif
                                                     <button type="button" class="btn btn-sm btn-primary rounded" onclick="openModalEdit('{{ url("events/$event->id/tickets/$ticket->id/edit") }}')"><i class="fa fa-pencil"></i> Editar</button>
                                                     <button class="btn btn-sm btn btn-outline-danger rounded" data-toggle="modal" data-target="#deleteModal" data-ticket_id="{{ url("events/$event->id/tickets/$ticket->id") }}"><i class="fa fa-eraser"></i> Eliminar</button>
                                                 </div>
@@ -155,6 +159,7 @@
                 document.querySelector("#modal_edit_ticket  #end_sale_date").value = res.end_sale_date;
                 document.querySelector("#modal_edit_ticket  #min_per_person").value = res.min_per_person;
                 document.querySelector("#modal_edit_ticket  #max_per_person").value = res.max_per_person;
+                document.querySelector("#modal_edit_ticket  #type").value = res.type;
                 $("#loading_modal_edit").remove();
                 $("#modal_edit_ticket :input").prop("disabled", false);
             })

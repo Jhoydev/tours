@@ -11,6 +11,7 @@ use App\Order;
 use App\OrderDetail;
 use App\Ticket;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 
@@ -173,5 +174,9 @@ class TicketController extends Controller
         Mail::to(['email' => $orderDetail->send_to_email])->send(new OrderShipped($orderDetail));
         session()->flash('message','Correo reenviado');
         return back();
+    }
+
+    public function assignTicket(Event $event,Ticket $ticket)
+    {
     }
 }

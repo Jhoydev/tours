@@ -3,6 +3,7 @@
         <div class="col-md-4">
             <div class="card rounded {{ (!$detail->customer) ? 'border border-warning' : '' }}">
                 <div class="card-body">
+                    <p class="text-center"><span class="badge badge-info">{{ $detail->ticket->type }}</span></p>
                     <p class="text-center h1">{{ $detail->ticket->title }}</p>
                     <p class="text-center h2">${{ number_format($detail->price,2) }}</p>
                     @if ($detail->customer)

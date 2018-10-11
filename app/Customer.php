@@ -2,6 +2,7 @@
 
 namespace App;
 
+use function foo\func;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Notifications\Notifiable;
@@ -72,6 +73,15 @@ class Customer extends Authenticatable
     public function orderDetails()
     {
         return $this->hasMany(OrderDetail::class);
+    }
+
+    public function orderDetailsCourtesies()
+    {
+        return OrderDetail::whereHas('ticket',function ($query){
+            return $query->where('type','courtesy');
+        })->whereHas('order',function ($query){
+            return $query->where('customer_id',$this->id);
+        })->get();
     }
 
     public function created_by()

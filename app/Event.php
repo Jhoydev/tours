@@ -72,6 +72,11 @@ class Event extends Model
         return $this->hasMany(Ticket::class);
     }
 
+    public function ticketsPage()
+    {
+        return $this->hasMany(Ticket::class)->where('type','simple');
+    }
+
     public function orders()
     {
         return $this->hasMany(Order::class)->where('order_status_id','<','5');

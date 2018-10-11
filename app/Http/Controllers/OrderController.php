@@ -68,17 +68,23 @@ class OrderController extends Controller
                 $order->update();
 
                 // PayU Information
+                $random_strong = get_random_string();
+                $signature = config('payu.payu_api_key')."~".
+                    config('payu.payu_merchant_id')."~".
+                    $random_strong . "~".
+                    $order_value."~".
+                    config('payu.payu_currency');
                 $payu = (object) [
                             "url"             => config('payu.payu_url'),
                             "merchantId"      => config('payu.payu_merchant_id'),
                             "accountId"       => config('payu.payu_account_id'),
                             "description"     => $event->title,
-                            "referenceCode"   => get_random_string(),
+                            "referenceCode"   => $random_strong,
                             "amount"          => $order_value,
                             "tax"             => "0",
                             "taxReturnBase"   => "0",
                             "currency"        => config('payu.payu_currency'),
-                            "signature"       => md5("$api_key~$merchant_id~$reference_code~$amount~$currency"),
+                            "signature"       => md5($signature),
                             "test"            => (int) config('payu.payu_testing'),
                             "responseUrl"     => route('order.invoice', ['order' => $order]),
                             "confirmationUrl" => "",

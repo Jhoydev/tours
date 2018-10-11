@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class Company extends Model
@@ -14,7 +15,17 @@ class Company extends Model
         return $this->hasMany(Event::class);
     }
     public function customers(){
-        return $this->hasManyThrough(customer::class,Event::class)->wherePivot('company_id','=',1);
+        return Customer::whereHas('orderDetails',function ($query){
+            return $query->whereHas('event',function ($query){
+                return $query->where('company_id',Auth::user()->company_id);
+            });
+        })->orWhere(function ($query){
+            return $query->whereHas('orders',function ($query){
+                return $query->whereHas('event',function ($query){
+                    return $query->where('company_id',Auth::user()->company_id);
+                });
+            });
+        })->get();
     }
 
     public function ownCustomers()

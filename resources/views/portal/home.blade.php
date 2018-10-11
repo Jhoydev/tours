@@ -118,6 +118,7 @@
                                                         {{ $my_detail->ticket->title }}
                                                     </div>
                                                     <div class="card-body text-center">
+                                                        <p><span class="badge badge-info text-white">{{ $my_detail->ticket->type }}</span></p>
                                                         {{ $my_detail->ticket->description }}
                                                         <hr>
                                                         ${{ number_format($my_detail->price,2) }}

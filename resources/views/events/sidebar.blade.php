@@ -9,7 +9,7 @@
     <a class="nav-link" href="{{ url("events/$event->id/tickets") }}"><i class="fa fa-ticket"></i> Tiquetes</a>
 </li>
 <li class="nav-item">
-    <a class="nav-link" href="{{ url("events/$event->id/courtesy-tickets") }}"><i class="fa fa-ticket"></i> Tiquetes de Cortesía</a>
+    <a class="nav-link" href="{{ url("events/$event->id/courtesy") }}"><i class="fa fa-ticket"></i> Tiquetes de Cortesía</a>
 </li>
 <li class="nav-item">
     <a class="nav-link" href="{{ route('event.orders',['id' => $event->id]) }}"><i class="fa fa-shopping-cart"></i> Ordenes</a>

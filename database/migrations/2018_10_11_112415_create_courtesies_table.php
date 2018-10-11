@@ -17,7 +17,8 @@ class CreateCourtesiesTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->string('description');
-            $table->unsignedInteger('event_id')->unique();
+            $table->integer('quantity_available')->default(0);
+            $table->unsignedInteger('event_id');
             $table->foreign('event_id')->references('id')->on('events');
             $table->timestamps();
         });
