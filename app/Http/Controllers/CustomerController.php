@@ -170,14 +170,6 @@ class CustomerController extends Controller
         return view('portal.event.index', compact('event','details','details_null','orders'));
     }
 
-    public function events(Request $request)
-    {
-        $details = OrderDetail::where('customer_id','=',$request->user()->id)->with(['event' => function ($query) {
-            $query->where('start_date','>',now());
-        }])->groupBy('event_id')->get();
-        return view('portal.customer.events', compact('details'));
-
-    }
 
     public function order(Request $request, Event $event, Order $order)
     {
@@ -255,6 +247,6 @@ class CustomerController extends Controller
         $details = OrderDetail::where('customer_id','=',$request->user()->id)->with(['event' => function ($query) {
             $query->where('start_date','<',now());
         }])->groupBy('event_id')->get();
-        return view('portal.customer.events', compact('details'));
+        return view('portal.customer.history', compact('details'));
     }
 }

@@ -88,6 +88,7 @@
                         @foreach($details as $detail)
                             @php($event = $detail->event)
                             <div class="col-lg-6">
+                                <p><strong class="badge badge-success">{{ $event->company->name }}</strong></p>
                                 <div class="card border-primary">
                                     <div class="card-header bg-primary border-primary">
                                         <div class="d-flex justify-content-between">
@@ -103,7 +104,7 @@
                                             <div class="d-flex justify-content-center">
                                                 <a class="btn btn-primary rounded mr-3" data-toggle="tooltip" data-placement="top" title="Panel de Control" href="{{ route('customer.event',['id' => $event->id]) }}"><i class="fa fa-home" aria-hidden="true"></i> Panel</a>
                                                 @if($event->memories_url)
-                                                <button class="btn btn-light border rounded mr-3" data-toggle="tooltip" data-placement="top" title="Descargar Memorias"><i class="fa fa-download" aria-hidden="true"></i></button>
+                                                <a href="{{ $event->memories_url }}" target="_blank" class="btn btn-light border rounded mr-3" data-toggle="tooltip" data-placement="top" title="Descargar Memorias"><i class="fa fa-download" aria-hidden="true"></i></a>
                                                 @endif
                                                 <button class="btn btn-light border rounded mr-3" data-toggle="tooltip" data-placement="top" title="Descargar Certificado"><i class="fa fa-download" aria-hidden="true"></i></button>
                                             </div>

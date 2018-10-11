@@ -38,7 +38,6 @@ Route::middleware(['auth:customer'])->group(function () {
     Route::get('portal/explorer', 'EventController@index')->name('portal.explorer.events');
     Route::get('portal/history', 'CustomerController@history')->name('customer.history');
     Route::get('portal/event/{event}', 'CustomerController@event')->name('customer.event');
-    Route::get('portal/events', 'CustomerController@events')->name('customer.events');
     Route::get('portal/event/{event}/orders', 'CustomerController@orders')->name('customer.event.orders');
     Route::get('portal/customer/event/{event}/details', 'CustomerController@Details')->name('customer.event.details');
     Route::get('portal/event/{event}/order/{order}', 'CustomerController@order')->name('customer.event.order');
@@ -74,6 +73,7 @@ Route::middleware('auth:web')->group(function () {
     Route::get('events/{event}/orders/{order}/details','EventController@details')->name('event.orders.details');
 
     Route::resource('events/{event}/tickets','TicketController');
+    Route::resource('events/{event}/courtesy-tickets','CourtesyController');
     Route::resource('customer', 'CustomerController');
     Route::get('user/permissions', 'userController@getPermissionsAndRoles');
     Route::get('user/avatar/{company}/{id}', 'userController@getImageAvatar')->name('avatar.id');

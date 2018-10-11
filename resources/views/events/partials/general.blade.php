@@ -33,7 +33,7 @@
     <div class="form-group col-md-6">
         <label for="input_start"><i class="fa fa-calendar" aria-hidden="true"></i> Fecha inicio</label>
         <div class="input-group date" id="input_start" data-target-input="nearest">
-            <input type="text" class="form-control rounded-left datetimepicker-input" id="start_date" name="start_date"  data-target="#input_start" value="{{ $event_form->start_date }}"/>
+            <input type="text" class="form-control rounded-left datetimepicker-input" id="start_date" name="start_date"  data-target="#input_start" value="{{ ($event_form->start_date)?$event_form->start_date->format('d-m-Y H:i:s'):'' }}"/>
             <div class="input-group-append" data-target="#input_start" data-toggle="datetimepicker">
                 <div class="input-group-text"><i class="fa fa-calendar"></i></div>
             </div>
@@ -42,7 +42,7 @@
     <div class="form-group col-md-6">
         <label for="input_end"><i class="fa fa-calendar" aria-hidden="true"></i> Fecha final</label>
         <div class="input-group date" id="input_end" data-target-input="nearest">
-            <input type="text" class="form-control rounded-left datetimepicker-input" name="end_date" data-target="#input_end"  value="{{ $event_form->end_date }}"/>
+            <input type="text" class="form-control rounded-left datetimepicker-input" name="end_date" data-target="#input_end"  value="{{  ($event_form->end_date) ? $event_form->end_date->format('d-m-Y H:i:s'):'' }}"/>
             <div class="input-group-append" data-target="#input_end" data-toggle="datetimepicker">
                 <div class="input-group-text"><i class="fa fa-calendar"></i></div>
             </div>
@@ -69,12 +69,28 @@
 
         editor.root.innerHTML = document.querySelector('#descriptionHTML').value;
 
+//        $('#input_start').datetimepicker({
+//            format: "DD-MM-YYYY HH:mm:ss"
+//        });
+//        $('#input_end').datetimepicker({
+//            format: "DD-MM-YYYY HH:mm:ss"
+//        });
+
         $('#input_start').datetimepicker({
             format: "DD-MM-YYYY HH:mm:ss"
+
         });
         $('#input_end').datetimepicker({
+            useCurrent: false,
             format: "DD-MM-YYYY HH:mm:ss"
         });
+        $("#input_start").on("change.datetimepicker", function (e) {
+            $('#input_end').datetimepicker('minDate', e.date);
+        });
+        $("#input_end").on("change.datetimepicker", function (e) {
+            $('#input_start').datetimepicker('maxDate', e.date);
+        });
+
 
         function previewFile() {
             const preview = document.querySelector('#preview_flyer');
