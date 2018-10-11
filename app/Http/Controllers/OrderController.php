@@ -22,22 +22,22 @@ class OrderController extends Controller
             $data          = $request->all();
             $arr_ticket_id = [];
             $data_ticket   = [];
-            $new_order = false;
+            $new_order     = false;
 
-            if ($arr_json      = json_decode($request->buy_json, 1)) {
+            if ($arr_json = json_decode($request->buy_json, 1)) {
 
-                $event   = Event::find($request->event_id);
+                $event       = Event::find($request->event_id);
                 $customer_id = Auth::user()->id;
 
-                if (!$order = Order::where('reference','=',$request->reference)->first()){
-                    $order = new Order();
+                if (!$order = Order::where('reference', '=', $request->reference)->first()) {
+                    $order     = new Order();
                     $new_order = true;
                 }
 
-                $order->event_id = $event->id;
-                $order->customer_id = $customer_id;
+                $order->event_id        = $event->id;
+                $order->customer_id     = $customer_id;
                 $order->order_status_id = 5;
-                $order->reference = $request->reference;
+                $order->reference       = $request->reference;
                 $order->save();
 
                 $order_value = 0;
@@ -46,29 +46,45 @@ class OrderController extends Controller
                     $data_ticket[$li['id']]['qty'] = $li['qty'];
                     array_push($arr_ticket_id, $li['id']);
 
-                    $ticket =  Ticket::find($li['id']);
+                    $ticket = Ticket::find($li['id']);
 
                     $order_value += ($ticket->price * (int) $li['qty']);
-                    if ($new_order){
-                        $ticket->decrement('quantity_available',$li['qty']);
+                    if ($new_order) {
+                        $ticket->decrement('quantity_available', $li['qty']);
                         for ($i = 1; $i <= $li['qty']; $i++) {
-                            OrderDetail::addDetail($ticket,$order);
+                            OrderDetail::addDetail($ticket, $order);
                         }
-                    }else{
-                        $ticket->increment('quantity_available',count($order->orderDetails));
+                    } else {
+                        $ticket->increment('quantity_available', count($order->orderDetails));
                         DB::table('order_details')->where('order_id', '=', $order->id)->delete();
                         for ($i = 1; $i <= $li['qty']; $i++) {
-                            OrderDetail::addDetail($ticket,$order);
+                            OrderDetail::addDetail($ticket, $order);
                         }
                     }
-
                 }
                 $tickets = Ticket::WhereIn('id', $arr_ticket_id)->get();
 
                 $order->value = $order_value;
                 $order->update();
 
-                return view('portal.order.create', compact('tickets', 'data_ticket', 'data', 'event','order'));
+                // PayU Information
+                $payu = (object) [
+                            "url"             => config('payu.payu_url'),
+                            "merchantId"      => config('payu.payu_merchant_id'),
+                            "accountId"       => config('payu.payu_account_id'),
+                            "description"     => $event->title,
+                            "referenceCode"   => get_random_string(),
+                            "amount"          => $order_value,
+                            "tax"             => "0",
+                            "taxReturnBase"   => "0",
+                            "currency"        => config('payu.payu_currency'),
+                            "signature"       => md5("$api_key~$merchant_id~$reference_code~$amount~$currency"),
+                            "test"            => (int) config('payu.payu_testing'),
+                            "responseUrl"     => route('order.invoice', ['order' => $order]),
+                            "confirmationUrl" => "",
+                ];
+
+                return view('portal.order.create', compact('tickets', 'data_ticket', 'data', 'event', 'order', 'payu'));
             }
             return redirect(route('event.page', [$request->key_app, $request->page_id]));
         } else {
@@ -89,7 +105,7 @@ class OrderController extends Controller
                 $completed = false;
             }
         }
-        
+
         if (!$order->update()) {
             $completed = false;
         }
@@ -112,7 +128,7 @@ class OrderController extends Controller
 
     public function invoice(Request $request, Order $order)
     {
-        return view('portal.order.invoice',compact('order'));
+        return view('portal.order.invoice', compact('order'));
     }
 
 }
