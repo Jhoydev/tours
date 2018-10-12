@@ -32,7 +32,7 @@
                                 <td scope="row">{{ $customer->email }}</td>
                                 <td scope="row">{{ $customer->mobile }}</td>
                                 <td scope="row">{{ $customer->phone }}</td>
-                                <td class="text-center">{{ count($customer->orderDetailsCourtesies()) }}</td>
+                                <td class="text-center">{{ count($customer->orderDetailsSpecial($ticket->type)) }}</td>
                                 <td class="text-right">
                                     <button type="button" class="btn btn-outline-primary btn-sm mb-2 rounded"
                                             data-toggle="modal" data-target="#assignModal"

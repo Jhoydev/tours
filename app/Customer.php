@@ -75,10 +75,10 @@ class Customer extends Authenticatable
         return $this->hasMany(OrderDetail::class);
     }
 
-    public function orderDetailsCourtesies()
+    public function orderDetailsSpecial($type)
     {
-        return OrderDetail::whereHas('ticket',function ($query){
-            return $query->where('type','courtesy');
+        return OrderDetail::whereHas('ticket',function ($query) use ($type){
+            return $query->where('type',$type);
         })->whereHas('order',function ($query){
             return $query->where('customer_id',$this->id);
         })->get();

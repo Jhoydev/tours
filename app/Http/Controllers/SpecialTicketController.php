@@ -54,6 +54,8 @@ class SpecialTicketController extends Controller
         OrderDetail::where('order_id',$order->id)->update(['complete' => 1]);
         $ticket->decrement('quantity_available',$request->quantity_available);
         $ticket->update();
+        session()->flash('message','Tiquetes Asignados');
+        return back();
     }
 
     /**
