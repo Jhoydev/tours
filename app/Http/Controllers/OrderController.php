@@ -63,23 +63,21 @@ class OrderController extends Controller
                     }
                 }
                 $tickets = Ticket::WhereIn('id', $arr_ticket_id)->get();
-
                 $order->value = $order_value;
-                $order->update();
 
                 // PayU Information
-                $random_strong = get_random_string();
-                $signature = config('payu.payu_api_key')."~".
-                    config('payu.payu_merchant_id')."~".
-                    $random_strong . "~".
-                    $order_value."~".
-                    config('payu.payu_currency');
-                $payu = (object) [
+                $random_string = get_random_string();
+                $signature     = config('payu.payu_api_key') . "~" .
+                        config('payu.payu_merchant_id') . "~" .
+                        $random_string . "~" .
+                        $order_value . "~" .
+                        config('payu.payu_currency');
+                $payu          = (object) [
                             "url"             => config('payu.payu_url'),
                             "merchantId"      => config('payu.payu_merchant_id'),
                             "accountId"       => config('payu.payu_account_id'),
                             "description"     => $event->title,
-                            "referenceCode"   => $random_strong,
+                            "referenceCode"   => $random_string,
                             "amount"          => $order_value,
                             "tax"             => "0",
                             "taxReturnBase"   => "0",
@@ -89,6 +87,9 @@ class OrderController extends Controller
                             "responseUrl"     => route('order.invoice', ['order' => $order]),
                             "confirmationUrl" => "",
                 ];
+
+                $order->reference = $random_string;
+                $order->update();
 
                 return view('portal.order.create', compact('tickets', 'data_ticket', 'data', 'event', 'order', 'payu'));
             }
@@ -100,10 +101,9 @@ class OrderController extends Controller
 
     public function store(Request $request)
     {
-        $completed              = true;
-        $url                    = "";
-        $order                  = Order::find($request->order_id);
-        $order->order_status_id = 1;
+        $completed = true;
+        $url       = "";
+        $order     = Order::find($request->order_id);
 
         foreach ($order->orderDetails as $order_detail) {
             $order_detail->complete = true;
@@ -120,7 +120,7 @@ class OrderController extends Controller
             $url = route('order.invoice', ['order' => $order]);
         }
 
-        $res[] = [
+        $res = [
             'success'  => $completed,
             'redirect' => $url,
         ];
