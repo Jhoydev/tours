@@ -115,30 +115,28 @@
                             @endif
                         </div>
 
-
-                        {!! Form::open(['url' => $payu->url,'method' => 'POST', 'id' =>'payu_form']) !!}
-                        <input name="merchantId"    type="hidden"  value="{{$payu->merchantId}}"   >
-                        <input name="accountId"     type="hidden"  value="{{$payu->accountId}}" >
-                        <input name="description"   type="hidden"  value="{{$payu->description}}"  >
-                        <input name="referenceCode" type="hidden"  value="{{$payu->referenceCode}}" >
-                        <input name="amount"        type="hidden"  value="{{$payu->amount}}"   >
-                        <input name="tax"           type="hidden"  value="{{$payu->tax}}"  >
-                        <input name="taxReturnBase" type="hidden"  value="{{$payu->taxReturnBase}}" >
-                        <input name="currency"      type="hidden"  value="{{$payu->currency}}" >
-                        <input name="signature"     type="hidden"  value="{{$payu->signature}}"  >
-                        <input name="test"          type="hidden"  value="{{$payu->test}}" >
-                        <input name="responseUrl"    type="hidden"  value="{{$payu->responseUrl}}" >
-                        <input name="confirmationUrl"    type="hidden"  value="{{$payu->confirmationUrl}}" >
-                        <input name="buyerEmail"    type="hidden"  value="{{Auth::user()->email}}" >
-                        {!! Form::close() !!}
-
-
                         <div class="col-12 text-right">
                             <hr>
                             <button type="submit" id="pay_button" class="btn btn-success btn-lg rounded fade">Pagar</button>
                         </div>
                     </div>
                 </form>
+
+                {!! Form::open(['url' => $payu->url,'method' => 'POST', 'id' =>'payu_form']) !!}
+                <input name="merchantId"    type="hidden"  value="{{$payu->merchantId}}"   >
+                <input name="accountId"     type="hidden"  value="{{$payu->accountId}}" >
+                <input name="description"   type="hidden"  value="{{$payu->description}}"  >
+                <input name="referenceCode" type="hidden"  value="{{$payu->referenceCode}}" >
+                <input name="amount"        type="hidden"  value="{{$payu->amount}}"   >
+                <input name="tax"           type="hidden"  value="{{$payu->tax}}"  >
+                <input name="taxReturnBase" type="hidden"  value="{{$payu->taxReturnBase}}" >
+                <input name="currency"      type="hidden"  value="{{$payu->currency}}" >
+                <input name="signature"     type="hidden"  value="{{$payu->signature}}"  >
+                <input name="test"          type="hidden"  value="{{$payu->test}}" >
+                <input name="responseUrl"    type="hidden"  value="{{$payu->responseUrl}}" >
+                <input name="confirmationUrl"    type="hidden"  value="{{$payu->confirmationUrl}}" >
+                <input name="buyerEmail"    type="hidden"  value="{{Auth::user()->email}}" >
+                {!! Form::close() !!}
             </div>
         </div>
     </div>
@@ -149,17 +147,15 @@
     $('input[type=radio][name=method_payment]').change(() => {
         if ($("#inlineRadio1").prop("checked")) {
             $("#content_offline_payment_instructions").addClass('show');
-            $("#form_order").find('button[type=submit]').text('Confirmar');
         } else {
             $("#content_offline_payment_instructions").removeClass('show');
-            $("#form_order").find('button[type=submit]').text('Pagar');
         }
         $("#form_order").find('button[type=submit]').addClass('show');
-
     });
 
 
     $("#form_order").submit(function (e) {
+        alert("test");
         e.preventDefault();
         var form = $(this);
         var url = form.attr('action');
@@ -168,12 +164,14 @@
             type: "POST",
             url: url,
             data: form.serialize(),
+            dataType: "json",
             success: function (data)
             {
-                console.log(data);
                 if (data.success) {
-                    if (data.url !== "" && data.url !== null & data.url !== 'undefined') {
-                        window.location.replace(data.url);
+                    console.log(data);
+                    if (data.redirect !== "" && data.redirect !== null & data.redirect !== 'undefined') {
+                        console.log("location");
+                        window.location.replace(data.redirect);
                     } else {
                         $("#payu_form").submit();
                     }

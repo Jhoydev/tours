@@ -49,11 +49,20 @@ class PaymentController extends Controller
     public function reversePayment(Request $request, $id)
     {
         $order = Order::find($id);
+
+        return true;
     }
 
     public function reversedPaymentStatus(Request $request, $id)
     {
         $order = Order::find($id);
+
+        return true;
+    }
+
+    public function confirmationAPIPayU(Request $request)
+    {
+        return true;
     }
 
 }

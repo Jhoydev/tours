@@ -120,7 +120,7 @@ class OrderController extends Controller
             $url = route('order.invoice', ['order' => $order]);
         }
 
-        $res[] = [
+        $res = [
             'success'  => $completed,
             'redirect' => $url,
         ];
