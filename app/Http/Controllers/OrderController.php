@@ -63,9 +63,7 @@ class OrderController extends Controller
                     }
                 }
                 $tickets = Ticket::WhereIn('id', $arr_ticket_id)->get();
-
                 $order->value = $order_value;
-                $order->update();
 
                 // PayU Information
                 $random_string = get_random_string();
@@ -89,6 +87,9 @@ class OrderController extends Controller
                             "responseUrl"     => route('order.invoice', ['order' => $order]),
                             "confirmationUrl" => "",
                 ];
+
+                $order->reference = $random_string;
+                $order->update();
 
                 return view('portal.order.create', compact('tickets', 'data_ticket', 'data', 'event', 'order', 'payu'));
             }

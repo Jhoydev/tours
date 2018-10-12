@@ -60,9 +60,32 @@ class PaymentController extends Controller
         return true;
     }
 
-    public function confirmationAPIPayU(Request $request)
+    public function confirmationAPIPayU(Request $request, Order $order_id)
     {
-        return true;
+        $order = Order::find($order_id);
+
+        if ($request->isMethod('post')) {
+            $confirmation_data     = $request->all();
+            $order->payu_order_id  = $confirmation_data['reference_sale'];
+            $order->transaction_id = $confirmation_data['transaction_id'];
+
+            switch ($confirmation_data['state_pol']) {
+                case "4":
+                    $order->status_id = 1;
+                    break;
+
+                case "5":
+                case "6":
+                case "7":
+                    $order->status_id = 3;
+                    break;
+
+                default:
+                    break;
+            }
+            
+            $order->save();
+        }
     }
 
 }
