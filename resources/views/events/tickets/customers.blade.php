@@ -8,7 +8,7 @@
         <div class="col-12" id="render_customers">
             <div class="card">
                 <div class="card-body">
-                    <p class="h1 text-center">Asignar Tiquete - {{ $ticket->type }}</p>
+                    <p class="h1 text-center">Asignar Tiquete - {{ $ticket->title }}</p>
                     <hr>
                     <p>Disponibles: {{ $ticket->quantity_available }}</p>
                     <table id="table_datatable" class="table">
@@ -36,7 +36,7 @@
                                     @if(count($customer->orderDetailsSpecial($ticket->id)))
                                         <a href="{{ url("events/$ticket->event_id/tickets/$ticket->id/send-tickets/customer/$customer->id") }}" class="btn btn-success btn-sm mb-2 rounded"><i class="fa fa-sign-in" aria-hidden="true"></i> Ver</a>
                                     @endif
-
+                                    @if ($ticket->quantity_available)
                                     <button type="button" class="btn btn-outline-primary btn-sm mb-2 rounded"
                                             data-toggle="modal" data-target="#assignModal"
                                             data-customer_id="{{ $customer->id }}"
@@ -44,6 +44,7 @@
                                     >
                                         <i class="fa fa-plus" aria-hidden="true"></i> Asignar
                                     </button>
+                                    @endif
                                 </td>
                             </tr>
                         @endforeach
@@ -63,20 +64,12 @@
                         <div class="modal-body">
                             {!! Form::open([ 'id' => 'form_delete' ,'url' => '','method' => 'POST']) !!}
                             <div class="form-group">
-                                <select class="form-control" name="quantity_available">
-                                    <option value="1">1</option>
-                                    <option value="2">2</option>
-                                    <option value="3">3</option>
-                                    <option value="4">4</option>
-                                    <option value="5">5</option>
-                                    <option value="6">6</option>
-                                    <option value="7">7</option>
-                                    <option value="8">8</option>
-                                    <option value="9">9</option>
-                                    <option value="10">10</option>
-                                </select>
-                                <input type="hidden" id="customer_id" name="customer_id">
+                                <input class="form-control" type="number" name="quantity_available"
+                                       min="{{ $ticket->min_per_person }}"
+                                       max="{{ ($ticket->quantity_available > $ticket->max_per_person) ?  $ticket->max_per_person : $ticket->quantity_available }}"
+                                       required>
                             </div>
+                            <input type="hidden" id="customer_id" name="customer_id">
                             <div class="form-group d-flex justify-content-end">
                                 <button type="button" class="btn btn-outline-secondary btn-sm rounded mr-3" data-dismiss="modal">Cancelar</button>
                                 {!! Form::submit('Enviar',['class' => 'btn btn-outline-success btn-sm rounded'])  !!}

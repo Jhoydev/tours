@@ -30,18 +30,18 @@
 <div class="form-row">
     <div class="form-group col-md-6">
         <label for="input_start">Inicio venta</label>
-        <div class="input-group date" id="input_start_{{ $action }}" data-target-input="nearest">
-            <input type="text" class="form-control rounded-left datetimepicker-input" id="start_date" name="start_sale_date"  data-target="#input_start__{{ $action }}" required/>
-            <div class="input-group-append" data-target="#input_start_{{ $action }}" data-toggle="datetimepicker">
+        <div class="input-group date" id="input_start" data-target-input="nearest">
+            <input type="text" class="form-control rounded-left datetimepicker-input" id="start_date" name="start_sale_date"  data-target="#input_start" required/>
+            <div class="input-group-append" data-target="#input_start" data-toggle="datetimepicker">
                 <div class="input-group-text"><i class="fa fa-calendar"></i></div>
             </div>
         </div>
     </div>
     <div class="form-group col-md-6">
         <label for="input_start">Finalizar venta</label>
-        <div class="input-group date" id="input_end_{{ $action }}" data-target-input="nearest">
-            <input type="text" class="form-control rounded-left datetimepicker-input" id="end_date" name="end_sale_date"  data-target="#input_end_{{ $action }}"  required/>
-            <div class="input-group-append" data-target="#input_end_{{ $action }}" data-toggle="datetimepicker">
+        <div class="input-group date" id="input_end" data-target-input="nearest">
+            <input type="text" class="form-control rounded-left datetimepicker-input" id="end_date" name="end_sale_date"  data-target="#input_end"  required/>
+            <div class="input-group-append" data-target="#input_end" data-toggle="datetimepicker">
                 <div class="input-group-text"><i class="fa fa-calendar"></i></div>
             </div>
         </div>

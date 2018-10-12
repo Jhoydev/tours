@@ -69,13 +69,6 @@
 
         editor.root.innerHTML = document.querySelector('#descriptionHTML').value;
 
-//        $('#input_start').datetimepicker({
-//            format: "DD-MM-YYYY HH:mm:ss"
-//        });
-//        $('#input_end').datetimepicker({
-//            format: "DD-MM-YYYY HH:mm:ss"
-//        });
-
         $('#input_start').datetimepicker({
             format: "DD-MM-YYYY HH:mm:ss"
 
