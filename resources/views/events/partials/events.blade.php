@@ -1,5 +1,7 @@
 <div class="card rounded">
     <div class="card-body">
+        <h1 class="text-center">Eventos</h1>
+        <hr>
         <div class="table-responsive">
             <table id="table_datatable" class="table">
                 <thead class="thead-dark">

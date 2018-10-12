@@ -75,12 +75,10 @@ class Customer extends Authenticatable
         return $this->hasMany(OrderDetail::class);
     }
 
-    public function orderDetailsSpecial($type)
+    public function orderDetailsSpecial($ticket)
     {
-        return OrderDetail::whereHas('ticket',function ($query) use ($type){
-            return $query->where('type',$type);
-        })->whereHas('order',function ($query){
-            return $query->where('customer_id',$this->id);
+        return OrderDetail::where('ticket_id',$ticket)->whereHas('order',function ($query){
+            return $query->where('customer_id',$this->id)->where('order_status_id','<=',4);
         })->get();
     }
 

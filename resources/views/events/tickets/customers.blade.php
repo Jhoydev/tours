@@ -1,16 +1,15 @@
 @extends('layouts.main')
 @section('content')
     @include('layouts.menssage_success')
-    @push('navbar_items_right')
-    <li class="nav-item">
-        <a class="btn btn-success rounded mr-5" href="{{ url('customer/create') }}"><i class="fa fa-plus"></i> Nuevo Asistente</a>
-    </li>
+    @push('sidebar')
+    @include('events.sidebar')
     @endpush
-    <div class="row mt-2">
+    <div class="row mt-5">
         <div class="col-12" id="render_customers">
             <div class="card">
                 <div class="card-body">
-                    <p class="h1">Asignar Tiquete - {{ $ticket->type }}</p>
+                    <p class="h1 text-center">Asignar Tiquete - {{ $ticket->type }}</p>
+                    <hr>
                     <p>Disponibles: {{ $ticket->quantity_available }}</p>
                     <table id="table_datatable" class="table">
                         <thead class="thead-dark">
@@ -21,7 +20,7 @@
                             <th>Teléfono</th>
                             <th>Celular</th>
                             <th class="text-center">Enviadas</th>
-                            <th>Accion</th>
+                            <th class="text-center">Accion</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -32,12 +31,16 @@
                                 <td scope="row">{{ $customer->email }}</td>
                                 <td scope="row">{{ $customer->mobile }}</td>
                                 <td scope="row">{{ $customer->phone }}</td>
-                                <td class="text-center">{{ count($customer->orderDetailsSpecial($ticket->type)) }}</td>
+                                <td class="text-center">{{ count($customer->orderDetailsSpecial($ticket->id)) }}</td>
                                 <td class="text-right">
+                                    @if(count($customer->orderDetailsSpecial($ticket->id)))
+                                        <a href="{{ url("events/$ticket->event_id/tickets/$ticket->id/send-tickets/customer/$customer->id") }}" class="btn btn-success btn-sm mb-2 rounded"><i class="fa fa-sign-in" aria-hidden="true"></i> Ver</a>
+                                    @endif
+
                                     <button type="button" class="btn btn-outline-primary btn-sm mb-2 rounded"
                                             data-toggle="modal" data-target="#assignModal"
                                             data-customer_id="{{ $customer->id }}"
-                                            data-url="{{ url("events/$event->id/tickets/$ticket->id/assign-ticket") }}"
+                                            data-url="{{ url("events/$event->id/tickets/$ticket->id/send-tickets") }}"
                                     >
                                         <i class="fa fa-plus" aria-hidden="true"></i> Asignar
                                     </button>

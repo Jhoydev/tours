@@ -1,6 +1,7 @@
 <div class="card">
     <div class="card-body">
-        <p class="h1">Asistentes</p>
+        <p class="h1 text-center">Clientes</p>
+        <hr>
         <table id="table_datatable" class="table">
             <thead class="thead-dark">
             <tr>

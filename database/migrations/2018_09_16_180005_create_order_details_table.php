@@ -20,7 +20,7 @@ class CreateOrderDetailsTable extends Migration
             $table->unsignedInteger('customer_id')->nullable();
             $table->foreign('customer_id')->references('id')->on('customers');
             $table->unsignedInteger('order_id');
-            $table->foreign('order_id')->references('id')->on('orders');
+            $table->foreign('order_id')->references('id')->on('orders')->onDelete('cascade');
             $table->unsignedInteger('event_id');
             $table->foreign('event_id')->references('id')->on('events');
             $table->boolean('available')->default(true);

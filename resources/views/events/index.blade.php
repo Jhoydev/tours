@@ -6,7 +6,7 @@
     <button type="button" class="btn btn-success rounded mr-5" data-toggle="modal" data-target="#createModal"><i class="fa fa-plus"></i> Crear evento </button>
 </li>
 @endpush
-<div class="row mt-2">
+<div class="row mt-5">
     <div class="col-12" id="render_events">
         @include('events.partials.events')
     </div>

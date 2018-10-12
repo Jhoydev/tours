@@ -42,11 +42,6 @@ class Order extends Model
         return $this->hasMany(OrderDetail::class);
     }
 
-    public function DetailsNull()
-    {
-        return $this->hasMany(OrderDetail::class)->where('customer_id','=',null)->toSql();
-    }
-
     public function order_status()
     {
         return $this->belongsTo(OrderStatus::class);

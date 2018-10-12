@@ -13,9 +13,9 @@
             <li class="nav-item">
                 <a class="nav-link {{ request()->is("events/$event->id/edit/memory-certificate") ? 'active' : '' }}" href="{{ url("events/$event->id/edit/memory-certificate") }}"><i class="fa fa-file-text-o" aria-hidden="true"></i> Memorias & Certificados</a>
             </li>
-            <li class="nav-item">
+            {{--<li class="nav-item">
                 <a class="nav-link {{ request()->is("events/$event->id/edit/taxes") ? 'active' : '' }}" href="{{ url("events/$event->id/edit/taxes") }}"><i class="fa fa-usd" aria-hidden="true"></i> Impuesto de Servicios</a>
-            </li>
+            </li>--}}
         </ul>
     </div>
 </div>

@@ -4,11 +4,12 @@
     @push('sidebar')
         @include('events.sidebar')
     @endpush
-    <div class="row mt-2">
+    <div class="row mt-5">
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
-                    <p class="h1">Ordenes</p>
+                    <p class="h1 text-center">Ordenes</p>
+                    <hr>
                     <table id="table_datatable" class="table">
                         <thead class="thead-dark">
                         <tr>

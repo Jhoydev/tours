@@ -15,7 +15,7 @@
     <a href="#" class="btn btn-success rounded mr-5 submit_form_button">{!! $method == 'PUT' ? '<i class="fa fa-refresh"></i> Actualizar' : '<i class="fa fa-plus"></i> Crear' !!}</a>
 </li>
 @endpush
-<div id="role" class="row mt-2 justify-content-center mb-5" v-cloak>
+<div id="role" class="row mt-5 justify-content-center mb-5" v-cloak>
     <div class="col-md-10">
         {!! Form::open(['url' => $url_form,'method' => $method, 'id' =>'submit_form']) !!}
         <div class="card">

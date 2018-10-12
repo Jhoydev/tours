@@ -1,6 +1,7 @@
 <div class="card">
     <div class="card-body">
-        <p class="h1">Roles</p>
+        <p class="h1 text-center">Roles</p>
+        <hr>
         <table id="table_datatable" class="table">
             <thead class="thead-dark">
             <tr>
@@ -13,7 +14,7 @@
                 <tr>
                     <td scope="row">{{ ucfirst($role->name) }}</td>
                     <td class="text-right">
-                        <a href="{{ url("role/$role->id/edit") }}" class="btn btn-primary rounded btn-sm mr-2"><i class="fa fa-pencil"></i> Editar</a>
+                        <a href="{{ url("role/$role->id/edit") }}" class="btn btn-success rounded btn-sm mr-2"><i class="fa fa-eye"></i> Ver</a>
                         {{--<button type="button" class="btn btn-outline-danger rounded btn-sm" data-toggle="modal" data-target="#deleteModal" data-role_id="{{ $role->id }}">--}}
                             {{--<i class="fa fa-eraser" aria-hidden="true"></i> Eliminar--}}
                         {{--</button>--}}

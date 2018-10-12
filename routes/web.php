@@ -19,8 +19,6 @@ Route::get('redirect-authenticated', 'Customer\Auth\LoginController@redirectAuth
 Route::get('asset/page/public/backgrounds', 'ImageController@publicBackgrounds');
 Route::get('companies/{company}/events/{event}/flyer/{filename}', 'ImageController@flyer');
 
-
-
 Route::prefix('portal')->group(function () {
     Route::get('login', 'Customer\Auth\LoginController@showLoginForm')->name('portal.login');
     Route::post('login', 'Customer\Auth\LoginController@login')->name('portal.login');
@@ -54,30 +52,40 @@ Route::middleware(['auth:customer'])->group(function () {
 });
 
 Route::middleware('auth:web')->group(function () {
-    Route::post('page', 'PageController@store');
-    Route::get('page/{event}/create', 'PageController@create');
-    Route::get('page/{page}/edit', 'PageController@edit');
-    Route::put('page/{page}', 'PageController@update');
-    Route::delete('page/{page}', 'PageController@destroy');
-    Route::resource('events','EventController');
-    Route::get('events/{event}/edit','EventController@edit');
-    Route::get('events/{event}/edit/page','EventController@page')->name('event.edit.page');
-    Route::get('events/{event}/edit/order_description','EventController@orderDescription')->name('event.order_description');
-    Route::put('events/{event}/edit/order_description','EventController@orderDescriptionUpdate')->name('event.order_description.put');
-    Route::get('events/{event}/edit/memory-certificate','EventController@memoryAndCertificate')->name('event.memory_certificate');
-    Route::put('events/{event}/edit/memory-certificate','EventController@memoryAndCertificateUpdate')->name('event.memory_certificate.put');
-    Route::get('events/{event}/edit/taxes','EventController@taxes')->name('event.taxes');
-    Route::put('events/{event}/edit/taxes','EventController@taxesUpdate')->name('event.taxes.put');
-    Route::get('events/{event}/customers','EventController@customers')->name('event.customers');
-    Route::get('events/{event}/orders','EventController@orders')->name('event.orders');
-    Route::get('events/{event}/orders/{order}/details','EventController@details')->name('event.orders.details');
 
-    Route::resource('events/{event}/tickets','TicketController');
-    Route::resource("events/{event}/tickets/{ticket}/assign-ticket",'SpecialTicketController');
+    Route::prefix('page')->group(function () {
+        Route::post('page', 'PageController@store');
+        Route::get('{event}/create', 'PageController@create');
+        Route::get('{page}/edit', 'PageController@edit');
+        Route::put('{page}', 'PageController@update');
+        Route::delete('{page}', 'PageController@destroy');
+    });
+
+
+    Route::resource('events','EventController');
+    Route::prefix('events')->group(function () {
+        Route::get('{event}/edit/page','EventController@page')->name('event.edit.page');
+        Route::get('{event}/edit/order_description','EventController@orderDescription')->name('event.order_description');
+        Route::put('{event}/edit/order_description','EventController@orderDescriptionUpdate')->name('event.order_description.put');
+        Route::get('{event}/edit/memory-certificate','EventController@memoryAndCertificate')->name('event.memory_certificate');
+        Route::put('{event}/edit/memory-certificate','EventController@memoryAndCertificateUpdate')->name('event.memory_certificate.put');
+        Route::get('{event}/edit/taxes','EventController@taxes')->name('event.taxes');
+        Route::put('{event}/edit/taxes','EventController@taxesUpdate')->name('event.taxes.put');
+        Route::get('{event}/customers','EventController@customers')->name('event.customers');
+        Route::get('{event}/orders','EventController@orders')->name('event.orders');
+        Route::get('{event}/orders/{order}/details','EventController@details')->name('event.orders.details');
+        Route::resource('{event}/tickets','TicketController');
+        Route::resource('{event}/tickets/{ticket}/send-tickets','SpecialTicketController')->except(['show']);
+        Route::get('{event}/tickets/{ticket}/send-tickets/customer/{customer}','SpecialTicketController@show');
+        Route::delete('tickets/refuse/{orderDetail}','TicketController@refuse');
+    });
     Route::resource('customer', 'CustomerController');
-    Route::get('user/permissions', 'userController@getPermissionsAndRoles');
-    Route::get('user/avatar/{company}/{id}', 'userController@getImageAvatar')->name('avatar.id');
+
     Route::resource('user','UserController');
+    Route::prefix('user')->group(function () {
+        Route::get('permissions', 'userController@getPermissionsAndRoles');
+        Route::get('avatar/{company}/{id}', 'userController@getImageAvatar')->name('avatar.id');
+    });
 
     Route::resource('role','RoleController');
     Route::get('role/{role}/permissions','RoleController@permissions');

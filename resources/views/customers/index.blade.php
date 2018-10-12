@@ -6,7 +6,7 @@
     <a class="btn btn-success rounded mr-5" href="{{ url('customer/create') }}"><i class="fa fa-plus"></i> Nuevo Asistente</a>
 </li>
 @endpush
-<div class="row mt-2">
+<div class="row mt-5">
     <div class="col-12" id="render_customers">
         @include('customers.partials.customers')
     </div>

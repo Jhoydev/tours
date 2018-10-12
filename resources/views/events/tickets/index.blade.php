@@ -8,17 +8,14 @@
         <button class="btn btn-success rounded mr-5" data-toggle="modal" data-target="#modal_create_ticket"><i class="fa fa-plus"></i> Nuevo Ticket</button>
     </li>
 @endpush
-<div class="row" id="tickets">
+<div class="row mt-5" id="tickets">
     <div class="col-12">
-        <div class="row mt-5 d-flex align-items-center mb-3">
-            <div class="col-md-auto">
-                <h3 class="pb-0">Tickets - {{ $event->title }}</h3>
-            </div>
-        </div>
         <div class="row">
             <div class="col-md-12">
                 <div class="card rounded">
                     <div class="card-body">
+                        <h1 class="text-center">Tiquetes - {{ $event->title }}</h1>
+                        <hr>
                         <div class="row justify-content-center">
                             @if (count($event->tickets))
                                 @foreach ($event->tickets as $ticket)
@@ -27,7 +24,7 @@
                                             <div class="card-body text-center">
                                                 <p><span class="badge badge-info text-white">{{ $ticket->type }}</span></p>
                                                 <p class="h3 font-weight-bold">{{ $ticket->title }}</p>
-                                                <p class="h1"><strong>{{ $ticket->price }}$</strong></p>
+                                                <p class="h1"><strong>${{ $ticket->price }}</strong></p>
                                                 <p>{{ $ticket->description }}</p>
                                                 <div class="text-left">
                                                     <p>Inicio de venta: {{ $ticket->start_sale_date }}</p>
@@ -39,7 +36,7 @@
                                                 <p><small>Creado por: {{ $ticket->user->full_name }}</small></p>
                                                 <div>
                                                     @if ($ticket->type != 'simple')
-                                                    <a class="btn btn-success btn-sm rounded" href="{{ url("events/$event->id/tickets/$ticket->id/assign-ticket") }}"><i class="fa fa-plus" aria-hidden="true"></i> Enviar Tiquete</a>
+                                                    <a class="btn btn-success btn-sm rounded" href="{{ url("events/$event->id/tickets/$ticket->id/send-tickets") }}"><i class="fa fa-plus" aria-hidden="true"></i> Enviar Tiquete</a>
                                                     @endif
                                                     <button type="button" class="btn btn-sm btn-primary rounded" onclick="openModalEdit('{{ url("events/$event->id/tickets/$ticket->id/edit") }}')"><i class="fa fa-pencil"></i> Editar</button>
                                                     <button class="btn btn-sm btn btn-outline-danger rounded" data-toggle="modal" data-target="#deleteModal" data-ticket_id="{{ url("events/$event->id/tickets/$ticket->id") }}"><i class="fa fa-eraser"></i> Eliminar</button>
@@ -156,7 +153,7 @@
                 document.querySelector("#modal_edit_ticket  #quantity_available").value = res.quantity_available;
                 document.querySelector("#modal_edit_ticket  #description").value = res.description;
                 document.querySelector("#modal_edit_ticket  #start_date").value = res.start_sale_date;
-                document.querySelector("#modal_edit_ticket  #end_sale_date").value = res.end_sale_date;
+                document.querySelector("#modal_edit_ticket  #end_date").value = res.end_sale_date;
                 document.querySelector("#modal_edit_ticket  #min_per_person").value = res.min_per_person;
                 document.querySelector("#modal_edit_ticket  #max_per_person").value = res.max_per_person;
                 document.querySelector("#modal_edit_ticket  #type").value = res.type;

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Customer;
 use App\Event;
 use App\Order;
 use App\OrderDetail;
@@ -64,9 +65,13 @@ class SpecialTicketController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Event $event,Ticket $ticket,Customer $customer)
     {
-        //
+        $orders = Order::where('customer_id',$customer->id)->where('order_status_id','<=',4)->whereHas('orderDetails',function ($query) use ($ticket) {
+            return $query->where('ticket_id',$ticket->id);
+        })->get();
+
+        return view('events.tickets.show',compact('orders','customer','event','ticket'));
     }
 
     /**
@@ -89,7 +94,7 @@ class SpecialTicketController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+
     }
 
     /**
@@ -98,8 +103,14 @@ class SpecialTicketController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($event_id ,$ticket_id,$order_id)
     {
-        //
+        $ticket = Ticket::find($ticket_id);
+        $order = Order::find($order_id);
+        $ticket->increment('quantity_available',count($order->orderDetails));
+        $ticket->update();
+        $order->delete();
+        session()->flash('message','Se han cancelado los tiquetes');
+        return redirect("events/$event_id/tickets/$ticket_id/send-tickets");
     }
 }
