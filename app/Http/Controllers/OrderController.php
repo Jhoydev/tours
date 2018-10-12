@@ -68,18 +68,18 @@ class OrderController extends Controller
                 $order->update();
 
                 // PayU Information
-                $random_strong = get_random_string();
-                $signature = config('payu.payu_api_key')."~".
-                    config('payu.payu_merchant_id')."~".
-                    $random_strong . "~".
-                    $order_value."~".
-                    config('payu.payu_currency');
-                $payu = (object) [
+                $random_string = get_random_string();
+                $signature     = config('payu.payu_api_key') . "~" .
+                        config('payu.payu_merchant_id') . "~" .
+                        $random_string . "~" .
+                        $order_value . "~" .
+                        config('payu.payu_currency');
+                $payu          = (object) [
                             "url"             => config('payu.payu_url'),
                             "merchantId"      => config('payu.payu_merchant_id'),
                             "accountId"       => config('payu.payu_account_id'),
                             "description"     => $event->title,
-                            "referenceCode"   => $random_strong,
+                            "referenceCode"   => $random_string,
                             "amount"          => $order_value,
                             "tax"             => "0",
                             "taxReturnBase"   => "0",
@@ -100,10 +100,9 @@ class OrderController extends Controller
 
     public function store(Request $request)
     {
-        $completed              = true;
-        $url                    = "";
-        $order                  = Order::find($request->order_id);
-        $order->order_status_id = 1;
+        $completed = true;
+        $url       = "";
+        $order     = Order::find($request->order_id);
 
         foreach ($order->orderDetails as $order_detail) {
             $order_detail->complete = true;

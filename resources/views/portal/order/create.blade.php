@@ -155,7 +155,6 @@
 
 
     $("#form_order").submit(function (e) {
-        alert("test");
         e.preventDefault();
         var form = $(this);
         var url = form.attr('action');
@@ -168,9 +167,7 @@
             success: function (data)
             {
                 if (data.success) {
-                    console.log(data);
                     if (data.redirect !== "" && data.redirect !== null & data.redirect !== 'undefined') {
-                        console.log("location");
                         window.location.replace(data.redirect);
                     } else {
                         $("#payu_form").submit();
