@@ -28,9 +28,7 @@ Route::middleware('auth')->group(function () {
 /*
  * Manage PayU Latam Orders
  */
-Route::prefix('api')->group(function () {
-    Route::post('payuconfirmationapi/{order_id}', [
-        'as'   => 'confirmationAPIPayU',
-        'uses' => 'PaymentController@confirmationAPIPayU',
-    ]);
-});
+Route::post('confirmation/{order_id}', [
+    'as'   => 'confirmationAPIPayU',
+    'uses' => 'PaymentController@confirmationAPIPayU',
+]);
