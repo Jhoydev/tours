@@ -62,7 +62,7 @@ class OrderController extends Controller
                         }
                     }
                 }
-                $tickets = Ticket::WhereIn('id', $arr_ticket_id)->get();
+                $tickets      = Ticket::WhereIn('id', $arr_ticket_id)->get();
                 $order->value = $order_value;
 
                 // PayU Information
@@ -85,7 +85,7 @@ class OrderController extends Controller
                             "signature"       => md5($signature),
                             "test"            => (int) config('payu.payu_testing'),
                             "responseUrl"     => route('order.invoice', ['order' => $order]),
-                            "confirmationUrl" => "",
+                            "confirmationUrl" => route('confirmationAPIPayU', ['order_id' => $order->id]),
                 ];
 
                 $order->reference = $random_string;
