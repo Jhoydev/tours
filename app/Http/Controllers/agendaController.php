@@ -27,6 +27,7 @@ class agendaController extends Controller
         $res = [];
         if (count($dates)){
             foreach ($dates as $date){
+                if ($date->date_status_id == 2 && (Auth::user()->id != $date->customer_id && Auth::user()->id != $date->contact_id)) continue;
                 $name = $date->contact->full_name;
                 $contact = $date->contact;
                 // Ponemos la subfijo solcitada cuando es una cita pedida por nosotros

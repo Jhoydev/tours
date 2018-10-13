@@ -4,13 +4,10 @@
         <tr>
             <td>
                 <h1>Hola</h1>
-
-                @if ($notificationType == 'accepted')
-                    <p>Cita aceptada entre {{ $date->customer->full_name }} y {{ $date->contact->full_name }}</p>
-                @elseif($notificationType == 'refuse')
-                    <p>Se ha cancelado la cita rechazado entre {{ $date->customer->full_name }} y {{ $date->contact->full_name }}</p>
-                @endif
+                <p>Solicitud de cita</p>
+                <p>{{ $date->customer->full_name }} - {{ $date->contact->full_name }}</p>
                 <p><strong>Fecha: {{ $date->start_date->toDayDateTimeString() }}</strong></p>
+                <p>Mensaje: {{ $date->message }}</p>
                 <table border="0" cellpadding="0" cellspacing="0" class="btn btn-primary">
                     <tbody>
                     <tr>

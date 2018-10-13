@@ -31,6 +31,9 @@ class DateNotification extends Mailable
      */
     public function build()
     {
+        if ($this->notificationType == "request"){
+            return $this->view('emails.date.request');
+        }
         return $this->view('emails.date_notification');
     }
 }

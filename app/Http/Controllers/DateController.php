@@ -49,8 +49,9 @@ class DateController extends Controller
         $date->end_date = Carbon::parse($request->start_date)->addMinute(30);
         $date->save();
         session()->flash('message','Cita solicitada');
+        Mail::to(['email'=>$date->customer->email])->send(new DateNotification($date,'request'));
+        Mail::to(['email'=>$date->contact->email])->send(new DateNotification($date,'request'));
         return back();
-        dd();
     }
 
     /**
@@ -87,7 +88,7 @@ class DateController extends Controller
         $date->date_status_id = 1;
         $date->update();
         Mail::to(['email'=>$date->customer->email])->send(new DateNotification($date,'accepted'));
-        Mail::to(['email'=>$date->contact->email])->send(new DateNotification($date,'accepted_to'));
+        Mail::to(['email'=>$date->contact->email])->send(new DateNotification($date,'accepted'));
         session()->flash('message','Cita Aceptada');
         return back();
     }
@@ -103,7 +104,7 @@ class DateController extends Controller
         $date->date_status_id = 3;
         $date->update();
         Mail::to(['email'=>$date->customer->email])->send(new DateNotification($date,'refuse'));
-        Mail::to(['email'=>$date->contact->email])->send(new DateNotification($date,'refuse_to'));
+        Mail::to(['email'=>$date->contact->email])->send(new DateNotification($date,'refuse'));
 
         session()->flash('message','Cita Cancelada');
         return back();
