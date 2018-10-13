@@ -83,9 +83,11 @@ class PaymentController extends Controller
                 default:
                     break;
             }
-            
+
             $order->save();
         }
+
+        return response()->json(['success' => true], 200);
     }
 
 }
