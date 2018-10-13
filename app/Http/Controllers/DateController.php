@@ -41,8 +41,8 @@ class DateController extends Controller
     {
         $date = New Date();
         $date->start_date = $request->start_date;
-        $date->customer_id = $request->contact_id;
-        $date->contact_id = $request->customer_id;
+        $date->customer_id = $request->customer_id;
+        $date->contact_id = $request->contact_id;
         $date->message = $request->message;
         $date->event_id = $event->id;
         $date->date_status_id = 2;

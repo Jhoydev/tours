@@ -30,7 +30,7 @@
         <div class="col-lg-8">
             <div class="card">
                 <div class="card-body">
-                    <input type="hidden" id="url-calendar" value="{{ url("api/portal/event/$event->id/customer/".Auth::user()->id."/calendar") }}">
+                    <input type="hidden" id="url-calendar" value="{{ url("portal/event/$event->id/agenda/customer/".Auth::user()->id."/calendar") }}">
                     <h3 id="agenda_name" class="text-center"></h3>
                     <div id='calendar'></div>
                 </div>
