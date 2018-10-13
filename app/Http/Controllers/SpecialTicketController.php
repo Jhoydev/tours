@@ -53,6 +53,7 @@ class SpecialTicketController extends Controller
             OrderDetail::addDetail($ticket,$order);
         };
         OrderDetail::where('order_id',$order->id)->update(['complete' => 1]);
+        OrderDetail::where('order_id',$order->id)->first()->update(['customer_id' => $request->customer_id,'updated_at' => now()]);
         $ticket->decrement('quantity_available',$request->quantity_available);
         $ticket->update();
         session()->flash('message','Tiquetes Asignados');

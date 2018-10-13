@@ -1,5 +1,8 @@
 @extends('layouts.portal')
 @section('content')
+    @push('sidebar')
+    @include('portal.event.sidebar')
+    @endpush
     <div class="row mt-5">
         @if ($order->customer_id == Auth::user()->id)
         <div class="col-12 mb-3 text-right">

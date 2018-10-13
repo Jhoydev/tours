@@ -69,7 +69,7 @@
                             @else
                                 <div class="col-12 text-center">
                                     <p class="lead">Aun no has creado ningun tiquete</p>
-                                    <button class="btn btn-sm btn-success rounded" data-toggle="modal" data-target="#modal_create_ticket"><i class="fa fa-plus"></i> Nuevo Ticket</button>
+                                    <button class="btn btn-success rounded mr-5" data-toggle="modal" data-target="#modal_ticket" data-url_post="{{ url("events/$event->id/tickets") }}"><i class="fa fa-plus"></i> Nuevo Ticket</button>
                                 </div>
                             @endif
                         </div>

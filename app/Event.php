@@ -49,7 +49,9 @@ class Event extends Model
 
     public function customers()
     {
-        return $this->belongsToMany(Customer::class);
+        return Customer::whereHas('orderDetails',function($query){
+            return $query->where('event_id',$this->id);
+        })->get();
     }
 
     public function page()

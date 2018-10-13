@@ -16,42 +16,6 @@
         </div>
         <hr>
         <div class="form-group">
-            <label>Redes sociales</label>
-        </div>
-        <div class="form-group col-12 d-flex justify-content-between">
-            <div class="form-check">
-                <input class="form-check-input" type="checkbox" id="gridCheck">
-                <label class="form-check-label" for="gridCheck">
-                    <i class="fa fa-facebook-official" aria-hidden="true"></i>
-                </label>
-            </div>
-            <div class="form-check">
-                <input class="form-check-input" type="checkbox" id="gridCheck">
-                <label class="form-check-label" for="gridCheck">
-                    <i class="fa fa-twitter" aria-hidden="true"></i>
-                </label>
-            </div>
-            <div class="form-check">
-                <input class="form-check-input" type="checkbox" id="gridCheck">
-                <label class="form-check-label" for="gridCheck">
-                    <i class="fa fa-envelope" aria-hidden="true"></i>
-                </label>
-            </div>
-            <div class="form-check">
-                <input class="form-check-input" type="checkbox" id="gridCheck">
-                <label class="form-check-label" for="gridCheck">
-                    <i class="fa fa-whatsapp" aria-hidden="true"></i>
-                </label>
-            </div>
-            <div class="form-check">
-                <input class="form-check-input" type="checkbox" id="gridCheck">
-                <label class="form-check-label" for="gridCheck">
-                    <i class="fa fa-linkedin" aria-hidden="true"></i>
-                </label>
-            </div>
-        </div>        
-        <hr>
-        <div class="form-group">
             @if ( $page->id )
                 <a href="{{ url('evento/' . $event->id . '/' . $page->id ) }}" target="_blank" class="btn btn-light border-secondary btn-sm rounded"><i class="fa fa-external-link" aria-hidden="true"></i> Ver pagina</a>
             @endif

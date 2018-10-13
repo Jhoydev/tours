@@ -1,5 +1,8 @@
 @extends('layouts.portal')
 @section('content')
+    @push('sidebar')
+    @include('portal.event.sidebar')
+    @endpush
     <div class="row mt-5 d-flex justify-content-center">
         <div class="col-md-12">
             <div class="card">

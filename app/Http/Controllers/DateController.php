@@ -6,6 +6,7 @@ use App\Date;
 use App\Event;
 use App\Mail\DateNotification;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Mail;
 
 class DateController extends Controller
@@ -36,9 +37,20 @@ class DateController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, Event $event)
     {
-        //
+        $date = New Date();
+        $date->start_date = $request->start_date;
+        $date->customer_id = $request->contact_id;
+        $date->contact_id = $request->customer_id;
+        $date->message = $request->message;
+        $date->event_id = $event->id;
+        $date->date_status_id = 2;
+        $date->end_date = Carbon::parse($request->start_date)->addMinute(30);
+        $date->save();
+        session()->flash('message','Cita solicitada');
+        return back();
+        dd();
     }
 
     /**

@@ -4,24 +4,25 @@ namespace App;
 
 use App\Traits\DatesTranslator;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Carbon;
 
 class Date extends Model
 {
     use DatesTranslator;
 
-    protected $dates    = ['date_start','date_end'];
-    protected $casts    = ['date_start','date_end'];
+    protected $dates    = ['start_date','end_date'];
+    protected $casts    = ['start_date','end_date'];
 
     /* Mutators */
 
-    public function setDateStartAttribute($value)
+    public function setStartDateAttribute($value)
     {
-        return $this->attributes['date_start'] = Carbon::parse($value);
+        return $this->attributes['start_date'] = Carbon::parse($value);
     }
 
-    public function setDateEndAttribute($value)
+    public function setEndDateAttribute($value)
     {
-        return $this->attributes['date_end'] = Carbon::parse($value);
+        return $this->attributes['end_date'] = Carbon::parse($value);
     }
     public function Event()
     {

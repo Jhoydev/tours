@@ -8,6 +8,8 @@ use Illuminate\Support\Str;
 
 class OrderDetail extends Model
 {
+    protected $fillable = ['customer_id','updated_at'];
+
     public function Customer()
     {
         return $this->belongsTo(Customer::class,'customer_id');

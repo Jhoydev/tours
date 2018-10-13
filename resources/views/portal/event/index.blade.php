@@ -7,6 +7,7 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-body">
+                    <input type="hidden" id="auth_customer_id" value="{{ Auth::user()->id }}">
                     <h1 class="text-center"><i class="icon-calendar"></i> {{ $event->title }}</h1>
                     <h4 class="text-center">{{ $event->address }}</h4>
                     <hr>
@@ -130,7 +131,9 @@
                     form_put.classList.remove('d-none');
                     form_delete.classList.remove('d-none');
                 }
-
+                if ($('#auth_customer_id').val() == calEvent.contact_id){
+                    form_put.classList.add('d-none');
+                }
                 modal.modal('toggle')
 
             }

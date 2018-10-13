@@ -26,7 +26,7 @@ class CustomerController extends Controller
      */
     public function index(Request $request)
     {
-        $customers = Company::find(Auth::user()->company_id)->ownCustomers();
+        $customers = Company::find(Auth::user()->company_id)->customers();
 
         if ($request->ajax()) {
             return view('customers.partials.customers', compact('customers'));
@@ -177,7 +177,7 @@ class CustomerController extends Controller
 
         $details = $order->orderDetails;
 
-        return view ('portal.customer.order',compact('order','details'));
+        return view ('portal.customer.order',compact('order','details','event'));
     }
 
     public function orders(Request $request, Event $event)
@@ -215,7 +215,7 @@ class CustomerController extends Controller
                 $name = $date->contact->full_name;
                 $contact = $date->contact;
                 // Ponemos la subfijo solcitada cuando es una cita pedida por nosotros
-                if ($date->contact->full_name == $customer->full_name){
+                if ($date->contact_id == $customer->id){
                     $name = $date->customer->full_name . " - Solicitada";
                     $contact = $date->customer;
 
@@ -229,12 +229,15 @@ class CustomerController extends Controller
                 }
 
                 $res[] = [
+                    'id' => $date->id,
                     'title' => "$name",
                     'start' => $date->start_date->toDateTimeString(),
+                    'end' => $date->end_date->toDateTimeString(),
                     'color' => $color,
                     'message' => $date->message,
                     'status' => $date->date_status_id,
                     'req' => url("portal/event/$event->id/date/$date->id"),
+                    'contact_id' => $date->contact_id,
                     'contact' => $contact
                 ];
             }

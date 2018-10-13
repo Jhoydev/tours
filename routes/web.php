@@ -44,17 +44,20 @@ Route::middleware(['auth:customer'])->group(function () {
     Route::put('portal/customer/update-password', 'CustomerController@updatePassword')->name('customer.update.password');
     Route::put('portal/profile/{customer}', 'CustomerController@update')->name('profile.update');
     Route::put('portal/event/{event}/date/{date}', 'DateController@update');
+    Route::post('portal/event/{event}/date', 'DateController@store');
     Route::delete('portal/event/{event}/date/{date}', 'DateController@destroy');
     Route::post('portal/events/order/assign-ticket/{orderDetail}', 'TicketController@assignToCustomer');
     Route::post('portal/asiggn-by-token', 'TicketController@asiggnByToken');
     Route::delete('portal/ticket/{orderDetail}', 'TicketController@refuse');
     Route::post('portal/ticket/{orderDetail}', 'TicketController@resendEmail');
+
+    Route::get('portal/event/{event}/agenda', 'agendaController@index');
 });
 
 Route::middleware('auth:web')->group(function () {
 
+    Route::post('page', 'PageController@store');
     Route::prefix('page')->group(function () {
-        Route::post('page', 'PageController@store');
         Route::get('{event}/create', 'PageController@create');
         Route::get('{page}/edit', 'PageController@edit');
         Route::put('{page}', 'PageController@update');
