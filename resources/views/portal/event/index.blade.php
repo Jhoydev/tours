@@ -10,13 +10,22 @@
                     <input type="hidden" id="auth_customer_id" value="{{ Auth::user()->id }}">
                     <h1 class="text-center"><i class="icon-calendar"></i> {{ $event->title }}</h1>
                     <h4 class="text-center">{{ $event->address }}</h4>
+                    <h3 class="text-center">{{ $event->start_date->toDayDateTimeString() }}</h3>
+                    @if($event->flyer)
+                    <div class="row justify-content-center">
+                        <div class="col-lg-2">
+                            <img src="{{ url($event->flyer) }}" class="img-fluid" style="min-width: 100%; min-height:150px"  alt="">
+
+                        </div>
+                    </div>
+                    @endif
                     <hr>
                     <div class="row justify-content-center">
                         <div class="col-auto mb-2">
                             @if($event->memories_url)
                             <a href="{{ $event->memories_url }}" target="_blank" class="btn btn-light border rounded"><i class="fa fa-download" aria-hidden="true"></i> Descargar Memoria</a>
                             @endif
-                            <button class="btn btn-light border rounded"><i class="fa fa-download" aria-hidden="true"></i> Descargar Certificado</button>
+                            {{--<button class="btn btn-light border rounded"><i class="fa fa-download" aria-hidden="true"></i> Descargar Certificado</button>--}}
                         </div>
                         <div class="col-auto mb-2">
                             <a class="btn btn-primary rounded" href="{{ url("portal/customer/event/$event->id/details") }}">

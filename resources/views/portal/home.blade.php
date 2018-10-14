@@ -106,7 +106,7 @@
                                                 @if($event->memories_url)
                                                 <a href="{{ $event->memories_url }}" target="_blank" class="btn btn-light border rounded mr-3" data-toggle="tooltip" data-placement="top" title="Descargar Memorias"><i class="fa fa-download" aria-hidden="true"></i></a>
                                                 @endif
-                                                <button class="btn btn-light border rounded mr-3" data-toggle="tooltip" data-placement="top" title="Descargar Certificado"><i class="fa fa-download" aria-hidden="true"></i></button>
+                                                {{--<button class="btn btn-light border rounded mr-3" data-toggle="tooltip" data-placement="top" title="Descargar Certificado"><i class="fa fa-download" aria-hidden="true"></i></button>--}}
                                             </div>
                                             <hr>
                                         </div>

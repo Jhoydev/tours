@@ -43,10 +43,7 @@ class EventController extends Controller
      */
     public function create()
     {
-        $event = new Event;
-        $event_types = EventType::orderBy('name', 'ASC')->pluck('name', 'id')->all();
-        $page = new Page();
-        return view('events.create', compact('event', 'event_types', 'page'));
+
     }
 
     /**

@@ -22,11 +22,14 @@
                                                         <div><a class="badge badge-warning" href="{{ url('evento/' . $event->id . '/' . $event->page->id ) }}" target="_blank">Ir a la web <i class="fa fa-external-link" aria-hidden="true"></i></a></div>
                                                     @endif
                                                 </div>
+                                                @if($event->flyer)
                                                 <div class="row justify-content-center mb-3">
                                                     <div class="col-6">
                                                         <img src="{{ ($event->flyer) ?url($event->flyer):'' }}" class="img-fluid" style="min-width: 100%; min-height:150px"  alt="">
                                                     </div>
                                                 </div>
+                                                @endif
+
                                             </div>
 
                                             <div class="col-10 offset-1 text-center">

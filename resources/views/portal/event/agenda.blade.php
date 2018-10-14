@@ -4,30 +4,32 @@
 @endpush
 @section('content')
     <div class="row mt-5">
-        <div class="col-lg-4">
+        <div class="col-lg-6">
             <div class="card">
-                <table class="table">
-                    <thead class="thead-dark">
-                    <tr>
-                        <th>Nombre</th>
-                        <th>Empresa</th>
-                        <th></th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    @foreach($customers as $customer)
-                        @continue($customer->id == Auth::user()->id)
-                    <tr>
-                        <td>{{ $customer->full_name }}</td>
-                        <td>{{ $customer->workplace }}</td>
-                        <td><button class="btn btn-light rounded border btn-sm" onclick="changeCustomerAgenda(this)" data-customer="{{ $customer->id }}" data-name="{{ $customer->full_name }}"><i class="fa fa-plus text-success" aria-hidden="true"></i></button></td>
-                    </tr>
-                    @endforeach
-                    </tbody>
-                </table>
+                <div class="card-body">
+                    <table id="table_datatable" class="table">
+                        <thead class="thead-dark">
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Empresa</th>
+                            <th></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        @foreach($customers as $customer)
+                            @continue($customer->id == Auth::user()->id)
+                            <tr>
+                                <td>{{ $customer->full_name }}</td>
+                                <td>{{ $customer->workplace }}</td>
+                                <td class="text-right"><button class="btn btn-light rounded border btn-sm" onclick="changeCustomerAgenda(this)" data-customer="{{ $customer->id }}" data-name="{{ $customer->full_name }}"><i class="fa fa-sign-in text-success" aria-hidden="true"></i></button></td>
+                            </tr>
+                        @endforeach
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
-        <div class="col-lg-8">
+        <div class="col-lg-6">
             <div class="card">
                 <div class="card-body">
                     <input type="hidden" id="url-calendar" value="{{ url("portal/event/$event->id/agenda/customer/".Auth::user()->id."/calendar") }}">
@@ -66,6 +68,7 @@
     </div>
 @endsection
 @push('scripts')
+@include('layouts.js.datatable')
 <script>
     function startFullCalendar() {
         $("#calendar").fullCalendar({
@@ -88,7 +91,7 @@
                 let modal = $("#modal_add_date");
                 modal.modal('toggle');
                 modal.find('input[name="start_date"]').val(date.format("YYYY-MM-DD HH:mm:ss"));
-                modal.find('#span_date').html(date.format("DD-MM-YYYY HH:mm:ss"));
+                modal.find('#span_date').html(date.format("dddd, DD MMMM YYYY - HH:mm:ss"));
             },
             eventClick: function(calEvent, jsEvent, view) {
                 console.log(calEvent);
