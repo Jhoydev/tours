@@ -21,6 +21,7 @@ Route::prefix('portal')->group(function () {
 Route::get('states/{id}', 'DynamicLocationController@get_states_by_country');
 Route::get('cities/{id}', 'DynamicLocationController@get_cities_by_state');
 Route::get('verify-token', 'TicketController@verify');
+Route::post('event/{event}/order-detail/{orderDetail}/attended', 'TicketController@attended');
 
 Route::middleware('auth')->group(function () {
     Route::post('events', 'EventController@store');

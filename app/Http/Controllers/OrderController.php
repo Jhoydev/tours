@@ -131,7 +131,22 @@ class OrderController extends Controller
             return back();
         }
     }
-
+    public function destroy(Order $order)
+    {
+        // MIRAR DONDE VIENE METER EL IF PARA BORRARLA DE UNA O VER REEMBOLSO
+        $event_id = $order->event_id;
+        $order_tickets = $order->tickets();
+        if(count($order_tickets)){
+            foreach ($order_tickets as $order_ticket){
+                $ticket = Ticket::find($order_ticket->ticket_id);
+                $ticket->increment('quantity_available',$order_ticket->ticket_count);
+                $ticket->update();
+            }
+        }
+        $order->delete();
+        session()->flash('message','Se han cancelado los tiquetes');
+        return redirect("events/$event_id/orders");
+    }
     public function invoice(Request $request, Order $order)
     {
         return view('portal.order.invoice', compact('order'));

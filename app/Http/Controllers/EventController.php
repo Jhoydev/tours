@@ -190,8 +190,8 @@ class EventController extends Controller
 
     public function customers(Event $event)
     {
-        $attendees = OrderDetail::Where('event_id','=',$event->id)->where('complete','=',1)->get();
-        return view('events.customers', compact('event', 'attendees'));
+        $details = OrderDetail::Where('event_id','=',$event->id)->where('complete','=',1)->get();
+        return view('events.customers', compact('event', 'details'));
     }
 
     public function orders(Event $event)

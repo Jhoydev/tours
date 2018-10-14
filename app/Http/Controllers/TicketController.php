@@ -176,7 +176,12 @@ class TicketController extends Controller
         return back();
     }
 
-    public function assignTicket(Event $event,Ticket $ticket)
+    public  function attended(Event $event, OrderDetail $orderDetail)
     {
+        $orderDetail->attended = true;
+        if ($orderDetail->update()){
+            return response()->json(['status' => true]);
+        }
+        return response()->json(['status' => false]);
     }
 }

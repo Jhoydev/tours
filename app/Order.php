@@ -5,6 +5,7 @@ namespace App;
 use Alexo\LaravelPayU\Payable;
 use Alexo\LaravelPayU\Searchable;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class Order extends Model
 {
@@ -47,4 +48,8 @@ class Order extends Model
         return $this->belongsTo(OrderStatus::class);
     }
 
+    public function tickets()
+    {
+        return DB::table('order_details')->select(DB::raw('count(*) as ticket_count,ticket_id'))->where('order_id',$this->id)->groupBy('ticket_id')->get();
+    }
 }

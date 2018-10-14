@@ -93,6 +93,7 @@ Route::middleware('auth:web')->group(function () {
     });
 
     Route::resource('role','RoleController');
+    Route::delete('order/{order}','orderController@destroy');
     Route::get('role/{role}/permissions','RoleController@permissions');
 });
 
