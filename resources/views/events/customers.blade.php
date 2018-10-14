@@ -8,7 +8,8 @@
     <div class="col-12">
         <div class="card">
             <div class="card-body">
-                <p class="h1 text-center">Asistentes</p>
+                <p class="h4 text-center">{{ $event->title }}</p>
+                <p class="h1 text-center"><i class="fa fa-users" aria-hidden="true"></i> Asistentes</p>
                 <hr>
                 <div class="table-responsive">
                     <input type="hidden" id="url_attended" value="{{ url("api/event/$event->id/order-detail") }}">
@@ -72,7 +73,7 @@
             $.post(url,data).done(function (res){
                 if (res.status){
                     $(tr).find('.td-attended').html(`<i class="fa fa-check text-success" aria-hidden="true"></i>`);
-                    alert
+                    alert('Se ha confirmado la asistencia');
                 }
             });
         }

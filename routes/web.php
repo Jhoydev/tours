@@ -67,7 +67,6 @@ Route::middleware('auth:web')->group(function () {
     });
 
 
-    Route::resource('events','EventController');
     Route::prefix('events')->group(function () {
         Route::get('{event}/edit/page','EventController@page')->name('event.edit.page');
         Route::get('{event}/edit/order_description','EventController@orderDescription')->name('event.order_description');
@@ -84,13 +83,15 @@ Route::middleware('auth:web')->group(function () {
         Route::get('{event}/tickets/{ticket}/send-tickets/customer/{customer}','SpecialTicketController@show');
         Route::delete('tickets/refuse/{orderDetail}','TicketController@refuse');
     });
+    Route::resource('events','EventController');
+
     Route::resource('customer', 'CustomerController');
 
-    Route::resource('user','UserController');
     Route::prefix('user')->group(function () {
         Route::get('permissions', 'userController@getPermissionsAndRoles');
         Route::get('avatar/{company}/{id}', 'userController@getImageAvatar')->name('avatar.id');
     });
+    Route::resource('user','UserController');
 
     Route::resource('role','RoleController');
     Route::delete('order/{order}','orderController@destroy');

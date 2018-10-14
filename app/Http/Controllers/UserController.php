@@ -82,6 +82,7 @@ class UserController extends Controller
             if (!Storage::disk('local')->exists($path_avatar)){
                 Storage::makeDirectory($path_avatar);
             }
+            $filename = str_replace('.png','.jpg',$filename);
             Image::make($avatar)->encode('jpg',75)->resize(300,300)->save(storage_path("app/" . $path_avatar) ."/$filename");
             $user->avatar = $filename ;
             $user->update();
@@ -166,7 +167,8 @@ class UserController extends Controller
             if (!Storage::disk('local')->exists($path_avatar)){
                 Storage::makeDirectory($path_avatar);
             }
-            $rss = Image::make($avatar)->encode('jpg',75)->resize(300,300)->save(storage_path("app/" . $path_avatar) ."/$filename");
+            $filename = str_replace('.png','.jpg',$filename);
+            Image::make($avatar)->encode('jpg')->resize(300,300)->save(storage_path("app/" . $path_avatar) ."/$filename");
         }else{
             $delete_avatar = $request->delete_avatar;
             if ($delete_avatar == "true"){

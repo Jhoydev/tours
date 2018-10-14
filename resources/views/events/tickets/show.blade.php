@@ -25,7 +25,7 @@
                                     <div class="card rounded">
                                         <div class="card-body">
                                             <div class="d-flex justify-content-between">
-                                                <span><i class="fa fa-ticket" aria-hidden="true"></i> Nº {{ $detail->code }}</span>
+                                                <span><i class="fa fa-ticket" aria-hidden="true"></i> Nº {{ $detail->id }}</span>
                                             </div>
                                         </div>
                                     </div>

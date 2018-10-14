@@ -128,7 +128,7 @@
         </div>
     </div>
 
-    <div class="row mt-3 d-flex justify-content-center">
+    {{--<div class="row mt-3 d-flex justify-content-center">
         <div class="col-auto">
             <div class="card rounded" style="background-color: rgba(255, 255,255, 0.9)">
                 <div class="card-body text-center">
@@ -141,7 +141,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div>--}}
 
 </div>
 

@@ -8,7 +8,8 @@
         <div class="col-12" id="render_customers">
             <div class="card">
                 <div class="card-body">
-                    <p class="h1 text-center">Asignar Tiquete - {{ $ticket->title }}</p>
+                    <p class="h4 text-center">{{ $event->title }}</p>
+                    <p class="h1 text-center"><i class="fa fa-ticket" aria-hidden="true"></i>Tiquete - {{ $ticket->title }}</p>
                     <hr>
                     <p>Disponibles: {{ $ticket->quantity_available }}</p>
                     <table id="table_datatable" class="table">

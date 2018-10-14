@@ -14,7 +14,8 @@
             <div class="col-md-12">
                 <div class="card rounded">
                     <div class="card-body">
-                        <h1 class="text-center">Tiquetes - {{ $event->title }}</h1>
+                        <h4 class="text-center">{{ $event->title }}</h4>
+                        <h1 class="text-center"><i class="fa fa-ticket" aria-hidden="true"></i> Tiquetes</h1>
                         <hr>
                         <div class="row justify-content-center">
                             @if (count($event->tickets))

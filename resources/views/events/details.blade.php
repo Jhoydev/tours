@@ -9,7 +9,7 @@
             <div class="card rounded">
                 <div class="card-body">
                     <p class="h4 text-center">{{ $event->title }}</p>
-                    <p class="h1 text-center">Detalles de Orden</p>
+                    <p class="h1 text-center"><i class="fa fa-shopping-cart" aria-hidden="true"></i> Detalles de Orden</p>
                     <hr>
                     <div class="row">
                         <div class="col-12 text-right mb-3">
@@ -32,7 +32,7 @@
                             <tr>
                                 <td scope="row">{{ $detail->id }}</td>
                                 <td>{{ $detail->ticket->title }}</td>
-                                <td>{{ $detail->price }}</td>
+                                <td>${{ number_format($detail->price,2) }}</td>
                                 @if ($detail->customer)
                                     <td>{{ $detail->customer->full_name }}</td>
                                 @else

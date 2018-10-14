@@ -118,6 +118,10 @@ class OrderController extends Controller
 
         if ($request->method_payment != "online_payment") {
             $url = route('order.invoice', ['order' => $order]);
+        }else{
+            // para pagos en efectivo
+            $order->order_status_id = 2;
+            $order->update();
         }
 
         $res = [
@@ -150,6 +154,15 @@ class OrderController extends Controller
     public function invoice(Request $request, Order $order)
     {
         return view('portal.order.invoice', compact('order'));
+    }
+
+    public function confirm(Event $event, Order $order)
+    {
+        $order->order_status_id = 1;
+        if ($order->update()){
+            return response()->json(['status' => true]);
+        }
+        return response()->json(['status' => false]);
     }
 
 }
