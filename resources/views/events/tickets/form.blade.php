@@ -1,6 +1,7 @@
 <input type="hidden" name="event_id" id="event_id" value="{{ $event->id }}">
 <input type="hidden" name="created_by" id="created_by" value="{{ $event->created_by }}">
 <input type="hidden" name="edited_by" id="edited_by" value="{{ Auth::user()->id }}">
+<input type="hidden" id="start_date_event" value="{{ $event->start_date }}">
 <div class="form-group">
     <label for="">Tipo de Tiquete</label>
     <select class="form-control rounded" name="type" id="type">
@@ -40,7 +41,7 @@
     <div class="form-group col-md-6">
         <label for="input_start">Finalizar venta</label>
         <div class="input-group date" id="input_end" data-target-input="nearest">
-            <input type="text" class="form-control rounded-left datetimepicker-input" id="end_date" name="end_sale_date"  data-target="#input_end"  required/>
+            <input type="text" class="form-control rounded-left datetimepicker-input" id="end_date" name="end_sale_date"  data-target="#input_end" required/>
             <div class="input-group-append" data-target="#input_end" data-toggle="datetimepicker">
                 <div class="input-group-text"><i class="fa fa-calendar"></i></div>
             </div>

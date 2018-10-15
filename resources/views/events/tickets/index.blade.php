@@ -28,13 +28,13 @@
                                                 <p class="h1"><strong>${{ $ticket->price }}</strong></p>
                                                 <p>{{ $ticket->description }}</p>
                                                 <div class="text-left">
-                                                    <p>Inicio de venta: {{ $ticket->start_sale_date }}</p>
-                                                    <p>Fin de venta: {{ $ticket->end_sale_date }}</p>
+                                                    <p>Inicio de venta: {{ $ticket->start_sale_date->format('d-m-Y H:i:s') }}</p>
+                                                    <p>Fin de venta: {{ $ticket->end_sale_date->format('d-m-Y H:i:s') }}</p>
                                                     <p>Total de tiquetes a vender: {{ $ticket->quantity_available }}</p>
                                                     <p>Tiquete minimo por orden {{ $ticket->min_per_person }}</p>
                                                     <p>Tiquete maximo por orden {{ $ticket->max_per_person }}</p>
                                                 </div>
-                                                <p><small>Creado por: {{ $ticket->user->full_name }}</small></p>
+                                                <p><small>Creado por: {{ $ticket->user->full_name ?? '' }}</small></p>
                                                 <div>
                                                     @if ($ticket->type != 'simple')
                                                     <a class="btn btn-success btn-sm rounded" href="{{ url("events/$event->id/tickets/$ticket->id/send-tickets") }}"><i class="fa fa-plus" aria-hidden="true"></i> Enviar Tiquete</a>
@@ -156,8 +156,8 @@
                 document.querySelector("#modal_ticket  #price").value = res.price;
                 document.querySelector("#modal_ticket  #quantity_available").value = res.quantity_available;
                 document.querySelector("#modal_ticket  #description").value = res.description;
-                document.querySelector("#modal_ticket  #start_date").value = res.start_sale_date;
-                document.querySelector("#modal_ticket  #end_date").value = res.end_sale_date;
+                document.querySelector("#modal_ticket  #start_date").value = moment(res.start_sale_date).format("DD-MM-YYYY HH:mm:ss");
+                document.querySelector("#modal_ticket  #end_date").value = moment(res.end_sale_date).format("DD-MM-YYYY HH:mm:ss");
                 document.querySelector("#modal_ticket  #min_per_person").value = res.min_per_person;
                 document.querySelector("#modal_ticket  #max_per_person").value = res.max_per_person;
                 document.querySelector("#modal_ticket  #type").value = res.type;

@@ -71,8 +71,10 @@ class EventController extends Controller
             if (!Storage::disk('local')->exists($path_flyer)) {
                 Storage::makeDirectory($path_flyer);
             }
-            Image::make($flyer)->encode('jpg', 75)->resize(300, 300)->save(storage_path("app/" . $path_flyer) . "/$filename");
-            $event->flyer = $filename;
+            Image::make($flyer)->resize(300, null, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save(storage_path("app/" . $path_flyer) . "/$filename");
+            $event->flyer = $path_flyer . "/" . $filename;
             $event->update();
         }
         if ($request->ajax()) {
@@ -145,7 +147,7 @@ class EventController extends Controller
             if (!Storage::disk('local')->exists($path_flyer)) {
                 Storage::makeDirectory($path_flyer);
             }
-            Image::make($flyer)->encode('jpg', 75)->resize(300, null, function ($constraint) {
+            Image::make($flyer)->resize(300, null, function ($constraint) {
                 $constraint->aspectRatio();
             })->save(storage_path("app/" . $path_flyer) . "/$filename");
             $event->flyer = $path_flyer . "/" . $filename;

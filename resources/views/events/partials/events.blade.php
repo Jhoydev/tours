@@ -55,7 +55,7 @@
 <div class="modal fade" id="createModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
-            {!! Form::open(['url' => url('events'),'method' => 'POST', 'id' => 'form_create_event']) !!}
+            {!! Form::open(['url' => url('events'),'method' => 'POST', 'id' => 'form_create_event','enctype'=>'multipart/form-data']) !!}
             <div class="modal-header">
                 <h5>Crear Evento</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">

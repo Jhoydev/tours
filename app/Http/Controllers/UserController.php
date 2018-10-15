@@ -82,9 +82,10 @@ class UserController extends Controller
             if (!Storage::disk('local')->exists($path_avatar)){
                 Storage::makeDirectory($path_avatar);
             }
-            $filename = str_replace('.png','.jpg',$filename);
-            Image::make($avatar)->encode('jpg',75)->resize(300,300)->save(storage_path("app/" . $path_avatar) ."/$filename");
-            $user->avatar = $filename ;
+            Image::make($avatar)->resize(300, null, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save(storage_path("app/" . $path_avatar) ."/$filename");
+            $user->avatar = $filename;
             $user->update();
         }
 
@@ -167,14 +168,19 @@ class UserController extends Controller
             if (!Storage::disk('local')->exists($path_avatar)){
                 Storage::makeDirectory($path_avatar);
             }
-            $filename = str_replace('.png','.jpg',$filename);
-            Image::make($avatar)->encode('jpg')->resize(300,300)->save(storage_path("app/" . $path_avatar) ."/$filename");
+            Image::make($avatar)->resize(300, null, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save(storage_path("app/" . $path_avatar) ."/$filename");
+            $user->avatar = $filename;
+            $user->update();
         }else{
             $delete_avatar = $request->delete_avatar;
             if ($delete_avatar == "true"){
                 $avatar_url = "companies/$user->company_id/avatars/$user->id.jpg";
                 if (Storage::disk()->exists($avatar_url)){
                     Storage::delete($avatar_url);
+                    $user->avatar = "default.jpg";
+                    $user->update();
                 }
 
             }
@@ -195,8 +201,8 @@ class UserController extends Controller
     {
         $user = User::find($id);
         $user_to_delete = $user->full_name;
+        $avatar_url = "companies/$user->company_id/avatars/$user->avatar";
         if ($user->delete()){
-            $avatar_url = "companies/$user->company_id/avatars/$user->id.jpg";
             if (Storage::disk()->exists($avatar_url)){
                 Storage::delete($avatar_url);
             }
@@ -209,7 +215,8 @@ class UserController extends Controller
 
     public function getImageAvatar($company,$id)
     {
-        $path = "companies/$company/avatars/$id.jpg";
+        $avatar = User::find($id)->avatar;
+        $path = "companies/$company/avatars/$avatar";
         return ImageStore::getImage($path);
     }
 

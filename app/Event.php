@@ -76,7 +76,10 @@ class Event extends Model
 
     public function ticketsPage()
     {
-        return $this->hasMany(Ticket::class)->where('type','simple');
+        return $this->hasMany(Ticket::class)
+            ->where('type','simple')
+            ->where('start_sale_date','<',now())
+            ->where('end_sale_date','>',now());
     }
 
     public function orders()
