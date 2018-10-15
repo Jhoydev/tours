@@ -13,8 +13,8 @@
         <a class="nav-link" href="{{ url("portal/event/$event->id/agenda") }}"><i class="fa fa-users"></i> Asistentes</a>
     </li>
 @endif
-@if ( $event->page)
+@if ( $event->page && $event->page->slug)
 <li class="nav-item">
-    <a class="nav-link" href="{{ url('evento/' . $event->id . '/' . $event->page->id ) }}" target="_blank"><i class="fa fa-globe"></i> Web</a>
+    <a class="nav-link" href="{{ url('evento/' . $event->page->slug ) }}" target="_blank"><i class="fa fa-globe"></i> Web</a>
 </li>
 @endif

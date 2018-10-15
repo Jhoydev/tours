@@ -51,11 +51,14 @@ class PageController extends Controller
         ]);
 
         if ($page = Page::create($request->all() + ['company_id' => Auth::user()->company_id])){
-
-            if ($request->is_live == 'on'){
-                $page->is_live = 1;
-                $page->update();
+            $page->is_live = ($request->is_live == 'on') ? 1 : 0;
+            if ($page->is_live == 1){
+                $slug = str_slug($page->event->title,'-');
+                $page->slug = $slug;
+            }else{
+                $page->slug = null;
             }
+            $page->update();
             if ($request->ajax()){
                 return response()->json([
                     'status' => true,
@@ -83,11 +86,11 @@ class PageController extends Controller
      * @param $page
      * @return \Illuminate\Http\Response
      */
-    public function show($event_id,Page $page)
+    public function show(Page $page)
     {
         if ($page->is_live == 1){
             Ticket::checkIncompleteTickets();
-            $event = Event::withoutGlobalScope(CompanyScope::class)->find($event_id);
+            $event = Event::withoutGlobalScope(CompanyScope::class)->find($page->event_id);
             return view('page.show',compact('page','event'));
         }
         return abort(404);
@@ -124,7 +127,13 @@ class PageController extends Controller
         ]);
         $page = Page::find($id);
         $page->fill($request->all());
-        $page->is_live = ($request->is_live == 'on') ? '1' : '0';
+        $page->is_live = ($request->is_live == 'on') ? 1 : 0;
+        if ($page->is_live == 1){
+            $slug = str_slug($page->event->title,'-');
+            $page->slug = $slug;
+        }else{
+            $page->slug = null;
+        }
         if ($page->update()){
             if ($request->ajax()){
                 return response()->json([

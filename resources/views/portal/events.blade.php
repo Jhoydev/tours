@@ -18,8 +18,8 @@
                                                 <div class="d-flex justify-content-between">
                                                     <p><strong>{{ $event->title }}</strong></p>
                                                     <div><i class="icon-calendar"></i> {{ $event->start_date->toFormattedDateString() }}</div>
-                                                    @if($event->start_date > now() && $event->page)
-                                                        <div><a class="badge badge-warning" href="{{ url('evento/' . $event->id . '/' . $event->page->id ) }}" target="_blank">Ir a la web <i class="fa fa-external-link" aria-hidden="true"></i></a></div>
+                                                    @if($event->start_date > now() && $event->page && $event->page->slug)
+                                                        <div><a class="badge badge-warning" href="{{ url('evento/' . $event->page->slug ) }}" target="_blank">Ir a la web <i class="fa fa-external-link" aria-hidden="true"></i></a></div>
                                                     @endif
                                                 </div>
                                                 @if($event->flyer)

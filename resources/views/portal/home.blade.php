@@ -94,8 +94,8 @@
                                         <div class="d-flex justify-content-between">
                                             <span><strong class="h3">{{ $event->title }}</strong></span>
                                             <span><i class="fa fa-calendar" aria-hidden="true"></i> {{ $event->start_date->toFormattedDateString() }}</span>
-                                            @if($event->start_date > now() && $event->page)
-                                                <div><a class="badge badge-warning" href="{{ url('evento/' . $event->id . '/' . $event->page->id ) }}" target="_blank">Ir a la web <i class="fa fa-external-link" aria-hidden="true"></i></a></div>
+                                            @if($event->start_date > now() && $event->page && $event->page->slug)
+                                                <div><a class="badge badge-warning" href="{{ url('evento/' . $event->page->slug ) }}" target="_blank">Ir a la web <i class="fa fa-external-link" aria-hidden="true"></i></a></div>
                                             @endif
                                         </div>
                                     </div>

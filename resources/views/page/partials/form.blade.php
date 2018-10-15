@@ -16,14 +16,14 @@
         </div>
         <hr>
         <div class="form-group">
-            @if ( $page->id )
-                <a href="{{ url('evento/' . $event->id . '/' . $page->id ) }}" target="_blank" class="btn btn-light border-secondary btn-sm rounded"><i class="fa fa-external-link" aria-hidden="true"></i> Ver pagina</a>
+            @if ( $page->slug )
+                <a href="{{ url('evento/'. $page->slug ) }}" target="_blank" class="btn btn-light border-secondary btn-sm rounded"><i class="fa fa-external-link" aria-hidden="true"></i> Ver pagina</a>
             @endif
         </div>
     </div>
     <div class="col-md-12">
         <div class="card">
-            <iframe id="iframe_page" style="width: 100%;height: 100vh;pointer-events: none;" src="{{ ($page->id) ? url('evento/' . $event->id . '/' . $page->id ) : "" }}" frameborder="0"></iframe>
+            <iframe id="iframe_page" style="width: 100%;height: 100vh;pointer-events: none;" src="{{ ($page->id) ? url('evento/' . $page->slug ) : "" }}" frameborder="0"></iframe>
         </div>
     </div>
 </div>

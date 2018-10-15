@@ -22,6 +22,7 @@ class CreatePagesTable extends Migration
             $table->foreign('event_id')->references('id')->on('events');
             $table->unsignedInteger('company_id');
             $table->foreign('company_id')->references('id')->on('companies');
+            $table->string('slug')->unique()->nullable();
             $table->timestamps();
         });
     }
