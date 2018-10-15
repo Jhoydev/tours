@@ -12,7 +12,7 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
-                    <h2><strong>Referencia</strong> {{ $order->reference }}</h2>
+                    <h2><strong>Numero de orden: </strong> {{ $order->id }}</h2>
                     <hr>
                     @include('portal.order.partials.details')
                 </div>

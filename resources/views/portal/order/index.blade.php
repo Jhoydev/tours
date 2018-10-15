@@ -7,7 +7,8 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-body">
-                    <h1 class="text-center"><i class="icon-calendar"></i> {{ $event->title }}</h1>
+                    <h4 class="text-center">{{ $event->title }}</h4>
+                    <h1 class="text-center"><i class="fa fa-shopping-cart" aria-hidden="true"></i> Ordenes</h1>
                     <hr>
                     <div class="row">
                         <div class="col-12">
