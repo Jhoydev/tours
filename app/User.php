@@ -85,11 +85,6 @@ class User extends Authenticatable
         return Role::all();
     }
 
-    public static function getPermissions()
-    {
-        return Permission::all();
-    }
-
     function scopeFullName($query, $name)
     {
         if ($name) {

@@ -16,6 +16,8 @@
     <a class="nav-link" href="{{ url('evento/' . $event->page->slug ) }}" target="_blank"><i class="fa fa-globe"></i> Web</a>
 </li>
 @endif
+@can('event.edit')
 <li class="nav-item">
     <a class="nav-link" href="{{ url("events/$event->id/edit") }}"><i class="fa fa-cog"></i> Administrar</a>
 </li>
+@endcan

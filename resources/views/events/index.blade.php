@@ -2,9 +2,11 @@
 @section('content')
 @include('layouts.menssage_success')
 @push('navbar_items_right')
+@can('event.create')
 <li class="nav-item">
     <button type="button" class="btn btn-success rounded mr-5" data-toggle="modal" data-target="#createModal"><i class="fa fa-plus"></i> Crear evento </button>
 </li>
+@endcan
 @endpush
 <div class="row mt-5">
     <div class="col-12" id="render_events">

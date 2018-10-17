@@ -20,7 +20,9 @@
                         <td>{{ $event->start_date->toFormattedDateString() }}</td>
                         <td class="text-center">
                             <a href="{{ url("events/$event->id") }}" class="btn btn-sm btn-success rounded"><i class="fa fa-tachometer"></i> </a>
+                            @can('event.edit')
                             <a href="{{ url("events/$event->id/edit") }}" class="btn btn-sm btn-primary rounded"><i class="fa fa-cog"></i> </a>
+                            @endcan
                         </td>
                     </tr>
                 @endforeach

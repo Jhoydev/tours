@@ -21,10 +21,15 @@
                         <td>{{$user->email}}</td>
                         <td>{{ $user->phone }}</td>
                         <td class="text-right">
+                            @can('user.edit')
                             <a href="{{ url("user/$user->id/edit") }}" class="btn btn-primary btn-sm mb-2 rounded"><i class="fa fa-pencil"></i> Editar</a>
+                            @endcan
+                            @can('user.destroy')
                             <button type="button" class="btn btn-outline-danger btn-sm mb-2 rounded" data-toggle="modal" data-target="#deleteModal" data-user_id="{{ $user->id }}">
                                 <i class="fa fa-eraser" aria-hidden="true"></i> Eliminar
                             </button>
+                            @endcan
+
                         </td>
                     </tr>
                 @endforeach

@@ -24,9 +24,6 @@ class AppServiceProvider extends ServiceProvider
             return Hash::check($value, auth()->user()->password);
         },'Grave error');
 
-        view()->composer('layouts.form.roles', function ($view){
-            $view->with('roles', \App\User::getRoles())->with('permissions',\App\User::getPermissions());
-        });
         view()->composer('viewComposers.input_country', function ($view){
             $view->with('country', \App\Country::where('id',47)->pluck('name','id'));
         });
