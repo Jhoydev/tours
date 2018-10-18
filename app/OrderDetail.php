@@ -35,7 +35,7 @@ class OrderDetail extends Model
         return OrderDetail::with('customer')->where('event_id','=',$event_id)->groupBy('customer_id')->get();
     }
 
-    public static function addDetail(Ticket $ticket,Order $order)
+    public static function addDetail(Ticket $ticket,Order $order,$fields = [])
     {
         $order_detail = new OrderDetail();
         $order_detail->ticket_id = $ticket->id;
@@ -44,6 +44,9 @@ class OrderDetail extends Model
         $order_detail->available = 1;
         $order_detail->code = Str::uuid();
         $order_detail->price = $ticket->price;
+        if (isset($fields['complete'])){
+            $order_detail->complete = $fields['complete'];
+        }
         $order_detail->save();
     }
 

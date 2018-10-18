@@ -10,6 +10,9 @@
 |
 */
 
+Route::post('event/{event}/import-csv', 'importCsvController@importCsv');
+
+
 Auth::routes();
 Route::get('login/{key_app?}', 'Auth\LoginController@showLoginForm')->name('login');
 Route::get('/', 'HomeController@index')->name('home');

@@ -7,6 +7,7 @@ use App\EventType;
 use App\Order;
 use App\OrderDetail;
 use App\Page;
+use App\Ticket;
 use Image;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -195,7 +196,9 @@ class EventController extends Controller
 
     public function orders(Event $event)
     {
-        return view('events.orders', compact('event'));
+        $tickets = Ticket::where('event_id',$event->id)->orderBy('title', 'ASC')->pluck('title', 'id');
+        $event = Event::where('id',$event->id)->with(['orders.customer','orders.order_status'])->first();
+        return view('events.orders', compact('event','tickets','orders'));
     }
 
     public function orderDescription(Event $event)
