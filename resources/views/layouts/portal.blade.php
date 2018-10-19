@@ -71,6 +71,9 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('portal.explorer.events') }}"><i class="fa fa-calendar-o"></i> Mas Eventos</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url('portal/orders') }}"><i class="fa fa-shopping-cart"></i> Ordenes</a>
+                </li>
                 @stack('sidebar')
             </ul>
         </nav>

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Customer;
 use App\Event;
+use App\Notifications\CreateCustomer;
 use App\Order;
 use App\OrderDetail;
 use App\Ticket;
@@ -27,24 +28,28 @@ class ImportCsvController extends Controller
         $header = array_shift($rows);
         foreach ($rows as $row) {
             $row = array_combine($header, $row);
-
-            $customer = Customer::firstOrCreate(['email'=> $row['email']],[
-                "first_name" => $row['first_name'],
-                "last_name" => $row['last_name'],
-                "email" => $row['email'],
-                "document" => $row['document_number'],
-                "phone" => $row['contact_number'],
-                "workplace" => $row['workplace'],
-                "profession" => $row['profession'],
-                "password" => bcrypt('evento2018')
+            $customer = Customer::where('email',$row['email'])->first();
+            if (!$customer){
+                $customer = Customer::create([
+                    "first_name" => $row['first_name'],
+                    "last_name" => $row['last_name'],
+                    "email" => $row['email'],
+                    "document" => $row['document_number'],
+                    "phone" => $row['contact_number'],
+                    "workplace" => $row['workplace'],
+                    "profession" => $row['profession'],
+                    "password" => bcrypt('evento2018'),
+                    "created_at" => now()
                 ]);
+                $customer->notify(new CreateCustomer($customer,$row['email'],'evento2018'));
+            }
             $order = new Order();
             $order->event_id        = $event->id;
             $order->customer_id     = $customer->id;
             $order->order_status_id = 1;
             $order->reference       = Str::uuid();
             $order->save();
-            OrderDetail::addDetail($ticket,$order,['complete' => 1]);
+            OrderDetail::addDetail($ticket,$order,['complete' => 1,'customer_id' => $customer->id]);
             $ticket->decrement('quantity_available',1);
             $ticket->save();
             if ($ticket->quantity_available == 0){

@@ -45,8 +45,8 @@ class CreateCustomersTable extends Migration
             $table->foreign('country_id')->references('id')->on('countries');
 
             $table->string('zip_code')->nullable();
-            $table->string('profession')->default('');
-            $table->string('workplace')->default('');
+            $table->string('profession')->nullable();
+            $table->string('workplace')->nullable();
             $table->string('password')->default(bcrypt('evento' . date("Y")));
 
             $table->unsignedInteger('edited_by')->nullable();

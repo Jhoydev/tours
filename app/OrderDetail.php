@@ -44,8 +44,10 @@ class OrderDetail extends Model
         $order_detail->available = 1;
         $order_detail->code = Str::uuid();
         $order_detail->price = $ticket->price;
-        if (isset($fields['complete'])){
-            $order_detail->complete = $fields['complete'];
+        if (count($fields)){
+            foreach ($fields as $key => $value){
+                $order_detail->$key = $value;
+            }
         }
         $order_detail->save();
     }

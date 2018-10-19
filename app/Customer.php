@@ -14,6 +14,8 @@ use App\City;
 use App\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
+use App\Notifications\CreateCustomer;
 
 class Customer extends Authenticatable
 {
@@ -129,5 +131,4 @@ class Customer extends Authenticatable
         
         return $query;
     }
-
 }

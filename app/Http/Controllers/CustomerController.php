@@ -8,6 +8,7 @@ use App\Date;
 use App\DocumentType;
 use App\Event;
 use App\EventType;
+use App\Notifications\CreateCustomer;
 use App\Order;
 use App\OrderDetail;
 use App\Page;
@@ -57,8 +58,13 @@ class CustomerController extends Controller
      */
     public function store(CustomerRequest $request)
     {
+        $request->validate([
+            'email' => 'required|unique:customers|email'
+        ]);
         $customer = Customer::create($request->all());
-
+        if (Auth::guard('web')){
+            $customer->notify(new CreateCustomer($customer,$request->email,$request->password));
+        }
         session()->flash('message', "Asistente $customer->name creado");
         return redirect('customer');
     }
@@ -154,7 +160,6 @@ class CustomerController extends Controller
             $customer->update();
             return redirect(route('profile'));
         }
-
     }
 
     /**

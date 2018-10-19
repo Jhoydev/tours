@@ -16,6 +16,11 @@ use Illuminate\Support\Collection;
 class OrderController extends Controller
 {
 
+    public function index(Request $request)
+    {
+        $orders = Order::where('customer_id',$request->user()->id)->with(['customer','event','order_status'])->get();
+        return view('portal.orders',compact('orders'));
+    }
     public function show(Request $request)
     {
         if (Auth::guard('customer')->check()) {

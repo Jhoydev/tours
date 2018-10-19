@@ -36,6 +36,7 @@ Route::middleware(['auth:customer'])->group(function () {
     Route::get('portal/shop', 'OrderController@show')->name('shop');
     Route::post('portal/shop', 'OrderController@store')->name('shop.store');
     Route::get('portal/order/{order}/invoice', 'OrderController@invoice')->name('order.invoice');
+    Route::get('portal/orders', 'OrderController@index');
     Route::get('portal/explorer', 'EventController@index')->name('portal.explorer.events');
     Route::get('portal/history', 'CustomerController@history')->name('customer.history');
     Route::get('portal/event/{event}', 'CustomerController@event')->name('customer.event');
