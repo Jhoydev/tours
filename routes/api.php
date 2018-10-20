@@ -15,7 +15,7 @@ use Illuminate\Http\Request;
 
 Route::prefix('portal')->group(function () {
     Route::get('event/{event}/customer/{customer}/calendar', 'CustomerController@calendar');
-    Route::get('event/{event}/agenda/customer/{customer}/calendar', 'agendaController@customer');
+    Route::get('event/{event}/agenda/customer/{customer}/calendar', 'AgendaController@customer');
 });
 
 Route::get('states/{id}', 'DynamicLocationController@get_states_by_country');

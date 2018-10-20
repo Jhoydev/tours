@@ -156,6 +156,7 @@ class OrderController extends Controller
         session()->flash('message','Se han cancelado los tiquetes');
         return redirect("events/$event_id/orders");
     }
+    
     public function invoice(Request $request, Order $order)
     {
         return view('portal.order.invoice', compact('order'));

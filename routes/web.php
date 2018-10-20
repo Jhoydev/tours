@@ -55,8 +55,8 @@ Route::middleware(['auth:customer'])->group(function () {
     Route::delete('portal/ticket/{orderDetail}', 'TicketController@refuse');
     Route::post('portal/ticket/{orderDetail}', 'TicketController@resendEmail');
 
-    Route::get('portal/event/{event}/agenda', 'agendaController@index');
-    Route::get('portal/event/{event}/agenda/customer/{customer}/calendar', 'agendaController@customer');
+    Route::get('portal/event/{event}/agenda', 'AgendaController@index');
+    Route::get('portal/event/{event}/agenda/customer/{customer}/calendar', 'AgendaController@customer');
 
 });
 
