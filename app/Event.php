@@ -154,4 +154,12 @@ class Event extends Model
         return Event::orderBy('created_at', 'DESC')->take($num)->get();
     }
 
+    public function isActive()
+    {
+        if ($this->start_date < now() && $this->end_date > now()){
+            return true;
+        }
+        return false;
+    }
+
 }

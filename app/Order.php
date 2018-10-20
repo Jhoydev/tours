@@ -4,6 +4,7 @@ namespace App;
 
 use Alexo\LaravelPayU\Payable;
 use Alexo\LaravelPayU\Searchable;
+use App\Traits\DatesTranslator;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 
@@ -11,7 +12,7 @@ class Order extends Model
 {
 
     use Payable,
-        Searchable;
+        Searchable,DatesTranslator;
 
     /**
      * The attributes that are mass assignable.

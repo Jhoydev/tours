@@ -23,10 +23,12 @@
                                     </div>
                                     <hr>
                                     <div class="d-flex justify-content-center">
-                                        <a class="btn btn-primary rounded mr-3" data-toggle="tooltip" data-placement="top" title="Panel de Control" href="{{ route('customer.event',['id' => $event->id]) }}"><i class="fa fa-home" aria-hidden="true"></i></a>
-                                        @if($event->memories_url)
-                                            <a href="{{ $event->memories_url }}" target="_blank" class="btn btn-light border rounded mr-3" data-toggle="tooltip" data-placement="top" title="Descargar Memorias"><i class="fa fa-download" aria-hidden="true"></i></a>
-                                        @endif
+                                            @if ($event->isActive())
+                                                <a class="btn btn-primary rounded mr-3" data-toggle="tooltip" data-placement="top" title="Panel de Control" href="{{ route('customer.event',['id' => $event->id]) }}"><i class="fa fa-home" aria-hidden="true"></i></a>
+                                            @endif
+                                            @if($event->memories_url)
+                                                <a href="{{ $event->memories_url }}" target="_blank" class="btn btn-light border rounded mr-3" data-toggle="tooltip" data-placement="top" title="Descargar Memorias"><i class="fa fa-download" aria-hidden="true"></i></a>
+                                            @endif
                                         {{--<button class="btn btn-light border rounded mr-3" data-toggle="tooltip" data-placement="top" title="Descargar Certificado"><i class="fa fa-download" aria-hidden="true"></i></button>--}}
                                     </div>
                                 </div>

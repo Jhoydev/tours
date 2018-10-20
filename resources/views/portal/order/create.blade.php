@@ -4,7 +4,7 @@
     <div class="col-12">
         <div class="card">
             <div class="card-body">
-                <p class="text-right"><a href="{{ route('event.page',[$data['event_id'],$data['page_id']]) }}">volver a la pagina del evento</a></p>
+                <p class="text-right"><a href="{{ route('event.page',[$event->page->slug]) }}">volver a la pagina del evento</a></p>
                 <p class="h1 my-5 text-right">Detalle de Compra</p>
                 <hr>
                 <div class="row">

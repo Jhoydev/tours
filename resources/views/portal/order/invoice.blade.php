@@ -21,7 +21,7 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
-                    <p class="h3 text-right"><span class="badge badge-danger">{{ $order->order_status->name }}</span> Factura #{{ $order->reference }}</p>
+                    <p class="h3 text-right"><span class="badge badge-danger">{{ $order->order_status->name }}</span> Factura #{{ $order->id }}</p>
                     <hr>
                     <div class="row">
                         <div class="col-lg-6">
@@ -42,7 +42,7 @@
                             </ul>
                         </div>
                         <div class="col-lg-12">
-                            <p>Fecha de la factura: {{ now()->toFormattedDateString() }}</p>
+                            <p>Fecha de la factura: {{ $order->created_at->toDateTimeString() }}</p>
                         </div>
                     </div>
                     <div class="table-responsive mt-4">

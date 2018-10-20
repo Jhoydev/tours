@@ -132,7 +132,7 @@ class CustomerController extends Controller
     {
         $details = OrderDetail::where('customer_id','=',$request->user()->id)
             ->whereHas('event',function ($query){
-                $query->where('start_date','>',now());
+                $query->where('end_date','>',now());
             })
             ->groupBy('event_id')
             ->get();
@@ -169,6 +169,10 @@ class CustomerController extends Controller
      */
     public function event(Request $request,Event $event)
     {
+        if ($event->end_date < now()){
+            session()->flash('message','Este evento no esta disponible');
+            return back();
+        }
         $orders = Order::where('customer_id','=',$request->user()->id)->where('event_id','=',$event->id)->get();
         $details = OrderDetail::where('customer_id','=',$request->user()->id)->where('event_id','=',$event->id)->get();
         $details_null = OrderDetail::DetailsNull($event,$request->user());
@@ -253,7 +257,7 @@ class CustomerController extends Controller
     public function History(Request $request)
     {
         $details = OrderDetail::where('customer_id','=',$request->user()->id)->with(['event' => function ($query) {
-            $query->where('start_date','<',now());
+            $query->where('start_date','<',now())->where('end_date','<',now());
         }])->groupBy('event_id')->get();
         return view('portal.customer.history', compact('details'));
     }

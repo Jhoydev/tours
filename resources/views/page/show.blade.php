@@ -55,7 +55,7 @@
                     </div>
                     @endif
                     <p>{!! $event->description !!}</p>
-                    <p><i class="icon-calendar"></i> {{ $event->start_date->toFormattedDateString() }}</p>
+                    <p><i class="icon-calendar"></i> {{ $event->start_date->toDayDateTimeString() }}</p>
                 </div>
             </div>
         </div>

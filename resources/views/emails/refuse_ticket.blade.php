@@ -5,7 +5,7 @@
             <td>
                 <h1>Hola</h1>
                 @if ($email_to != $orderDetail->order->customer->email && $customer->email != $email_to)
-                    <p>Se ha desvinculado de tu cuenta el tiqueta con código {{ $orderDetail->code }} por el comprador del tiquete {{ ucfirst($orderDetail->order->customer->full_name) }}</p>
+                    <p>Se ha desvinculado de tu cuenta el tiqueta con ID {{ $orderDetail->id }} por el comprador del tiquete {{ ucfirst($orderDetail->order->customer->full_name) }}</p>
                 @elseif ($customer->id == $orderDetail->order->customer->id)
                     <p>Has desvinculado un tiquete para el evento {{ $orderDetail->event->title }}
                     y vuelve a estar sin asignar,

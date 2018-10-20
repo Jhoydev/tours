@@ -101,6 +101,7 @@
                                     </div>
                                     <div class="card-body row justify-content-center">
                                         <div class="col-12">
+                                            @if ($event->start_date < now())
                                             <div class="d-flex justify-content-center">
                                                 <a class="btn btn-primary rounded mr-3" data-toggle="tooltip" data-placement="top" title="Panel de Control" href="{{ route('customer.event',['id' => $event->id]) }}"><i class="fa fa-home" aria-hidden="true"></i> Panel</a>
                                                 @if($event->memories_url)
@@ -108,6 +109,7 @@
                                                 @endif
                                                 {{--<button class="btn btn-light border rounded mr-3" data-toggle="tooltip" data-placement="top" title="Descargar Certificado"><i class="fa fa-download" aria-hidden="true"></i></button>--}}
                                             </div>
+                                            @endif
                                             <hr>
                                         </div>
 

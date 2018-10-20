@@ -17,7 +17,6 @@
                                     <thead class="thead-dark">
                                     <tr>
                                         <th>#</th>
-                                        <th>Reference</th>
                                         <th class="text-center">Valor</th>
                                         <th class="text-center">Estado</th>
                                         <th></th>
@@ -27,7 +26,6 @@
                                     @foreach($orders as $order)
                                         <tr>
                                             <td>{{ $order->id }}</td>
-                                            <td>{{ $order->reference }}</td>
                                             <td class="text-right">${{ number_format($order->value,2) }}</td>
                                             <td class="text-center"><span class="badge badge-success p-1">{{ $order->order_status->name }}</span></td>
                                             <td class="text-right">
