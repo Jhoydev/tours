@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Mail;
 
-class DateController extends Controller
+class MeetingController extends Controller
 {
     /**
      * Display a listing of the resource.
