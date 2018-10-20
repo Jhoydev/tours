@@ -6,7 +6,7 @@ use App\Traits\DatesTranslator;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Carbon;
 
-class Date extends Model
+class Meeting extends Model
 {
     use DatesTranslator;
 

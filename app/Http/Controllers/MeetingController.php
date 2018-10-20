@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Customer;
-use App\Date;
+use App\Meeting;
 use App\Event;
-use App\Mail\DateNotification;
+use App\Mail\MeetingNotification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Mail;
@@ -26,7 +26,7 @@ class MeetingController extends Controller
 
     public function customer(Request $request, Event $event, Customer $customer)
     {
-        $dates = Date::where('customer_id', '=', $customer->id)
+        $dates = Meeting::where('customer_id', '=', $customer->id)
                 ->where('event_id', '=', $event->id)->where('date_status_id', '!=', '3')
                 ->orWhere(function ($query) use ($customer, $event) {
                     $query->where('contact_id', '=', $customer->id)
@@ -93,18 +93,18 @@ class MeetingController extends Controller
      */
     public function store(Request $request, Event $event)
     {
-        $date                 = New Date();
-        $date->start_date     = $request->start_date;
-        $date->customer_id    = $request->customer_id;
-        $date->contact_id     = $request->contact_id;
-        $date->message        = $request->message;
-        $date->event_id       = $event->id;
-        $date->date_status_id = 2;
-        $date->end_date       = Carbon::parse($request->start_date)->addMinute(30);
-        $date->save();
+        $meeting                    = New Meeting();
+        $meeting->start_meeting     = $request->start_meeting;
+        $meeting->customer_id       = $request->customer_id;
+        $meeting->contact_id        = $request->contact_id;
+        $meeting->message           = $request->message;
+        $meeting->event_id          = $event->id;
+        $meeting->meeting_status_id = 2;
+        $meeting->end_meeting       = Carbon::parse($request->start_meeting)->addMinute(30);
+        $meeting->save();
         session()->flash('message', 'Cita solicitada');
-        Mail::to(['email' => $date->customer->email])->send(new DateNotification($date, 'request'));
-        Mail::to(['email' => $date->contact->email])->send(new DateNotification($date, 'request'));
+        Mail::to(['email' => $meeting->customer->email])->send(new MeetingNotification($meeting, 'request'));
+        Mail::to(['email' => $meeting->contact->email])->send(new MeetingNotification($meeting, 'request'));
         return back();
     }
 
@@ -137,12 +137,12 @@ class MeetingController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Event $event, Date $date)
+    public function update(Event $event, Meeting $meeting)
     {
-        $date->date_status_id = 1;
-        $date->update();
-        Mail::to(['email' => $date->customer->email])->send(new DateNotification($date, 'accepted'));
-        Mail::to(['email' => $date->contact->email])->send(new DateNotification($date, 'accepted'));
+        $meeting->date_status_id = 1;
+        $meeting->update();
+        Mail::to(['email' => $meeting->customer->email])->send(new MeetingNotification($meeting, 'accepted'));
+        Mail::to(['email' => $meeting->contact->email])->send(new MeetingNotification($meeting, 'accepted'));
         session()->flash('message', 'Cita Aceptada');
         return back();
     }
@@ -153,12 +153,12 @@ class MeetingController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Event $event, Date $date)
+    public function destroy(Event $event, Meeting $meeting)
     {
-        $date->date_status_id = 3;
-        $date->update();
-        Mail::to(['email' => $date->customer->email])->send(new DateNotification($date, 'refuse'));
-        Mail::to(['email' => $date->contact->email])->send(new DateNotification($date, 'refuse'));
+        $meeting->date_status_id = 3;
+        $meeting->update();
+        Mail::to(['email' => $meeting->customer->email])->send(new MeetingNotification($meeting, 'refuse'));
+        Mail::to(['email' => $meeting->contact->email])->send(new MeetingNotification($meeting, 'refuse'));
 
         session()->flash('message', 'Cita Cancelada');
         return back();

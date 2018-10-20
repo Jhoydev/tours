@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Company;
 use App\Customer;
-use App\Date;
+use App\Meeting;
 use App\DocumentType;
 use App\Event;
 use App\EventType;
@@ -207,7 +207,7 @@ class CustomerController extends Controller
 
     public function Calendar(Event $event, Customer $customer)
     {
-        $dates = Date::where('customer_id','=',$customer->id)
+        $dates = Meeting::where('customer_id','=',$customer->id)
             ->where('event_id','=',$event->id)->where('date_status_id','!=','3')
             ->orWhere(function ($query) use ($customer,$event){
                 $query->where('contact_id','=',$customer->id)
