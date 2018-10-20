@@ -2,25 +2,25 @@
 
 namespace App\Mail;
 
-use App\Date;
+use App\Meeting;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class DateNotification extends Mailable
+class MeetingNotification extends Mailable
 {
     use Queueable, SerializesModels;
-    public  $date;
+    public  $meeting;
     public  $notificationType;
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct(Date $date,$notificationType)
+    public function __construct(Meeting $meeting,$notificationType)
     {
-        $this->date = $date;
+        $this->meeting = $meeting;
         $this->notificationType = $notificationType;
     }
 
@@ -32,8 +32,8 @@ class DateNotification extends Mailable
     public function build()
     {
         if ($this->notificationType == "request"){
-            return $this->view('emails.date.request');
+            return $this->view('emails.meeting.request');
         }
-        return $this->view('emails.date_notification');
+        return $this->view('emails.meeting_notification');
     }
 }

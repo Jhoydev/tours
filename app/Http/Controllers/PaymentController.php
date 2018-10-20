@@ -3,7 +3,12 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Collection;
 use App\MyLaravelPayU;
+use App\Event;
+use App\OrderDetail;
+use App\Ticket;
 use App\Order;
 
 class PaymentController extends Controller
@@ -60,8 +65,9 @@ class PaymentController extends Controller
         return true;
     }
 
-    public function confirmationAPIPayU(Request $request, Order $order_id)
+    public function confirmationAPIPayU(Request $request, $order_id)
     {
+        Log::debug('PayU API.');
         $order = Order::find($order_id);
 
         if ($request->isMethod('post')) {
@@ -71,17 +77,22 @@ class PaymentController extends Controller
 
             switch ($confirmation_data['state_pol']) {
                 case "4":
-                    $order->status_id = 1;
+                    $order->order_status_id = 1;
                     break;
 
                 case "5":
                 case "6":
                 case "7":
-                    $order->status_id = 3;
+                    $order->order_status_id = 3;
                     break;
 
                 default:
                     break;
+            }
+
+            foreach ($order->orderDetails as $order_detail) {
+                $order_detail->complete = false;
+                $order_detail->update();
             }
 
             $order->save();

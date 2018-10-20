@@ -10,7 +10,7 @@
 |
 */
 
-Route::post('event/{event}/import-csv', 'importCsvController@importCsv');
+Route::post('event/{event}/import-csv', 'ImportCsvController@importCsv');
 
 
 Auth::routes();
@@ -47,16 +47,16 @@ Route::middleware(['auth:customer'])->group(function () {
     Route::get('portal/customer/change-password', 'CustomerController@changePassword')->name('customer.changepassword');
     Route::put('portal/customer/update-password', 'CustomerController@updatePassword')->name('customer.update.password');
     Route::put('portal/profile/{customer}', 'CustomerController@update')->name('profile.update');
-    Route::put('portal/event/{event}/date/{date}', 'DateController@update');
-    Route::post('portal/event/{event}/date', 'DateController@store');
-    Route::delete('portal/event/{event}/date/{date}', 'DateController@destroy');
+    Route::put('portal/event/{event}/date/{date}', 'MeetingController@update');
+    Route::post('portal/event/{event}/date', 'MeetingController@store');
+    Route::delete('portal/event/{event}/date/{date}', 'MeetingController@destroy');
     Route::post('portal/events/order/assign-ticket/{orderDetail}', 'TicketController@assignToCustomer');
     Route::post('portal/asiggn-by-token', 'TicketController@asiggnByToken');
     Route::delete('portal/ticket/{orderDetail}', 'TicketController@refuse');
     Route::post('portal/ticket/{orderDetail}', 'TicketController@resendEmail');
 
-    Route::get('portal/event/{event}/agenda', 'agendaController@index');
-    Route::get('portal/event/{event}/agenda/customer/{customer}/calendar', 'agendaController@customer');
+    Route::get('portal/event/{event}/agenda', 'MeetingController@index');
+    Route::get('portal/event/{event}/agenda/customer/{customer}/calendar', 'MeetingController@customer');
 
 });
 
@@ -92,13 +92,13 @@ Route::middleware('auth:web')->group(function () {
     Route::resource('customer', 'CustomerController');
 
     Route::prefix('user')->group(function () {
-        Route::get('permissions', 'userController@getPermissionsAndRoles');
-        Route::get('avatar/{company}/{id}', 'userController@getImageAvatar')->name('avatar.id');
+        Route::get('permissions', 'UserController@getPermissionsAndRoles');
+        Route::get('avatar/{company}/{id}', 'UserController@getImageAvatar')->name('avatar.id');
     });
     Route::resource('user','UserController');
 
     Route::resource('role','RoleController');
-    Route::delete('order/{order}','orderController@destroy');
+    Route::delete('order/{order}','OrderController@destroy');
     Route::get('role/{role}/permissions','RoleController@permissions');
 });
 
