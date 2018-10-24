@@ -1,10 +1,10 @@
 <div class="card rounded">
     <div class="card-body">
-        <h1 class="text-center">Usuarios</h1>
+        <p class="display-4 text-center">Usuarios</p>
         <hr>
         <div class="table-responsive">
-            <table id="table_datatable" class="table">
-                <thead class="thead-dark">
+            <table id="table_datatable" class="table dataTable fade">
+                <thead class="bg-primary text-white">
                 <tr>
                     <th></th>
                     <th>Nombre</th>
@@ -22,11 +22,11 @@
                         <td>{{ $user->phone }}</td>
                         <td class="text-right">
                             @can('user.edit')
-                            <a href="{{ url("user/$user->id/edit") }}" class="btn btn-primary btn-sm mb-2 rounded"><i class="fa fa-pencil"></i> Editar</a>
+                            <a href="{{ url("user/$user->id/edit") }}" class="btn btn-outline-info mb-2"><i class="fa fa-pencil-alt"></i></a>
                             @endcan
                             @can('user.destroy')
-                            <button type="button" class="btn btn-outline-danger btn-sm mb-2 rounded" data-toggle="modal" data-target="#deleteModal" data-user_id="{{ $user->id }}">
-                                <i class="fa fa-eraser" aria-hidden="true"></i> Eliminar
+                            <button type="button" class="btn btn-outline-danger mb-2" data-toggle="modal" data-target="#deleteModal" data-user_id="{{ $user->id }}">
+                                <i class="fa fa-eraser" aria-hidden="true"></i>
                             </button>
                             @endcan
 

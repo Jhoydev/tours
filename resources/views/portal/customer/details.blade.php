@@ -4,7 +4,7 @@
     @include('portal.event.sidebar')
     @endpush
     @include('layouts.menssage_success')
-    <div class="row mt-5">
+    <div class="row">
         <div class="col-12">
             <div class="card">
                 <div class="card-body">

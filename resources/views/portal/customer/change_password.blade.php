@@ -9,7 +9,7 @@
             </ul>
         </div>
     @endif
-    <div class="row mt-5 d-flex justify-content-center">
+    <div class="row d-flex justify-content-center">
         <div class="col-lg-6">
             <div class="card">
                 <div class="card-body">

@@ -3,6 +3,7 @@
 /public/images
 /public/fonts
 /public/storage
+/public/template/*
 /public/flag-icon-css
 /public/font-awesome
 /public/simple-line-icons

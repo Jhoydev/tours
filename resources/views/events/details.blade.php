@@ -1,10 +1,10 @@
-@extends('layouts.main')
+@extends('layouts.template.melody')
 @section('content')
     @include('layouts.menssage_success')
     @push('sidebar')
         @include('events.sidebar')
     @endpush
-    <div class="row mt-5">
+    <div class="row">
         <div class="col-12">
             <div class="card rounded">
                 <div class="card-body">

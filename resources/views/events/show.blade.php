@@ -1,13 +1,14 @@
-@extends('layouts.main')
-    @push('sidebar')
-        @include('events.sidebar')
-    @endpush
-    @section('content')
+@extends('layouts.template.melody')
+@section('content')
     @if (session('message'))
         <div class="alert alert-success">
             {{ session('message') }}
         </div>
     @endif
+    @push('sidebar')
+    @include('events.sidebar')
+    @endpush
+
     <div class="row pt-5">
         <div class="col-md-auto">
             <div class="card">

@@ -3,7 +3,7 @@
     @push('sidebar')
     @include('portal.event.sidebar')
     @endpush
-    <div class="row mt-5 d-flex justify-content-center">
+    <div class="row d-flex justify-content-center">
         <div class="col-md-12">
             <div class="card">
                 <div class="card-body">

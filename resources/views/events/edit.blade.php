@@ -1,4 +1,4 @@
-@extends('layouts.main')
+@extends('layouts.template.melody')
 @push('sidebar')
     @include('events.sidebar')
 @endpush

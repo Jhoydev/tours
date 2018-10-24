@@ -6,6 +6,5 @@
             @include('events.partials.general')
             {!! Form::close() !!}
         </div>
-        </div>
     </div>
 @endsection

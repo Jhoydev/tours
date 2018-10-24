@@ -1,14 +1,14 @@
-@extends('layouts.main')
+@extends('layouts.template.melody')
 @section('content')
 @include('layouts.menssage_success')
-@push('navbar_items_right')
 @can('event.create')
-<li class="nav-item">
-    <button type="button" class="btn btn-success rounded mr-5" data-toggle="modal" data-target="#createModal"><i class="fa fa-plus"></i> Crear evento </button>
-</li>
+    <div class="row mb-3">
+        <div class="col-12 text-right">
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#createModal"><i class="fa fa-plus"></i> Crear evento </button>
+        </div>
+    </div>
 @endcan
-@endpush
-<div class="row mt-5">
+<div class="row">
     <div class="col-12" id="render_events">
         @include('events.partials.events')
     </div>

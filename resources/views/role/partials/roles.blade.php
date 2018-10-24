@@ -1,9 +1,9 @@
 <div class="card">
     <div class="card-body">
-        <p class="h1 text-center">Roles</p>
+        <p class="display-4 text-center">Roles</p>
         <hr>
         <table id="table_datatable" class="table">
-            <thead class="thead-dark">
+            <thead class="bg-primary text-white">
             <tr>
                 <th>Nombre</th>
                 <th>Descripción</th>

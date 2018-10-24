@@ -1,14 +1,14 @@
-@extends('layouts.main')
+@extends('layouts.template.melody')
 @section('content')
 @include('layouts.menssage_success')
-@push('navbar_items_right')
 @can('user.create')
-<li class="nav-item">
-    <a class="btn btn-success rounded mr-5" href="{{ url('user/create') }}"><i class="fa fa-plus"></i> Nuevo usuario</a>
-</li>
+    <div class="row mb-3">
+        <div class="col-12 text-right">
+            <a class="btn btn-primary" href="{{ url('user/create') }}"><i class="fa fa-plus"></i> Nuevo usuario</a>
+        </div>
+    </div>
 @endcan
-@endpush
-<div class="row mt-5">
+<div class="row">
     <div class="col-12" id="render_users">
         @include('user.partials.users')
     </div>

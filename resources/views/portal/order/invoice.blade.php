@@ -1,6 +1,6 @@
 @extends('layouts.portal')
 @section('content')
-    <div class="row mt-5">
+    <div class="row">
         @if ($order->event->post_order_display_message)
         <div class="col-12 mb-3">
             <div class="alert alert-info" role="alert">

@@ -1,4 +1,4 @@
-@extends('layouts.main')
+@extends('layouts.template.melody')
 
 @section('link')
 <style>
@@ -9,14 +9,12 @@
 @endsection
 
 @section('content')
-@push('navbar_items_right')
-<li class="nav-item">
-    <a href="{{ url('user') }}" class="btn btn-light rounded mr-1"><i class="fa fa-ban"></i> Cancelar</a>
-</li>
-<li class="nav-item">    
-    <a href="#" class="btn btn-success rounded mr-5 submit_form_button">{!! $method == 'PUT' ? '<i class="fa fa-refresh"></i> Actualizar' : '<i class="fa fa-plus"></i> Crear' !!}</a>
-</li>
-@endpush
+<div class="row">
+    <div class="col-12 text-right">
+        <a href="{{ url('user') }}" class="btn btn-light border"><i class="fa fa-ban"></i> Cancelar</a>
+        <a href="#" class="btn btn-primary submit_form_button">{!! $method == 'PUT' ? '<i class="fa fa-sync-alt"></i> Actualizar' : '<i class="fa fa-plus"></i> Crear' !!}</a>
+    </div>
+</div>
 {!! Form::open(['url' => $url_form,'method' => $method,'enctype'=>'multipart/form-data', 'id' =>'submit_form']) !!}
 @csrf
 <div class="row mt-2 justify-content-center mb-5"  id="user" v-cloak>
@@ -57,7 +55,7 @@
                 <div class="col-12">
                     <div class="row">
                         <div class="col-md-8">
-                            <h2>{{ $title }}</h2>
+                            <p class="display-5">{!! $title !!}</p>
                         </div>
                     </div>
                 </div>
@@ -185,14 +183,13 @@
             </div>
         </div>
     </div>
-    <div class="col-md-12">
+    <div class="col-md-12 mt-3">
         <div class="card">
             <div class="card-body">
                 @include('user.form.roles')
             </div>
         </div>
     </div>
-</div>
 </div>
 {!! Form::close() !!}
 @endsection

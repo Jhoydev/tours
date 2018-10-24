@@ -1,9 +1,9 @@
-@extends('layouts.main')
+@extends('layouts.template.melody')
 @push('sidebar')
 @include('events.sidebar')
 @endpush
 @section('content')
-    <div class="row mt-5 justify-content-center">
+    <div class="row justify-content-center">
         <div class="col-6">
             <div class="card">
                 <div class="card-body">

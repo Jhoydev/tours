@@ -1,9 +1,9 @@
-@extends('layouts.main')
+@extends('layouts.template.melody')
 @push('sidebar')
     @include('events.sidebar')
 @endpush
 @section('content')
-    <div class="row mt-5">
+    <div class="row">
         <div class="col-12 mb-3 text-right">
             <a class="btn btn-success rounded" href="{{ url("events/$event->id/courtesy/create") }}"><i class="fa fa-plus" aria-hidden="true"></i> Crear Tiquete de Cortesía</a>
         </div>

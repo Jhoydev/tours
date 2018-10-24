@@ -1,4 +1,4 @@
-@extends('layouts.main')
+@extends('layouts.template.melody')
 @push('sidebar')
     @include('events.sidebar')
 @endpush
@@ -8,7 +8,7 @@
         <button class="btn btn-success rounded mr-5" data-toggle="modal" data-target="#modal_ticket" data-url_post="{{ url("events/$event->id/tickets") }}"><i class="fa fa-plus"></i> Nuevo Ticket</button>
     </li>
 @endpush
-<div class="row mt-5" id="tickets">
+<div class="row" id="tickets">
     <div class="col-12">
         <div class="row">
             <div class="col-md-12">

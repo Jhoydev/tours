@@ -1,10 +1,10 @@
-@extends('layouts.main')
+@extends('layouts.template.melody')
 @section('content')
 @include('layouts.menssage_success')
 @push('sidebar')
     @include('events.sidebar')
 @endpush
-<div class="row mt-5">
+<div class="row">
     <div class="col-12">
         <div class="card">
             <div class="card-body">
@@ -37,7 +37,7 @@
                                     <td class="td-attended text-center"><button onclick="orderDetailAttended({{ $detail->id }})" class="btn btn-success border rounded btn-sm" data-toggle="tooltip" data-placement="top" title="Marcar asistencia"><i class="fa fa-check" aria-hidden="true"></i></button></td>
                                 @endif
                                 <td class="text-right">
-                                    <div class="dropdown open">
+                            {{--        <div class="dropdown open">
                                         <button class="btn btn-light border rounded btn-sm dropdown-toggle" type="button" id="triggerId"
                                                 data-toggle="dropdown" aria-haspopup="true"
                                                 aria-expanded="false">
@@ -48,7 +48,7 @@
                                             <button class="dropdown-item" href="#">Action</button>
                                             <button class="dropdown-item" href="#">Action</button>
                                         </div>
-                                    </div>
+                                    </div>--}}
                                 </td>
                             </tr>
                         @endforeach

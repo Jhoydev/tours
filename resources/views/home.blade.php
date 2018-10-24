@@ -1,4 +1,4 @@
-@extends('layouts.main')
+@extends('layouts.template.melody')
 
 @section('content')
     @if ($errors->any())

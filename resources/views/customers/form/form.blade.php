@@ -1,4 +1,4 @@
-@extends('layouts.main')
+@extends('layouts.template.melody')
 @section('link')
 <style>
     [v-cloak] {
@@ -15,7 +15,7 @@
     <a href="#" class="btn btn-success rounded mr-5 submit_form_button">{!! $method == 'PUT' ? '<i class="fa fa-refresh"></i> Actualizar' : '<i class="fa fa-plus"></i> Crear' !!}</a>
 </li>
 @endpush
-<div class="row mt-5 justify-content-center mb-5">
+<div class="row justify-content-center mb-5">
     <div class="col-md-10">
         <div class="card">
             <div class="card-body">

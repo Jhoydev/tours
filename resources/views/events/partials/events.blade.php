@@ -1,10 +1,10 @@
 <div class="card rounded">
     <div class="card-body">
-        <h1 class="text-center">Eventos</h1>
+        <p class="display-4 text-center">Eventos</p>
         <hr>
         <div class="table-responsive">
-            <table id="table_datatable" class="table">
-                <thead class="thead-dark">
+            <table id="order-listing" class="table">
+                <thead class="bg-primary text-white">
                 <tr>
                     <th>Evento</th>
                     <th>Lugar</th>
@@ -18,8 +18,8 @@
                         <td>{{ $event->title }}</td>
                         <td>{{ $event->address }}</td>
                         <td>{{ $event->start_date->toFormattedDateString() }}</td>
-                        <td class="text-center">
-                            <a href="{{ url("events/$event->id") }}" class="btn btn-sm btn-success rounded"><i class="fa fa-tachometer"></i> </a>
+                        <td class="text-right">
+                            <a href="{{ url("events/$event->id") }}" class="btn btn-sm btn-success rounded"><i class="fas fa-sign-in-alt"></i> </a>
                             @can('event.edit')
                             <a href="{{ url("events/$event->id/edit") }}" class="btn btn-sm btn-primary rounded"><i class="fa fa-cog"></i> </a>
                             @endcan
@@ -72,5 +72,6 @@
     </div>
 </div>
 @push('scripts')
+<script src="/template/js/data-table.js"></script>
     @include('layouts.js.datatable')
 @endpush

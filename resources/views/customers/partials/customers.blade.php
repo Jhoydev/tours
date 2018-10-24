@@ -1,9 +1,9 @@
 <div class="card">
     <div class="card-body">
-        <p class="h1 text-center">Clientes</p>
+        <p class="display-4 text-center">Clientes</p>
         <hr>
-        <table id="table_datatable" class="table">
-            <thead class="thead-dark">
+        <table id="table_datatable" class="table dataTable">
+            <thead class="bg-primary text-white">
             <tr>
                 <th>Nombre</th>
                 <th>Correo Electrónico</th>
