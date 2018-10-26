@@ -8,13 +8,13 @@
     <div class="col-12">
         <div class="card">
             <div class="card-body">
-                <p class="h4 text-center">{{ $event->title }}</p>
-                <p class="h1 text-center"><i class="fa fa-users" aria-hidden="true"></i> Asistentes</p>
+                <p class="display-5 text-center">{{ $event->title }}</p>
+                <p class="display-3 font-weight-bold text-center"><i class="fa fa-users" aria-hidden="true"></i> Asistentes</p>
                 <hr>
                 <div class="table-responsive">
                     <input type="hidden" id="url_attended" value="{{ url("api/event/$event->id/order-detail") }}">
-                    <table id="table_datatable" class="table">
-                        <thead class="thead-dark">
+                    <table id="table_datatable" class="table fade table-hover">
+                        <thead class="bg-primary text-white">
                         <tr>
                             <th>Nº Tiquete</th>
                             <th>Nombre</th>

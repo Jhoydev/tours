@@ -8,8 +8,8 @@
         <div class="col-12">
             <div class="card rounded">
                 <div class="card-body">
-                    <p class="h4 text-center">{{ $event->title }}</p>
-                    <p class="h1 text-center"><i class="fa fa-shopping-cart" aria-hidden="true"></i> Detalles de Orden</p>
+                    <p class="display-5 text-center">{{ $event->title }}</p>
+                    <p class="display-3 font-weight-bold text-center"><i class="fa fa-shopping-cart" aria-hidden="true"></i> Detalles de Orden</p>
                     <hr>
                     <div class="row">
                         <div class="col-12 text-right mb-3">
@@ -18,8 +18,8 @@
                             {!! Form::close() !!}
                         </div>
                     </div>
-                    <table id="table_datatable" class="table">
-                    <thead class="thead-dark">
+                    <table id="table_datatable" class="table fade table-hover">
+                    <thead class="bg-primary text-white">
                         <tr>
                             <th>#</th>
                             <th>Tiquete</th>

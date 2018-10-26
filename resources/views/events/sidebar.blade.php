@@ -20,16 +20,17 @@
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('event.orders',['id' => $event->id]) }}"><i class="fa fa-shopping-cart menu-icon"></i><span class="menu-title">Ordenes</span></a>
             </li>
-            @if ( $event->page && $event->page->slug)
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ url('evento/' . $event->page->slug ) }}" target="_blank"><i class="fa fa-globe menu-icon"></i><span class="menu-title">Web</span></a>
-                </li>
-            @endif
             @can('event.edit')
                 <li class="nav-item">
                     <a class="nav-link" href="{{ url("events/$event->id/edit") }}"><i class="fa fa-cog menu-icon"></i><span class="menu-title">Administrar</span></a>
                 </li>
             @endcan
+
+            @if ( $event->page && $event->page->slug)
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url('evento/' . $event->page->slug ) }}" target="_blank"><i class="fa fa-globe menu-icon"></i><span class="menu-title text-info">Web</span></a>
+                </li>
+            @endif
         </ul>
     </div>
 </li>

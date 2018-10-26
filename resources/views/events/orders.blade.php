@@ -9,14 +9,14 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
-                    <p class="h4 text-center">{{ $event->title }}</p>
-                    <p class="h1 text-center"><i class="fa fa-shopping-cart" aria-hidden="true"></i> Ordenes</p>
+                    <p class="display-5 text-center">{{ $event->title }}</p>
+                    <p class="display-3 font-weight-bold text-center"><i class="fa fa-shopping-cart" aria-hidden="true"></i> Ordenes</p>
                     <hr>
                     @if(count($tickets))
                     <div class="row mb-2">
                         <div class="col-lg-12 text-right">
                             <!-- Button trigger modal -->
-                            <button type="button" class="btn btn-outline-primary rounded" data-toggle="modal"
+                            <button type="button" class="btn btn-outline-info rounded" data-toggle="modal"
                                     data-target="#modelImportar">
                                 <i class="fa fa-download" aria-hidden="true"></i> Importar
                             </button>
@@ -36,8 +36,8 @@
                     </div>
                     @endif
                     <input type="hidden" id="url_order_confirm" value="{{ url("api/event/$event->id/order") }}">
-                    <table id="table_datatable" class="table fade">
-                        <thead class="thead-dark">
+                    <table id="table_datatable" class="table fade table-hover">
+                        <thead class="bg-primary text-white">
                         <tr class="text-center">
                             <th>#</th>
                             <th>Nombre</th>
@@ -55,17 +55,17 @@
                                 <td>{{ $order->customer->full_name }}</td>
                                 <td>{{ $order->customer->email }}</td>
                                 <td class="text-right">${{ number_format($order->price,2) }}</td>
-                                <td class="text-center"><span class="badge badge-info text-white">{{ ($order->transaction_id) ? 'online' : 'En efectivo' }}</span></td>
+                                <td class="text-center"><span class="text-info font-weight-bold">{{ ($order->transaction_id) ? 'online' : 'En efectivo' }}</span></td>
                                 <td class="text-center td-status">
                                     @if($order->order_status_id == 2)
                                     <button class="btn btn-warning text-white btn-sm rounded" onclick="confirmOrder({{ $order->id }})">
                                         <i class="fa fa-clock-o" aria-hidden="true"></i>
                                         {{ $order->order_status->name }}</button>
                                     @else
-                                    <span class="badge badge-success">{{ $order->order_status->name }}</span>
+                                    <span class="text-success font-weight-bold">{{ $order->order_status->name }}</span>
                                     @endif
                                 </td>
-                                <td class="text-right"><a class="btn btn-sm btn-success rounded" href="{{ route('event.orders.details',['event' => $event->id,'order' => $order->id]) }}"><i class="fa fa-sign-in" aria-hidden="true"></i> ver</a></td>
+                                <td class="text-right"><a class="" href="{{ route('event.orders.details',['event' => $event->id,'order' => $order->id]) }}"><i class="fa fa-sign-in-alt" aria-hidden="true"></i> ver</a></td>
                             </tr>
                         @endforeach
                         </tbody>

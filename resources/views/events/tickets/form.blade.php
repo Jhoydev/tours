@@ -60,7 +60,7 @@
 </div>
 <div class="form-row">
     <div class="col-12 form-group text-right">
-        <button  type="button" class="btn btn-outline-secondary btn-sm rounded mr-3" onclick="toggleFormTicket()" data-dismiss="modal"><i class="fa fa-ban"></i> Cancelar</button>
-        <button type="submit" class="btn btn-success btn-sm rounded"><i class="fa fa-plus"></i> Crear</button>
+        <button  type="button" class="btn btn-light btn-sm mr-3" onclick="toggleFormTicket()" data-dismiss="modal"><i class="fa fa-ban"></i> Cancelar</button>
+        <button type="submit" class="btn btn-primary btn-sm"><i class="fa fa-plus"></i> Crear</button>
     </div>
 </div>

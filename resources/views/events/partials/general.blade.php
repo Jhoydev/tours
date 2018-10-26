@@ -57,7 +57,7 @@
         <label for="delete_flyer">¿Eliminar flyer?</label>
     </div>
     <div class="form-group col-md-12 text-right">
-        <button type="submit" class="btn btn-sm btn-success rounded"><i class="fa fa-save"></i> Guardar</button>
+        <button type="submit" class="btn btn-sm btn-primary"><i class="fa fa-save"></i> Guardar</button>
     </div>
 </div>
 

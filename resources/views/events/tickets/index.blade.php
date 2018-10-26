@@ -3,19 +3,19 @@
     @include('events.sidebar')
 @endpush
 @section('content')
-@push('navbar_items_right')
-    <li class="nav-item">
-        <button class="btn btn-success rounded mr-5" data-toggle="modal" data-target="#modal_ticket" data-url_post="{{ url("events/$event->id/tickets") }}"><i class="fa fa-plus"></i> Nuevo Ticket</button>
-    </li>
-@endpush
+<div class="row">
+    <div class="col-12 text-right">
+        <button class="btn btn-primary mb-3" data-toggle="modal" data-target="#modal_ticket" data-url_post="{{ url("events/$event->id/tickets") }}"><i class="fa fa-plus"></i> Nuevo Ticket</button>
+    </div>
+</div>
 <div class="row" id="tickets">
     <div class="col-12">
         <div class="row">
             <div class="col-md-12">
                 <div class="card rounded">
                     <div class="card-body">
-                        <h4 class="text-center">{{ $event->title }}</h4>
-                        <h1 class="text-center"><i class="fa fa-ticket" aria-hidden="true"></i> Tiquetes</h1>
+                        <p class="display-5  text-center">{{ $event->title }}</p>
+                        <p class="display-3 font-weight-bold text-center"><i class="fa fa-ticket-alt" aria-hidden="true"></i> Tiquetes</p>
                         <hr>
                         <div class="row justify-content-center">
                             @if (count($event->tickets))
@@ -39,7 +39,7 @@
                                                     @if ($ticket->type != 'simple')
                                                     <a class="btn btn-success btn-sm rounded" href="{{ url("events/$event->id/tickets/$ticket->id/send-tickets") }}"><i class="fa fa-plus" aria-hidden="true"></i> Enviar Tiquete</a>
                                                     @endif
-                                                    <button type="button" class="btn btn-sm btn-primary rounded" data-toggle="modal" data-target="#modal_ticket" data-url="{{ url("events/$event->id/tickets/$ticket->id/edit") }}"><i class="fa fa-pencil"></i> Editar</button>
+                                                    <button type="button" class="btn btn-sm btn-primary rounded" data-toggle="modal" data-target="#modal_ticket" data-url="{{ url("events/$event->id/tickets/$ticket->id/edit") }}"><i class="fa fa-pencil-alt"></i> Editar</button>
                                                     <button class="btn btn-sm btn btn-outline-danger rounded" data-toggle="modal" data-target="#deleteModal" data-ticket_id="{{ url("events/$event->id/tickets/$ticket->id") }}"><i class="fa fa-eraser"></i> Eliminar</button>
                                                 </div>
                                             </div>
@@ -49,7 +49,7 @@
                                 <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="modal_delete_ticket" aria-hidden="true">
                                     <div class="modal-dialog" role="document">
                                         <div class="modal-content">
-                                            <div class="modal-header">
+                                            <div class="modal-header bg-primary text-white">
                                                 <h5 class="modal-title" id="exampleModalLabel">Eliminar Tiquete</h5>
                                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                     <span aria-hidden="true">&times;</span>
@@ -59,9 +59,9 @@
                                                 <i class="fa fa-warning text-warning"></i> Esta seguro de eliminar este tiquete
                                             </div>
                                             <div class="modal-footer">
-                                                <button type="button" class="btn btn-outline-secondary btn-sm rounded" data-dismiss="modal">Cancelar</button>
+                                                <button type="button" class="btn btn-light btn-sm" data-dismiss="modal">Cancelar</button>
                                                 {!! Form::open([ 'id' => 'form_delete' ,'url' => '','method' => 'DELETE','class' => 'd-inline-block']) !!}
-                                                {!! Form::submit('Eliminar',['class' => 'btn btn-danger btn-sm rounded'])  !!}
+                                                {!! Form::submit('Eliminar',['class' => 'btn btn-danger btn-sm'])  !!}
                                                 {!! Form::close() !!}
                                             </div>
                                         </div>
@@ -82,8 +82,8 @@
         <div class="modal fade"  id="modal_ticket" tabindex="-1" role="dialog" aria-labelledby="modal_ticket" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
-                    <div class="modal-header">
-                        <span class="modal-title h5">Nuevo Tiquete</span>
+                    <div class="modal-header bg-primary text-white">
+                        <span class="modal-title h5"><i class="fa fa-ticket-alt" aria-hidden="true"></i> Nuevo Tiquete</span>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>

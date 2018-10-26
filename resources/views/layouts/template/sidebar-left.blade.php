@@ -3,7 +3,7 @@
         <li class="nav-item nav-profile">
             <div class="nav-link">
                 <div class="profile-image">
-                    <img src="http://via.placeholder.com/40x40" alt="image"/>
+                    <img src="{{ url("user/avatar/".Auth::user()->company_id."/".Auth::user()->id) }}" alt="image"/>
                 </div>
                 <div class="profile-name">
                     <p class="name">
