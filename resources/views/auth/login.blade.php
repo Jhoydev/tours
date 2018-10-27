@@ -1,86 +1,85 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="csrf-token" content="{{ csrf_token() }}">
-
-    <link rel="shortcut icon" href="img/favicon.png">
-    <title>{{ config('app.name', 'Laravel') }}</title>
-
-    <!-- Fonts -->
-    <link rel="dns-prefetch" href="https://fonts.gstatic.com">
-    <!-- Icons -->
-    <link rel="stylesheet" href="{{ mix('css/main.css') }}">
-
-    <!-- Main styles for this application -->
-    <link href="/css/style.css" rel="stylesheet">
-    <!-- Styles required by this views -->
-
+    @include('layouts.template.head')
 </head>
-
 <body class="app flex-row align-items-center">
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-6">
-            <div class="card-group">
-                <div class="card p-4">
-                    <div class="card-body">
-                        <div class="card-img text-center">
-                            <img style="height: 60px" src="{{ asset('img/logo-dark.png') }}" alt="">
+<div class="container-scroller">
+    <div class="container-fluid page-body-wrapper full-page-wrapper">
+        <div class="content-wrapper d-flex align-items-stretch auth auth-img-bg">
+            <div class="row flex-grow">
+                <div class="col-lg-6 d-flex align-items-center justify-content-center">
+                    <div class="auth-form-transparent text-left p-3">
+                        <div class="brand-logo">
+                            <img src="{{ asset('img/logo-insignia-agencia.png') }}" alt="logo">
                         </div>
-                        <h3 class="text-center mt-3">Iniciar Sesión</h3>
-                        <form method="POST" action="{{ route('login') }}">
+                        <h4>Bienvenido!</h4>
+                        <form method="POST" class="pt-3" action="{{ route('login') }}">
                             @csrf
-                            <div class="input-group mb-3">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text"><i class="icon-user"></i></span>
-                                </div>
-                                <input id="email" type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}" placeholder="Correo Electrónico" required autofocus>
-                                @if ($errors->has('email'))
-                                    <span class="invalid-feedback">
+                            <div class="form-group">
+                                <label for="email">Correo Electrónico</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend bg-transparent">
+                                        <span class="input-group-text bg-transparent border-right-0">
+                                            <i class="fa fa-user text-primary"></i>
+                                        </span>
+                                    </div>
+                                    <input type="email" class="form-control form-control-lg border-left-0" name="email" id="email" placeholder="">
+                                    @if ($errors->has('email'))
+                                        <span class="invalid-feedback">
                                         <strong>{{ $errors->first('email') }}</strong>
                                     </span>
-                                @endif
-                            </div>
-
-                            <div class="input-group mb-4">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text"><i class="icon-lock"></i></span>
+                                    @endif
                                 </div>
-                                <input id="password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" placeholder="Contraseña" name="password" required>
-                                @if ($errors->has('password'))
-                                    <span class="invalid-feedback">
+                            </div>
+                            <div class="form-group">
+                                <label for="password">Contraseña</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend bg-transparent">
+                                        <span class="input-group-text bg-transparent border-right-0">
+                                        <i class="fa fa-lock text-primary"></i>
+                                        </span>
+                                    </div>
+                                    <input type="password" class="form-control form-control-lg border-left-0" name="password" id="password" placeholder="">
+                                    @if ($errors->has('password'))
+                                        <span class="invalid-feedback">
                                         <strong>{{ $errors->first('password') }}</strong>
                                     </span>
-                                @endif
-                            </div>
-                            <div class="row">
-                                <div class="col-lg-12 d-flex justify-content-center">
-                                    <button type="submit" class="btn btn-primary rounded px-4">{{ __('Ingresar') }}</button>
+                                    @endif
                                 </div>
-                                {{--<div class="col-lg-6 d-flex justify-content-center">
-                                    <a class="btn btn-link" href="{{ route('password.request') }}">
-                                        {{ __('Olvidaste tu Contraseña?') }}
-                                    </a>
-                                </div>--}}
                             </div>
+                            {{--<div class="my-2 d-flex justify-content-between align-items-center">
+                                <div class="form-check">
+                                    <label class="form-check-label text-muted">
+                                        <input type="checkbox" class="form-check-input">
+                                        Keep me signed in
+                                    </label>
+                                </div>
+                                <a href="#" class="auth-link text-black">Forgot password?</a>
+                            </div>--}}
+                            <div class="my-3">
+                                <button class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn pb-5"  type="submit"><i class="fa fa-sign-in-alt" aria-hidden="true"></i> {{ __('Ingresar') }}</button>
+                            </div>
+                            {{--<div class="mb-2 d-flex">
+                                <button type="button" class="btn btn-facebook auth-form-btn flex-grow mr-1">
+                                    <i class="fab fa-facebook-f mr-2"></i>Facebook
+                                </button>
+                                <button type="button" class="btn btn-google auth-form-btn flex-grow ml-1">
+                                    <i class="fab fa-google mr-2"></i>Google
+                                </button>
+                            </div>--}}
                         </form>
                     </div>
-
-
+                </div>
+                <div class="col-lg-6 login-half-bg d-flex flex-row" style="background: url('https://images.pexels.com/photos/1020323/pexels-photo-1020323.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260')">
+                    <p class="text-white font-weight-medium text-center flex-grow align-self-end">Copyright &copy; 2018  All rights reserved.</p>
                 </div>
             </div>
         </div>
+        <!-- content-wrapper ends -->
     </div>
+    <!-- page-body-wrapper ends -->
 </div>
-
-<!-- Bootstrap and necessary plugins -->
-<script src="js/jquery.min.js"></script>
-<script src="js/popper.min.js"></script>
-<script src="js/bootstrap.min.js"></script>
-
+@include('layouts.template.js')
 </body>
 </html>
