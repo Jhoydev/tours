@@ -15,7 +15,7 @@ class Company extends Model
         return $this->hasMany(Event::class);
     }
     public function customers(){
-        return Customer::whereHas('orderDetails',function ($query){
+        return Customer::with('orderDetails.ticket')->whereHas('orderDetails',function ($query){
             return $query->whereHas('event',function ($query){
                 return $query->where('company_id',Auth::user()->company_id);
             });

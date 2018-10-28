@@ -7,13 +7,14 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
-                    <p class="h1 text-center"><i class="fa fa-ticket" aria-hidden="true"></i> {{ $ticket->title }}</p>
+                    <p class="display-5 text-center"><i class="fa fa-ticket" aria-hidden="true"></i> {{ $ticket->event->title }}</p>
+                    <p class="display-3 font-weight-bold text-center"><i class="fa fa-ticket-alt" aria-hidden="true"></i> {{ $ticket->title }}</p>
                     <hr>
                     @foreach($orders as $order)
                         <div class="row">
-                            <div class="col-12 mb-2">
+                            <div class="col-12 mb-4">
                                 <div class="d-flex justify-content-between">
-                                    <span class="mr-3"><i class="fa fa-send" aria-hidden="true"></i> Enviadas {{ count($order->orderDetails) }}</span>
+                                    <div class="mr-3"><i class="fa fa-send" aria-hidden="true"></i> Enviadas <span class="badge badge-pill badge-info">{{ count($order->orderDetails) }}</span></div>
                                     <span class="mr-3"><i class="fa fa-calendar" aria-hidden="true"></i> Fecha de envío {{ $order->created_at }}</span>
                                     {!! Form::open(['url' => url("events/$order->event_id/tickets/$ticket->id/send-tickets/$order->id"),'method' => 'DELETE']) !!}
                                     <button type="submit" class="btn btn-outline-danger btn-sm rounded"><i class="fa fa-ban" aria-hidden="true"></i> Cancelar</button>
@@ -21,11 +22,11 @@
                                 </div>
                             </div>
                             @foreach($order->orderDetails as $detail)
-                                <div class="col-lg-3">
-                                    <div class="card rounded">
+                                <div class="col-lg-auto">
+                                    <div class="card mb-3">
                                         <div class="card-body">
                                             <div class="d-flex justify-content-between">
-                                                <span><i class="fa fa-ticket" aria-hidden="true"></i> Nº {{ $detail->id }}</span>
+                                                <span><i class="fa fa-ticket-alt" aria-hidden="true"></i> Nº {{ $detail->id }}</span>
                                             </div>
                                         </div>
                                     </div>

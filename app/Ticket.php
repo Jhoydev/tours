@@ -20,11 +20,11 @@ class Ticket extends Model
 
     public function setStartSaleDateAttribute($value)
     {
-        return $this->attributes['start_sale_date'] = Carbon::parse($value);
+        return  $this->attributes['start_sale_date'] = Carbon::createFromFormat('d/m/Y H:i', $value);
     }
     public function setEndSaleDateAttribute($value)
     {
-        return $this->attributes['end_sale_date'] = Carbon::parse($value);
+        return $this->attributes['end_sale_date'] = Carbon::createFromFormat('d/m/Y H:i', $value);
     }
 
     public function user()

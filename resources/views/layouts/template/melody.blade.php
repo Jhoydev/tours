@@ -6,7 +6,12 @@
 <body class="sidebar-fixed">
 <div class="container-scroller">
     <!-- partial:partials/_navbar.html -->
-    @include('layouts.template.nav')
+    @include('layouts.template.nav', [
+        'url_index' => url('/'),
+        'url_logout' => route('logout'),
+        'url_avatar' => url("user/avatar/".Auth::user()->company_id."/".Auth::user()->id),
+        'url_profile' => url('user/'.Auth::user()->id.'/edit')
+    ] )
     <!-- partial -->
     <div class="container-fluid page-body-wrapper">
         @include('layouts.template.sidebar-left')
@@ -31,6 +36,7 @@
     </div>
     <!-- page-body-wrapper ends -->
 </div>
+@stack('modals')
 @include('layouts.template.js')
 </body>
 

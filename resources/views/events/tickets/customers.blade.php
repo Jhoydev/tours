@@ -8,12 +8,12 @@
         <div class="col-12" id="render_customers">
             <div class="card">
                 <div class="card-body">
-                    <p class="h4 text-center">{{ $event->title }}</p>
-                    <p class="h1 text-center"><i class="fa fa-ticket" aria-hidden="true"></i>Tiquete - {{ $ticket->title }}</p>
+                    <p class="display-5 text-center">{{ $event->title }}</p>
+                    <p class="display-3 font-weight-bold text-center"><i class="fa fa-ticket-alt" aria-hidden="true"></i> Tiquete - {{ $ticket->title }}</p>
                     <hr>
-                    <p>Disponibles: {{ $ticket->quantity_available }}</p>
-                    <table id="table_datatable" class="table">
-                        <thead class="thead-dark">
+                    <p class="display-5">Disponibles: <span class="badge badge-info badge-pill">{{ $ticket->quantity_available }}</span></p>
+                    <table id="table_datatable" class="table fade table-hover">
+                        <thead class="bg-primary text-white">
                         <tr>
                             <th>#</th>
                             <th>Nombre</th>
@@ -57,7 +57,7 @@
                 <div class="modal-dialog" customer="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Aviso</h5>
+                            <h5 class="modal-title" id="exampleModalLabel">Asigar Tiquete</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
@@ -65,15 +65,16 @@
                         <div class="modal-body">
                             {!! Form::open([ 'id' => 'form_delete' ,'url' => '','method' => 'POST']) !!}
                             <div class="form-group">
-                                <input class="form-control" type="number" name="quantity_available"
+                                <label for="label-quantity_available">Cantidad</label>
+                                <input class="form-control" type="number" id="label-quantity_availabl" name="quantity_available"
                                        min="{{ $ticket->min_per_person }}"
                                        max="{{ ($ticket->quantity_available > $ticket->max_per_person) ?  $ticket->max_per_person : $ticket->quantity_available }}"
                                        required>
                             </div>
                             <input type="hidden" id="customer_id" name="customer_id">
                             <div class="form-group d-flex justify-content-end">
-                                <button type="button" class="btn btn-outline-secondary btn-sm rounded mr-3" data-dismiss="modal">Cancelar</button>
-                                {!! Form::submit('Enviar',['class' => 'btn btn-outline-success btn-sm rounded'])  !!}
+                                <button type="button" class="btn btn-light btn-sm mr-3" data-dismiss="modal">Cancelar</button>
+                                {!! Form::submit('Enviar',['class' => 'btn btn-primary btn-sm rounded'])  !!}
                             </div>
                             {!! Form::close() !!}
                         </div>

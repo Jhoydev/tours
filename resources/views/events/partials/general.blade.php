@@ -31,22 +31,12 @@
     <div class="col-12 w-100"></div>
 
     <div class="form-group col-md-6">
-        <label for="input_start"><i class="fa fa-calendar" aria-hidden="true"></i> Fecha inicio</label>
-        <div class="input-group date" id="input_start" data-target-input="nearest">
-            <input type="text" class="form-control rounded-left datetimepicker-input" id="start_date" name="start_date"  data-target="#input_start" value="{{ ($event_form->start_date)?$event_form->start_date->format('d-m-Y H:i:s'):'' }}"/>
-            <div class="input-group-append" data-target="#input_start" data-toggle="datetimepicker">
-                <div class="input-group-text"><i class="fa fa-calendar"></i></div>
-            </div>
-        </div>
+        <label for="start_date"><i class="fa fa-calendar" aria-hidden="true"></i> Fecha inicio</label>
+        <input type="text" data-inputmask="'alias': 'datetime'" class="form-control rounded-left input-mask-date" id="start_date" name="start_date" value="{{ ($event_form->start_date)?$event_form->start_date->format('d-m-Y H:i:s'):'' }}"/>
     </div>
     <div class="form-group col-md-6">
-        <label for="input_end"><i class="fa fa-calendar" aria-hidden="true"></i> Fecha final</label>
-        <div class="input-group date" id="input_end" data-target-input="nearest">
-            <input type="text" class="form-control rounded-left datetimepicker-input" name="end_date" data-target="#input_end"  value="{{  ($event_form->end_date) ? $event_form->end_date->format('d-m-Y H:i:s'):'' }}"/>
-            <div class="input-group-append" data-target="#input_end" data-toggle="datetimepicker">
-                <div class="input-group-text"><i class="fa fa-calendar"></i></div>
-            </div>
-        </div>
+        <label for="end_date"><i class="fa fa-calendar" aria-hidden="true"></i> Fecha final</label>
+        <input type="text" data-inputmask="'alias': 'datetime'" class="form-control rounded-left input-mask-date" id="end_date" name="end_date" value="{{  ($event_form->end_date) ? $event_form->end_date->format('d-m-Y H:i:s'):'' }}"/>
     </div>
     <div class="col-12 w-100"></div>
     <div class="form-group col-md-3">
@@ -69,21 +59,19 @@
 
         editor.root.innerHTML = document.querySelector('#descriptionHTML').value;
 
-        $('#input_start').datetimepicker({
-            format: "DD-MM-YYYY HH:mm:ss"
-
+        $('.input-mask-date').blur(function () {
+            this.value = moment(this.value,"DD/MM/YYYY HH:mm:ss").format("DD/MM/YYYY HH:mm:ss");
+            if ($("#end_date").val()){
+                let a = moment($("#start_date").val(),"DD/MM/YYYY HH:mm:ss");
+                let b = moment($("#end_date").val(),"DD/MM/YYYY HH:mm:ss");
+                if (a.diff(b) > 0){
+                    $("#end_date").addClass('is-invalid');
+                    $("#end_date").focus();
+                }else{
+                    $("#end_date").removeClass('is-invalid');
+                }
+            }
         });
-        $('#input_end').datetimepicker({
-            useCurrent: false,
-            format: "DD-MM-YYYY HH:mm:ss"
-        });
-        $("#input_start").on("change.datetimepicker", function (e) {
-            $('#input_end').datetimepicker('minDate', e.date);
-        });
-        $("#input_end").on("change.datetimepicker", function (e) {
-            $('#input_start').datetimepicker('maxDate', e.date);
-        });
-
 
         function previewFile() {
             const preview = document.querySelector('#preview_flyer');
@@ -113,7 +101,9 @@
 
         $('#form_create_event').on('submit', function(){
             document.querySelector('#descriptionHTML').value = editor.root.innerHTML;
-            $("#form_create_event").submit();
+            $("#start_date").val(moment($("#start_date").val(),"DD/MM/YYYY HH:mm:ss").format("DD/MM/YYYY HH:mm:ss"));
+            $("#end_date").val(moment($("#end_date").val(),"DD/MM/YYYY HH:mm:ss").format("DD/MM/YYYY HH:mm:ss"));
+
         });
     </script>
 @endpush

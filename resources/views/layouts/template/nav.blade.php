@@ -1,7 +1,7 @@
 <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row default-layout-navbar">
     <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
-        <a class="navbar-brand brand-logo" href="index.html"><img src="{{ asset('img/logo-insignia-agencia.png') }}" alt="logo"/></a>
-        <a class="navbar-brand brand-logo-mini" href="index.html"><img src="{{ asset('img/logo-dark.png') }}" alt="logo"/></a>
+        <a class="navbar-brand brand-logo" href="{{ $url_index }}"><img src="{{ asset('img/logo-insignia-agencia.png') }}" alt="logo"/></a>
+        <a class="navbar-brand brand-logo-mini" href="{{ $url_index }}"><img src="{{ asset('img/logo-dark.png') }}" alt="logo"/></a>
     </div>
     <div class="navbar-menu-wrapper d-flex align-items-stretch">
         <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
@@ -133,19 +133,25 @@
                 </div>
             </li>--}}
             <li class="nav-item nav-profile dropdown">
-                <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" id="profileDropdown">
-                    <img src="{{ url("user/avatar/".Auth::user()->company_id."/".Auth::user()->id) }}" alt="profile"/>
-                </a>
+                @if ( isset($url_avatar))
+                    <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" id="profileDropdown">
+                        <img src="{{ url("user/avatar/".Auth::user()->company_id."/".Auth::user()->id) }}" alt="profile"/>
+                    </a>
+                @else
+                    <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" id="profileDropdown">
+                    {{ Auth::user()->first_name }}
+                    </a>
+                @endif
                 <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
-                    <a class="dropdown-item" href="{{ url('user/'.Auth::user()->id.'/edit') }}">
+                    <a class="dropdown-item" href="{{ $url_profile }}">
                         <i class="fa fa-user"></i> Perfil
                     </a>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="{{ route('logout') }}"
+                    <a class="dropdown-item" href="{{ $url_logout }}"
                        onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                         <i class="fa fa-sign-out-alt"></i> Salir
                     </a>
-                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                    <form id="logout-form" action="{{ $url_logout }}" method="POST" style="display: none;">
                         @csrf
                     </form>
                 </div>

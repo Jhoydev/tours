@@ -1,13 +1,9 @@
-@import '~font-awesome/scss/font-awesome';
+/*@import '~font-awesome/scss/font-awesome';*/
 @import '~simple-line-icons/scss/simple-line-icons';
 @import "~animate.css/animate.min.css";
 @import "~tempusdominus-bootstrap-4/build/css/tempusdominus-bootstrap-4.min.css";
 @import "~quill/dist/quill.snow.css";
 @import "~fullcalendar/dist/fullcalendar.min.css";
-
-.navbar-brand{
-  background-size: contain !important;
-}
 
 .d-none-no-important{
   display: none;
@@ -16,27 +12,6 @@
 .custom-file-label::after{
   content: "Subir";
   cursor : pointer;
-}
-
-.nav-tabs{
-  
-  .nav-link{
-  
-    &.active{
-      -webkit-border-radius: 5px 5px 0px 0px;
-      -moz-border-radius: 5px 5px 0px 0px;
-      border-radius: 5px 5px 0px 0px;
-    }
-    &:hover{
-      -webkit-border-radius: 5px 5px 0px 0px;
-      -moz-border-radius: 5px 5px 0px 0px;
-      border-radius: 5px 5px 0px 0px;
-    }
-  
-  }
-}
-.sidebar{
-  background: #2e3254;
 }
 
 #customFile{

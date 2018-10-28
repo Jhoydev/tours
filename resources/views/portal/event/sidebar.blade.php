@@ -1,4 +1,4 @@
-<li class="nav-title">Evento</li>
+<hr>
 <li class="nav-item">
     <a class="nav-link" href="{{ url("portal/event/$event->id") }}"><i class="menu-icon fa fa-home"></i> <span class="menu-title">Panel</span></a>
 </li>

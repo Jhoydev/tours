@@ -68,7 +68,7 @@ class SpecialTicketController extends Controller
      */
     public function show(Event $event,Ticket $ticket,Customer $customer)
     {
-        $orders = Order::where('customer_id',$customer->id)->where('order_status_id','<=',4)->whereHas('orderDetails',function ($query) use ($ticket) {
+        $orders = Order::with('orderDetails')->where('customer_id',$customer->id)->where('order_status_id','<=',4)->whereHas('orderDetails',function ($query) use ($ticket) {
             return $query->where('ticket_id',$ticket->id);
         })->get();
 

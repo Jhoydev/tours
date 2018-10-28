@@ -111,14 +111,14 @@ class Event extends Model
 
     public function setStartDateAttribute($value)
     {
-        return $this->attributes['start_date'] = Carbon::parse($value);
+        return  $this->attributes['start_date'] = Carbon::createFromFormat('d/m/Y H:i', $value);
     }
 
 
 
     public function setEndDateAttribute($value)
     {
-        return $this->attributes['end_date'] = Carbon::parse($value);
+        return  $this->attributes['end_date'] = Carbon::createFromFormat('d/m/Y H:i', $value);
     }
 
     /* Scopes */

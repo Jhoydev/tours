@@ -27,9 +27,9 @@
                     <h4>Ajustes de Pagos Fuera de Linea</h4>
                 </div>
                 <div class="form-group col-12">
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" id="enable_offline_payments" name="enable_offline_payments" {{ ($event->enable_offline_payments)? 'checked':'' }}>
+                    <div class="form-check form-check-success">
                         <label class="form-check-label" for="enable_offline_payments">
+                            <input class="form-check-input" type="checkbox" id="enable_offline_payments" name="enable_offline_payments" {{ ($event->enable_offline_payments)? 'checked':'' }}>
                             Activar Pagos Fuera de Linea
                         </label>
                     </div>

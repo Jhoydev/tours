@@ -16,5 +16,7 @@
 <!-- End plugin css for this page -->
 <!-- inject:css -->
 <link rel="stylesheet" href="/template/css/style.css">
+<link href="{{ mix('/css/main.css') }}" rel="stylesheet">
+
 <!-- endinject -->
 @yield('link')

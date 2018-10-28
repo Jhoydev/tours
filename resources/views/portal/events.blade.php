@@ -10,7 +10,7 @@
                     <div class="row">
                         @foreach($events as $event)
                             <div class="col-lg-6">
-                                <div class="card">
+                                <div class="card mb-4">
                                     <div class="card-body">
                                         <div class="row">
                                             <div class="col-12">

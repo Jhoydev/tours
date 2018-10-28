@@ -45,8 +45,8 @@
         <div class="col-12">
             <div class="card rounded" style="background-color: rgba(255, 255,255, 0.9)">
                 <div class="card-body text-center">
-
                     <h1 class="text-center">{{ $event->title }}</h1>
+                    <p class="h3"><i class="icon-calendar"></i> {{ $event->start_date->toDayDateTimeString() }}</p>
                     @if ($event->flyer)
                     <div class="row justify-content-center mb-3">
                         <div class="col-6">
@@ -55,7 +55,7 @@
                     </div>
                     @endif
                     <p>{!! $event->description !!}</p>
-                    <p><i class="icon-calendar"></i> {{ $event->start_date->toDayDateTimeString() }}</p>
+
                 </div>
             </div>
         </div>
@@ -148,7 +148,9 @@
 <nav class="navbar navbar-light bg-light justify-content-center mt-5">
     <a class="navbar-brand" href="#">Desarrollado por Insignia</a>
 </nav>
-<script src="{{ mix('js/main.js') }}"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
 <script>
     /* Events Listener*/
     const inp_number = $(".inp-number");
