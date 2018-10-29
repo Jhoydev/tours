@@ -18,9 +18,10 @@ class OrderController extends Controller
 
     public function index(Request $request)
     {
-        $orders = Order::where('customer_id',$request->user()->id)->with(['customer','event','order_status'])->get();
-        return view('portal.orders',compact('orders'));
+        $orders = Order::where('customer_id', $request->user()->id)->with(['customer', 'event', 'order_status'])->get();
+        return view('portal.orders', compact('orders'));
     }
+
     public function show(Request $request)
     {
         if (Auth::guard('customer')->check()) {
@@ -123,7 +124,7 @@ class OrderController extends Controller
 
         if ($request->method_payment != "online_payment") {
             $url = route('order.invoice', ['order' => $order]);
-        }else{
+        } else {
             // para pagos en efectivo
             $order->order_status_id = 2;
             $order->update();
@@ -140,23 +141,24 @@ class OrderController extends Controller
             return back();
         }
     }
+
     public function destroy(Order $order)
     {
         // MIRAR DONDE VIENE METER EL IF PARA BORRARLA DE UNA O VER REEMBOLSO
-        $event_id = $order->event_id;
+        $event_id      = $order->event_id;
         $order_tickets = $order->tickets();
-        if(count($order_tickets)){
-            foreach ($order_tickets as $order_ticket){
+        if (count($order_tickets)) {
+            foreach ($order_tickets as $order_ticket) {
                 $ticket = Ticket::find($order_ticket->ticket_id);
-                $ticket->increment('quantity_available',$order_ticket->ticket_count);
+                $ticket->increment('quantity_available', $order_ticket->ticket_count);
                 $ticket->update();
             }
         }
         $order->delete();
-        session()->flash('message','Se han cancelado los tiquetes');
+        session()->flash('message', 'Se han cancelado los tiquetes');
         return redirect("events/$event_id/orders");
     }
-    
+
     public function invoice(Request $request, Order $order)
     {
         return view('portal.order.invoice', compact('order'));
@@ -165,7 +167,7 @@ class OrderController extends Controller
     public function confirm(Event $event, Order $order)
     {
         $order->order_status_id = 1;
-        if ($order->update()){
+        if ($order->update()) {
             return response()->json(['status' => true]);
         }
         return response()->json(['status' => false]);
