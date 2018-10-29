@@ -4,22 +4,22 @@
         <hr>
         <table id="table_datatable" class="table dataTable">
             <thead class="bg-primary text-white">
-            <tr>
-                <th>Nombre</th>
-                <th>Correo Electrónico</th>
-                <th>Teléfono</th>
-                <th>Celular</th>
-            </tr>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Correo Electrónico</th>
+                    <th>Teléfono</th>
+                    <th>Celular</th>
+                </tr>
             </thead>
             <tbody>
-            @foreach($customers as $customer)
+                @foreach($customers as $customer)
                 <tr>
                     <td scope="row">{{ ucfirst($customer->first_name) }} {{ ucfirst($customer->last_name) }}</td>
                     <td scope="row">{{ $customer->email }}</td>
                     <td scope="row">{{ $customer->mobile }}</td>
                     <td scope="row">{{ $customer->phone }}</td>
                 </tr>
-            @endforeach
+                @endforeach
             </tbody>
         </table>
     </div>
@@ -47,5 +47,5 @@
 </div>
 
 @push('scripts')
-    @include('layouts.js.datatable')
+@include('layouts.js.datatable')
 @endpush

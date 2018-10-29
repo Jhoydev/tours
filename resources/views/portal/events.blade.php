@@ -5,7 +5,7 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-body">
-                    <h1 class="text-center"><i class="icon-calendar"></i> Mas Eventos</h1>
+                    <h1 class="text-center"><i class="icon-calendar"></i> Ver Eventos</h1>
                     <hr>
                     <div class="row">
                         @foreach($events as $event)

@@ -31,7 +31,7 @@
                     <a class="nav-link" href="{{ route('customer.history') }}"><i class="menu-icon fa fa-clock"></i> <span class="menu-title"> Eventos Anteriores</span></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('portal.explorer.events') }}"><i class="menu-icon fa fa-calendar"></i> <span class="menu-tile"> Mas Eventos</span></a>
+                    <a class="nav-link" href="{{ route('portal.explorer.events') }}"><i class="menu-icon fa fa-calendar"></i> <span class="menu-tile"> Ver Eventos</span></a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{ url('portal/orders') }}"><i class="menu-icon fa fa-shopping-cart"></i> <span class="menu-title"> Ordenes</span></a>
