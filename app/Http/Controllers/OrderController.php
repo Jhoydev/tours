@@ -123,9 +123,7 @@ class OrderController extends Controller
         }
 
         if ($request->method_payment != "online_payment") {
-            $url = route('order.invoice', ['order' => $order]);
-        } else {
-            // para pagos en efectivo
+            $url                    = route('order.invoice', ['order' => $order]);
             $order->order_status_id = 2;
             $order->update();
         }
