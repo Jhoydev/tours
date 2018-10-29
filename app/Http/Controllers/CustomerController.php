@@ -212,11 +212,11 @@ class CustomerController extends Controller
     public function Calendar(Event $event, Customer $customer)
     {
         $dates = Meeting::where('customer_id','=',$customer->id)
-            ->where('event_id','=',$event->id)->where('date_status_id','!=','3')
+            ->where('event_id','=',$event->id)->where('meeting_status_id','!=','3')
             ->orWhere(function ($query) use ($customer,$event){
                 $query->where('contact_id','=',$customer->id)
                     ->where('event_id','=',$event->id);
-            })->where('date_status_id','!=','3')
+            })->where('meeting_status_id','!=','3')
             ->get();
         $res = [];
         if (count($dates)){
@@ -230,10 +230,10 @@ class CustomerController extends Controller
 
                 }
                 $color = '#20a8d8';
-                if ($date->date_status_id == 1) {
+                if ($date->meeting_status_id == 1) {
                     $color = '#4dbd74';
                 }
-                if ($date->date_status_id == 2) {
+                if ($date->meeting_status_id == 2) {
                     $color = 'gold';
                 }
 
@@ -244,7 +244,7 @@ class CustomerController extends Controller
                     'end' => $date->end_date->toDateTimeString(),
                     'color' => $color,
                     'message' => $date->message,
-                    'status' => $date->date_status_id,
+                    'status' => $date->meeting_status_id,
                     'req' => url("portal/event/$event->id/date/$date->id"),
                     'contact_id' => $date->contact_id,
                     'contact' => $contact

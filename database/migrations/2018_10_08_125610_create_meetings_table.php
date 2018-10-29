@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateDatesTable extends Migration
+class CreateMeetingsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,10 @@ class CreateDatesTable extends Migration
      */
     public function up()
     {
-        Schema::create('dates', function (Blueprint $table) {
+        Schema::create('meetings', function (Blueprint $table) {
             $table->increments('id');
-            $table->dateTime('start_date')->nullable();
-            $table->dateTime('end_date')->nullable();
+            $table->dateTime('start_meeting')->nullable();
+            $table->dateTime('end_meeting')->nullable();
             $table->text('message')->nullable();
             $table->unsignedInteger('customer_id');
             $table->foreign('customer_id')->references('id')->on('customers');
@@ -25,7 +25,7 @@ class CreateDatesTable extends Migration
             $table->unsignedInteger('contact_id')->nullable();
             $table->foreign('contact_id')->references('id')->on('customers');
             $table->unsignedInteger('meeting_status_id');
-            $table->foreign('meeting_status_id')->references('id')->on('date_statuses');
+            $table->foreign('meeting_status_id')->references('id')->on('meeting_statuses');
             $table->timestamps();
         });
     }
@@ -37,6 +37,6 @@ class CreateDatesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('dates');
+        Schema::dropIfExists('meetings');
     }
 }

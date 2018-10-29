@@ -47,9 +47,9 @@ Route::middleware(['auth:customer'])->group(function () {
     Route::get('portal/customer/change-password', 'CustomerController@changePassword')->name('customer.changepassword');
     Route::put('portal/customer/update-password', 'CustomerController@updatePassword')->name('customer.update.password');
     Route::put('portal/profile/{customer}', 'CustomerController@update')->name('profile.update');
-    Route::put('portal/event/{event}/date/{date}', 'MeetingController@update');
+    Route::put('portal/event/{event}/date/{date}{meeting}', 'MeetingController@update');
     Route::post('portal/event/{event}/date', 'MeetingController@store');
-    Route::delete('portal/event/{event}/date/{date}', 'MeetingController@destroy');
+    Route::delete('portal/event/{event}/date/{meeting}', 'MeetingController@destroy');
     Route::post('portal/events/order/assign-ticket/{orderDetail}', 'TicketController@assignToCustomer');
     Route::post('portal/asiggn-by-token', 'TicketController@asiggnByToken');
     Route::delete('portal/ticket/{orderDetail}', 'TicketController@refuse');

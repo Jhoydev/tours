@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 
-class DateStatusesTableSeeder extends Seeder
+class MeetingStatusesTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -11,13 +11,13 @@ class DateStatusesTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('date_statuses')->insert([
+        DB::table('meeting_statuses')->insert([
             'name' => 'Confirmada'
         ]);
-        DB::table('date_statuses')->insert([
+        DB::table('meeting_statuses')->insert([
             'name' => 'Pendiente'
         ]);
-        DB::table('date_statuses')->insert([
+        DB::table('meeting_statuses')->insert([
             'name' => 'Cancelada'
         ]);
     }

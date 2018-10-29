@@ -5,9 +5,9 @@
             <td>
                 <h1>Hola</h1>
                 <p>Solicitud de cita</p>
-                <p>{{ $date->customer->full_name }} - {{ $date->contact->full_name }}</p>
-                <p><strong>Fecha: {{ $date->start_date->toDayDateTimeString() }}</strong></p>
-                <p>Mensaje: {{ $date->message }}</p>
+                <p>{{ $meeting->customer->full_name }} - {{ $meeting->contact->full_name }}</p>
+                <p><strong>Fecha: {{ $meeting->start_date->toDayDateTimeString() }}</strong></p>
+                <p>Mensaje: {{ $meeting->message }}</p>
                 <table border="0" cellpadding="0" cellspacing="0" class="btn btn-primary">
                     <tbody>
                     <tr>
@@ -24,9 +24,9 @@
                     </tbody>
                 </table>
                 <br>
-                Evento organizado por {{ $date->event->company->name }}<br>
-                Fecha del evento {{ $date->event->start_date->toDayDateTimeString() }}<br>
-                Lugar {{ $date->event->address }}
+                Evento organizado por {{ $meeting->event->company->name }}<br>
+                Fecha del evento {{ $meeting->event->start_date->toDayDateTimeString() }}<br>
+                Lugar {{ $meeting->event->address }}
             </td>
         </tr>
     </table>

@@ -10,19 +10,19 @@ class Meeting extends Model
 {
     use DatesTranslator;
 
-    protected $dates    = ['start_date','end_date'];
-    protected $casts    = ['start_date','end_date'];
+    protected $dates    = ['start_meeting','end_meeting'];
+    protected $casts    = ['start_meeting','end_meeting'];
 
     /* Mutators */
 
-    public function setStartDateAttribute($value)
+    public function setStartMeetingAttribute($value)
     {
-        return $this->attributes['start_date'] = Carbon::parse($value);
+        return $this->attributes['start_meeting'] = Carbon::parse($value);
     }
 
-    public function setEndDateAttribute($value)
+    public function setEndMeetingAttribute($value)
     {
-        return $this->attributes['end_date'] = Carbon::parse($value);
+        return $this->attributes['end_meeting'] = Carbon::parse($value);
     }
     public function Event()
     {
@@ -38,6 +38,6 @@ class Meeting extends Model
     }
     public function Status()
     {
-        return $this->hasOne(DateStatus::class,'id','date_status_id');
+        return $this->hasOne(MeetingStatus::class,'id','meeting_status_id');
     }
 }

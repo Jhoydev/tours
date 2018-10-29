@@ -8,6 +8,7 @@ use App\Event;
 use App\Mail\MeetingNotification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 
 class MeetingController extends Controller
@@ -27,16 +28,16 @@ class MeetingController extends Controller
     public function customer(Request $request, Event $event, Customer $customer)
     {
         $dates = Meeting::where('customer_id', '=', $customer->id)
-                ->where('event_id', '=', $event->id)->where('date_status_id', '!=', '3')
+                ->where('event_id', '=', $event->id)->where('meeting_status_id', '!=', '3')
                 ->orWhere(function ($query) use ($customer, $event) {
                     $query->where('contact_id', '=', $customer->id)
                     ->where('event_id', '=', $event->id);
-                })->where('date_status_id', '!=', '3')
+                })->where('meeting_status_id', '!=', '3')
                 ->get();
         $res = [];
         if (count($dates)) {
             foreach ($dates as $date) {
-                if ($date->date_status_id == 2 && (Auth::user()->id != $date->customer_id && Auth::user()->id != $date->contact_id))
+                if ($date->meeting_status_id == 2 && (Auth::user()->id != $date->customer_id && Auth::user()->id != $date->contact_id))
                     continue;
                 $name    = $date->contact->full_name;
                 $contact = $date->contact;
@@ -46,10 +47,10 @@ class MeetingController extends Controller
                     $contact = $date->customer;
                 }
                 $color = '#20a8d8';
-                if ($date->date_status_id == 1) {
+                if ($date->meeting_status_id == 1) {
                     $color = '#4dbd74';
                 }
-                if ($date->date_status_id == 2) {
+                if ($date->meeting_status_id == 2) {
                     $color = 'gold';
                 }
 
@@ -61,11 +62,11 @@ class MeetingController extends Controller
                 $res[] = [
                     'id'         => $date->id,
                     'title'      => "$name",
-                    'start'      => $date->start_date->toDateTimeString(),
-                    'end'        => $date->end_date->toDateTimeString(),
+                    'start'      => $date->start_meeting->toDateTimeString(),
+                    'end'        => $date->end_meeting->toDateTimeString(),
                     'color'      => $color,
                     'message'    => $date->message,
-                    'status'     => $date->date_status_id,
+                    'status'     => $date->meeting_status_id,
                     'req'        => url("portal/event/$event->id/date/$date->id"),
                     'contact_id' => $date->contact_id,
                     'contact'    => $contact
@@ -139,7 +140,7 @@ class MeetingController extends Controller
      */
     public function update(Event $event, Meeting $meeting)
     {
-        $meeting->date_status_id = 1;
+        $meeting->meeting_status_id = 1;
         $meeting->update();
         Mail::to(['email' => $meeting->customer->email])->send(new MeetingNotification($meeting, 'accepted'));
         Mail::to(['email' => $meeting->contact->email])->send(new MeetingNotification($meeting, 'accepted'));
@@ -155,7 +156,7 @@ class MeetingController extends Controller
      */
     public function destroy(Event $event, Meeting $meeting)
     {
-        $meeting->date_status_id = 3;
+        $meeting->meeting_status_id = 3;
         $meeting->update();
         Mail::to(['email' => $meeting->customer->email])->send(new MeetingNotification($meeting, 'refuse'));
         Mail::to(['email' => $meeting->contact->email])->send(new MeetingNotification($meeting, 'refuse'));

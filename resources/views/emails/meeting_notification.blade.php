@@ -6,11 +6,11 @@
                 <h1>Hola</h1>
 
                 @if ($notificationType == 'accepted')
-                    <p>Cita aceptada entre {{ $date->customer->full_name }} y {{ $date->contact->full_name }}</p>
+                    <p>Cita aceptada entre {{ $meeting->customer->full_name }} y {{ $meeting->contact->full_name }}</p>
                 @elseif($notificationType == 'refuse')
-                    <p>Se ha cancelado la cita rechazado entre {{ $date->customer->full_name }} y {{ $date->contact->full_name }}</p>
+                    <p>Se ha cancelado la cita rechazado entre {{ $meeting->customer->full_name }} y {{ $meeting->contact->full_name }}</p>
                 @endif
-                <p><strong>Fecha: {{ $date->start_date->toDayDateTimeString() }}</strong></p>
+                <p><strong>Fecha: {{ $meeting->start_date->toDayDateTimeString() }}</strong></p>
                 <table border="0" cellpadding="0" cellspacing="0" class="btn btn-primary">
                     <tbody>
                     <tr>
@@ -27,9 +27,9 @@
                     </tbody>
                 </table>
                 <br>
-                Evento organizado por {{ $date->event->company->name }}<br>
-                Fecha del evento {{ $date->event->start_date->toDayDateTimeString() }}<br>
-                Lugar {{ $date->event->address }}
+                Evento organizado por {{ $meeting->event->company->name }}<br>
+                Fecha del evento {{ $meeting->event->start_date->toDayDateTimeString() }}<br>
+                Lugar {{ $meeting->event->address }}
             </td>
         </tr>
     </table>
