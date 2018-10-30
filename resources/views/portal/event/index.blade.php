@@ -9,17 +9,15 @@
                 <div class="card-body">
                     <input type="hidden" id="auth_customer_id" value="{{ Auth::user()->id }}">
                     <h1 class="text-center"><i class="icon-calendar"></i> {{ $event->title }}</h1>
-                    <h4 class="text-center">{{ $event->address }}</h4>
+                    <p class="display-4 text-center">{{ $event->address }}</p>
                     <h3 class="text-center">{{ $event->start_date->toDayDateTimeString() }}</h3>
                     @if($event->flyer)
-                    <div class="row justify-content-center">
+                    <div class="row justify-content-center mb-3">
                         <div class="col-lg-2">
                             <img src="{{ url($event->flyer) }}" class="img-fluid" style="min-width: 100%; min-height:150px"  alt="">
-
                         </div>
                     </div>
                     @endif
-                    <hr>
                     <div class="row justify-content-center">
                         <div class="col-auto mb-2">
                             @if($event->memories_url)
@@ -28,17 +26,17 @@
                             {{--<button class="btn btn-light border rounded"><i class="fa fa-download" aria-hidden="true"></i> Descargar Certificado</button>--}}
                         </div>
                         <div class="col-auto mb-2">
-                            <a class="btn btn-primary rounded" href="{{ url("portal/customer/event/$event->id/details") }}">
+                            <a class="btn btn-light btn-sm rounded" href="{{ url("portal/customer/event/$event->id/details") }}">
                                 Tiquetes
-                                <span class="badge badge-light"  data-toggle="tooltip" data-placement="top" title="Tus tiquetes">
+                                <span class="badge badge-primary badge-pill ml-2"  data-toggle="tooltip" data-placement="top" title="Tus tiquetes">
                                     {{ count($details) }}
                                 </span>
                             </a>
                             @if (count($orders))
-                                <a class="btn btn-success rounded" href="{{ url("portal/event/$event->id/orders") }}">
+                                <a class="btn btn-light btn-sm" href="{{ url("portal/event/$event->id/orders") }}">
                                     Detalle de compra
                                     @if($details_null)
-                                        <span class="badge badge-danger"  data-toggle="tooltip" data-placement="top" title="Tiquetes sin asignar">
+                                        <span class="badge badge-danger badge-pill"  data-toggle="tooltip" data-placement="top" title="Tiquetes sin asignar">
                                         {{ $details_null }}
                                         </span>
                                     @endif
@@ -57,14 +55,14 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col-12">
-                            <h2 class="text-center">Agenda</h2>
-                            <hr>
+                            <h2 class="text-center"><i class="fa fa-calendar" aria-hidden="true"></i> Agenda</h2>
                         </div>
                         <div class="col-12 mb-3">
                             <span class="mr-3"><i class="fa fa-circle text-success" aria-hidden="true"></i> Aceptadas</span>
                             <span class="mr-3"><i class="fa fa-circle text-warning" aria-hidden="true"></i> Pendiente</span>
                         </div>
                         <div class="col-12">
+                            <hr>
                             <input type="hidden" id="url-calendar" value="{{ url("api/portal/event/$event->id/customer/".Auth::user()->id."/calendar") }}">
                             <div id='calendar'></div>
                         </div>

@@ -147,6 +147,9 @@
         }
 
         $('#form_ticket').on('submit', function(ev){
+            if (!$("#end_date").val()){
+                ev.preventDefault();
+            }
             if (!checkPerPerson() || !checkDateRange()) {
                 ev.preventDefault();
             }

@@ -20,8 +20,11 @@
         </div>
         <div class="col-12">
             <div class="card">
-                <div class="card-body">
-                    <p class="h3 text-right"><span class="badge badge-danger">{{ $order->order_status->name }}</span> Factura #{{ $order->id }}</p>
+                <div class="card-body pb-5">
+                    <div class="d-flex justify-content-end align-items-end">
+                        <span class="badge badge-danger badge-pill mr-2">{{ $order->order_status->name }}</span>
+                        <span class="h3 m-0 text-right"> Factura #{{ $order->id }}</span>
+                    </div>
                     <hr>
                     <div class="row">
                         <div class="col-lg-6">
@@ -47,7 +50,7 @@
                     </div>
                     <div class="table-responsive mt-4">
                         <table class="table">
-                            <thead class="thead-dark">
+                            <thead class="bg-primary text-white">
                             <tr>
                                 <th>#</th>
                                 <th>Descripción</th>
@@ -78,7 +81,7 @@
                             </tbody>
                         </table>
                     </div>
-                    <p class="text-right h5">Total $ {{ number_format($total,2)}}</p>
+                    <p class="text-right h4">Total $ {{ number_format($total,2)}}</p>
                 </div>
             </div>
         </div>

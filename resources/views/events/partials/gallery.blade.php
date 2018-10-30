@@ -21,8 +21,8 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary btn-sm rounded" data-dismiss="modal"><i class="fa fa-ban"></i> Cancelar</button>
-                    <button type="button" class="btn btn-success btn-sm rounded" onclick="saveImageSelected()"><i class="fa fa-check"></i> Elegir</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fa fa-ban"></i> Cancelar</button>
+                    <button type="button" class="btn btn-primary" onclick="saveImageSelected()"><i class="fa fa-check"></i> Elegir</button>
                 </div>
             </div>
         </div>

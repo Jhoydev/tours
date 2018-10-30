@@ -3,7 +3,7 @@
 
     <div class="form-group col-md-12">
         <label for="title"><i class="fa fa-align-left" aria-hidden="true"></i> Titulo</label>
-        <input type="text" class="form-control rounded"  id="title" name="title" placeholder="titulo" value="{{ $event_form->title }}">
+        <input type="text" class="form-control rounded"  id="title" name="title" placeholder="titulo" value="{{ $event_form->title }}" required>
     </div>
     <div class="form-group col-md-12">
         <input type="hidden" id="descriptionHTML" name="description" value="{!! e($event_form->description) !!}">
@@ -32,11 +32,11 @@
 
     <div class="form-group col-md-6">
         <label for="start_date"><i class="fa fa-calendar" aria-hidden="true"></i> Fecha inicio</label>
-        <input type="text" data-inputmask="'alias': 'datetime'" class="form-control rounded-left input-mask-date" id="start_date" name="start_date" value="{{ ($event_form->start_date)?$event_form->start_date->format('d-m-Y H:i:s'):'' }}"/>
+        <input type="text" data-inputmask="'alias': 'datetime'" class="form-control rounded-left input-mask-date" id="start_date" name="start_date" value="{{ ($event_form->start_date)?$event_form->start_date->format('d-m-Y H:i:s'):'' }}" required />
     </div>
     <div class="form-group col-md-6">
         <label for="end_date"><i class="fa fa-calendar" aria-hidden="true"></i> Fecha final</label>
-        <input type="text" data-inputmask="'alias': 'datetime'" class="form-control rounded-left input-mask-date" id="end_date" name="end_date" value="{{  ($event_form->end_date) ? $event_form->end_date->format('d-m-Y H:i:s'):'' }}"/>
+        <input type="text" data-inputmask="'alias': 'datetime'" class="form-control rounded-left input-mask-date" id="end_date" name="end_date" value="{{  ($event_form->end_date) ? $event_form->end_date->format('d-m-Y H:i:s'):'' }}" required />
     </div>
     <div class="col-12 w-100"></div>
     <div class="form-group col-md-3">
@@ -58,20 +58,6 @@
         });
 
         editor.root.innerHTML = document.querySelector('#descriptionHTML').value;
-
-        $('.input-mask-date').blur(function () {
-            this.value = moment(this.value,"DD/MM/YYYY HH:mm:ss").format("DD/MM/YYYY HH:mm:ss");
-            if ($("#end_date").val()){
-                let a = moment($("#start_date").val(),"DD/MM/YYYY HH:mm:ss");
-                let b = moment($("#end_date").val(),"DD/MM/YYYY HH:mm:ss");
-                if (a.diff(b) > 0){
-                    $("#end_date").addClass('is-invalid');
-                    $("#end_date").focus();
-                }else{
-                    $("#end_date").removeClass('is-invalid');
-                }
-            }
-        });
 
         function previewFile() {
             const preview = document.querySelector('#preview_flyer');
@@ -99,11 +85,39 @@
             }
         });
 
-        $('#form_create_event').on('submit', function(){
-            document.querySelector('#descriptionHTML').value = editor.root.innerHTML;
-            $("#start_date").val(moment($("#start_date").val(),"DD/MM/YYYY HH:mm:ss").format("DD/MM/YYYY HH:mm:ss"));
-            $("#end_date").val(moment($("#end_date").val(),"DD/MM/YYYY HH:mm:ss").format("DD/MM/YYYY HH:mm:ss"));
+        $('.input-mask-date').blur(checkDateRange);
 
+        function checkDateRange () {
+            let res = true;
+            let end = $("#end_date");
+            let start = $("#start_date");
+            let f = moment(start.val(),"DD/MM/YYYY HH:mm:ss").format("DD/MM/YYYY HH:mm:ss");
+            start.val(f);
+            f = moment(end.val(),"DD/MM/YYYY HH:mm:ss").format("DD/MM/YYYY HH:mm:ss");
+            end.val(f);
+            if (end.val()){
+                let a = moment(start.val(),"DD/MM/YYYY HH:mm:ss");
+                let b = moment(end.val(),"DD/MM/YYYY HH:mm:ss");
+                if (a.diff(b) > 0){
+                    end.addClass('is-invalid');
+                    end.focus();
+                    end.next('label').removeClass('invisible');
+                    res = false;
+                }else{
+                    end.removeClass('is-invalid');
+                }
+            }
+            return res;
+        }
+
+        $('#form_create_event').on('submit', function(ev){
+            document.querySelector('#descriptionHTML').value = editor.root.innerHTML;
+            if (!$("#end_date").val()){
+                ev.preventDefault();
+            }
+            if (!checkDateRange()){
+                ev.preventDefault();
+            }
         });
     </script>
 @endpush

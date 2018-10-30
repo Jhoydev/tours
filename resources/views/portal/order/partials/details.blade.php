@@ -3,9 +3,9 @@
         <div class="col-md-4">
             <div class="card rounded {{ (!$detail->customer) ? 'border border-warning' : '' }}">
                 <div class="card-body">
-                    <p class="text-center"><span class="badge badge-info">{{ $detail->ticket->type }}</span></p>
+                    <p class="text-center"><span class="badge badge-info badge-pill">{{ $detail->ticket->type }}</span></p>
                     <p class="text-center h1">{{ $detail->ticket->title }}</p>
-                    <p class="text-center h2">${{ number_format($detail->price,2) }}</p>
+                    <p class="text-center display-4">${{ number_format($detail->price,2) }}</p>
                     @if ($detail->customer)
                         <p class="text-center">{{ $detail->customer->full_name }} - {{ $detail->customer->email }}</p>
                         <div class="d-flex justify-content-center">
@@ -21,21 +21,21 @@
                             {!! Form::close() !!}
 
                             {!! Form::open(['url' => url("portal/ticket/$detail->id"),'method' => 'DELETE']) !!}
-                            <button type="submit" class="btn btn-outline-danger btn-sm rounded"><i class="fa fa-chain-broken" aria-hidden="true"></i> Desvincular</button>
+                            <button type="submit" class="btn btn-outline-danger"><i class="fa fa-chain-broken" aria-hidden="true"></i> Desvincular</button>
                             {!! Form::close() !!}
                         </div>
                     @else
                         <div class="content-radios mb-3">
-                            <div class="form-check">
-                                <input class="form-check-input radio-assign" type="radio" name="check_assign_{{ $detail->id }}" id="check_assign_{{ $detail->id }}_1" value="1" data-target="form-assign-ticket-owner_{{ $detail->id }}" checked>
+                            <div class="form-check mb-2">
                                 <label class="form-check-label" for="check_assign_{{ $detail->id }}_1">
                                     Asignar este tiquete a mi usuario
+                                    <input class="form-check-input radio-assign" type="radio" name="check_assign_{{ $detail->id }}" id="check_assign_{{ $detail->id }}_1" value="1" data-target="form-assign-ticket-owner_{{ $detail->id }}" checked>
                                 </label>
                             </div>
-                            <div class="form-check">
-                                <input class="form-check-input radio-assign" type="radio" name="check_assign_{{ $detail->id }}" id="check_assign_{{ $detail->id }}_2" value="2" data-target="form-assign-ticket_{{ $detail->id }}">
+                            <div class="form-check mb-2">
                                 <label class="form-check-label" for="check_assign_{{ $detail->id }}_2">
                                     Envíar código de tiquete por correo
+                                    <input class="form-check-input radio-assign" type="radio" name="check_assign_{{ $detail->id }}" id="check_assign_{{ $detail->id }}_2" value="2" data-target="form-assign-ticket_{{ $detail->id }}">
                                 </label>
                             </div>
                         </div>
@@ -43,9 +43,9 @@
                             @csrf
                             <div class="input-group">
                                 <input type="hidden" name="owner" value="1">
-                                <div class="input-group-append">
-                                    <button class="btn btn-outline-success rounded" type="submit"><i class="fa fa-check" aria-hidden="true"></i>
-                                        Asignar</button>
+                                <button class="btn btn-primary" type="submit"><i class="fa fa-check" aria-hidden="true"></i>
+                                    Asignar</button><div class="input-group-append">
+
                                 </div>
                             </div>
                         </form>
@@ -54,7 +54,7 @@
                             <div class="input-group">
                                 <input type="email" class="form-control rounded-left" name="email" placeholder="Introduce un correo electronico" aria-label="Introduce el correo" aria-describedby="basic-addon2" required>
                                 <div class="input-group-append">
-                                    <button class="btn btn-outline-success rounded-right" type="submit"><i class="fa fa-send" aria-hidden="true"></i>
+                                    <button class="btn btn-primary" type="submit"><i class="fa fa-send" aria-hidden="true"></i>
                                         Enviar</button>
                                 </div>
                             </div>

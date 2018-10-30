@@ -45,7 +45,7 @@
                     <div class="col-12">
                         <div class="table-responsive mt-4">
                             <table class="table">
-                                <thead class="thead-dark">
+                                <thead class="bg-primary text-white">
                                     <tr>
                                         <th>#</th>
                                         <th>Descripción</th>
@@ -90,14 +90,18 @@
                     <div class="row">
                         <div class="col-12">
                             @if ($event->enable_offline_payments)
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="method_payment" id="inlineRadio1" value="offline_payments">
-                                <label class="form-check-label" for="inlineRadio1">Pago con efectivo</label>
+                            <div class="form-check mb-3">
+                                <label class="form-check-label" for="inlineRadio1">
+                                    Pago con efectivo
+                                    <input class="form-check-input" type="radio" name="method_payment" id="inlineRadio1" value="offline_payments">
+                                </label>
                             </div>
                             @endif
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="method_payment" id="inlineRadio2" value="online_payment">
-                                <label class="form-check-label" for="inlineRadio2">Pago con tarjeta</label>
+                            <div class="form-check mb-3">
+                                <label class="form-check-label" for="inlineRadio2">
+                                    Pago con tarjeta
+                                    <input class="form-check-input" type="radio" name="method_payment" id="inlineRadio2" value="online_payment">
+                                </label>
                             </div>
                         </div>
                         <div class="col-12">
