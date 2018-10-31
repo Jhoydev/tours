@@ -51,7 +51,7 @@ class MeetingController extends Controller
                     $color = '#4dbd74';
                 }
                 if ($date->meeting_status_id == 2) {
-                    $color = 'gold';
+                    $color = 'orange';
                 }
 
                 if (Auth::user()->id != $date->customer_id && Auth::user()->id != $date->contact_id) {
