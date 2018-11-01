@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Collection;
+use Monolog\Logger;
+use Monolog\Handler\StreamHandler;
 use App\MyLaravelPayU;
 use App\Event;
 use App\OrderDetail;
@@ -67,13 +69,17 @@ class PaymentController extends Controller
 
     public function confirmationAPIPayU(Request $request, $order_id)
     {
-        Log::debug('PayU API.');
+        $log = new Logger('payU');
+        $log->pushHandler(new StreamHandler(storage_path() . '/logs/payu.log', Logger::DEBUG));
+        $log->debug("reach the function id $order_id");
+
         $order = Order::find($order_id);
 
         if ($request->isMethod('post')) {
             $confirmation_data     = $request->all();
-            $order->payu_order_id  = $confirmation_data['reference_sale'];
+            $order->payu_order_id  = $confirmation_data['reference_pol'];
             $order->transaction_id = $confirmation_data['transaction_id'];
+            $order->reference      = $confirmation_data['reference_sale'];
 
             switch ($confirmation_data['state_pol']) {
                 case "4":
@@ -97,6 +103,13 @@ class PaymentController extends Controller
 
             $order->save();
         }
+
+        $response = array(
+            'success' => true, 'params'  => $confirmation_data, 'id'      => $order_id
+        );
+
+
+        $log->debug(json_encode($response));
 
         return response()->json(['success' => true, 'params' => json_encode($confirmation_data), 'id' => $order_id], 200);
     }

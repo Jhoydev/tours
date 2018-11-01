@@ -91,6 +91,7 @@ class OrderController extends Controller
                             "signature"       => md5($signature),
                             "test"            => (int) config('payu.payu_testing'),
                             "responseUrl"     => route('order.invoice', ['order' => $order]),
+                            //"confirmationUrl" => "https://co.evenco.app/manual_confirmation.php",
                             "confirmationUrl" => route('confirmationAPIPayU', ['order_id' => $order->id]),
                 ];
 
