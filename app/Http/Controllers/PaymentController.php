@@ -98,7 +98,7 @@ class PaymentController extends Controller
             $order->save();
         }
 
-        return response()->json(['success' => true], 200);
+        return response()->json(['success' => true, 'params' => json_encode($confirmation_data), 'id' => $order_id], 200);
     }
 
 }
