@@ -7,8 +7,8 @@
         <div class="col-lg-6">
             <div class="card">
                 <div class="card-body">
-                    <table id="table_datatable" class="table">
-                        <thead class="thead-dark">
+                    <table id="table_datatable" class="table fade table-hover">
+                        <thead class="bg-primary text-white">
                         <tr>
                             <th>Nombre</th>
                             <th>Empresa</th>
@@ -21,7 +21,7 @@
                             <tr>
                                 <td>{{ $customer->full_name }}</td>
                                 <td>{{ $customer->workplace }}</td>
-                                <td class="text-right"><button class="btn btn-light rounded border btn-sm" onclick="changeCustomerAgenda(this)" data-customer="{{ $customer->id }}" data-name="{{ $customer->full_name }}"><i class="fa fa-sign-in text-success" aria-hidden="true"></i></button></td>
+                                <td class="text-right"><button class="btn btn-light rounded border btn-sm" onclick="changeCustomerAgenda(this)" data-customer="{{ $customer->id }}" data-name="{{ $customer->full_name }}"><i class="fa fa-sign-in-alt text-success" aria-hidden="true"></i></button></td>
                             </tr>
                         @endforeach
                         </tbody>
@@ -34,7 +34,7 @@
                 <div class="card-body">
                     <input type="hidden" id="url-calendar" value="{{ url("portal/event/$event->id/agenda/customer/".Auth::user()->id."/calendar") }}">
                     <h3 id="agenda_name" class="text-center"></h3>
-                    <div id='calendar'></div>
+                    <div id='calendar' class="full-calendar"></div>
                 </div>
             </div>
         </div>
@@ -54,7 +54,7 @@
                     {!! Form::open(['url' => url("portal/event/$event->id/date"),'method' => 'POST']) !!}
                     <input type="hidden" value="{{ Auth::user()->id }}" name="contact_id">
                     <input type="hidden" name="customer_id" id="customer_id">
-                    <input type="hidden" name="start_date">
+                    <input type="hidden" name="start_meeting">
                     <p>Cita <span id="span_date"></span></p>
                     <div class="form-group">
                         <label for="message">Mensaje <small>(opcional)</small></label>
@@ -74,11 +74,13 @@
         $("#calendar").fullCalendar({
             defaultView: 'agendaDay',
             slotDuration: '00:15:00',
+            locale: 'es',
             slotLabelInterval: '00:15:00',
             slotLabelFormat: 'h:mm a',
             timeFormat: 'h:mm a',
-            minTime: '07:00',
-            maxTime: '21:00',
+            height:1000,
+            /*minTime: '07:00',
+            maxTime: '21:00',*/
             header: {
                 left: 'prev,next today',
                 center: 'title',
@@ -90,7 +92,7 @@
             dayClick: function (date,jsEvent,view, resourceObj){
                 let modal = $("#modal_add_date");
                 modal.modal('toggle');
-                modal.find('input[name="start_date"]').val(date.format("YYYY-MM-DD HH:mm:ss"));
+                modal.find('input[name="start_meeting"]').val(date.format("YYYY-MM-DD HH:mm:ss"));
                 modal.find('#span_date').html(date.format("dddd, DD MMMM YYYY - HH:mm:ss"));
             },
             eventClick: function(calEvent, jsEvent, view) {
@@ -102,7 +104,7 @@
         let customer = $(el).data('customer');
         let name = $(el).data('name');
         let url = $("#url-calendar");
-        url.val(url.val().replace(/customer\/\d\/calendar/,`customer/${customer}/calendar`));
+        url.val(url.val().replace(/customer\/\d*\/calendar/,`customer/${customer}/calendar`));
         $("#calendar").fullCalendar('destroy');
         $("#agenda_name").html(name);
         $("#customer_id").val(customer);

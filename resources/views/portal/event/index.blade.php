@@ -101,6 +101,7 @@
     $(document).ready(function () {
         $("#calendar").fullCalendar({
             defaultView: 'listWeek',
+            lang: 'es',
             header: {
                 left: 'prev,next today',
                 center: 'title',

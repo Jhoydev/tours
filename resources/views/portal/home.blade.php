@@ -79,28 +79,31 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
-                    <h1 class="text-center">Bienvenido {{ ucfirst(Auth::user()->first_name) }}</h1>
+                    <p class="display-5 text-center">Bienvenido {{ ucfirst(Auth::user()->first_name) }}</p>
                     <div class="row justify-content-center mb-3">
-                        <div class="col-12">
+                        <div class="col-12 mb-3">
                             <h3 class="text-center">Mis eventos</h3>
-                            <hr>
                         </div>
                         @foreach($details as $detail)
                             @php($event = $detail->event)
                             <div class="col-lg-6">
-                                <p><strong class="badge badge-success">{{ $event->company->name }}</strong></p>
+                                <p><strong class="badge badge-pill badge-success">{{ $event->company->name }}</strong></p>
                                 <div class="card border-primary">
-                                    <div class="card-header bg-primary border-primary">
-                                        <div class="d-flex justify-content-between">
-                                            <span><strong class="h3">{{ $event->title }}</strong></span>
-                                            <span><i class="fa fa-calendar" aria-hidden="true"></i> {{ $event->start_date->toFormattedDateString() }}</span>
-                                            @if($event->start_date > now() && $event->page && $event->page->slug)
-                                                <div><a class="badge badge-warning" href="{{ url('evento/' . $event->page->slug ) }}" target="_blank">Ir a la web <i class="fa fa-external-link" aria-hidden="true"></i></a></div>
-                                            @endif
+                                    <div class="card-header bg-primary border-primary text-white">
+                                        <div class="row">
+                                            <div class="col-12"><p><strong class="h3">{{ $event->title }}</strong></p></div>
+                                            <div class="col-12">
+                                                <div class="row">
+                                                    <div class="col-md-6"><i class="fa fa-calendar" aria-hidden="true"></i> {{ $event->start_date->toFormattedDateString() }}</div>
+                                                    @if($event->start_date > now() && $event->page && $event->page->slug)
+                                                        <div class="col-md-6 text-right"><a class="badge badge-warning badge-pill" href="{{ url('evento/' . $event->page->slug ) }}" target="_blank">Ir a la web <i class="fas fa-external-link-alt"></i></a></div>
+                                                    @endif
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="card-body row justify-content-center">
-                                        <div class="col-12">
+                                        <div class="col-12 mb-3">
                                             @if ($event->start_date < now())
                                             <div class="d-flex justify-content-center">
                                                 <a class="btn btn-primary rounded mr-3" data-toggle="tooltip" data-placement="top" title="Panel de Control" href="{{ route('customer.event',['id' => $event->id]) }}"><i class="fa fa-home" aria-hidden="true"></i> Panel</a>
@@ -110,17 +113,16 @@
                                                 {{--<button class="btn btn-light border rounded mr-3" data-toggle="tooltip" data-placement="top" title="Descargar Certificado"><i class="fa fa-download" aria-hidden="true"></i></button>--}}
                                             </div>
                                             @endif
-                                            <hr>
                                         </div>
 
                                         @foreach($event->orderDetailsByCustomer as $my_detail)
-                                            <div class="col-lg-4">
+                                            <div class="col-lg-6">
                                                 <div class="card border-success">
                                                     <div class="card-header text-white bg-success ">
-                                                        {{ $my_detail->ticket->title }}
+                                                        <i class="fa fa-ticket-alt" aria-hidden="true"></i> {{ $my_detail->ticket->title }}
                                                     </div>
                                                     <div class="card-body text-center">
-                                                        <p><span class="badge badge-info text-white">{{ $my_detail->ticket->type }}</span></p>
+                                                        <p><span class="badge badge-info badge-pill text-white">{{ $my_detail->ticket->type }}</span></p>
                                                         {{ $my_detail->ticket->description }}
                                                         <hr>
                                                         ${{ number_format($my_detail->price,2) }}

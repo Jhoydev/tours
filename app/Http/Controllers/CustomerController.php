@@ -240,8 +240,8 @@ class CustomerController extends Controller
                 $res[] = [
                     'id' => $date->id,
                     'title' => "$name",
-                    'start' => $date->start_date->toDateTimeString(),
-                    'end' => $date->end_date->toDateTimeString(),
+                    'start' => $date->start_meeting->toDateTimeString(),
+                    'end' => $date->end_meeting->toDateTimeString(),
                     'color' => $color,
                     'message' => $date->message,
                     'status' => $date->meeting_status_id,
