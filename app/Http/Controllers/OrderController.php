@@ -125,16 +125,16 @@ class OrderController extends Controller
 
         if ($request->method_payment != "online_payment") {
             $url                    = route('order.invoice', ['order' => $order]);
-            $order->order_status_id = 2;
-            $order->update();
         }
-
+        
         $res = [
             'success'  => $completed,
             'redirect' => $url,
         ];
 
         if ($completed) {
+            $order->order_status_id = 2;
+            $order->update();
             return response()->json($res);
         } else {
             return back();
