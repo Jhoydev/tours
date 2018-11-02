@@ -60,8 +60,20 @@
                                     <span class="{{get_status_color($order->order_status_id )}} font-weight-bold">{{ $order->order_status->name }}</span>
                                 </td>
                                 <td class="text-right">
-                                    @if($order->order_status_id == 2)
-                                    <a class="text-success" href="#" onclick="confirmOrder({{ $order->id }})"><i class="fa fa-check-double" aria-hidden="true"></i> Confirmar Orden</a>
+                                    @if(trim($order->payu_order_id) != "")
+                                        @if($order->status_id == "1")
+                                            <a class="text-success" href="#" onclick="confirmOrder({{ $order->id }})"><i class="fa fa-check-double" aria-hidden="true"></i> Reembolsar Orden</a>
+                                        @elseif($order->status_id == "2")
+                                            <a class="text-success" href="#" onclick="confirmOrder({{ $order->id }})"><i class="fa fa-check-double" aria-hidden="true"></i> Verificar Orden</a>
+                                            <a class="text-success" href="#" onclick="confirmOrder({{ $order->id }})"><i class="fa fa-check-double" aria-hidden="true"></i> Cancelar Orden</a>
+                                        @endif
+                                    @elseif(trim($order->payu_order_id) == "")
+                                        @if($order->status_id == "1")
+                                            <a class="text-success" href="#" onclick="confirmOrder({{ $order->id }})"><i class="fa fa-check-double" aria-hidden="true"></i> Reembolsar Orden</a>
+                                        @elseif($order->status_id == "2")
+                                            <a class="text-success" href="#" onclick="confirmOrder({{ $order->id }})"><i class="fa fa-check-double" aria-hidden="true"></i> Confirmar Orden</a>
+                                            <a class="text-success" href="#" onclick="confirmOrder({{ $order->id }})"><i class="fa fa-check-double" aria-hidden="true"></i> Cancelar Orden</a>
+                                        @endif
                                     @endif
                                     <a class="" href="{{ route('event.orders.details',['event' => $event->id,'order' => $order->id]) }}"><i class="fa fa-sign-in-alt" aria-hidden="true"></i> Detalles</a>
                                 </td>

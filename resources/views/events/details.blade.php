@@ -11,13 +11,6 @@
                     <p class="display-5 text-center">{{ $event->title }}</p>
                     <p class="display-3 font-weight-bold text-center"><i class="fa fa-shopping-cart" aria-hidden="true"></i> Detalles de Orden</p>
                     <hr>
-                    <div class="row">
-                        <div class="col-12 text-right mb-3">
-                            {!! Form::open(['url' => url("order/$order->id"),'method' => 'DELETE','id' => 'form-order-cancel']) !!}
-                            <button class="btn btn-outline-danger btn-sm rounded"><i class="fa fa-ban" aria-hidden="true"></i> Cancelar orden</button>
-                            {!! Form::close() !!}
-                        </div>
-                    </div>
                     <table id="table_datatable" class="table fade table-hover">
                     <thead class="bg-primary text-white">
                         <tr>
