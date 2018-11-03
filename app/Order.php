@@ -12,7 +12,8 @@ class Order extends Model
 {
 
     use Payable,
-        Searchable,DatesTranslator;
+        Searchable,
+        DatesTranslator;
 
     /**
      * The attributes that are mass assignable.
@@ -35,9 +36,8 @@ class Order extends Model
 
     public function event_active()
     {
-        return $this->belongsTo(Event::class,'event_id')->where('start_date','>',now());
+        return $this->belongsTo(Event::class, 'event_id')->where('start_date', '>', now());
     }
-
 
     public function orderDetails()
     {
@@ -51,6 +51,33 @@ class Order extends Model
 
     public function tickets()
     {
-        return DB::table('order_details')->select(DB::raw('count(*) as ticket_count,ticket_id'))->where('order_id',$this->id)->groupBy('ticket_id')->get();
+        return DB::table('order_details')->select(DB::raw('count(*) as ticket_count,ticket_id'))->where('order_id', $this->id)->groupBy('ticket_id')->get();
     }
+
+    public function statusColor()
+    {
+        switch ((int) $this->order_status_id) {
+            case 1:
+                $str = "text-success";
+                break;
+            case 2:
+                $str = "text-warning";
+                break;
+            case 3:
+                $str = "text-secondary";
+                break;
+            case 4:
+                $str = "text-danger";
+                break;
+            case 5:
+                $str = "text-info";
+                break;
+            default:
+                $str = "text-primary";
+                break;
+        }
+
+        return $str;
+    }
+
 }

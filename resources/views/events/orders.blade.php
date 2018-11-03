@@ -35,7 +35,6 @@
                         </div>
                     </div>
                     @endif
-                    <input type="hidden" id="url_order_confirm" value="{{ url("api/event/$event->id/order") }}">
                     <table id="table_datatable" class="table fade table-hover">
                         <thead class="bg-primary text-white">
                         <tr class="text-center">
@@ -57,22 +56,22 @@
                                 <td class="text-right">${{ number_format($order->price,2) }}</td>
                                 <td class="text-center"><span class="text-info font-weight-bold">{{ ($order->transaction_id) ? 'En Linea' : 'Efectivo' }}</span></td>
                                 <td class="text-center td-status">
-                                    <span class="{{get_status_color($order->order_status_id )}} font-weight-bold">{{ $order->order_status->name }}</span>
+                                    <span class="{{ $order->statusColor() }} font-weight-bold">{{ $order->order_status->name }}</span>
                                 </td>
                                 <td class="text-right">
                                     @if(trim($order->payu_order_id) != "")
-                                        @if($order->status_id == "1")
-                                            <a class="text-success" href="#" onclick="confirmOrder({{ $order->id }})"><i class="fa fa-check-double" aria-hidden="true"></i> Reembolsar Orden</a>
-                                        @elseif($order->status_id == "2")
-                                            <a class="text-success" href="#" onclick="confirmOrder({{ $order->id }})"><i class="fa fa-check-double" aria-hidden="true"></i> Verificar Orden</a>
-                                            <a class="text-success" href="#" onclick="confirmOrder({{ $order->id }})"><i class="fa fa-check-double" aria-hidden="true"></i> Cancelar Orden</a>
+                                        @if($order->order_status_id == "1")
+                                            <a class="text-success" href="#" onclick="confirmOrder('{{ route("order.confirm", [$event->id, $order]) }}')"><i class="fa fa-check-double" aria-hidden="true"></i> Reembolsar Orden</a>
+                                        @elseif($order->order_status_id == "2")
+                                            <a class="text-success" href="#" onclick="confirmOrder('{{ route("order.confirm", [$event->id, $order]) }}')"><i class="fa fa-check-double" aria-hidden="true"></i> Verificar Orden</a>
+                                            <a class="text-success" href="#" onclick="confirmOrder('{{ route("order.confirm", [$event->id, $order]) }}')"><i class="fa fa-check-double" aria-hidden="true"></i> Cancelar Orden</a>
                                         @endif
                                     @elseif(trim($order->payu_order_id) == "")
-                                        @if($order->status_id == "1")
-                                            <a class="text-success" href="#" onclick="confirmOrder({{ $order->id }})"><i class="fa fa-check-double" aria-hidden="true"></i> Reembolsar Orden</a>
-                                        @elseif($order->status_id == "2")
-                                            <a class="text-success" href="#" onclick="confirmOrder({{ $order->id }})"><i class="fa fa-check-double" aria-hidden="true"></i> Confirmar Orden</a>
-                                            <a class="text-success" href="#" onclick="confirmOrder({{ $order->id }})"><i class="fa fa-check-double" aria-hidden="true"></i> Cancelar Orden</a>
+                                        @if($order->order_status_id == "1")
+                                            <a class="text-success" href="#" onclick="confirmOrder('{{ route("order.confirm", [$event->id, $order]) }}')"><i class="fa fa-check-double" aria-hidden="true"></i> Reembolsar Orden</a>
+                                        @elseif($order->order_status_id == "2")
+                                            <a class="text-success" href="#" onclick="confirmOrder('{{ route("order.confirm", [$event->id, $order]) }}')"><i class="fa fa-check-double" aria-hidden="true"></i> Confirmar Orden</a>
+                                            <a class="text-success" href="#" onclick="confirmOrder('{{ route("order.confirm", [$event->id, $order]) }}')"><i class="fa fa-check-double" aria-hidden="true"></i> Cancelar Orden</a>
                                         @endif
                                     @endif
                                     <a class="" href="{{ route('event.orders.details',['event' => $event->id,'order' => $order->id]) }}"><i class="fa fa-sign-in-alt" aria-hidden="true"></i> Detalles</a>
@@ -87,21 +86,16 @@
     </div>
 @endsection
 @push('scripts')
-    @include('layouts.js.datatable')
+@include('layouts.js.datatable')
 <script>
-    function confirmOrder(order){
-        let tr = $(this.event.target).closest('tr');
-        let url = $("#url_order_confirm").val();
-        url = url + "/" + order + "/confirm";
-        let data = {
-            '_token' : $('input[name="csrf-token"]').val(),
-            '_method' : 'PUT'
-        };
-        $.post(url,data).done(function (res){
+    function confirmOrder(url){
+        axios.put(url)
+        .then(function (response) {
             if (res.status){
-                $(tr).find('.td-status').html(`<span class="text-success font-weight-bold">pago</span>`);
                 showAlertSuccess('Pago confirmado');
             }
+        }).catch(function (error) {
+            console.log(error);
         });
     }
 </script>
