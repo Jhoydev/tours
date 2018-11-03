@@ -1,27 +1,18 @@
 @extends('layouts.template.melody')
-@section('link')
-<style>
-    [v-cloak] {
-        display: none;
-    }
-</style>
-@endsection
 @section('content')
-@push('navbar_items_right')
-<li class="nav-item">
-    <a href="{{ url('customer') }}" class="btn btn-light rounded mr-1"><i class="fa fa-ban"></i> Cancelar</a>
-</li>
-<li class="nav-item">    
-    <a href="#" class="btn btn-success rounded mr-5 submit_form_button">{!! $method == 'PUT' ? '<i class="fa fa-refresh"></i> Actualizar' : '<i class="fa fa-plus"></i> Crear' !!}</a>
-</li>
-@endpush
+<div class="row mb-3">
+    <div class="col-12 text-right">
+        <a href="{{ url('customer') }}" class="btn btn-light mr-1"><i class="fa fa-ban"></i> Cancelar</a>
+        <a href="#" class="btn btn-primary submit_form_button">{!! $method == 'PUT' ? '<i class="fa fa-refresh"></i> Actualizar' : '<i class="fa fa-plus"></i> Crear' !!}</a>
+    </div>
+</div>
 <div class="row justify-content-center mb-5">
     <div class="col-md-10">
         <div class="card">
             <div class="card-body">
                 <div class="row">
                     <div class="col-12">
-                        {!! Form::open(['url' => url('customer'),'method' => 'POST']) !!}
+                        {!! Form::open(['url' => url('customer'),'method' => 'POST','id' => 'form-customer']) !!}
                         <div class="row">
                             <div class="form-group col-md-6">
                                 <label for="first_name"><span class="fa fa-user"></span> Nombre</label>
@@ -87,6 +78,11 @@
                                 <input id="mobile" name="mobile" type="text"
                                        class="form-control rounded {{ $errors->has('mobile') ? ' is-invalid' : '' }} " placeholder="Celular"
                                        value="{{ $customer->mobile ? $customer->mobile : old('mobile') }}">
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label for="birth">Fecha de nacimiento</label>
+                                <input data-inputmask="'alias': 'date'" type="text" class="form-control" id="birth" name="birth" value="{{ $customer->birth ? $customer->birth->format('d/m/Y') : old('birthN') }}"/>
+                                <label id="birth-error" class="error mt-2 text-danger invisible" for="birth">Debes de completar la fecha o dejarla vacia</label>
                             </div>
                         </div>
                         <hr>
@@ -164,3 +160,13 @@
     </div>
 </div>
 @endsection
+@push('scripts')
+<script>
+    $('#birth').blur(validarBirth);
+    $('#form-customer').submit(function (ev){
+        if (!validarBirth()) {
+            ev.preventDefault()
+        }
+    });
+</script>
+@endpush
