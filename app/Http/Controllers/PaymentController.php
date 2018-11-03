@@ -67,7 +67,7 @@ class PaymentController extends Controller
         return true;
     }
 
-    public function confirmationAPIPayU(Request $request, $order_id)
+    public function confirmationPayU(Request $request, $order_id)
     {
         $log = new Logger('payU');
         $log->pushHandler(new StreamHandler(storage_path() . '/logs/payu.log', Logger::DEBUG));

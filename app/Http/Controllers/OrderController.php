@@ -92,7 +92,7 @@ class OrderController extends Controller
                             "test"            => (int) config('payu.payu_testing'),
                             "responseUrl"     => route('order.invoice', ['order' => $order]),
                             //"confirmationUrl" => "https://co.evenco.app/manual_confirmation.php",
-                            "confirmationUrl" => route('confirmationAPIPayU', ['order_id' => $order->id]),
+                            "confirmationUrl" => route('payment.confirmation.payu', ['order_id' => $order->id]),
                 ];
 
                 $order->reference = $random_string;
@@ -124,9 +124,9 @@ class OrderController extends Controller
         }
 
         if ($request->method_payment != "online_payment") {
-            $url                    = route('order.invoice', ['order' => $order]);
+            $url = route('order.invoice', ['order' => $order]);
         }
-        
+
         $res = [
             'success'  => $completed,
             'redirect' => $url,
