@@ -95,14 +95,14 @@
                                             <div class="col-12">
                                                 <div class="row">
                                                     <div class="col-md-6"><i class="fa fa-calendar" aria-hidden="true"></i> {{ $event->start_date->toFormattedDateString() }}</div>
-                                                    @if($event->start_date > now() && $event->page && $event->page->slug)
+                                                    @if($event->end_date > now() && $event->page && $event->page->slug)
                                                         <div class="col-md-6 text-right"><a class="badge badge-warning badge-pill" href="{{ url('evento/' . $event->page->slug ) }}" target="_blank">Ir a la web <i class="fas fa-external-link-alt"></i></a></div>
                                                     @endif
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="card-body row justify-content-center">
+                                    <div class="card-body">
                                         <div class="col-12 mb-3">
                                             @if ($event->start_date < now())
                                             <div class="d-flex justify-content-center">
@@ -114,22 +114,28 @@
                                             </div>
                                             @endif
                                         </div>
-
-                                        @foreach($event->orderDetailsByCustomer as $my_detail)
-                                            <div class="col-lg-6">
-                                                <div class="card border-success">
-                                                    <div class="card-header text-white bg-success ">
-                                                        <i class="fa fa-ticket-alt" aria-hidden="true"></i> {{ $my_detail->ticket->title }}
-                                                    </div>
-                                                    <div class="card-body text-center">
-                                                        <p><span class="badge badge-info badge-pill text-white">{{ $my_detail->ticket->type }}</span></p>
-                                                        {{ $my_detail->ticket->description }}
-                                                        <hr>
-                                                        ${{ number_format($my_detail->price,2) }}
-                                                    </div>
+                                        @if($event->flyer)
+                                            <div class="row justify-content-center mb-3">
+                                                <div class="col-md-8">
+                                                    <img src="{{ ($event->flyer) ?url($event->flyer):'' }}" class="img-fluid shadow" style="min-width: 100%; min-height:150px"  alt="">
                                                 </div>
                                             </div>
-                                        @endforeach
+                                        @endif
+                                        <div class="row justify-content-center">
+                                            @foreach($event->orderDetailsByCustomer as $my_detail)
+                                                <div class="col-lg-6">
+                                                    <div class="card">
+                                                        <div class="card-header">
+                                                            <i class="fa fa-ticket-alt" aria-hidden="true"></i> {{ $my_detail->ticket->title }}
+                                                            <span class="badge badge-info badge-pill text-white pull-right">{{ $my_detail->ticket->type }}</span>
+                                                        </div>
+                                                        <div class="card-body text-center">
+                                                            {{ $my_detail->ticket->description }}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            @endforeach
+                                        </div>
 
                                     </div>
                                 </div>

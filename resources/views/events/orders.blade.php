@@ -88,8 +88,8 @@
         };
         $.post(url,data).done(function (res){
             if (res.status){
-                $(tr).find('.td-status').html(`<span class="badge badge-success">pago</span>`);
-                alert('Orden Confirmada');
+                $(tr).find('.td-status').html(`<span class="text-success font-weight-bold">pago</span>`);
+                showAlertSuccess('Pago confirmado');
             }
         });
     }

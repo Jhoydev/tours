@@ -5,14 +5,14 @@ function showAlertError(errors) {
     });
     var alert = '\n    <div id="alert-ajax" class="modal" tabindex="-1" role="dialog">\n      <div class="modal-dialog" role="document">\n        <div class="modal-content bg-danger">\n          <div class="modal-body">\n            <p>' + texto + '</p>\n          </div>\n        </div>\n      </div>\n    </div>    \n    ';
     $("#alert-ajax").remove();
-    $('main > .container-fluid').prepend(alert);
+    $('.main-panel').prepend(alert);
     $('#alert-ajax').modal('show');
 }
 
 function showAlertSuccess(mensaje) {
-    var alert = '\n    <div id="alert-ajax" class="modal" tabindex="-1" role="dialog">\n      <div class="modal-dialog" role="document">\n        <div class="modal-content bg-success">\n          <div class="modal-body text-center">\n            <p>' + mensaje + '</p>\n          </div>\n        </div>\n      </div>\n    </div>\n    ';
+    var alert = '\n    <div id="alert-ajax" class="modal" tabindex="-1" role="dialog">\n      <div class="modal-dialog" role="document">\n        <div class="modal-content text-success">\n          <div class="modal-body text-center">\n            <p class="h3"><i class="fas fa-check"></i> ' + mensaje + '</p>\n          </div>\n        </div>\n      </div>\n    </div>\n    ';
     $("#alert-ajax").remove();
-    $('main > .container-fluid').prepend(alert);
+    $('.main-panel').prepend(alert);
     $('#alert-ajax').modal('show');
 }
 
@@ -125,4 +125,18 @@ function cambiaIcon(el, block) {
     } else {
         label.innerHTML = '<i class="fa fa-map-marker" aria-hidden="true"></i> ' + text;
     }
+}
+
+function validarBirth() {
+    var birth = $('#birth');
+    birth.removeClass('is-invalid');
+    var birthError = $('#birth-error');
+    birthError.addClass('invisible');
+    if (birth.val().length > 0 && !birth.inputmask("isComplete")) {
+        birth.focus();
+        birth.addClass('is-invalid');
+        birthError.removeClass('invisible');
+        return false;
+    }
+    return true;
 }

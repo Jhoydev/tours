@@ -15,7 +15,7 @@ function showAlertError(errors) {
     </div>    
     `;
     $("#alert-ajax").remove();
-    $('main > .container-fluid').prepend(alert);
+    $('.main-panel').prepend(alert);
     $('#alert-ajax').modal('show')
 }
 
@@ -23,16 +23,16 @@ function showAlertSuccess(mensaje) {
     var alert = `
     <div id="alert-ajax" class="modal" tabindex="-1" role="dialog">
       <div class="modal-dialog" role="document">
-        <div class="modal-content bg-success">
+        <div class="modal-content text-success">
           <div class="modal-body text-center">
-            <p>${mensaje}</p>
+            <p class="h3"><i class="fas fa-check"></i> ${mensaje}</p>
           </div>
         </div>
       </div>
     </div>
     `;
     $("#alert-ajax").remove();
-    $('main > .container-fluid').prepend(alert);
+    $('.main-panel').prepend(alert);
     $('#alert-ajax').modal('show')
 }
 
@@ -147,4 +147,18 @@ function cambiaIcon(el,block) {
     }else{
         label.innerHTML = `<i class="fa fa-map-marker" aria-hidden="true"></i> ${text}`;
     }
+}
+
+function validarBirth() {
+    let birth = $('#birth');
+    birth.removeClass('is-invalid');
+    let birthError = $('#birth-error');
+    birthError.addClass('invisible');
+    if  (birth.val().length > 0 && !birth.inputmask("isComplete")){
+        birth.focus();
+        birth.addClass('is-invalid');
+        birthError.removeClass('invisible');
+        return false;
+    }
+    return true;
 }

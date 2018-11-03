@@ -44,8 +44,12 @@
             </div>
             <a href="#" class="auth-link text-black">Forgot password?</a>
         </div>--}}
-        <div class="my-3">
+        <div class="form-group">
             <button class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn pb-5" type="submit"><i class="fa fa-sign-in-alt" aria-hidden="true"></i> {{ __('Ingresar') }}</button>
+        </div>
+        <div class="form-group text-center">
+            <hr>
+            <a href="{{ route('portal.register') }}">Crear Cuenta</a>
         </div>
         {{--<div class="mb-2 d-flex">
             <button type="button" class="btn btn-facebook auth-form-btn flex-grow mr-1">

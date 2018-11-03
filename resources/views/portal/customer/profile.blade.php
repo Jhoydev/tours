@@ -2,12 +2,7 @@
 @section('content')
 @push('sidebar')
     <li class="nav-item">
-        <a class="nav-link" href="{{ route("customer.changepassword") }}"><i class="icon-key"></i> Cambiar Contraseña</a>
-    </li>
-@endpush
-@push('navbar_items_right')
-    <li class="nav-item">
-        <button class="btn btn-success rounded mr-5" type="button" onclick="$('#form-customer').submit()"><i class="fa fa-save"></i> Guardar</button>
+        <a class="nav-link" href="{{ route("customer.changepassword") }}"><i class="fa fa-key menu-icon"></i> <span class="menu-title">Cambiar Contraseña</span></a>
     </li>
 @endpush
 <div class="row">
@@ -70,6 +65,11 @@
                                                 @endif
                                             </div>
                                         </div>
+                                    </div>
+                                    <div class="form-group col-md-12">
+                                        <label for="birth">Fecha de nacimiento</label>
+                                        <input data-inputmask="'alias': 'date'" type="text" class="form-control" id="birth" name="birth" value="{{ $customer->birth ? $customer->birth->format('d/m/Y') : '' }}"/>
+                                        <label id="birth-error" class="error mt-2 text-danger invisible" for="birth">Debes de completar la fecha o dejarla vacia</label>
                                     </div>
                                 </div>
 
@@ -141,6 +141,11 @@
                                                value="{{ $customer->workplace ? $customer->workplace : old('workplace') }}">
                                     </div>
                                 </div>
+                                <div class="row">
+                                    <div class="col-12 form-group text-right">
+                                        <button class="btn btn-primary" type="submit"><i class="fa fa-save"></i> Guardar</button>
+                                    </div>
+                                </div>
                                 {!! Form::close() !!}
                             </div>
 
@@ -152,3 +157,13 @@
     </div>
 </div>
 @endsection
+@push('scripts')
+<script>
+    $('#birth').blur(validarBirth);
+    $('#form-customer').submit(function (ev){
+        if (!validarBirth()) {
+            ev.preventDefault()
+        }
+    });
+</script>
+@endpush

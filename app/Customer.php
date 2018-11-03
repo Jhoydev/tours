@@ -12,6 +12,7 @@ use App\Country;
 use App\State;
 use App\City;
 use App\User;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
@@ -26,9 +27,9 @@ class Customer extends Authenticatable
     protected $fillable = [
         'first_name', 'last_name', 'document_type_id', 'document', 'email',
         'phone', 'mobile', 'address', 'address2', 'city_id', 'state_id', 'zip_code',
-        'country_id', 'profession', 'workplace', 'password', 'edited_by', 'created_by'
+        'country_id', 'profession', 'workplace', 'password', 'edited_by', 'created_by','birth'
     ];
-    protected $dates    = ["deleted_at", "created_at", "updated_at"];
+    protected $dates    = ["deleted_at", "created_at", "updated_at","birth"];
 
     /**
      * The attributes that should be hidden for arrays.
@@ -44,7 +45,12 @@ class Customer extends Authenticatable
 
         $this->attributes['password'] = $password;
     }
-
+    public function setBirthAttribute( $value ) {
+        if ($value){
+            return  $this->attributes['birth'] = Carbon::createFromFormat('d/m/Y', $value);
+        }
+        return $this->attributes['birth'] = $value;
+    }
     /* Relationships */
 
     public function document_type()
