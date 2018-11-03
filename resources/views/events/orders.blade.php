@@ -45,29 +45,40 @@
                             <th>Valor</th>
                             <th>Medio de Pago</th>
                             <th class="text-center">Estado</th>
-                            <th></th>
+                            <th>Acciones</th>
                         </tr>
                         </thead>
                         <tbody>
-                        @foreach($event->orders as $order)
+                            @foreach($event->orders as $order)
                             <tr class="text-center">
                                 <td>{{ $order->id }}</td>
                                 <td>{{ $order->customer->full_name }}</td>
                                 <td>{{ $order->customer->email }}</td>
                                 <td class="text-right">${{ number_format($order->price,2) }}</td>
-                                <td class="text-center"><span class="text-info font-weight-bold">{{ ($order->transaction_id) ? 'online' : 'En efectivo' }}</span></td>
+                                <td class="text-center"><span class="text-info font-weight-bold">{{ ($order->transaction_id) ? 'En Linea' : 'Efectivo' }}</span></td>
                                 <td class="text-center td-status">
-                                    @if($order->order_status_id == 2)
-                                    <button class="btn btn-warning text-white btn-sm rounded" onclick="confirmOrder({{ $order->id }})">
-                                        <i class="fa fa-clock-o" aria-hidden="true"></i>
-                                        {{ $order->order_status->name }}</button>
-                                    @else
-                                    <span class="text-success font-weight-bold">{{ $order->order_status->name }}</span>
-                                    @endif
+                                    <span class="{{get_status_color($order->order_status_id )}} font-weight-bold">{{ $order->order_status->name }}</span>
                                 </td>
-                                <td class="text-right"><a class="" href="{{ route('event.orders.details',['event' => $event->id,'order' => $order->id]) }}"><i class="fa fa-sign-in-alt" aria-hidden="true"></i> ver</a></td>
+                                <td class="text-right">
+                                    @if(trim($order->payu_order_id) != "")
+                                        @if($order->status_id == "1")
+                                            <a class="text-success" href="#" onclick="confirmOrder({{ $order->id }})"><i class="fa fa-check-double" aria-hidden="true"></i> Reembolsar Orden</a>
+                                        @elseif($order->status_id == "2")
+                                            <a class="text-success" href="#" onclick="confirmOrder({{ $order->id }})"><i class="fa fa-check-double" aria-hidden="true"></i> Verificar Orden</a>
+                                            <a class="text-success" href="#" onclick="confirmOrder({{ $order->id }})"><i class="fa fa-check-double" aria-hidden="true"></i> Cancelar Orden</a>
+                                        @endif
+                                    @elseif(trim($order->payu_order_id) == "")
+                                        @if($order->status_id == "1")
+                                            <a class="text-success" href="#" onclick="confirmOrder({{ $order->id }})"><i class="fa fa-check-double" aria-hidden="true"></i> Reembolsar Orden</a>
+                                        @elseif($order->status_id == "2")
+                                            <a class="text-success" href="#" onclick="confirmOrder({{ $order->id }})"><i class="fa fa-check-double" aria-hidden="true"></i> Confirmar Orden</a>
+                                            <a class="text-success" href="#" onclick="confirmOrder({{ $order->id }})"><i class="fa fa-check-double" aria-hidden="true"></i> Cancelar Orden</a>
+                                        @endif
+                                    @endif
+                                    <a class="" href="{{ route('event.orders.details',['event' => $event->id,'order' => $order->id]) }}"><i class="fa fa-sign-in-alt" aria-hidden="true"></i> Detalles</a>
+                                </td>
                             </tr>
-                        @endforeach
+                            @endforeach
                         </tbody>
                     </table>
                 </div>
