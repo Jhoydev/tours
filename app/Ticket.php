@@ -5,10 +5,13 @@ namespace App;
 use Carbon\Carbon;
 use DateTime;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\DB;
 
 class Ticket extends Model
 {
+    use SoftDeletes;
+
     protected $fillable = [
         'id','title','description','max_per_person','min_per_person',
         'quantity_available','quantity_sold','start_sale_date',

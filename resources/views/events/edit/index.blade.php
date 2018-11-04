@@ -7,7 +7,7 @@
             {!! Form::close() !!}
         </div>
     </div>
-    <div class="col-12 mt-3">
+    <div class="col-12 mt-3 text-right">
         <a href="{{ url("events/$event->id/confirm-delete") }}" class="text-danger">Eliminar evento</a>
     </div>
 @endsection

@@ -25,9 +25,11 @@ class Event extends Model
         if (Auth::guard('web')->check()) {
             static::addGlobalScope(new CompanyScope);
         }
+        // Eliminar en cascada
         static::deleting(function($event) {
             $event->orders()->delete();
             $event->orderDetails()->delete();
+            $event->tickets()->delete();
         });
     }
 
@@ -123,19 +125,15 @@ class Event extends Model
     }
 
     /* Mutators */
-
     public function setStartDateAttribute($value)
     {
         return  $this->attributes['start_date'] = Carbon::createFromFormat('d/m/Y H:i', $value);
     }
 
-
-
     public function setEndDateAttribute($value)
     {
         return  $this->attributes['end_date'] = Carbon::createFromFormat('d/m/Y H:i', $value);
     }
-
 
     /* Scopes */
     function scopeActive($query)
@@ -145,7 +143,6 @@ class Event extends Model
     }
 
     /* Methods */
-
     public static function lastEvents($num)
     {
         return Event::orderBy('created_at', 'DESC')->take($num)->get();
