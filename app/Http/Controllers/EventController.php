@@ -4,10 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Event;
 use App\EventType;
+use App\Mail\CanceledEventNotification;
 use App\Order;
 use App\OrderDetail;
 use App\Page;
 use App\Ticket;
+use Illuminate\Support\Facades\Mail;
 use Image;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -200,7 +202,8 @@ class EventController extends Controller
                 }
                 if (!in_array($order->customer_id,$customerConfimated)) {
                     $customerConfimated[] = $order->customer_id;
-                    // ENVIAR CORREO
+                    Mail::to(['email' => $order->customer->email])->send(new CanceledEventNotification($event));
+
                 }
             }
 
@@ -212,7 +215,7 @@ class EventController extends Controller
                     }
                     if (!in_array($d->customer_id,$customerConfimated)) {
                         $customerConfimated[] = $d->customer_id;
-                        // ENVIAR CORREO
+                        Mail::to(['email' => $d->customer->email])->send(new CanceledEventNotification($event));
                     }
                 }
             }
