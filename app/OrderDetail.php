@@ -3,13 +3,15 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 
 class OrderDetail extends Model
 {
+    use SoftDeletes;
     protected $fillable = ['customer_id','updated_at'];
-
+    protected $dates    = ['deleted_at'];
     public function Customer()
     {
         return $this->belongsTo(Customer::class,'customer_id');

@@ -30,6 +30,7 @@ class CreateOrderDetailsTable extends Migration
             $table->boolean('attended')->default(false);
             $table->string('send_to_email')->nullable();
             $table->string('token_verify')->nullable();
+            $table->softDeletes()->onDelete('cascade');
             $table->timestamps();
         });
     }

@@ -26,6 +26,7 @@ class CreateOrderTable extends Migration
             $table->foreign('event_id')->references('id')->on('events');
             $table->unsignedInteger('order_status_id');
             $table->foreign('order_status_id')->references('id')->on('order_statuses');
+            $table->softDeletes()->onDelete('cascade');
             $table->timestamps();
         });
     }

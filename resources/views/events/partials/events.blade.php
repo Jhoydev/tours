@@ -3,7 +3,7 @@
         <p class="display-4 text-center">Eventos</p>
         <hr>
         <div class="table-responsive">
-            <table id="order-listing" class="table">
+            <table id="table_datatable" class="table table-hover fade">
                 <thead class="bg-primary text-white">
                 <tr>
                     <th>Evento</th>
@@ -49,6 +49,5 @@
     </div>
 </div>
 @push('scripts')
-<script src="/template/js/data-table.js"></script>
     @include('layouts.js.datatable')
 @endpush

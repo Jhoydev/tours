@@ -21,17 +21,20 @@ class EventTypesTableSeeder extends Seeder
             'name' => 'Tours'
         ]);
 
-        DB::table('event_status')->insert([
+        DB::table('event_statuses')->insert([
             'name' => 'En Venta'
         ]);
-        DB::table('event_status')->insert([
+        DB::table('event_statuses')->insert([
             'name' => 'Agotado'
         ]);
-        DB::table('event_status')->insert([
+        DB::table('event_statuses')->insert([
             'name' => 'Ventas Terminadas'
         ]);
-        DB::table('event_status')->insert([
+        DB::table('event_statuses')->insert([
             'name' => 'Aun no Disponible'
+        ]);
+        DB::table('event_statuses')->insert([
+            'name' => 'Cancelado'
         ]);
     }
 }

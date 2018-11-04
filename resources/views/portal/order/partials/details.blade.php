@@ -1,4 +1,10 @@
 <div class="row">
+    @if ($event->event_status_id == 5)
+        <div class="col-12">
+            <p class="h2 text-center"> Evento Cancelado</p>
+        </div>
+    @else
+
     @foreach($details as $detail)
         <div class="col-md-4">
             <div class="card rounded {{ (!$detail->customer) ? 'border border-warning' : '' }}">
@@ -64,6 +70,7 @@
             </div>
         </div>
     @endforeach
+    @endif
 </div>
 @push('scripts')
 @include('layouts.js.datatable')

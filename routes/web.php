@@ -86,6 +86,7 @@ Route::middleware('auth:web')->group(function () {
         Route::resource('{event}/tickets/{ticket}/send-tickets', 'SpecialTicketController')->except(['show']);
         Route::get('{event}/tickets/{ticket}/send-tickets/customer/{customer}', 'SpecialTicketController@show');
         Route::delete('tickets/refuse/{orderDetail}', 'TicketController@refuse');
+        Route::get('{event}/confirm-delete','EventController@confirmDelete');
     });
     Route::resource('events', 'EventController');
 

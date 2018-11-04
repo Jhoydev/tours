@@ -3,6 +3,7 @@
 namespace App\Http\Middleware;
 
 use Closure;
+use Illuminate\Support\Facades\Auth;
 
 class Portal
 {
@@ -13,8 +14,9 @@ class Portal
      * @param  \Closure  $next
      * @return mixed
      */
-    public function handle($request, Closure $next)
+    public function handle($request, Closure $next,$status)
     {
+        dd($status);
         return $next($request);
     }
 }

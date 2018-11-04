@@ -6,12 +6,13 @@ use App\Scopes\CompanyScope;
 use App\Traits\DatesTranslator;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class Event extends Model
 {
-    use DatesTranslator;
+    use DatesTranslator,SoftDeletes;
 
     protected $fillable = ["id", "title", "description", "address","cp", "start_date", "end_date", "city_id", "state_id",'country_id',"flyer","company_id",
                             "event_type_id","post_order_display_message","pre_order_display_message","enable_offline_payments","offline_payment_instructions","memories_url", "created_by"];
@@ -24,6 +25,10 @@ class Event extends Model
         if (Auth::guard('web')->check()) {
             static::addGlobalScope(new CompanyScope);
         }
+        static::deleting(function($event) {
+            $event->orders()->delete();
+            $event->orderDetails()->delete();
+        });
     }
 
     /* Relationships */
@@ -64,7 +69,7 @@ class Event extends Model
         return $this->belongsTo(EventType::class);
     }
 
-    public function status()
+    public function eventStatus()
     {
         return $this->belongsTo(EventStatus::class);
     }
@@ -92,6 +97,11 @@ class Event extends Model
         return $this->hasMany(OrderDetail::class);
     }
 
+    public function orderDetailsGroupBy($group)
+    {
+        return $this->hasMany(OrderDetail::class)->groupBy($group)->get();
+    }
+
     public function orderDetailsByCustomer()
     {
         return $this->hasMany(OrderDetail::class)->where('customer_id','=',Auth::user()->id);
@@ -100,6 +110,11 @@ class Event extends Model
     public function ordersPaid()
     {
         return $this->hasMany(Order::class)->where('order_status_id','=','1');
+    }
+
+    public function cancelOrders()
+    {
+        return $this->hasMany(Order::class)->where('order_status_id','=','1')->update(['order_status_id' => 3]);
     }
 
     public function ordersPending()
@@ -121,29 +136,11 @@ class Event extends Model
         return  $this->attributes['end_date'] = Carbon::createFromFormat('d/m/Y H:i', $value);
     }
 
+
     /* Scopes */
-
-    function scopeTitle($query, $title)
-    {
-        if ($title) {
-            $id_events = [];
-
-            $events = Event::Select(DB::raw('title, id'))
-                            ->having('title', 'LIKE', "%$title%")->get();
-
-            foreach ($events as $event) {
-                array_push($id_events, $event->id);
-            }
-
-            return $query->whereIn('id', $id_events);
-        }
-
-        return $query;
-    }
-
     function scopeActive($query)
     {
-        $query->with('company','page')->where('start_date','>=',NOW())->orderBy('start_date','ASC');
+        $query->with('company','page')->whereNotIn('event_status_id',[4,5])->where('start_date','>=',NOW())->orderBy('start_date','ASC');
         return $query;
     }
 

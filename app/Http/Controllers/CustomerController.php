@@ -21,6 +21,15 @@ use Illuminate\Support\Facades\DB;
 class CustomerController extends Controller
 {
     /**
+     * Instantiate a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+
+    }
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response

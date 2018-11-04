@@ -87,7 +87,7 @@
                         @foreach($details as $detail)
                             @php($event = $detail->event)
                             <div class="col-lg-6">
-                                <p><strong class="badge badge-pill badge-success">{{ $event->company->name }}</strong></p>
+                                <p><strong class="badge badge-pill badge-success">{{ $event->company->name }}</strong> <span class="badge badge-info badge-pill"> {{ $event->eventStatus->name }}</span></p>
                                 <div class="card border-primary">
                                     <div class="card-header bg-primary border-primary text-white">
                                         <div class="row">
@@ -104,7 +104,7 @@
                                     </div>
                                     <div class="card-body">
                                         <div class="col-12 mb-3">
-                                            @if ($event->start_date < now())
+                                            @if ($event->start_date < now() && $event->event_status_id < 4)
                                             <div class="d-flex justify-content-center">
                                                 <a class="btn btn-primary rounded mr-3" data-toggle="tooltip" data-placement="top" title="Panel de Control" href="{{ route('customer.event',['id' => $event->id]) }}"><i class="fa fa-home" aria-hidden="true"></i> Panel</a>
                                                 @if($event->memories_url)

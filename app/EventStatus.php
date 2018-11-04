@@ -7,6 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 class EventStatus extends Model
 {
     public function event(){
-        return $this->hasMany(Event::class);
+        return $this->hasOne(Event::class);
     }
 }

@@ -18,7 +18,7 @@ class CreateEventsTable extends Migration
             $table->string('name');
             $table->timestamps();
         });
-        Schema::create('event_status', function (Blueprint $table) {
+        Schema::create('event_statuses', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
             $table->timestamps();
@@ -42,7 +42,7 @@ class CreateEventsTable extends Migration
             $table->unsignedInteger('event_type_id');
             $table->foreign('event_type_id')->references('id')->on('event_types');
             $table->unsignedInteger('event_status_id')->default(1);
-            $table->foreign('event_status_id')->references('id')->on('event_status');
+            $table->foreign('event_status_id')->references('id')->on('event_statuses');
 
             $table->text('flyer')->nullable();
             $table->text('memories_url')->nullable();
@@ -56,6 +56,7 @@ class CreateEventsTable extends Migration
             $table->foreign('created_by')->references('id')->on('users');
             $table->unsignedInteger('company_id');
             $table->foreign('company_id')->references('id')->on('companies');
+            $table->softDeletes();
             $table->timestamps();
         });
     }
@@ -68,7 +69,7 @@ class CreateEventsTable extends Migration
     public function down()
     {
         Schema::dropIfExists('events');
-        Schema::dropIfExists('event_status');
+        Schema::dropIfExists('event_statuses');
         Schema::dropIfExists('event_types');
     }
 }

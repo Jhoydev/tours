@@ -6,6 +6,7 @@ use Alexo\LaravelPayU\Payable;
 use Alexo\LaravelPayU\Searchable;
 use App\Traits\DatesTranslator;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\DB;
 
 class Order extends Model
@@ -13,7 +14,8 @@ class Order extends Model
 
     use Payable,
         Searchable,
-        DatesTranslator;
+        DatesTranslator,
+        SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
@@ -23,6 +25,7 @@ class Order extends Model
     protected $fillable = [
         'reference', 'payu_order_id', 'transaction_id', 'customer_id', 'event_id', 'order_status_id'
     ];
+    protected $dates    = ['deleted_at'];
 
     public function customer()
     {

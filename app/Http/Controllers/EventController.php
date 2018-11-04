@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Storage;
 
 class EventController extends Controller
 {
+
     /**
      * Display a listing of the resource.
      *
@@ -23,13 +24,13 @@ class EventController extends Controller
     public function index(Request $request)
     {
         if (Auth::guard('customer')->check()) {
-            $events = Event::active()->paginate(20);
+            $events = Event::active()->get();
             return view('portal.events', compact('events'));
         }
-        $events = Event::title($request->title)->orderBy('title', 'ASC')->paginate(20);
+        $events      = Event::whereNotIn('event_status_id',[5])->orderBy('title', 'ASC')->get();
         $event_types = EventType::orderBy('name', 'ASC')->pluck('name', 'id')->all();
-        $event_form = new Event();
-        $page = new Page();
+        $event_form  = new Event();
+        $page        = new Page();
 
         if ($request->ajax()) {
             return view('events.partials.events', compact('events', 'event_types', 'event_form', 'page'));
@@ -58,14 +59,14 @@ class EventController extends Controller
         $request->request->add(['company_id' => $request->user()->company_id]);
         $event = Event::create($request->all());
         if ($request->background || $request->text_color) {
-            $page = new Page();
+            $page             = new Page();
             $page->background = $request->background;
             //$page->text_color = $request->text_color;
             $page->event_id = $event->id;
             $page->save();
         }
         if ($request->hasFile('flyer')) {
-            $flyer = $request->file('flyer');
+            $flyer    = $request->file('flyer');
             $filename = "flyer." . $flyer->getClientOriginalExtension();
 
             $path_flyer = "companies/" . Auth::user()->company_id . "/events/$event->id/flyer";
@@ -80,8 +81,8 @@ class EventController extends Controller
         }
         if ($request->ajax()) {
             return response()->json([
-                'status' => true,
-            ]);
+                                        'status' => true,
+                                    ]);
         }
         return redirect("events/$event->id");
     }
@@ -94,9 +95,9 @@ class EventController extends Controller
      */
     public function show(Event $event)
     {
-        $attended = OrderDetail::where('event_id','=',$event->id)->where('customer_id','!=',null)->count();
-        $pending_tickets = OrderDetail::where('event_id','=',$event->id)->where('customer_id','=',null)->count();
-        return view('events.show', compact('event','attended','pending_tickets'));
+        $attended        = OrderDetail::where('event_id', '=', $event->id)->where('customer_id', '!=', null)->count();
+        $pending_tickets = OrderDetail::where('event_id', '=', $event->id)->where('customer_id', '=', null)->count();
+        return view('events.show', compact('event', 'attended', 'pending_tickets'));
     }
 
     /**
@@ -108,7 +109,7 @@ class EventController extends Controller
     public function edit(Event $event)
     {
         $event_types = EventType::orderBy('name', 'ASC')->pluck('name', 'id')->all();
-        $event_form = $event;
+        $event_form  = $event;
         return view('events.edit.index', compact('event', 'event_types', 'event_form'));
     }
 
@@ -116,11 +117,11 @@ class EventController extends Controller
     {
         if ($page = Page::where("event_id", $event->id)->first()) {
             $page_form['method'] = "PUT";
-            $page_form['url'] = url("page/$page->id");
+            $page_form['url']    = url("page/$page->id");
         } else {
-            $page = new Page();
+            $page                = new Page();
             $page_form['method'] = "POST";
-            $page_form['url'] = url("page");
+            $page_form['url']    = url("page");
         }
         return view('events.edit.page', compact('event', 'page', 'page_form'));
     }
@@ -135,13 +136,13 @@ class EventController extends Controller
     public function update(Request $request, Event $event)
     {
         $request->validate([
-            'title' => 'required'
-        ]);
+                               'title' => 'required'
+                           ]);
 
         $event->fill($request->all());
 
         if ($request->hasFile('flyer')) {
-            $flyer = $request->file('flyer');
+            $flyer    = $request->file('flyer');
             $filename = "flyer." . $flyer->getClientOriginalExtension();
 
             $path_flyer = "companies/" . Auth::user()->company_id . "/events/$event->id/flyer";
@@ -165,13 +166,17 @@ class EventController extends Controller
 
         if ($request->ajax()) {
             return response()->json([
-                'status' => true,
-            ]);
+                                        'status' => true,
+                                    ]);
         }
-        session()->flash('message',"Guardado Correctamente");
+        session()->flash('message', "Guardado Correctamente");
         return back();
     }
 
+    public function confirmDelete (Event $event) {
+        $orders = $event->ordersPaid;
+        return view('events.confirm-delete',compact('event','orders'));
+    }
     /**
      * Remove the specified resource from storage.
      *
@@ -180,51 +185,81 @@ class EventController extends Controller
      */
     public function destroy(Event $event)
     {
-        if ($event->delete()) {
-            session()->flash('message', "Evento $event->title eliminado correctamente");
-            return redirect('events');
+        $orders = $event->ordersPaid;
+        $customerConfimated = [];
+
+        if (count($orders) > 0) {
+
+            /*avisar a los customers y al comprador de la orden*/
+            foreach ($orders as $order) {
+                if ($order->customer_id == null  || !$order->customer->email){
+                    continue;
+                }
+                if ($order->payu_order_id || $order->transaction_id) {
+                    // PAGO ONLINE, PARCE HAGA SU MAGIA AQUI
+                }
+                if (!in_array($order->customer_id,$customerConfimated)) {
+                    $customerConfimated[] = $order->customer_id;
+                    // ENVIAR CORREO
+                }
+            }
+
+            $detailsCustomer = $event->orderDetailsGroupBy('customer_id');
+            if (count($detailsCustomer) > 0) {
+                foreach ($detailsCustomer as $d) {
+                    if ($d->customer_id == null  || !$d->customer->email){
+                        continue;
+                    }
+                    if (!in_array($d->customer_id,$customerConfimated)) {
+                        $customerConfimated[] = $d->customer_id;
+                        // ENVIAR CORREO
+                    }
+                }
+            }
+
         }
-        session()->flash('message', 'No se ha podido eliminar el evento, por favor contacte con soporte');
+        $event->delete();
         return redirect('events');
+
     }
 
     public function customers(Event $event)
     {
-        $details = OrderDetail::With('customer')->Where('event_id','=',$event->id)->where('complete','=',1)->get();
+        $details = OrderDetail::With('customer')->Where('event_id', '=', $event->id)->where('complete', '=', 1)->get();
         return view('events.customers', compact('event', 'details'));
     }
 
     public function orders(Event $event)
     {
-        $tickets = Ticket::where('event_id',$event->id)->orderBy('title', 'ASC')->pluck('title', 'id');
-        $event = Event::where('id',$event->id)->with(['orders.customer','orders.order_status'])->first();
-        return view('events.orders', compact('event','tickets','orders'));
+        $tickets = Ticket::where('event_id', $event->id)->orderBy('title', 'ASC')->pluck('title', 'id');
+        $event   = Event::where('id', $event->id)->with(['orders.customer', 'orders.order_status'])->first();
+        return view('events.orders', compact('event', 'tickets', 'orders'));
     }
 
     public function orderDescription(Event $event)
     {
-        return view("events.edit.order",compact('event'));
+        return view("events.edit.order", compact('event'));
     }
 
     public function details(Event $event, Order $order)
     {
         $details = OrderDetail::where('order_id', '=', $order->id)
-            ->where('event_id', '=', $event->id)
-            ->get();
+                              ->where('event_id', '=', $event->id)
+                              ->get();
         //dd($details);
         return view('events.details', compact('event', 'order', 'details'));
     }
 
     public function memoryAndCertificate(Event $event)
     {
-        return view("events.edit.memory-certificate",compact('event'));
+        return view("events.edit.memory-certificate", compact('event'));
     }
 
     public function memoryAndCertificateUpdate(Request $request, Event $event)
     {
         $event->fill($request->all());
         $event->update();
-        session()->flash('message',"Guardado Correctamente");
+        session()->flash('message', "Guardado Correctamente");
         return redirect("events/$event->id/edit");
     }
 
@@ -233,20 +268,20 @@ class EventController extends Controller
         $event->fill($request->all());
         $event->enable_offline_payments = ($request->enable_offline_payments) ? 1 : 0;
         $event->update();
-        session()->flash('message',"Guardado Correctamente");
+        session()->flash('message', "Guardado Correctamente");
         return back();
     }
 
     public function taxes(Event $event)
     {
-        return view('events.edit.taxes',compact('event'));
+        return view('events.edit.taxes', compact('event'));
     }
 
     public function taxesUpdate(Request $request, Event $event)
     {
         $event->fill($request->all());
         $event->update();
-        session()->flash('message',"Guardado Correctamente");
+        session()->flash('message', "Guardado Correctamente");
         return back();
     }
 
