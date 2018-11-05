@@ -17,16 +17,16 @@
         <label for=""><i class="fa fa-map-marker" aria-hidden="true"></i> Direccion</label>
         <input type="text" class="form-control rounded" name="address" placeholder="Lugar" value="{{ $event_form->address }}">
     </div>
-    <div class="form-group col-md-3">
+    <div class="form-group col-md-2">
         <label for=""><i class="fa fa-map-marker" aria-hidden="true"></i> Codigo postal</label>
         <input type="text" class="form-control rounded" name="cp" placeholder="Codigo postal" value="{{ $event_form->cp }}">
     </div>
     <div class="col-12">
         <hr>
     </div>
-    <div class="form-group col-md-4">
+    <div class="form-group col-md-2">
         <label for="event_type_id"><i class="fa fa-filter" aria-hidden="true"></i> Tipo de evento</label>
-        {{ Form::select('event_type_id', $event_types, $event_form->event_type_id , ['class' => "form-control rounded",'required' => true]) }}
+        {{ Form::select('event_type_id', $event_types, $event_form->event_type_id , ['class' => "form-control form-control-lg",'required' => true]) }}
     </div>
     <div class="col-12 w-100"></div>
 
@@ -41,10 +41,14 @@
     <div class="col-12 w-100"></div>
     <div class="form-group col-md-3">
         <p class="h5">Imagen de evento <small>Flyer o grafica etc.</small></p>
-        <input type="file" class="form-control-file" id="flyer" name="flyer" onchange="previewFile()"><br>
-        <img id="preview_flyer" src="{{ ($event->flyer) ? url($event->flyer) : "" }}" class="img-fluid img-thumbnail" style="min-width: 100%; min-height:150px"  alt="">
-        <input type="checkbox" name="delete_flyer" id="delete_flyer" value="true">
-        <label for="delete_flyer">¿Eliminar flyer?</label>
+        <input type="file" id="flyer" name="flyer" onchange="previewFile()"><br>
+        <img id="preview_flyer" src="{{ ($event->flyer) ? url($event->flyer) : "" }}" class="img-fluid img-thumbnail mb-3" style="min-width: 100%; min-height:150px"  alt="">
+        <div class="form-check">
+            <label for="delete_flyer" class="form-check-label">
+                ¿Eliminar flyer?
+                <input class="form-check-input" type="checkbox" name="delete_flyer" id="delete_flyer" value="true">
+            </label>
+        </div>
     </div>
     <div class="form-group col-md-12 text-right">
         <button type="submit" class="btn btn-sm btn-primary"><i class="fa fa-save"></i> Guardar</button>

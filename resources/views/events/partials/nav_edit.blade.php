@@ -2,7 +2,7 @@
     <div class="col-12 mb-3">
         <div class="card">
             <div class="card-body">
-                <ul class="nav nav-pills justify-content-center">
+                <ul class="nav nav-pills nav-pills-primary justify-content-center">
                     <li class="nav-item">
                         <a class="nav-link {{ request()->is("events/$event->id/edit") ? 'active' : '' }}" href="{{ url("events/$event->id/edit") }}"><i class="fa fa-list" aria-hidden="true"></i> General</a>
                     </li>

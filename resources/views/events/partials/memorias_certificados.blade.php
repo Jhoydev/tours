@@ -14,7 +14,7 @@
 <hr>
 <div class="form-row">
 	<div class="form-group col-md-12 text-right">
-		<button type="submit" class="btn btn-sm btn-success rounded">Guardar</button>
+		<button type="submit" class="btn btn-primary">Guardar</button>
 	</div>
 </div>
 {!! Form::close() !!}

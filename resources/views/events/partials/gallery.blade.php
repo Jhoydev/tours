@@ -6,7 +6,7 @@
 
     </div>
     <div class="form-group col-md-4">
-        <button type="button" class="btn btn-primary rounded" onclick="openGallery()">
+        <button type="button" class="btn btn-primary btn-lg" onclick="openGallery()">
             <i class="fa fa-image"></i> Ver galeria
         </button>
     </div>
