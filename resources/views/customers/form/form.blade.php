@@ -1,13 +1,8 @@
 @extends('layouts.template.melody')
 @section('content')
-<div class="row mb-3">
-    <div class="col-12 text-right">
-        <a href="{{ url('customer') }}" class="btn btn-light mr-1"><i class="fa fa-ban"></i> Cancelar</a>
-        <a href="#" class="btn btn-primary submit_form_button">{!! $method == 'PUT' ? '<i class="fa fa-refresh"></i> Actualizar' : '<i class="fa fa-plus"></i> Crear' !!}</a>
-    </div>
-</div>
 <div class="row justify-content-center mb-5">
-    <div class="col-md-10">
+    <div class="col-md-12">
+        <p class="h1 my-3">Nuevo Cliente</p>
         <div class="card">
             <div class="card-body">
                 <div class="row">
@@ -59,7 +54,7 @@
                         </div>
                         <hr>
                         <div class="row">
-                            <div class="form-group col-md-4 info" data-toggle="tooltip" data-placement="top" title="Para cambiar el correo electronico debe solicitarlo a soporte@joinapp.com">
+                            <div class="form-group col-md-4">
                                 <label for="email"><span class="fa fa-envelope"></span>   Correo Electrónico</label>
                                 <input id="email" type="email" name="email"
                                        class="form-control rounded {{ $errors->has('email') ? ' is-invalid' : '' }} " placeholder="Correo Electrónico"
@@ -80,7 +75,7 @@
                                        value="{{ $customer->mobile ? $customer->mobile : old('mobile') }}">
                             </div>
                             <div class="form-group col-md-12">
-                                <label for="birth">Fecha de nacimiento</label>
+                                <label for="birth"><i class="fa fa-calendar" aria-hidden="true"></i> Fecha de nacimiento</label>
                                 <input data-inputmask="'alias': 'date'" type="text" class="form-control" id="birth" name="birth" value="{{ $customer->birth ? $customer->birth->format('d/m/Y') : old('birthN') }}"/>
                                 <label id="birth-error" class="error mt-2 text-danger invisible" for="birth">Debes de completar la fecha o dejarla vacia</label>
                             </div>
@@ -145,9 +140,9 @@
                             </div>
                         </div>
                         <div class="form-group row mb-0">
-                            <div class="col-md-12 text-center">
-                                <button type="submit" class="btn btn-success rounded">
-                                    <i class="fa fa-check" aria-hidden="true"></i> Guardar
+                            <div class="col-md-12 text-right">
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="fa fa-save" aria-hidden="true"></i> Guardar
                                 </button>
                             </div>
                         </div>

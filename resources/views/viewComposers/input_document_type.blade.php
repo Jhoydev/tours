@@ -1,1 +1,1 @@
-{!!Form::select('document_type_id', $document_type, $customer->document_type_id ? $customer->document_type_id : old('document_type_id'), ['id' => 'document_type_id', 'class' => 'form-control rounded','placeholder' => 'Seleciona un documento'])!!}
+{!!Form::select('document_type_id', $document_type, $customer->document_type_id ? $customer->document_type_id : old('document_type_id'), ['id' => 'document_type_id', 'class' => 'form-control form-control-lg','placeholder' => 'Seleciona un documento'])!!}

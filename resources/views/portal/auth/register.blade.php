@@ -42,7 +42,7 @@
             @endif
         </div>
         <div class="form-group col-md-12">
-            <label for="birth">Fecha de nacimiento</label>
+            <label for="birth"><i class="fa fa-calendar" aria-hidden="true"></i> Fecha de nacimiento</label>
             <input data-inputmask="'alias': 'date'" type="text" class="form-control" id="birth" name="birth"/>
             <label id="birth-error" class="error mt-2 text-danger invisible" for="birth">Debes de completar la fecha o dejarla vacia</label>
         </div>
