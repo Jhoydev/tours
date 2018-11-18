@@ -8,7 +8,7 @@
 <li class="nav-item">
     <a class="nav-link" href="{{ url("portal/event/$event->id/orders") }}"><i class="menu-icon fa fa-shopping-cart"></i> <span class="menu-title">Ordenes</span></a>
 </li>
-@if ( $event->event_type_id == 2)
+@if ( $event->event_type_id == 2 && $event->isActive())
     <li class="nav-item">
         <a class="nav-link" href="{{ url("portal/event/$event->id/agenda") }}"><i class="menu-icon fa fa-users"></i> <span class="menu-title">Asistentes</span></a>
     </li>
