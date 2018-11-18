@@ -191,16 +191,12 @@ class CustomerController extends Controller
 
     public function order(Request $request, Event $event, Order $order)
     {
-        $details = OrderDetail::where('customer_id','=',$request->user()->id);
-
         $details = $order->orderDetails;
-
         return view ('portal.customer.order',compact('order','details','event'));
     }
 
     public function orders(Request $request, Event $event)
     {
-
         $orders = Order::with('order_status')->where('customer_id','=',$request->user()->id)->where('event_id','=',$event->id)->withCount([
             'orderDetails',
             'orderDetails as pending_assign' => function ($query) {
