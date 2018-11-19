@@ -15,7 +15,7 @@ Route::post('event/{event}/import-csv', 'ImportCsvController@importCsv');
 
 
 Auth::routes();
-Route::get('login/{key_app?}', 'Auth\LoginController@showLoginForm')->name('login');
+Route::get('/admin/login/{key_app?}', 'Auth\LoginController@showLoginForm')->name('login');
 Route::get('/', 'HomeController@index')->name('home');
 
 Route::get('evento/{page}', 'PageController@show')->name('event.page');
@@ -61,7 +61,9 @@ Route::middleware(['auth:customer'])->group(function () {
 });
 
 Route::middleware('auth:web')->group(function () {
-
+    Route::name('admin.')->group(function () {
+        Route::get('/admin', 'HomeController@index')->name('home');
+    });
     Route::post('page', 'PageController@store');
     Route::prefix('page')->group(function () {
         Route::get('{event}/create', 'PageController@create');
