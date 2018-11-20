@@ -1,5 +1,4 @@
 <?php
-
 /*
   |--------------------------------------------------------------------------
   | Web Routes
@@ -11,7 +10,16 @@
   |
  */
 
-Auth::routes();
+Route::prefix('admin')->group(function () {
+
+    // Login de Admin
+    Route::get('/login/{key_app?}', 'Auth\LoginController@showLoginForm')->name('login');
+    Route::post('login', 'Auth\LoginController@login')->name('login');
+
+    // Cerrar Sesion
+    Route::post('logout', 'Auth\LoginController@logout')->name('logout');
+
+});
 
 Route::group(['prefix' => 'admin', 'middleware' => ['auth:web']], function () {
 
@@ -74,18 +82,12 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth:web']], function () {
 
     });
 
-
 });
-
-
-Route::get('/admin/login/{key_app?}', 'Auth\LoginController@showLoginForm')->name('login');
-Route::get('/', 'HomeController@index')->name('home');
 
 Route::get('evento/{page}', 'PageController@show')->name('event.page');
 Route::get('redirect-authenticated', 'Customer\Auth\LoginController@redirectAuthenticated');
 Route::get('asset/page/public/backgrounds', 'ImageController@publicBackgrounds');
 Route::get('companies/{company}/events/{event}/flyer/{filename}', 'ImageController@flyer');
-
 
 Route::middleware('auth:web')->group(function () {
 
@@ -97,18 +99,12 @@ Route::middleware('auth:web')->group(function () {
         Route::delete('{page}', 'PageController@destroy');
     });
 
-
     Route::resource('events', 'EventController');
-
     Route::resource('customer', 'CustomerController');
-
-
     Route::resource('role', 'RoleController');
     Route::delete('order/{order}', 'OrderController@destroy');
     Route::get('role/{role}/permissions', 'RoleController@permissions');
-
-    Route::put('event/{event}/order/{order}/confirm', ['as' => 'order.confirm', 'uses' => 'OrderController@confirm',
-    ]);
+    Route::put('event/{event}/order/{order}/confirm', ['as' => 'order.confirm', 'uses' => 'OrderController@confirm']);
 });
 
 Route::prefix('portal')->group(function () {
