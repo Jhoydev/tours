@@ -135,7 +135,7 @@
             <li class="nav-item nav-profile dropdown">
                 @if ( isset($url_avatar))
                     <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" id="profileDropdown">
-                        <img src="{{ url("user/avatar/".Auth::user()->company_id."/".Auth::user()->id) }}" alt="profile"/>
+                        <img src="{{ $url_avatar }}" alt="profile"/>
                     </a>
                 @else
                     <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" id="profileDropdown">

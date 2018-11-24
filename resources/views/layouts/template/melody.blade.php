@@ -7,10 +7,10 @@
 <div class="container-scroller">
     <!-- partial:partials/_navbar.html -->
     @include('layouts.template.nav', [
-        'url_index' => url('/'),
+        'url_index' => route('admin.home'),
         'url_logout' => route('logout'),
-        'url_avatar' => url("user/avatar/".Auth::user()->company_id."/".Auth::user()->id),
-        'url_profile' => url('user/'.Auth::user()->id.'/edit')
+        'url_avatar' => route('user.avatar',['company' => Auth::user()->company_id, 'id' => Auth::user()->id ]),
+        'url_profile' => route('admin.user.edit',['user' => Auth::user()->id ])
     ] )
     <!-- partial -->
     <div class="container-fluid page-body-wrapper">

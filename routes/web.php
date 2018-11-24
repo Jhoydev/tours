@@ -10,6 +10,10 @@
   |
  */
 
+// Avatar
+Route::get('/user/avatar/{company}/{user}', 'Admin\UserController@getImageAvatar')->name('user.avatar');
+
+// Autenticacion de Admin
 Route::prefix('admin')->group(function () {
 
     // Login de Admin
@@ -21,53 +25,59 @@ Route::prefix('admin')->group(function () {
 
 });
 
-Route::group(['prefix' => 'admin', 'middleware' => ['auth:web']], function () {
+// Admin
+Route::group(['as' => 'admin.', 'prefix' => 'admin', 'middleware' => ['auth:web']], function () {
 
     //Inicio
-    Route::get('/', 'HomeController@index')->name('home');
+    Route::get('/dashboard', 'Admin\HomeController@index')->name('home');
 
     // Usuarios
-    Route::get('/user/permissions', 'UserController@getPermissionsAndRoles');
-    Route::get('/user/avatar/{company}/{id}', 'UserController@getImageAvatar')->name('avatar.id');
-    Route::resource('/user', 'UserController');
+    Route::get('/user/permissions', 'Admin\UserController@getPermissionsAndRoles')->name('user.permissions-and-roles');
+    Route::resource('/user', 'Admin\UserController')->except(['show']);
+
+    // Roles y Permisos
+    Route::resource('/role', 'Admin\RoleController')->only(['index']);
+
+    // Customers
+    Route::resource('/customer', 'Admin\CustomerController')->except(['show','edit','destroy','update']);
 
     // Eventos
-    Route::group(['prefix' => 'events'], function () {
+    Route::group(['as' => 'events.', 'prefix' => 'events'], function () {
 
         Route::group(['prefix' => '{event}'], function () {
 
             // Panel de configuracion
-            Route::group(['prefix' => 'dashboard'], function () {
+            Route::group(['prefix' => 'settings'], function () {
 
                 // Pagina
-                Route::get('page', 'Admin\Event\PageController@edit')->name('event.edit.page');
+                Route::get('page', 'Admin\Event\SettingsController@edit')->name('edit.page');
 
                 // Descripcion de orden
-                Route::get('order-description', 'Admin\Event\DashboardController@orderDescription')->name('event.order_description');
-                Route::put('order-description', 'Admin\Event\DashboardController@orderDescriptionUpdate')->name('event.order_description.put');
+                Route::get('order-description', 'Admin\Event\SettingsController@orderDescription')->name('order_description');
+                Route::put('order-description', 'Admin\Event\SettingsController@orderDescriptionUpdate')->name('order_description.put');
 
                 // Memorias y certificados
-                Route::get('memory-certificate', 'Admin\Event\DashboardController@memoryAndCertificate')->name('event.memory_certificate');
-                Route::put('memory-certificate', 'Admin\Event\DashboardController@memoryAndCertificateUpdate')->name('event.memory_certificate.put');
+                Route::get('memory-certificate', 'Admin\Event\SettingsController@memoryAndCertificate')->name('memory_certificate');
+                Route::put('memory-certificate', 'Admin\Event\SettingsController@memoryAndCertificateUpdate')->name('memory_certificate.put');
 
                 // Impuestos
-                Route::get('taxes', 'Admin\Event\DashboardController@taxes')->name('event.taxes');
-                Route::put('taxes', 'Admin\Event\DashboardController@taxesUpdate')->name('event.taxes.put');
+                Route::get('taxes', 'Admin\Event\SettingsController@taxes')->name('taxes');
+                Route::put('taxes', 'Admin\Event\SettingsController@taxesUpdate')->name('taxes.put');
 
 
             });
 
             // Asistentes del evento
-            Route::get('customers', 'EventController@customers')->name('event.customers');
+            Route::get('customers', 'Admin\EventController@customers')->name('customers');
 
             // Ordenes del evento
-            Route::get('orders', 'EventController@orders')->name('event.orders');
+            Route::get('orders', 'Admin\EventController@orders')->name('orders');
 
             // Detalles de la orden
-            Route::get('orders/{order}/details', 'EventController@details')->name('event.orders.details');
+            Route::get('orders/{order}/details', 'Admin\EventController@details')->name('orders.details');
 
             // Tiquetes
-            Route::resource('tickets', 'TicketController');
+            Route::resource('tickets', 'Admin\Event\TicketController');
 
             // Enviar tiquete?
             Route::resource('tickets/{ticket}/send-tickets', 'SpecialTicketController')->except(['show']);
@@ -75,18 +85,29 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth:web']], function () {
             //?
             Route::get('tickets/{ticket}/send-tickets/customer/{customer}', 'SpecialTicketController@show');
             // Confirmar borrado
-            Route::get('confirm-delete', 'EventController@confirmDelete');
+            Route::get('confirm-delete', 'Admin\EventController@confirmDelete');
         });
 
         Route::delete('tickets/refuse/{orderDetail}', 'TicketController@refuse');
 
     });
 
+    // Eventos
+    Route::resource('events', 'Admin\EventController')->except(['create','show']);
+    Route::get('events/{event}/dashboard', 'Admin\EventController@show')->name('events.show');
+
 });
 
+// Pagina web del evento
 Route::get('evento/{page}', 'PageController@show')->name('event.page');
+
+// Redirigir para cerrar sesion
 Route::get('redirect-authenticated', 'Customer\Auth\LoginController@redirectAuthenticated');
+
+// Fondos para paginas de eventos
 Route::get('asset/page/public/backgrounds', 'ImageController@publicBackgrounds');
+
+// Flyer del evento
 Route::get('companies/{company}/events/{event}/flyer/{filename}', 'ImageController@flyer');
 
 Route::middleware('auth:web')->group(function () {
@@ -99,11 +120,8 @@ Route::middleware('auth:web')->group(function () {
         Route::delete('{page}', 'PageController@destroy');
     });
 
-    Route::resource('events', 'EventController');
-    Route::resource('customer', 'CustomerController');
-    Route::resource('role', 'RoleController');
     Route::delete('order/{order}', 'OrderController@destroy');
-    Route::get('role/{role}/permissions', 'RoleController@permissions');
+    Route::get('role/{role}/permissions', 'Admin\RoleController@permissions');
     Route::put('event/{event}/order/{order}/confirm', ['as' => 'order.confirm', 'uses' => 'OrderController@confirm']);
 });
 
@@ -115,22 +133,22 @@ Route::prefix('portal')->group(function () {
     Route::post('register', 'Customer\Auth\RegisterController@register')->name('portal.register');
 });
 Route::middleware('auth:customer')->group(function () {
-    Route::get('portal', 'CustomerController@portal');
-    Route::get('portal/home', 'CustomerController@portal')->name('portal');
+    Route::get('portal', 'Portal\CustomerController@portal');
+    Route::get('portal/home', 'Portal\CustomerController@portal')->name('portal');
     Route::get('portal/shop', 'OrderController@show')->name('shop');
     Route::post('portal/shop', 'OrderController@store')->name('shop.store');
     Route::get('portal/order/{order}/invoice', 'OrderController@invoice')->name('order.invoice');
     Route::get('portal/orders', 'OrderController@index');
-    Route::get('portal/explorer', 'EventController@index')->name('portal.explorer.events');
-    Route::get('portal/history', 'CustomerController@history')->name('customer.history');
-    Route::get('portal/event/{event}', 'CustomerController@event')->name('customer.event');
-    Route::get('portal/event/{event}/orders', 'CustomerController@orders')->name('customer.event.orders');
-    Route::get('portal/customer/event/{event}/details', 'CustomerController@Details')->name('customer.event.details');
-    Route::get('portal/event/{event}/order/{order}', 'CustomerController@order')->name('customer.event.order');
-    Route::get('portal/profile', 'CustomerController@profile')->name('profile');
-    Route::get('portal/customer/change-password', 'CustomerController@changePassword')->name('customer.changepassword');
-    Route::put('portal/customer/update-password', 'CustomerController@updatePassword')->name('customer.update.password');
-    Route::put('portal/profile/{customer}', 'CustomerController@update')->name('profile.update');
+    Route::get('portal/explorer', 'Admin\EventController@index')->name('portal.explorer.events');
+    Route::get('portal/history', 'Portal\CustomerController@history')->name('customer.history');
+    Route::get('portal/event/{event}', 'Portal\CustomerController@event')->name('customer.event');
+    Route::get('portal/event/{event}/orders', 'Portal\CustomerController@orders')->name('customer.event.orders');
+    Route::get('portal/customer/event/{event}/details', 'Portal\CustomerController@Details')->name('customer.event.details');
+    Route::get('portal/event/{event}/order/{order}', 'Portal\CustomerController@order')->name('customer.event.order');
+    Route::get('portal/profile', 'Portal\CustomerController@profile')->name('profile');
+    Route::get('portal/customer/change-password', 'Portal\CustomerController@changePassword')->name('customer.changepassword');
+    Route::put('portal/customer/update-password', 'Portal\CustomerController@updatePassword')->name('customer.update.password');
+    Route::put('portal/profile/{customer}', 'Portal\CustomerController@update')->name('profile.update');
     Route::put('portal/event/{event}/date/{meeting}', 'MeetingController@update');
     Route::post('portal/event/{event}/date', 'MeetingController@store');
     Route::delete('portal/event/{event}/date/{meeting}', 'MeetingController@destroy');

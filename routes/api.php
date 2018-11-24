@@ -14,7 +14,7 @@ use Illuminate\Http\Request;
  */
 
 Route::prefix('portal')->group(function () {
-    Route::get('event/{event}/customer/{customer}/calendar', 'CustomerController@calendar');
+    Route::get('event/{event}/customer/{customer}/calendar', 'Admin\CustomerController@calendar');
     Route::get('event/{event}/agenda/customer/{customer}/calendar', 'MeetingController@customer');
 });
 
@@ -24,7 +24,7 @@ Route::get('verify-token', 'TicketController@verify');
 Route::post('event/{event}/order-detail/{orderDetail}/attended', 'TicketController@attended');
 
 Route::middleware('auth')->group(function () {
-    Route::post('events', 'EventController@store');
+    Route::post('events', 'Admin\EventController@store');
 });
 
 /*
