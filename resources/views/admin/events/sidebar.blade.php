@@ -22,13 +22,13 @@
             </li>
             @can('event.edit')
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('admin.events.edit', ['event' => $event->id]) }}"><i class="fa fa-cog menu-icon"></i><span class="menu-title">{{ $event->id }}Administrar</span></a>
+                    <a class="nav-link" href="{{ route('admin.events.edit', ['event' => $event->id]) }}"><i class="fa fa-cog menu-icon"></i><span class="menu-title"> Administrar</span></a>
                 </li>
             @endcan
 
             @if ( $event->page && $event->page->slug)
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ url('evento/' . $event->page->slug ) }}" target="_blank"><i class="fa fa-globe menu-icon"></i><span class="menu-title text-info">Web</span></a>
+                    <a class="nav-link" href="{{ url('evento/' . $event->page->slug ) }}" target="_blank"><i class="fa fa-globe menu-icon"></i><span class="menu-title">Web</span></a>
                 </li>
             @endif
         </ul>

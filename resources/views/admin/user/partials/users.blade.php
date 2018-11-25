@@ -22,7 +22,7 @@
                         <td>{{ $user->phone }}</td>
                         <td class="text-right">
                             @can('user.edit')
-                            <a href="{{ route("admin.user.edit",['user' => $user->id]) }}" class="btn btn-outline-info mb-2"><i class="fa fa-pencil-alt"></i></a>
+                            <a href="{{ route("admin.user.edit",['user' => $user->id]) }}" class="btn btn-info mb-2"><i class="fa fa-pencil-alt"></i></a>
                             @endcan
                             @can('user.destroy')
                             <button type="button" class="btn btn-outline-danger mb-2" data-toggle="modal" data-target="#deleteModal" data-user_id="{{ $user->id }}">

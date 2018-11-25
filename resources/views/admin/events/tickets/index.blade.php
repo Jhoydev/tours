@@ -5,7 +5,7 @@
 @section('content')
 <div class="row">
     <div class="col-12 text-right">
-        <button class="btn btn-primary mb-3" data-toggle="modal" data-target="#modal_ticket" data-url_post="{{ url("events/$event->id/tickets") }}"><i class="fa fa-plus"></i> Nuevo Ticket</button>
+        <button class="btn btn-primary mb-3" data-toggle="modal" data-target="#modal_ticket" data-url_post="{{ route('admin.events.tickets.store',['event' => $event->id]) }}"><i class="fa fa-plus"></i> Nuevo Ticket</button>
     </div>
 </div>
 <div class="row" id="tickets">
@@ -39,8 +39,8 @@
                                                 </div>
                                                 <p><small>Creado por: {{ $ticket->user->full_name ?? '' }}</small></p>
                                                 <div class="mb-3">
-                                                    <button type="button" class="btn btn-icon btn-rounded btn-primary" data-toggle="modal" data-target="#modal_ticket" data-url="{{ url("events/$event->id/tickets/$ticket->id/edit") }}"><i class="fa fa-pencil-alt"></i></button>
-                                                    <button class="btn btn-icon btn-rounded btn-outline-danger" data-toggle="modal" data-target="#deleteModal" data-ticket_id="{{ url("events/$event->id/tickets/$ticket->id") }}"><i class="fa fa-eraser"></i></button>
+                                                    <button type="button" class="btn btn-icon btn-rounded btn-primary" data-toggle="modal" data-target="#modal_ticket" data-url="{{ route('admin.events.tickets.edit',['event' => $event->id, 'ticket' => $ticket->id ]) }}"><i class="fa fa-pencil-alt"></i></button>
+                                                    <button class="btn btn-icon btn-rounded btn-outline-danger" data-toggle="modal" data-target="#deleteModal" data-ticket_id="{{ route('admin.events.tickets.edit',['event' => $event->id, 'ticket' => $ticket->id ]) }}"><i class="fa fa-eraser"></i></button>
                                                 </div>
                                                 @if ($ticket->type != 'simple')
                                                     <a data-toggle="tooltip" data-placement="top" title="Asignar tiquetes" class="btn btn-success btn-rounded" href="{{ url("events/$event->id/tickets/$ticket->id/send-tickets") }}"><i class="fab fa-telegram-plane"></i> Asignar</a>
@@ -92,7 +92,7 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        {!! Form::open(['url' => url("events/$event->id/tickets"),'method' => 'POST', 'id' => 'form_ticket']) !!}
+                        {!! Form::open(['url' => route('admin.events.tickets.store',['event' => $event->id]),'method' => 'POST', 'id' => 'form_ticket']) !!}
                         @include('admin.events.tickets.form',['action' => 'create'])
                         {!! Form::close() !!}
                     </div>

@@ -222,7 +222,7 @@ class EventController extends Controller
     {
         $details = OrderDetail::where('order_id', '=', $order->id)->where('event_id', '=', $event->id)->get();
         //dd($details);
-        return view('events.details', compact('event', 'order', 'details'));
+        return view('admin.events.details', compact('event', 'order', 'details'));
     }
 
 }

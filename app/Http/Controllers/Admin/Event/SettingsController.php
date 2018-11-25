@@ -12,7 +12,7 @@ class SettingsController extends Controller
 
     public function memoryAndCertificate(Event $event)
     {
-        return view("events.edit.memory-certificate", compact('event'));
+        return view("admin.events.edit.memory-certificate", compact('event'));
     }
 
     public function memoryAndCertificateUpdate(Request $request, Event $event)
@@ -20,12 +20,12 @@ class SettingsController extends Controller
         $event->fill($request->all());
         $event->update();
         session()->flash('message', "Guardado Correctamente");
-        return redirect("events/$event->id/edit");
+        return redirect(route('admin.events.edit',['event' => $event->id]));
     }
 
     public function orderDescription(Event $event)
     {
-        return view("events.edit.order", compact('event'));
+        return view("admin.events.edit.order", compact('event'));
     }
 
     public function orderDescriptionUpdate(Request $request, Event $event)

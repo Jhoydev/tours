@@ -2180,3 +2180,11 @@ img.filter-grayscale {
   display: flex !important;
 }
 
+.dataTable a {
+  padding: 0.5rem 0.5rem !important;
+}
+
+.dataTable button {
+  padding: 0.5rem 0.5rem !important;
+}
+

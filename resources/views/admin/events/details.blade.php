@@ -2,7 +2,7 @@
 @section('content')
     @include('layouts.menssage_success')
     @push('sidebar')
-        @include('events.sidebar')
+        @include('admin.events.sidebar')
     @endpush
     <div class="row">
         <div class="col-12">

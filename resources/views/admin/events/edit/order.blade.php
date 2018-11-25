@@ -1,8 +1,8 @@
-@extends('events.edit')
+@extends('admin.events.edit')
 @section('content-event-edit')
     <div class="card">
         <div class="card-body">
-            {!! Form::open(['url' => route("event.order_description.put",['event' => $event->id]),'method' => 'PUT']) !!}
+            {!! Form::open(['url' => route("admin.events.order_description.put",['event' => $event->id]),'method' => 'PUT']) !!}
             <div class="form-row">
                 <div class="col-12">
                     <h4>Ajustes de la Pagina de Ordenes</h4>

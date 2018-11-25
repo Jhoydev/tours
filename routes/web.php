@@ -50,7 +50,7 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin', 'middleware' => ['auth:web'
             Route::group(['prefix' => 'settings'], function () {
 
                 // Pagina
-                Route::get('page', 'Admin\Event\SettingsController@edit')->name('edit.page');
+                Route::get('page', 'Admin\Event\SettingsController@page')->name('page');
 
                 // Descripcion de orden
                 Route::get('order-description', 'Admin\Event\SettingsController@orderDescription')->name('order_description');
@@ -88,7 +88,7 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin', 'middleware' => ['auth:web'
             Route::get('confirm-delete', 'Admin\EventController@confirmDelete');
         });
 
-        Route::delete('tickets/refuse/{orderDetail}', 'TicketController@refuse');
+        Route::delete('tickets/refuse/{orderDetail}', 'Admin\Event\TicketController@refuse');
 
     });
 
@@ -152,10 +152,10 @@ Route::middleware('auth:customer')->group(function () {
     Route::put('portal/event/{event}/date/{meeting}', 'MeetingController@update');
     Route::post('portal/event/{event}/date', 'MeetingController@store');
     Route::delete('portal/event/{event}/date/{meeting}', 'MeetingController@destroy');
-    Route::post('portal/events/order/assign-ticket/{orderDetail}', 'TicketController@assignToCustomer');
-    Route::post('portal/asiggn-by-token', 'TicketController@asiggnByToken');
-    Route::delete('portal/ticket/{orderDetail}', 'TicketController@refuse');
-    Route::post('portal/ticket/{orderDetail}', 'TicketController@resendEmail');
+    Route::post('portal/events/order/assign-ticket/{orderDetail}', 'Admin\Event\TicketController@assignToCustomer');
+    Route::post('portal/asiggn-by-token', 'Admin\Event\TicketController@asiggnByToken');
+    Route::delete('portal/ticket/{orderDetail}', 'Admin\Event\TicketController@refuse');
+    Route::post('portal/ticket/{orderDetail}', 'Admin\Event\TicketController@resendEmail');
 
     Route::get('portal/event/{event}/agenda', 'MeetingController@index');
     Route::get('portal/event/{event}/agenda/customer/{customer}/calendar', 'MeetingController@customer');

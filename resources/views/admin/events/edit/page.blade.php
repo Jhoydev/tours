@@ -1,4 +1,4 @@
-@extends('events.edit')
+@extends('admin.events.edit')
 @section('content-event-edit')
     <div class="card">
         <div class="card-body">

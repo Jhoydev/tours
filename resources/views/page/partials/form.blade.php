@@ -11,7 +11,7 @@
             </div>
         </div>
         <hr>
-        @include('events.partials.gallery')
+        @include('admin.events.partials.gallery')
         <div class="form-group">
             <label for=""><i class="fa fa-pencil"></i> Color de texto</label>
             <input class="rounded" type="color" id="color_text" name="color_text" value="{{ $page->color_text }}">
