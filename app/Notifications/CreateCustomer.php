@@ -20,7 +20,7 @@ class CreateCustomer extends Notification
      *
      * @return void
      */
-    public function __construct(Customer $customer,$username,$password)
+    public function __construct($customer,$username,$password)
     {
         $this->customer = $customer;
         $this->username = $username;

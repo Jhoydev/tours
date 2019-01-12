@@ -19,13 +19,7 @@ class CustomerController extends Controller
         return view('portal.customer.profile', compact('customer'));
     }
 
-    public function portal(Request $request)
-    {
-        $details = OrderDetail::where('customer_id', '=', $request->user()->id)->whereHas('event', function ($query) {
-            $query->where('end_date', '>', now());
-        })->groupBy('event_id')->get();
-        return view('portal.home', compact('details'));
-    }
+
 
     public function changePassword()
     {
@@ -123,12 +117,5 @@ class CustomerController extends Controller
         return response()->json($res);
     }
 
-    public function History(Request $request)
-    {
-        $details = OrderDetail::where('customer_id', '=', $request->user()->id)->with(['event' => function ($query) {
-            $query->where('start_date', '<', now())->where('end_date', '<', now());
-        }
-                                                                                      ])->groupBy('event_id')->get();
-        return view('portal.customer.history', compact('details'));
-    }
+
 }

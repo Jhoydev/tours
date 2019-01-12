@@ -65,9 +65,10 @@ class CustomerController extends Controller
         $customer = Customer::create($request->all());
         if (Auth::guard('web')){
             $customer->notify(new CreateCustomer($customer,$request->email,$request->password));
+            Auth::user()->notify(new CreateCustomer($customer,$request->email,'******'));
         }
         session()->flash('message', "Asistente $customer->name creado");
-        return redirect(route('admin.customer'));
+        return redirect(route('admin.customer.index'));
     }
 
     /**

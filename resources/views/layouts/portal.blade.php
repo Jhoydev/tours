@@ -9,7 +9,7 @@
 @include('layouts.template.nav', [
     'url_index' => url('portal/home'),
     'url_logout' => route('portal.logout'),
-    'url_profile' => url('portal/profile')
+    'url_profile' => route('profile')
 ] )
 <!-- partial -->
     <div class="container-fluid page-body-wrapper">
@@ -25,16 +25,16 @@
                     </div>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('portal') }}"><i class="menu-icon fa fa-calendar"></i> <span class="menu-title">Mis Eventos</span></a>
+                    <a class="nav-link" href="{{ route('portal.home.index') }}"><i class="menu-icon fa fa-calendar"></i> <span class="menu-title">Mis Eventos</span></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('customer.history') }}"><i class="menu-icon fa fa-clock"></i> <span class="menu-title"> Eventos Anteriores</span></a>
+                    <a class="nav-link" href="{{ route('portal.home.history') }}"><i class="menu-icon fa fa-clock"></i> <span class="menu-title"> Eventos Anteriores</span></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('portal.explorer.events') }}"><i class="menu-icon fa fa-calendar"></i> <span class="menu-title"> Ver Eventos</span></a>
+                    <a class="nav-link" href="{{ route('home') }}"><i class="menu-icon fa fa-calendar"></i> <span class="menu-title"> Ver Eventos</span></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ url('portal/orders') }}"><i class="menu-icon fa fa-shopping-cart"></i> <span class="menu-title"> Ordenes</span></a>
+                    <a class="nav-link" href="{{ route('orders.index') }}"><i class="menu-icon fa fa-shopping-cart"></i> <span class="menu-title"> Ordenes</span></a>
                 </li>
                 @stack('sidebar')
             </ul>

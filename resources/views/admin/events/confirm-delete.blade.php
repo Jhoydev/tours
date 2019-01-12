@@ -1,6 +1,6 @@
 @extends('layouts.template.melody')
 @push('sidebar')
-@include('events.sidebar')
+@include('admin.events.sidebar')
 @endpush
 @section('content')
     <div class="row justify-content-center">
@@ -20,7 +20,7 @@
                             <input type="text" id="confirm-delete" class="form-control" data-title="{{ $event->title }}">
                         </div>
                     </div>
-                    {!! Form::open(['url' => url ("events/$event->id"), 'method' => 'DELETE', 'id' => 'form-delete-event' ,'class' => 'mt-3']) !!}
+                    {!! Form::open(['url' => route('admin.events.destroy',['event' => $event->id]), 'method' => 'DELETE', 'id' => 'form-delete-event' ,'class' => 'mt-3']) !!}
                     <button  type="submit" class="btn btn-outline-danger" disabled>Eliminar evento</button>
                     {!! Form::close() !!}
                 </div>

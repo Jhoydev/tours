@@ -19,9 +19,6 @@
             <a class="nav-link" href="{{ route('admin.user.index') }}"><i class="fa fa-user menu-icon"></i><span class="menu-title">Usuarios</span></a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="{{ route('admin.role.index') }}"><i class="fa fa-book menu-icon"></i><span class="menu-title">Roles</span></a>
-        </li>
-        <li class="nav-item">
             <a class="nav-link" href="{{ route('admin.customer.index') }}"><i class="fa fa-users menu-icon"></i><span class="menu-title">Clientes</span></a>
         </li>
         <li class="nav-item">

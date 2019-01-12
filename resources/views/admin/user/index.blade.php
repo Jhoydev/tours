@@ -1,6 +1,9 @@
 @extends('layouts.template.melody')
 @section('content')
 @include('layouts.menssage_success')
+@push('sidebar')
+    @include('admin.user.sidebar')
+@endpush
 @can('user.create')
     <div class="row mb-3">
         <div class="col-12 text-right">

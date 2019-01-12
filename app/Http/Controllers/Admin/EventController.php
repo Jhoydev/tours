@@ -26,10 +26,6 @@ class EventController extends Controller
      */
     public function index(Request $request)
     {
-        if (Auth::guard('customer')->check()) {
-            $events = Event::active()->get();
-            return view('portal.events', compact('events'));
-        }
         $events      = Event::whereNotIn('event_status_id', [5])->orderBy('title', 'ASC')->get();
         $event_types = EventType::orderBy('name', 'ASC')->pluck('name', 'id')->all();
         $event_form  = new Event();
@@ -76,7 +72,7 @@ class EventController extends Controller
             return response()->json(['status' => true,
                                     ]);
         }
-        return redirect(route('admin.events.show',['event' => $event->id]));
+        return redirect(route('admin.events.edit',['event' => $event->id]));
     }
 
     /**
@@ -152,7 +148,7 @@ class EventController extends Controller
     public function confirmDelete(Event $event)
     {
         $orders = $event->ordersPaid;
-        return view('events.confirm-delete', compact('event', 'orders'));
+        return view('admin.events.confirm-delete', compact('event', 'orders'));
     }
 
     /**
@@ -198,7 +194,7 @@ class EventController extends Controller
 
         }
         $event->delete();
-        return redirect('admin/events');
+        return redirect(route('admin.events.index'));
 
     }
 

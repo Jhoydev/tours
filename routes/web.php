@@ -84,8 +84,10 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin', 'middleware' => ['auth:web'
 
             //?
             Route::get('tickets/{ticket}/send-tickets/customer/{customer}', 'SpecialTicketController@show');
-            // Confirmar borrado
-            Route::get('confirm-delete', 'Admin\EventController@confirmDelete');
+            // Confirmar borrado de un evento
+            Route::get('confirm-delete', 'Admin\EventController@confirmDelete')->name('delete');
+            Route::get('dashboard', 'Admin\EventController@show')->name('show');
+
         });
 
         Route::delete('tickets/refuse/{orderDetail}', 'Admin\Event\TicketController@refuse');
@@ -94,8 +96,6 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin', 'middleware' => ['auth:web'
 
     // Eventos
     Route::resource('events', 'Admin\EventController')->except(['create','show']);
-    Route::get('events/{event}/dashboard', 'Admin\EventController@show')->name('events.show');
-
 });
 
 // Pagina web del evento
@@ -125,40 +125,53 @@ Route::middleware('auth:web')->group(function () {
     Route::put('event/{event}/order/{order}/confirm', ['as' => 'order.confirm', 'uses' => 'OrderController@confirm']);
 });
 
-Route::prefix('portal')->group(function () {
-    Route::get('login', 'Customer\Auth\LoginController@showLoginForm')->name('portal.login');
-    Route::post('login', 'Customer\Auth\LoginController@login')->name('portal.login');
-    Route::post('logout', 'Customer\Auth\LoginController@logout')->name('portal.logout');
-    Route::get('register', 'Customer\Auth\RegisterController@showRegistrationForm');
-    Route::post('register', 'Customer\Auth\RegisterController@register')->name('portal.register');
-});
-Route::middleware('auth:customer')->group(function () {
-    Route::get('portal', 'Portal\CustomerController@portal');
-    Route::get('portal/home', 'Portal\CustomerController@portal')->name('portal');
-    Route::get('portal/shop', 'OrderController@show')->name('shop');
-    Route::post('portal/shop', 'OrderController@store')->name('shop.store');
-    Route::get('portal/order/{order}/invoice', 'OrderController@invoice')->name('order.invoice');
-    Route::get('portal/orders', 'OrderController@index');
-    Route::get('portal/explorer', 'Admin\EventController@index')->name('portal.explorer.events');
-    Route::get('portal/history', 'Portal\CustomerController@history')->name('customer.history');
-    Route::get('portal/event/{event}', 'Portal\CustomerController@event')->name('customer.event');
-    Route::get('portal/event/{event}/orders', 'Portal\CustomerController@orders')->name('customer.event.orders');
-    Route::get('portal/customer/event/{event}/details', 'Portal\CustomerController@Details')->name('customer.event.details');
-    Route::get('portal/event/{event}/order/{order}', 'Portal\CustomerController@order')->name('customer.event.order');
-    Route::get('portal/profile', 'Portal\CustomerController@profile')->name('profile');
-    Route::get('portal/customer/change-password', 'Portal\CustomerController@changePassword')->name('customer.changepassword');
-    Route::put('portal/customer/update-password', 'Portal\CustomerController@updatePassword')->name('customer.update.password');
-    Route::put('portal/profile/{customer}', 'Portal\CustomerController@update')->name('profile.update');
-    Route::put('portal/event/{event}/date/{meeting}', 'MeetingController@update');
-    Route::post('portal/event/{event}/date', 'MeetingController@store');
-    Route::delete('portal/event/{event}/date/{meeting}', 'MeetingController@destroy');
-    Route::post('portal/events/order/assign-ticket/{orderDetail}', 'Admin\Event\TicketController@assignToCustomer');
-    Route::post('portal/asiggn-by-token', 'Admin\Event\TicketController@asiggnByToken');
-    Route::delete('portal/ticket/{orderDetail}', 'Admin\Event\TicketController@refuse');
-    Route::post('portal/ticket/{orderDetail}', 'Admin\Event\TicketController@resendEmail');
+Route::get('login', 'Customer\Auth\LoginController@showLoginForm')->name('portal.login');
+Route::post('login', 'Customer\Auth\LoginController@login')->name('portal.login');
+Route::post('logout', 'Customer\Auth\LoginController@logout')->name('portal.logout');
+Route::get('register', 'Customer\Auth\RegisterController@showRegistrationForm');
+Route::post('register', 'Customer\Auth\RegisterController@register')->name('portal.register');
 
-    Route::get('portal/event/{event}/agenda', 'MeetingController@index');
-    Route::get('portal/event/{event}/agenda/customer/{customer}/calendar', 'MeetingController@customer');
+Route::get('/', 'EventController@index')->name('home');
+
+Route::middleware('auth:customer')->group(function () {
+
+    // portal.
+    Route::group(['as' => 'portal.'], function () {
+
+        // portal.home.
+        Route::group(['as' => 'home.'], function (){
+
+            // Home del portal
+            Route::get('/home', 'Portal\HomeController@index')->name('index');
+
+            // Eventos anteriores
+            Route::get('/history', 'Portal\HomeController@history')->name('history');
+
+        });
+
+    });
+
+    Route::get('/shop', 'OrderController@show')->name('shop');
+    Route::post('/shop', 'OrderController@store')->name('shop.store');
+    Route::get('/order/{order}/invoice', 'OrderController@invoice')->name('order.invoice');
+    Route::get('/orders', 'OrderController@index')->name('orders.index');
+    Route::get('/event/{event}', 'Portal\CustomerController@event')->name('customer.event');
+    Route::get('/event/{event}/orders', 'Portal\CustomerController@orders')->name('customer.event.orders');
+    Route::get('/customer/event/{event}/details', 'Portal\CustomerController@Details')->name('customer.event.details');
+    Route::get('/event/{event}/order/{order}', 'Portal\CustomerController@order')->name('customer.event.order');
+    Route::get('/profile', 'Portal\CustomerController@profile')->name('profile');
+    Route::get('/customer/change-password', 'Portal\CustomerController@changePassword')->name('customer.changepassword');
+    Route::put('/customer/update-password', 'Portal\CustomerController@updatePassword')->name('customer.update.password');
+    Route::put('/profile/{customer}', 'Portal\CustomerController@update')->name('profile.update');
+    Route::put('/event/{event}/date/{meeting}', 'MeetingController@update');
+    Route::post('/event/{event}/date', 'MeetingController@store');
+    Route::delete('/event/{event}/date/{meeting}', 'MeetingController@destroy');
+    Route::post('/events/order/assign-ticket/{orderDetail}', 'Admin\Event\TicketController@assignToCustomer');
+    Route::post('/asiggn-by-token', 'Admin\Event\TicketController@asiggnByToken');
+    Route::delete('/ticket/{orderDetail}', 'Admin\Event\TicketController@refuse');
+    Route::post('/ticket/{orderDetail}', 'Admin\Event\TicketController@resendEmail');
+    Route::get('/event/{event}/agenda', 'MeetingController@index');
+    Route::get('/event/{event}/agenda/customer/{customer}/calendar', 'MeetingController@customer');
 });
 
 
